@@ -8,6 +8,7 @@ La revue mensuelle est l’instance de décision : toute recommandation doit êt
 
 ENTRÉES
 - lis `state/context.yaml` et évalue les décisions par rapport aux environnements AWS/GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK et Terraform ;
+- traite en priorité les décisions et risques concernant ELK, Elastic APM, Logstash et Kubernetes ;
 - analyse les rapports et journaux locaux sous `dist/` et `state/` au cours des six derniers mois ;
 - utilise les rapports du dernier mois comme registre ;
 - vérifie les faits encore déterminants auprès des sources primaires actuelles ;

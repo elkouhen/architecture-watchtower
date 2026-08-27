@@ -16,6 +16,12 @@ observability:
 infrastructure_as_code:
   - Terraform
 
+priority_topics:
+  - ELK (Elasticsearch, Logstash, Kibana)
+  - Elastic APM
+  - Logstash
+  - Kubernetes
+
 unknowns:
   - régions et comptes/projets utilisés
   - versions Kubernetes et providers Terraform
@@ -28,3 +34,4 @@ usage:
   - Relier chaque signal à un environnement concerné ou écrire `exposition inconnue`.
   - Proposer des étapes de déploiement compatibles AWS/GCP, Kubernetes, GitHub/GitLab et Terraform.
   - Prioriser les tests reproductibles et les preuves d’exploitation sur ces composants.
+  - Traiter en priorité les évolutions qui concernent ELK, Elastic APM, Logstash ou Kubernetes.

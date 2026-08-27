@@ -17,6 +17,9 @@ La sentinelle assure la détection et le triage, pas la décision d’architectu
 SOURCES
 Commence par les bulletins, changelogs, release notes, pages de lifecycle et dépôts officiels AWS, Google Cloud, Kubernetes/CNCF, Elastic, OpenTelemetry, Grafana, GitHub, GitLab et Model Context Protocol. Utilise une analyse secondaire seulement pour expliquer un fait déjà confirmé par une source primaire.
 
+PRIORITÉS DU MOMENT
+Accorde une attention prioritaire à ELK (Elasticsearch, Logstash, Kibana), Elastic APM, Logstash et Kubernetes lorsqu’un changement peut affecter leur sécurité, support, compatibilité ou exploitation.
+
 DÉDUPLICATION DURABLE
 Lis `state/context.yaml` avant de qualifier les signaux.
 Avant de produire le rapport, recherche dans `state/signals.yaml` et dans les livrables locaux `dist/` des 90 derniers jours les URL et sujets déjà signalés. Ne répète un sujet que si son statut, son échéance ou son niveau de risque a changé. Dans ce cas, indique clairement « Mise à jour ».
