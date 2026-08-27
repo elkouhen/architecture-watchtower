@@ -1,0 +1,42 @@
+RADAR ARCHITECTURE — 2026-08-27
+Période : 21–27 août 2026. Déduplication : archives Gmail sur 90 jours. Le rapport a été envoyé par email le 27 août 2026.
+
+SYNTHÈSE
+1. Patcher les plateformes composées au niveau produit : mesh, API management et observabilité.
+2. Terraform 1.16 est une amélioration de golden paths, à qualifier avant généralisation.
+3. Les nouveautés IA/gateway sont à tester : elles ne doivent pas devenir un contrôle critique en Preview.
+
+1. [8/10 — MISE À JOUR] Cloud Service Mesh : patch in-cluster
+Fait : GCP-2026-057 affecte toutes les versions ; correctifs in-cluster 1.29.7-asm.2, 1.28.10-asm.24 et 1.27.9-asm.34. Les versions 1.26 et antérieures sont EOL.
+Décision : ADOPTER le SLO de patch mesh. Owner : plateforme. Réexamen : après tests RBAC négatifs, ext_authz et HTTP/2/3.
+Source : https://docs.cloud.google.com/service-mesh/docs/security-bulletins
+
+2. [7/10] Apigee hybrid 1.14.8 : qualifier l’upgrade produit
+Fait : la release du 26 août met à jour de nombreux composants via Helm pour corriger des CVE.
+Décision : TESTER l’upgrade complet ; sauvegarder Cassandra/configuration et tester ingress, analytics, runtime et télémétrie. Owner : API platform. Réexamen : après qualification.
+Source : https://docs.cloud.google.com/release-notes
+
+3. [6/10] Terraform 1.16.0 : industrialiser sans opacifier
+Fait : imports dans les modules, lifecycle destroy=false, sorties JSON, graph Mermaid et actions before_destroy/after_destroy.
+Décision : TESTER sur module non critique. Succès : zéro drift et sorties JSON compatibles pipeline. Owner : plateforme IaC. Échéance : deux semaines.
+Source : https://github.com/hashicorp/terraform/releases/tag/v1.16.0
+
+4. [6/10] Grafana : corriger CVE-2026-19197
+Fait : CVSS 6,3 sur les snapshots ; correctifs 12.4.8, 13.0.6 et 13.1.3.
+Décision : ADOPTER le patch ; désactiver les snapshots publics si inutiles. Owner : observabilité. Réexamen : après inventaire.
+Source : https://grafana.com/security/security-advisories/cve-2026-19197/
+
+5. [5/10] RAG DynamoDB/Bedrock
+Fait : AWS décrit une architecture où DynamoDB Streams déclenche les embeddings et où opérations/vecteurs partagent DynamoDB.
+Inférence : moins de synchronisation, mais davantage de couplage AWS.
+Décision : ÉVALUER contre pgvector/OpenSearch (rappel@k, latence, coût, fraîcheur). Owner : IA. Réexamen : après benchmark.
+Source : https://aws.amazon.com/blogs/architecture/build-a-unified-ai-agent-architecture-with-dynamodb-and-bedrock/
+
+6. [5/10] GKE Gateway Authz
+Fait : GCPAuthzPolicy et GCPAuthzExtension sont en Preview sur certaines GatewayClasses GKE 1.36+.
+Décision : ÉVALUER uniquement sur charge non critique, fail-closed vérifié. Owner : plateforme. Réexamen : POC ou GA.
+Source : https://docs.cloud.google.com/release-notes
+
+ÉCHÉANCES : runners GitHub 25 septembre ; Kubernetes 1.34 fin de support upstream le 27 octobre ; Cloud Service Mesh 1.26 et antérieures sans correctif.
+
+LAB (< 1 h) : Terraform 1.16 sur module non critique — import block, destroy=false, plan/apply/destroy, state show -json et graph Mermaid. Succès : zéro drift et compatibilité providers/pipelines.
