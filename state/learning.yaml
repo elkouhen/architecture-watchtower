@@ -1,6 +1,17 @@
 # Registre pédagogique local — progression d’apprentissage par produit.
 # Une entrée est mise à jour après chaque carte ou laboratoire réellement réalisé.
-products: []
+products:
+  - product: Elasticsearch
+    category: "fondamental"
+    level: "compréhension"
+    first_studied: 2026-08-27
+    last_studied: 2026-08-27
+    concepts_acquired: ["positionnement", "capacités", "flux", "modes de déploiement", "cycle de vie"]
+    gaps: ["déploiement local", "modélisation de recherche", "dimensionnement", "snapshot/restore", "déploiement ECK"]
+    lab_status: "planned"
+    lab_deliverable: "dist/2026-08-27/carte-elasticsearch.txt"
+    next_step: "Lancer le laboratoire local et restituer les cinq questions d’architecte"
+    next_review: 2026-09-03
 
 # Schéma recommandé :
 # - product: Elasticsearch
