@@ -41,19 +41,18 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
    - les flux d’écriture, de lecture, de réplication, de sauvegarde/restauration et de migration ;
    - un diagramme séparant clairement plan de données, plan de contrôle et chemins d’administration.
 6. **Variantes de déploiement** : self-managed, managé, Kubernetes/serverless si pertinent ; responsabilité de l’équipe versus fournisseur, fonctionnalités perdues et hypothèse de choix.
-7. **État Mehdi** : environnement, version, topologie, criticité, données, dépendances et owner. Toute information absente vaut `à qualifier` ; ne jamais déduire une exposition.
-8. **Données et cycle de vie** : modèle, schéma, indexation, rétention, archivage, migration, sauvegarde/restauration, compatibilité et dates de support.
-9. **Exploitation** : upgrades/rollback, observabilité, SLO/alertes, capacité, maintenance, compétences et modes de panne connus.
+7. **Données et cycle de vie** : modèle, schéma, indexation, rétention, archivage, migration, sauvegarde/restauration, compatibilité et dates de support.
+8. **Exploitation** : upgrades/rollback, observabilité, SLO/alertes, capacité, maintenance, compétences et modes de panne connus.
    La capacité doit comporter une première hypothèse chiffrée : charge CPU, mémoire et heap, stockage utile et provisionné, IOPS/latence disque, réseau, croissance, rétention, réplication et marge de sécurité. Expliquer ce qui sature en premier et quelles métriques permettent de le confirmer.
-10. **Sécurité et responsabilités** : identité et rôles, secrets, chiffrement, réseau, audit, vulnérabilités connues et partage des responsabilités par mode.
-11. **Économie et alternatives** : coûts/charge opérationnelle, option open source, équivalent GCP, équivalent AWS, verrouillage et réversibilité. Employer `pas d’équivalent direct` lorsque nécessaire.
-12. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et conditions de sortie.
-13. **Évolutions depuis la dernière carte** : maximum cinq, avec date, fait vérifié, impact, score de pertinence sur 10, confiance et URL primaire.
-14. **Laboratoire guidé** : objectif, prérequis, commandes ou étapes de déploiement minimal, scénario d’utilisation, observation attendue, nettoyage et critère de réussite en moins de 60 minutes.
-15. **Décisions et actions** : action, propriétaire, échéance ou date de réexamen, livrable et critère de succès si un test est proposé.
-16. **Validation de compréhension** : cinq questions d’architecte et une réponse attendue ou un exercice de restitution.
-17. **Incertitudes et limites** : inventaire manquant, sources échouées, hypothèses et conséquences.
-18. **Sources effectivement consultées** : URL, titre court, date de consultation et statut (`consultée` ou `échec`).
+9. **Sécurité et responsabilités** : identité et rôles, secrets, chiffrement, réseau, audit, vulnérabilités connues et partage des responsabilités par mode.
+10. **Économie et alternatives** : coûts/charge opérationnelle, option open source, équivalent GCP, équivalent AWS, verrouillage et réversibilité. Employer `pas d’équivalent direct` lorsque nécessaire.
+11. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et conditions de sortie.
+12. **Évolutions depuis la dernière carte** : maximum cinq, avec date, fait vérifié, impact, score de pertinence sur 10, confiance et URL primaire.
+13. **Laboratoire guidé** : objectif, prérequis, commandes ou étapes de déploiement minimal, scénario d’utilisation, observation attendue, nettoyage et critère de réussite en moins de 60 minutes.
+14. **Décisions et actions** : action, propriétaire, échéance ou date de réexamen, livrable et critère de succès si un test est proposé.
+15. **Validation de compréhension** : cinq questions d’architecte et une réponse attendue ou un exercice de restitution.
+16. **Incertitudes et limites** : inventaire manquant, sources échouées, hypothèses et conséquences.
+17. **Sources effectivement consultées** : URL, titre court, date de consultation et statut (`consultée` ou `échec`).
 
 ## Règles de précision
 

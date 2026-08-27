@@ -9,7 +9,6 @@
 | Niveau | Compréhension → pratique |
 | Version de référence | 9.5.2 — à distinguer de la version réellement déployée |
 | Décision | Évaluer / maintenir sous contrôle |
-| État Mehdi | Version, topologie, volumes et SLO à qualifier |
 
 ## 1. Identité
 
@@ -256,19 +255,7 @@ mapping/templates → ingestion bulk → recherche
 - Données impossibles à réindexer ou exporter.
 - Rétention illimitée sans budget contrôlé.
 
-## 12. État à qualifier chez Mehdi
-
-| Question | État |
-|---|---|
-| Environnement | Production, préproduction ou laboratoire à préciser |
-| Version / topologie | À inventorier |
-| Volumes | Documents/jour, taille primaire, croissance et requêtes à mesurer |
-| Criticité | Recherche, logs, sécurité, métriques/traces ou vecteurs |
-| Dépendances | Kubernetes, stockage, réseau, Kibana, agents et clients |
-| SLO / RPO / RTO | À définir |
-| Propriétaire | Équipe plateforme/observabilité à nommer |
-
-## 13. Évolutions observées
+## 12. Évolutions observées
 
 **Fait :** les release notes consultées indiquent Elasticsearch 9.5.2 comme version publiée de référence.
 
@@ -278,7 +265,7 @@ mapping/templates → ingestion bulk → recherche
 
 **Score :** 6/10 — confiance élevée sur les release notes ; exposition de l’environnement Mehdi inconnue.
 
-## 14. Laboratoire guidé — 45 à 60 minutes
+## 13. Laboratoire guidé — 45 à 60 minutes
 
 ### Objectif et prérequis
 
@@ -317,14 +304,14 @@ curl http://localhost:9200/_cluster/health
 
 Arrêter le conteneur avec `Ctrl-C`. L’option `--rm` supprime le conteneur du laboratoire.
 
-## 15. Décisions et actions
+## 14. Décisions et actions
 
 1. **Qualifier** — owner : plateforme/observabilité — échéance : 2026-09-03. Inventorier chaque déploiement, version, mode, région, flux, volume, SLO et owner. **Succès :** 100 % des déploiements connus et versionnés.
 2. **Tester** — owner : plateforme — échéance : 2026-09-10. Réaliser snapshot/restore et upgrade sur données non sensibles. **Succès :** restore vérifié, RPO/RTO mesurés, requêtes critiques sans régression.
 3. **Surveiller** — owner : sécurité — réexamen : 2026-09-03 puis quotidien. Relier release notes, EOL et avis Elastic aux versions. **Succès :** chaque version possède une fenêtre de support.
 4. **Décider** — owner : architecture — après qualification. Choisir source de vérité, mode de déploiement et stratégie de sortie. **Succès :** décision documentée par workload et coût.
 
-## 16. Questions de validation
+## 15. Questions de validation
 
 1. Pourquoi Elasticsearch ne doit-il généralement pas être le système de référence d’une transaction métier ?
 2. Quelle différence entre index, shard primaire, replica et alias ?
@@ -334,14 +321,14 @@ Arrêter le conteneur avec `Ctrl-C`. L’option `--rm` supprime le conteneur du 
 
 **Preuve attendue :** restitution de cinq minutes avec schéma des flux, choix de déploiement justifié et plan de test de restauration.
 
-## 17. Incertitudes et limites
+## 16. Incertitudes et limites
 
 - Version, topologie, workload, coûts, SLO, données sensibles, owner et exposition de la stack Mehdi inconnus.
 - Les coûts ne sont pas chiffrables sans métriques d’ingestion, stockage, rétention et requêtes.
 - Cette carte ne remplace ni l’inventaire, ni le threat model, ni le capacity plan, ni la preuve de restauration.
 - Les fonctionnalités et responsabilités varient selon version, licence et mode de déploiement.
 
-## 18. Sources
+## 17. Sources
 
 - [Elastic — Deploy](https://www.elastic.co/docs/deploy-manage/deploy)
 - [Elastic — Distributed architecture](https://www.elastic.co/docs/deploy-manage/distributed-architecture)
