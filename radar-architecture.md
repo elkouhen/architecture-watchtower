@@ -1,76 +1,41 @@
-Produis le radar hebdomadaire Cloud, DevOps, architecture applicative et architecture IA de Mehdi. Le radar transforme l’actualité en parcours d’apprentissage et en décisions ; il ne doit pas être une liste de liens.
+Produis le radar hebdomadaire Cloud, DevOps, architecture applicative et IA de Mehdi.
 
-PÉRIODE
-Analyse les nouveautés des sept derniers jours. Vérifie aussi si une information pertinente a été manquée par la sentinelle quotidienne.
+OBJECTIF
+Transformer les évolutions de la semaine en choix d’architecture ou en expérimentations concrètes pour construire, déployer et exploiter des systèmes sur AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform.
 
-CONTEXTE D’ARCHITECTURE
-Lis `state/context.yaml` avant la recherche. Priorise les sujets `ELK`, `Elastic APM`, `Logstash`, `Kubernetes` et l’IA appliquée aux architectures. Pour chaque tendance, pattern ou middleware IA, précise le cas d’usage, les composants, le déploiement AWS/GCP/Kubernetes, l’observabilité, la sécurité, le coût et le critère permettant de décider. Relie chaque sujet à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK ou Terraform lorsqu’il existe un lien vérifiable. Si la version, l’environnement ou l’exposition sont inconnus, écris-le explicitement et propose l’étape de qualification.
+CONTEXTE ET PÉRIODE
+Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Analyse les sept derniers jours et déduplique avec les 90 derniers jours. Priorise ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : trends, patterns, agents, RAG, middlewares, évaluation, sécurité et observabilité.
 
-PRINCIPE
-Le radar hebdomadaire sélectionne un petit nombre de produits connus ou en tendance et explique pourquoi ils méritent d’être appris. Pour chaque sujet, relie la nouveauté à un modèle mental, un cas d’usage, un mode de déploiement et une expérience pratique. Ne transforme pas une annonce ou un benchmark en standard d’architecture. Sépare systématiquement collecte, fait vérifié, analyse, inférence et décision proposée.
+SÉLECTION
+Retient au maximum cinq sujets. Un sujet n’entre dans le radar que s’il possède au moins un impact plausible sur la stack, une action possible ou une expérimentation utile. Écarte les annonces marketing, benchmarks non reproductibles et tendances sans cas d’usage.
 
-PÉRIMÈTRE
-- GCP, AWS, Kubernetes/GKE/EKS, Terraform/OpenTofu, GitOps, Argo CD et plateforme engineering ;
-- Elastic/ELK, OpenTelemetry, Prometheus, Grafana, observabilité et SRE ;
-- GitHub Actions, GitLab CI/CD, sécurité de la supply chain ;
-- architecture applicative : monolithe modulaire, microservices, DDD, event-driven, saga, outbox, CDC, API gateway, service mesh, serverless, résilience et multi-région ;
-- IA générative : RAG, GraphRAG, agents, multi-agents, MCP, mémoire, évaluation, guardrails, observabilité LLM et serving ;
-- projets open source pertinents et services managés équivalents GCP/AWS.
+FORMAT DE CHAQUE SUJET
+- **Changement :** fait vérifié, version/date et URL primaire ;
+- **Pourquoi cela compte :** problème d’architecture ou d’exploitation concerné ;
+- **Pertinence :** confirmée, possible ou inconnue pour la stack ;
+- **Architecture concernée :** composants, flux et environnement impactés ;
+- **Choix :** surveiller, évaluer, tester ou adopter ;
+- **Plan concret :** étapes de déploiement ou d’intégration, avec Terraform/Kubernetes/CI-CD si pertinent ;
+- **Exploitation :** métriques, alertes, sauvegarde, upgrade et panne principale ;
+- **Test :** durée, prérequis, charge, résultat attendu et condition de passage ;
+- **Owner et échéance :** personne ou équipe à désigner si inconnue ;
+- **Prévision :** horizon 1–3 mois, hypothèse, signaux attendus et décision si elle se confirme ou est infirmée.
 
-SOURCES
-Priorise les architectures de référence, blogs d’architecture, changelogs, release notes et dépôts officiels. Consulte notamment Google Cloud Architecture Center, AWS Architecture Blog et Prescriptive Guidance, CNCF, Martin Fowler, Microservices.io, Thoughtworks Technology Radar et les dépôts des projets suivis. Recoupe tout fait important avec une source primaire.
+N’ajoute une comparaison AWS/GCP/open source que si elle modifie réellement le choix. Pour une Preview, beta ou disponibilité limitée, indique le repli et interdis son usage comme contrôle critique.
 
-DÉDUPLICATION
-Recherche dans `state/signals.yaml` et dans les rapports locaux `dist/` des 90 derniers jours les sujets déjà signalés. Ne répète un élément que si une évolution substantielle justifie une mise à jour.
+APPRENTISSAGE
+Propose au maximum un laboratoire hebdomadaire prioritaire, réalisable en moins d’une heure. Il doit produire une preuve : configuration, métriques, résultat de test, diagramme ou décision. Une carte de service détaillée peut être demandée séparément.
 
-TRIAGE ET GOUVERNANCE
-- conserve pour chaque sujet un identifiant, une source primaire, un niveau de confiance, un propriétaire et une date de réexamen ;
-- distingue « information à suivre » de « décision à prendre » ; une information sans action ou impact plausible ne doit pas entrer au radar ;
-- avant de proposer « adopter », exige une preuve d’usage comparable ou un retour d’expérience interne ; à défaut, propose « évaluer » ou un test limité ;
-- si un élément est écarté, documente brièvement le motif : hors périmètre, non exposé, immaturité, coût disproportionné ou doublon.
-- conserve dans le registre le statut du cycle précédent afin de distinguer une nouveauté d’une simple répétition.
-- pour chaque sujet prospectif, formule une prévision à 1–3 mois, une hypothèse vérifiable et les signaux attendus ;
+SORTIE
+1. Synthèse en trois décisions maximum : ce qui change, l’impact et quoi faire cette semaine.
+2. Sujets retenus avec le format ci-dessus.
+3. Échéances et fins de support réellement actionnables.
+4. Laboratoire prioritaire.
+5. Sources consultées et sources en échec.
 
-SCORING SUR 10
-- pertinence : 0–3 ;
-- impact : 0–3 ;
-- urgence : 0–2 ;
-- source : 0–1 ;
-- nouveauté : 0–1.
-
-Inclue en priorité les scores 4 à 7. Ajoute un score 8–10 seulement s’il n’a pas déjà été traité par la sentinelle quotidienne. Écarte les scores inférieurs à 4. Maximum 8 sujets.
-
-PARCOURS D’APPRENTISSAGE
-Le rapport doit retenir au maximum trois sujets d’apprentissage approfondi : un fondamental, un produit en évolution et, si pertinent, un sujet émergent. Pour chacun, donne le niveau préalable, les concepts à maîtriser, le déploiement minimal, le déploiement de production, un laboratoire de moins d’une heure et le résultat attendu. Une simple nouveauté sans expérience proposée va dans « à surveiller », pas dans le parcours.
-
-FORMAT
-1. Synthèse exécutive : trois enseignements.
-2. Nouveautés par thème.
-3. Pour chaque sujet :
-   - Pourquoi l’apprendre maintenant ;
-   - Modèle mental et capacités essentielles ;
-   - Déploiement minimal et déploiement de production ;
-   - Fait vérifié et lien primaire ;
-   - Analyse d’architecture ;
-   - Recommandation, propriétaire et date de réexamen ;
-   - Pattern concerné ;
-   - Option open source ;
-   - service managé GCP ;
-   - service managé AWS ;
-   - maturité, coût opérationnel et verrouillage ;
-   - quand l’utiliser et quand l’éviter.
-   - Prévision à 1–3 mois, hypothèse vérifiable, signaux attendus et décision conditionnelle (« si… alors… »).
-4. Échéances et dépréciations.
-5. Un test de lab réalisable en moins d’une heure par sujet d’apprentissage.
-6. Sources consultées et sources en échec.
-
-La synthèse exécutive doit répondre en langage concret à : « qu’est-ce qui a changé ? », « est-ce pertinent pour Mehdi ? » et « que faut-il faire maintenant ? ». Évite les formulations abstraites ou les regroupements de technologies sans impact explicite.
-
-Ajoute un court « Journal des décisions » : sujet, action (surveiller/évaluer/expérimenter/adopter/éviter), justification, propriétaire et échéance. Les sujets immobiles pendant deux cycles sont retirés du radar, sauf risque ou échéance active.
-
-Présente clairement les comparaisons connues sous forme de tableau. Identifie comme « inférence » tout rapprochement qui n’est pas directement affirmé par la source.
+Ne produis aucune explication générale qui ne débouche pas sur une décision, une action, un test ou une qualification. Si l’environnement ou la version sont inconnus, écris-le et propose l’étape minimale pour lever l’incertitude.
 
 PUBLICATION LOCALE
-Chaque vendredi, écris le rapport Markdown complet dans `dist/AAAA-MM-JJ/radar-architecture.md`, valide-le puis committe-le localement. Même sans nouveauté, le livrable doit contenir un heartbeat. Consigne le hash du commit dans le journal local si un journal de publication est utilisé.
+Écris `dist/AAAA-MM-JJ/radar-architecture.md`, vérifie la présence de faits sourcés, d’actions et de critères de succès, puis committe localement le livrable. Même sans nouveauté, conserve un heartbeat court.
 
-Réponds en français, de manière synthétique et décisionnelle.
+Réponds en français, avec une lecture de moins de quinze minutes.
