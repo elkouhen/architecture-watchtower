@@ -1,67 +1,101 @@
-# RADAR ARCHITECTURE — 2026-08-27
+# RADAR DES TENDANCES — 2026-08-27
 
-Période : 21–27 août 2026. Contexte : AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform. Versions et exposition réelles à qualifier.
+Période : nouveautés des 7 derniers jours et signaux d’émergence des 30 derniers jours. Stack de référence : AWS, GCP, Kubernetes, GitHub/GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform.
 
-## SYNTHÈSE
+## LES TROIS TENDANCES À RETENIR
 
-1. **Kubernetes `1.37.0` est disponible** : préparer un test de compatibilité, mais ne pas planifier une mise en production avant validation EKS/GKE, CNI/CSI, operators et workloads.
-2. **Elastic Stack `9.5.2` et Logstash `9.5.2` sont les versions de référence actuelles** : inventorier les versions et tester l’upgrade groupé Elasticsearch/Kibana/Logstash/APM.
-3. **L’observabilité des agents IA devient un sujet d’outillage** : GitHub montre une activité sur ce thème, mais cela reste un signal de tendance ; tester d’abord traces, coûts, actions et erreurs dans un environnement contrôlé.
+1. **L’observabilité des agents IA devient une couche d’exploitation distincte.** Les projets se structurent autour des traces, évaluations, coûts et actions ; commencer par OpenTelemetry + ELK/APM avant d’ajouter un produit.
+2. **Les AI Gateways déplacent la gouvernance IA au niveau de la plateforme.** Routage, quotas, identité, failover et politiques deviennent des fonctions d’infrastructure Kubernetes.
+3. **L’inférence IA devient un workload Kubernetes spécialisé.** Le sujet n’est plus seulement de déployer un modèle, mais de gérer GPU, scheduling, cache KV, TTFT/TPOT et répartition prefill/decode.
 
-## 1. Kubernetes 1.37 — TESTER
+## 1. AgentOps et observabilité des agents IA — ÉMERGENTE / TRACTION
 
-**Changement :** Kubernetes `1.37.0` est sorti le 26 août 2026. La branche est activement supportée ; le prochain patch `1.37.1` est ciblé au 15 septembre. La release comprend 16 promotions en Stable et une dépréciation/removal. Source : https://kubernetes.io/releases/1.37/ et https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/
+**Pourquoi maintenant :** le topic GitHub `agent-observability` présente 360 dépôts ; plusieurs projets d’observabilité, d’évaluation et d’exploitation ont été mis à jour les 25–27 août. C’est un signal d’écosystème, pas une preuve d’adoption.
 
-**Pourquoi cela compte :** une mise à niveau modifie la compatibilité du control plane, des kubelets, des APIs, des operators et des add-ons. La release déprécie notamment l’usage de cgroup v1, ce qui doit être vérifié côté nœuds.
+**Preuves de traction :**
 
-**Pertinence :** possible ; versions des clusters AWS/GCP inconnues.
+- plusieurs projets couvrent contrôle de runs, coûts, traces, monitoring et évaluation : https://github.com/topics/agent-observability ;
+- OpenTelemetry documente des conventions GenAI pour les appels modèle, tokens, outils et traces : https://opentelemetry.io/blog/2026/genai-observability/ ;
+- AWS positionne aussi l’observabilité des coding agents dans CloudWatch : https://aws.amazon.com/blogs/mt/this-month-in-aws-observability-july-2026/.
 
-**Plan concret :** créer un environnement de test, appliquer les manifests Terraform/Kubernetes existants, tester CNI/CSI, ingress, HPA, operators, workloads stateful, observabilité et rollback.
+**Problème architectural :** un log de requête ne permet pas de savoir quel modèle, outil, retry, permission ou étape d’agent a produit le résultat.
 
-**Test :** deux semaines ; succès si aucun manifest/API critique ne casse, les workloads passent leurs tests, les métriques CloudWatch/ELK restent disponibles et le temps de rollback est mesuré.
+**Architecture cible :** application/agent → instrumentation OpenTelemetry → collecte → CloudWatch et/ou ELK/APM ; conserver les prompts et sorties sensibles filtrés, avec corrélation par `trace_id`, modèle, outil, coût et version.
 
-**Prévision :** dans les 1–3 mois, les distributions managées et les operators détermineront la faisabilité réelle. Si EKS/GKE et les add-ons critiques supportent `1.37`, préparer une migration canary ; sinon rester sur la version supportée actuelle.
+**Pertinence :** confirmée pour l’axe IA + observabilité ; intégration réelle à qualifier.
 
-**Owner :** plateforme Kubernetes, à désigner. Échéance de qualification : 15 septembre 2026.
+**Test proposé :** une semaine, sur un agent non critique. Mesurer durée, tokens, coût, erreurs, appels outils et retries ; vérifier qu’une exécution est retrouvable de bout en bout dans ELK ou CloudWatch.
 
-## 2. Elastic Stack / Logstash 9.5.2 — ÉVALUER
+**Décision :** `tester`. Ne choisir un middleware dédié que si OpenTelemetry + ELK/APM/CloudWatch ne couvrent pas les besoins.
 
-**Changement :** Elastic documente la version `9.5.2` comme release actuelle. Les notes Logstash `9.5.2` incluent notamment des corrections de plugins et de dépendances.
+**Prévision :** les solutions compatibles avec les conventions OpenTelemetry et les outils existants progresseront plus facilement. Si un produit impose un format fermé ou stocke des données sensibles sans contrôle, le garder en expérimentation.
 
-**Pertinence :** confirmée comme sujet de stack, exposition et versions déployées inconnues.
+## 2. AI Gateway et inference gateway — ÉMERGENTE
 
-**Plan concret :** inventorier Elasticsearch, Kibana, Logstash, APM Server et agents ; reproduire le pipeline d’ingestion sur données non sensibles ; tester parsing, mapping, enrichissement, indexation, dashboards, alertes, traces APM et retour arrière.
+**Pourquoi maintenant :** Kubernetes travaille sur des primitives de gateway adaptées au trafic IA. Le groupe AI Gateway décrit token rate limiting, contrôle d’accès fin, inspection de payload, routage, cache et guardrails : https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/.
 
-**Exploitation :** surveiller débit d’ingestion, rejets, latence, heap, files d’attente Logstash, shards non alloués, p95 de recherche et retard APM.
+**Preuves de traction :**
 
-**Test :** un environnement isolé ; succès si aucune perte d’événement, aucune régression de requête critique, restore vérifié et rollback documenté.
+- le groupe de travail Kubernetes porte des propositions autour des APIs déclaratives et du routage IA ;
+- le CNCF décrit l’Inference Gateway et le routage selon modèle, adaptateur LoRA et santé d’endpoint : https://www.cncf.io/blog/2026/03/26/the-platform-under-the-model-how-cloud-native-powers-ai-engineering-in-production/ ;
+- les sujets sont reliés à Gateway API, SIG Network et à des projets d’inférence Kubernetes.
 
-**Prévision :** la prochaine décision dépendra moins des nouvelles fonctions que de la compatibilité de la chaîne complète ELK/APM. Si les plugins et mappings passent le test, planifier un upgrade par environnement ; sinon geler la version et ouvrir une qualification.
+**Problème architectural :** éviter que chaque application implémente séparément authentification fournisseur, quotas, routage multi-modèle, failover et règles de région.
 
-**Sources :** https://www.elastic.co/docs/release-notes et https://www.elastic.co/docs/release-notes/logstash
+**Architecture cible :** client → Gateway API/AI Gateway → politique identité/quotas → modèle ou fournisseur AWS/GCP → traces et métriques → CloudWatch/ELK/APM. L’autorisation métier reste dans l’application.
 
-## 3. Observabilité des agents IA — ÉVALUER
+**Pertinence :** possible pour une future plateforme IA Kubernetes ; aucun cluster IA ni besoin de routage multi-fournisseur n’est confirmé.
 
-**Signal :** le topic GitHub `agent-observability` regroupe des projets récents de traces, métriques, coûts et débogage d’agents. Source de découverte : https://github.com/topics/agent-observability
+**Test proposé :** deux heures maximum, avec deux backends simulés. Tester auth, quotas, routage par modèle, timeout, failover et absence de permission d’écriture sur le cluster.
 
-**Analyse :** le besoin opérationnel est réel, mais le classement GitHub ne prouve ni adoption ni maturité. Pour ta stack, le sujet doit être comparé à OpenTelemetry, CloudWatch, ELK et Elastic APM avant d’ajouter un middleware.
+**Décision :** `surveiller`, puis `tester` si un cas multi-modèle ou multi-cloud apparaît.
 
-**Test :** instrumenter un agent non critique avec traces des appels modèle, outils, latence, tokens/coût, erreurs et décisions ; durée : une semaine.
+**Prévision :** les APIs standardisées peuvent éviter un middleware propriétaire, mais les implémentations resteront mouvantes. Si la fonction est Preview ou dépend d’une GatewayClass spécifique, conserver un proxy de repli.
 
-**Succès :** une exécution est corrélable de bout en bout, les secrets et données sensibles sont filtrés, le coût est calculable et une erreur d’outil est visible dans CloudWatch ou ELK.
+## 3. Kubernetes comme plateforme d’inférence — TRACTION
 
-**Prévision :** les architectures qui survivront seront celles qui s’intègrent aux standards de télémétrie et aux contrôles IAM ; si un outil exige un format fermé ou un agent propriétaire, le conserver en expérimentation.
+**Pourquoi maintenant :** le CNCF positionne l’inférence distribuée comme un workload cloud-native. `llm-d` est présenté comme un projet CNCF Sandbox pour relier Kubernetes, KServe, vLLM, routage conscient du cache et réplication multi-nœuds : https://www.cncf.io/blog/2026/03/24/welcome-llm-d-to-the-cncf-evolving-kubernetes-into-sota-ai-infrastructure/.
 
-## LABORATOIRE PRIORITAIRE — KUBERNETES 1.37
+**Faits vérifiés :** Kubernetes `1.37.0` est sorti le 26 août 2026 ; la branche est supportée et le prochain patch `1.37.1` est ciblé au 15 septembre : https://kubernetes.io/releases/1.37/. Le CNCF indique aussi que les besoins d’inférence concernent scheduling, Gateway API, DRA, LWS et Kueue.
 
-Créer un cluster local avec `kind` ou `minikube`, déployer un Deployment, un StatefulSet et une métrique, puis vérifier APIs, probes, rollout, ressources et logs. Produire un tableau des incompatibilités et une décision `tester`, `attendre` ou `migrer`.
+**Problème architectural :** un Deployment Kubernetes classique ne suffit pas à optimiser GPU, placement, cache KV, temps jusqu’au premier token et débit de génération.
 
-## ÉCHÉANCES
+**Architecture cible :** Gateway/inference scheduler → pods model server → ressources GPU/DRA → cache et stockage → métriques TTFT/TPOT, tokens/s, saturation GPU et coût.
 
-- 15 septembre 2026 : cible du patch Kubernetes `1.37.1` ;
-- à qualifier : versions et support EKS/GKE réellement disponibles ;
-- à qualifier : statut de support des composants Elastic 9.5.2 dans la stack.
+**Pertinence :** possible ; aucun workload GPU ou serving de modèle n’est confirmé dans la stack.
 
-## SOURCES
+**Test proposé :** lab local conceptuel ou cluster GPU isolé si disponible ; comparer un service Kubernetes classique à un routage conscient du modèle, avec latence, débit et coût comme mesures.
 
-Sources primaires consultées : Kubernetes release et blog, Elastic release notes, Logstash release notes, Elastic status. Sources de tendance : GitHub Topics. Aucune source consultée en échec.
+**Décision :** `surveiller` pour l’instant ; `tester` uniquement avec un workload d’inférence réel.
+
+**Prévision :** la convergence se fera autour de primitives Kubernetes ouvertes, mais les performances dépendront fortement du matériel et du modèle. Ne pas transformer les benchmarks fournisseurs en capacité garantie.
+
+## 4. OpenTelemetry GenAI — SIGNAL DE STANDARDISATION
+
+**Signal :** OpenTelemetry a atteint le statut de projet graduated et travaille sur les conventions sémantiques GenAI, l’injection zéro code et la gouvernance des schémas : https://opentelemetry.io/blog/2026/otel-grad-now-what/.
+
+**Analyse :** ce n’est pas un nouveau produit à adopter, mais une direction qui peut éviter de multiplier des agents propriétaires pour l’IA. Elle complète CloudWatch, ELK et Elastic APM plutôt qu’elle ne les remplace automatiquement.
+
+**Test proposé :** instrumenter une seule chaîne LLM, exporter métriques et traces, puis vérifier cardinalité, filtrage des contenus, coût de collecte et corrélation avec les logs applicatifs.
+
+**Décision :** `tester` comme convention d’instrumentation, pas comme migration globale.
+
+## SIGNAUX À SURVEILLER
+
+- **Control planes self-hosted pour agents** : des projets récents proposent dispatch, suivi des runs, dépenses et exploitation de plusieurs runtimes : https://github.com/topics/agent-observability. Manque : preuves de production, sécurité et compatibilité avec Kubernetes.
+- **AI agent harnesses et skills** : le topic `ai-agents` compte plus de 80 000 dépôts et plusieurs projets ont été mis à jour le 27 août : https://github.com/topics/ai-agents. Manque : distinguer productivité développeur, framework d’orchestration et plateforme opérable.
+- **Kubernetes 1.37** : release récente à qualifier pour les add-ons et distributions managées, mais ce n’est pas en soi une tendance d’architecture : https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/.
+
+## LABORATOIRE PRIORITAIRE
+
+Construire une chaîne minimale d’observabilité GenAI : un appel modèle simulé, un appel outil, une erreur et un retry ; instrumenter avec OpenTelemetry ; exporter vers un backend déjà disponible ; produire une trace corrélée avec latence, tokens, coût et résultat de l’outil. Succès : une exécution est explicable sans lire le code source et aucune donnée sensible n’est exposée.
+
+## À NE PAS SUIVRE CETTE SEMAINE
+
+- nouveaux frameworks d’agents sans documentation de déploiement et d’exploitation ;
+- benchmarks de modèles sans protocole reproductible ni charge représentative ;
+- releases ELK/APM isolées qui ne changent ni la compatibilité, ni la sécurité, ni la capacité de la chaîne.
+
+## SOURCES CONSULTÉES
+
+Sources primaires : Kubernetes, CNCF, OpenTelemetry, AWS Cloud Operations, GitHub Topics. Sources de discussion RSS non exploitables dans cette exécution : Hacker News RSS. Les signaux GitHub sont utilisés pour la découverte, jamais comme preuve d’adoption.

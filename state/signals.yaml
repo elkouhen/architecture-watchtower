@@ -55,6 +55,40 @@ signals:
       - dist/2026-08-27/carte-elasticsearch.md
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-08-27-004
+    canonical_url: https://github.com/topics/agent-observability
+    subject: "Émergence des outils AgentOps et observabilité des agents IA"
+    product_version: "non applicable"
+    environment: "unknown"
+    first_seen: 2026-08-27
+    last_seen: 2026-08-27
+    score: 6
+    confidence: "medium"
+    status: "new"
+    decision: "test"
+    owner: "IA/observabilité"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-27/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-27-005
+    canonical_url: https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/
+    subject: "AI Gateway et inference gateway sur Kubernetes"
+    product_version: "non applicable"
+    environment: "unknown"
+    first_seen: 2026-08-27
+    last_seen: 2026-08-27
+    score: 5
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme Kubernetes"
+    due_date: 2026-09-15
+    deliverables:
+      - dist/2026-08-27/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
 
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001
