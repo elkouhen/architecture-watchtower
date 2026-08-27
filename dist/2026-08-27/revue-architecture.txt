@@ -1,5 +1,5 @@
 REVUE ARCHITECTURE — AOÛT 2026
-Arrêtée au 27 août 2026. Sources : archives Gmail des six derniers mois et publications primaires. Le rapport a été envoyé par email le 27 août 2026.
+Arrêtée au 27 août 2026. Sources : rapports et journaux locaux des six derniers mois, plus publications primaires. Publication : commit Git local.
 
 RÉPONSE DIRECTE
 La décision du mois est de traiter le cycle de vie comme une capacité produit : patching mesuré, runners CI/CD éphémères et compatibilité Kubernetes/mesh traçable. Pour l’IA, établir identité, allowlist, audit, quotas et confirmation humaine avant tout passage en production.
@@ -56,4 +56,4 @@ PLAN SEPTEMBRE
 5. Lancer le benchmark RAG portable.
 
 QUALITÉ DE VEILLE
-Les archives Gmail évitent les doublons. Les pages dynamiques non corroborées ne sont pas retenues comme faits. Conserver un journal : décision, justification, owner, échéance, statut et motif d’écartement ; retirer après deux cycles sans évolution sauf risque/action active.
+Les rapports locaux et `state/signals.yaml` évitent les doublons. Les pages dynamiques non corroborées ne sont pas retenues comme faits. Conserver un journal : décision, justification, owner, échéance, statut et motif d’écartement ; retirer après deux cycles sans évolution sauf risque/action active.

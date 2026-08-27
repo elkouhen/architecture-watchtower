@@ -1,6 +1,6 @@
 ALERTE DEVOPS — 2026-08-27
 Fenêtre : depuis l’alerte du 26 août 2026, 22:13 CEST.
-Déduplication : archives Gmail « Alerte DevOps », « Radar Architecture » et « Revue Architecture » sur 90 jours.
+Déduplication : `state/signals.yaml` et rapports locaux `dist/` sur 90 jours.
 
 RÉSULTAT : AUCUN SIGNAL PRIORITAIRE SUPPLÉMENTAIRE
 
@@ -22,4 +22,4 @@ Source : https://docs.cloud.google.com/service-mesh/docs/security-bulletins
 Source : https://grafana.com/security/security-advisories/cve-2026-19197/
 
 LIMITES
-Les pages dynamiques non corroborées de GCP/AWS ne sont pas retenues comme faits. Le rapport a été envoyé par email le 27 août 2026.
+Les pages dynamiques non corroborées de GCP/AWS ne sont pas retenues comme faits. Publication : commit Git local.

@@ -1,0 +1,21 @@
+# Registre de veille — modèle. Une entrée par signal canonique.
+# Les livraisons sont locales : leur preuve est le commit Git qui contient le livrable.
+signals: []
+
+# Schéma recommandé pour chaque entrée :
+# - id: SIG-AAAA-MM-JJ-001
+#   canonical_url: https://...
+#   subject: "..."
+#   product_version: "..."
+#   environment: "production|staging|unknown"
+#   first_seen: 2026-08-27
+#   last_seen: 2026-08-27
+#   score: 0
+#   confidence: "high|medium|low"
+#   status: "new|open|closed|deferred|discarded"
+#   decision: "monitor|qualify|test|adopt|avoid"
+#   owner: "équipe ou rôle"
+#   due_date: 2026-09-15
+#   deliverables: ["dist/AAAA-MM-JJ/sentinelle-devops.txt"]
+#   publication: "local_commit"
+#   discard_reason: null

@@ -1,11 +1,11 @@
-# Revue de trois démarches de veille technologique
+# Revue des démarches de veille du dépôt
 
 **Date :** 27 août 2026  
-**Portée :** trois approches génériques — (1) lecture manuelle de sources, (2) alertes et agrégation automatisées, (3) radar de décision partagé. Cette revue ne remplace pas l’analyse de trois processus internes précis, qui n’ont pas été fournis.
+**Portée :** les trois démarches documentées dans ce dépôt — sentinelle quotidienne, radar hebdomadaire et revue mensuelle — ainsi que leur articulation avec les sources et les livrables. La lecture manuelle, l’agrégation automatisée et le radar collaboratif sont évalués comme capacités transverses, pas comme processus séparés du dépôt.
 
 ## Conclusion
 
-Les trois démarches sont complémentaires, mais aucune n’est suffisante seule. La lecture manuelle apporte le jugement ; l’automatisation apporte la couverture et la rapidité ; un radar partagé transforme les signaux en décisions. La correction prioritaire est donc un processus en trois couches : collecte automatisée et ciblée, revue humaine courte et régulière, puis décision trimestrielle fondée sur des critères et une preuve d’usage.
+Les trois démarches sont complémentaires, mais leur articulation doit être rendue vérifiable. La correction prioritaire est une boucle en trois couches : collecte ciblée, revue humaine courte, puis décision fondée sur des critères et une preuve d’usage. Le registre d’état, les livrables sous `dist/` et le journal de décisions deviennent la source de vérité ; les commits Git locaux servent de preuve de livraison.
 
 ## Démarche 1 — Veille manuelle, au fil de la lecture
 
@@ -48,7 +48,7 @@ Les trois démarches sont complémentaires, mais aucune n’est suffisante seule
 
 ## Limites
 
-Cette recommandation est volontairement générique : ni l’équipe, ni la stack, ni les trois démarches existantes n’ont été communiquées. Les seuils de fréquence et les SLA doivent être adaptés à l’exposition sécurité, à la taille de l’équipe et au rythme produit.
+Les responsables opérationnels et la stack réellement déployée ne sont pas accessibles dans ce dépôt. Les owners, seuils et SLA restent donc à confirmer ; les consignes doivent conserver une valeur par défaut explicite (`exposition inconnue`, `à qualifier`) plutôt que de présenter une hypothèse comme un fait.
 
 ## Sources
 

@@ -7,7 +7,7 @@ PRINCIPE
 La revue mensuelle est l’instance de décision : toute recommandation doit être reliée à un besoin, une preuve primaire et une prochaine action. Distingue sans ambiguïté fait vérifié, analyse, inférence et décision. Une technologie médiatisée mais non contextualisée reste « ÉVALUER ».
 
 ENTRÉES
-- recherche dans Gmail les emails envoyés à mehdi.elkouhen@gmail.com au cours des six derniers mois avec les objets « Alerte DevOps », « Radar Architecture » et « Revue Architecture » ;
+- analyse les rapports et journaux locaux sous `dist/` et `state/` au cours des six derniers mois ;
 - utilise les rapports du dernier mois comme registre ;
 - vérifie les faits encore déterminants auprès des sources primaires actuelles ;
 - identifie les tendances récurrentes, les changements de maturité et les sujets qui ne sont plus pertinents.
@@ -33,6 +33,7 @@ N’utilise pas « ADOPTER » sans preuve d’usage réel interne ou de retour d
 Pour chaque entrée, donne :
 - ce qui a changé ce mois-ci ;
 - preuve et lien vers la source primaire ;
+- fait vérifié, analyse, inférence et décision, dans des rubriques distinctes ;
 - intérêt pour le contexte de Mehdi ;
 - option open source ;
 - équivalent GCP ;
@@ -43,6 +44,7 @@ Pour chaque entrée, donne :
 - décision et prochaine action.
 
 Ajoute pour chaque entrée un propriétaire, une date de réexamen et, pour TESTER, un critère de succès et une limite de durée.
+Une entrée sans source primaire, propriétaire ou date de réexamen est invalide et doit être retirée ou classée `ÉVALUER` avec une action de qualification.
 
 ANALYSE TRANSVERSALE
 Ajoute :
@@ -64,7 +66,7 @@ Retire du radar les entrées sans évolution pendant deux revues, sauf si une é
 FORMAT
 Sois synthétique. Maximum 12 entrées dans le radar. Utilise des tableaux pour les comparaisons et conclus par un plan d’action du mois suivant.
 
-EMAIL
-Envoie le rapport complet par Gmail à mehdi.elkouhen@gmail.com avec l’objet « Revue Architecture — AAAA-MM ». Envoie le rapport même si le mois a été calme.
+PUBLICATION LOCALE
+Écris le rapport complet dans `dist/AAAA-MM-JJ/revue-architecture.txt`, puis valide et committe-le localement. Le livrable est produit même si le mois a été calme ; la preuve de publication est le hash du commit Git local.
 
 Réponds en français avec un ton d’architecte principal.

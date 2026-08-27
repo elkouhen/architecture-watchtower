@@ -1,0 +1,89 @@
+CARTE SERVICE — ELASTICSEARCH — 2026-08-27
+
+1. IDENTITÉ
+Service : Elasticsearch
+Éditeur/projet : Elastic
+Catégorie : moteur distribué de recherche, analytique, logs, sécurité et vecteurs
+URL canonique : https://www.elastic.co/docs
+Dernière version visible dans les release notes consultées : 9.5.2. Cette valeur est la version publiée de référence, pas la version déployée chez Mehdi.
+Cadence : quotidienne ; première carte.
+
+2. RÉSUMÉ DÉCISIONNEL
+Fait : Elasticsearch stocke des documents JSON dans un cluster distribué ; les données sont réparties entre nœuds, shards primaires et répliques.
+Analyse : c’est un bon choix pour recherche textuelle, logs/événements et analytique nécessitant indexation et agrégations ; il faut traiter le mapping, le nombre de shards, la rétention et la restauration comme des décisions d’architecture.
+Décision proposée : ÉVALUER / MAINTENIR sous contrôle. Ne pas adopter une configuration précise avant qualification de la version, du mode de déploiement, des volumes et des SLO.
+
+3. ÉTAT MEHDI
+Environnement : à qualifier (production, préproduction ou laboratoire).
+Version : à qualifier ; aucune version déployée n’est présente dans le dépôt.
+Topologie : à qualifier (self-managed, ECK, Elastic Cloud Hosted, ECE ou Serverless).
+Criticité et données : à qualifier (logs, recherche applicative, sécurité, vecteurs, PII et exigences de rétention).
+Dépendances : à qualifier (Kibana, Elastic Agent/Beats, Logstash, APM, OpenTelemetry, clients applicatifs, stockage objet, Kubernetes).
+Owner : équipe plateforme/observabilité à nommer.
+Exposition : inconnue ; aucune recommandation de patch ou de migration ne peut être déduite de cette carte seule.
+
+4. MODÈLE D’ARCHITECTURE
+Fait : le cluster distribue les documents ; les opérations de lecture et d’écriture s’appuient sur des shards et leurs copies. Les rôles de nœuds et l’allocation des shards structurent la capacité et la résilience.
+Fait : Elastic Cloud Serverless automatise notamment nœuds, shards et répliques ; ce modèle ne se transpose pas tel quel à un cluster versionné/self-managed.
+Analyse : séparer les rôles selon la charge (cluster-manager, data, ingest, coordinating selon le besoin), maintenir des répliques sur des domaines de panne distincts et dimensionner sur la charge de recherche, d’ingestion, de stockage et de récupération.
+Limite : le nombre maximal de shards est une protection contre la dérive, pas une recommandation de dimensionnement ; trop de shards allongent récupération et maintenance.
+
+5. EXPLOITATION
+Déploiements : self-managed, Elastic Cloud on Kubernetes, Elastic Cloud Enterprise, Elastic Cloud Hosted et Elastic Cloud Serverless ; les responsabilités et fonctionnalités varient selon le mode.
+Source de comparaison des modes : https://www.elastic.co/docs/deploy-manage/deploy/deployment-comparison
+Upgrade/rollback : à qualifier sur la version et les plugins/clients. Tester mappings, templates, ingest pipelines, snapshots, clients et Kibana sur un environnement représentatif ; ne pas utiliser un snapshot comme substitut à la mise à niveau des fonctionnalités Elastic.
+Sauvegarde/restauration : Fait : snapshots vers un repository hors cluster sauvegardent données, état du cluster et plusieurs états de fonctionnalités ; les fichiers de configuration n’y sont pas inclus. Fait : un snapshot ne se restaure pas vers une version Elasticsearch antérieure. Succès minimal à tester : restauration d’un index métier et des feature states, puis requête de contrôle.
+Observabilité : Fait : Elastic recommande Stack Monitoring en production ; les métriques et logs peuvent être envoyés vers un déploiement de monitoring séparé pour rester disponibles lors d’une panne du déploiement principal.
+SLO à définir : disponibilité de recherche, p95 de latence, taux d’échec d’indexation, retard d’ingestion, shards non alloués, JVM/memory pressure, saturation disque, durée de snapshot et RPO/RTO.
+Charge opérationnelle : élevée en self-managed/ECK (capacity planning, upgrades, shards, JVM, stockage, snapshots) ; réduite en Hosted ; la Serverless réduit l’exploitation mais augmente les contraintes de plateforme et de réversibilité à qualifier.
+
+6. SÉCURITÉ
+Fait : les fonctions de sécurité couvrent authentification, autorisation/RBAC, TLS HTTP et transport, filtrage réseau, chiffrement et audit selon le type de déploiement.
+Fait : Elastic Cloud Hosted et Serverless configurent automatiquement plusieurs contrôles ; en self-managed, TLS, keystore, chiffrement disque et audit nécessitent une configuration et une vérification explicites.
+Analyse : utiliser des rôles minimaux par usage (ingestion, lecture, administration, snapshot), séparer les comptes de service, stocker les secrets dans le keystore/gestionnaire de secrets et vérifier les accès réseau privés.
+Incertitude : aucune CVE ou exposition propre à l’instance de Mehdi n’est qualifiable sans version et inventaire. Action limitée : obtenir l’inventaire et consulter les avis Elastic correspondants.
+
+7. DONNÉES ET COMPATIBILITÉ
+Lifecycle : Fait : le cœur Elasticsearch 9.x a une fin de maintenance indiquée au 15 octobre 2027 ; les versions 8.x ont une fin de maintenance au 15 janvier 2027 et une fin de support au 15 juillet 2027, selon la politique Elastic consultée.
+Lifecycle des données : Fait : ILM automatise rollover, rétention, suppression et placement par tiers sur les déploiements versionnés ; ILM n’est pas disponible en Serverless, où le Data Stream Lifecycle est l’option correspondante.
+Compatibilité : à qualifier pour les clients Java/JS/.NET, plugins, mappings, templates, analyzers, pipelines, Kibana et intégrations. Vérifier les breaking changes de la version cible avant upgrade.
+Migration : privilégier des snapshots testés, reindexation contrôlée ou double écriture selon le RPO/RTO ; valider la réversibilité avant changement de mapping ou de stratégie de stockage.
+
+8. COMPARAISON
+| Option | Positionnement | Charge opérationnelle | Verrouillage / réversibilité |
+| Open source | Elasticsearch distribué auto-opéré ; vérifier la licence et les fonctions disponibles pour le cas d’usage. | Élevée : cluster, stockage, upgrades, sécurité, sauvegardes. | Données et API à migrer ; mappings, analyzers et fonctionnalités Elastic créent du couplage. |
+| GCP | Elastic Cloud Hosted sur GCP ; pas un service Elasticsearch natif opéré par Google. | Réduite côté cluster, mais réseau, IAM, coûts et contrat restent à gérer. | Couplage au service Elastic ; conserver snapshots et tests de restauration portables. |
+| AWS | Elastic Cloud Hosted sur AWS ; OpenSearch Service est une alternative AWS distincte, pas un équivalent compatible garanti. | Hosted réduite ; OpenSearch managé implique une autre matrice de compatibilité. | Migration non transparente : API, plugins, mappings et fonctionnalités à tester. |
+
+9. ÉVOLUTIONS DEPUIS LA DERNIÈRE CARTE
+Aucune carte antérieure n’a été publiée dans les documents locaux avant la carte initiale du 27 août.
+Mise à jour — Fait : les release notes consultées exposent désormais Elasticsearch 9.5.2, ainsi que des correctifs de sécurité et de robustesse dans la série 9.5.x, notamment des mises à jour de bibliothèques et des corrections liées aux requêtes, snapshots et recherche vectorielle.
+Mise à jour — Fait : 9.5.0 introduit notamment la vérification de la protection contre l’écrasement dans l’analyse des repositories, mais certaines fonctions restent expérimentales ou en Tech Preview ; elles ne doivent pas porter un contrôle critique de production.
+Score : 6/10 (pertinence potentielle pour le cycle de mise à niveau et les sauvegardes, impact opérationnel possible, source primaire ; confiance élevée pour les faits publiés).
+Action : qualifier l’usage, la version et le repository de chaque cluster avant toute recommandation de mise à niveau.
+Source : https://www.elastic.co/docs/release-notes/elasticsearch
+
+10. DÉCISIONS ET ACTIONS
+1. QUALIFIER — owner : plateforme/observabilité — échéance : 2026-09-03 — livrable : inventaire version, mode, nœuds, shards, stockage, rétention, clients et owner — succès : 100 % des clusters connus avec version et environnement.
+2. TESTER — owner : plateforme — échéance : 2026-09-10 — livrable : lab snapshot/restore + upgrade sur données non sensibles — limite : 2 heures — succès : restauration vérifiée, RPO/RTO mesurés, aucune requête critique régressée.
+3. SURVEILLER — owner : sécurité — réexamen : 2026-09-03 puis quotidien — livrable : revue des release notes, EOL et advisories Elastic — succès : chaque version déployée rattachée à une fenêtre de maintenance/support.
+4. ÉVITER — owner : architecture — réexamen : après qualification — livrable : aucune décision critique fondée uniquement sur Preview/Serverless sans repli et test de sortie.
+
+11. INCERTITUDES ET LIMITES
+- Version, topologie, exposition, volumes, SLO, coûts et propriétaire de la stack Mehdi sont inconnus.
+- Les coûts ne sont pas chiffrables sans volume indexé, rétention, requêtes, stockage, région et mode de déploiement ; demander un devis ou utiliser les métriques réelles.
+- Le registre local ne contient pas encore de signal Elasticsearch spécifique ; la carte locale du 27 août est la première référence.
+- La carte décrit le produit et le plan de qualification ; elle ne prouve ni conformité, ni haute disponibilité, ni exposition à une vulnérabilité.
+Statut de publication : ce fichier est inclus dans le commit Git local qui l’accompagne.
+
+12. SOURCES EFFECTIVEMENT CONSULTÉES
+[consultée] Elastic — Distributed architecture : https://www.elastic.co/docs/deploy-manage/distributed-architecture
+[consultée] Elastic — Security : https://www.elastic.co/guide/en/elasticsearch/reference/current/security-getting-started.html/
+[consultée] Elastic — Snapshot and restore : https://www.elastic.co/docs/deploy-manage/tools/snapshot-and-restore
+[consultée] Elastic — Cloud deployment health and performance metrics : https://www.elastic.co/docs/deploy-manage/monitor/cloud-health-perf
+[consultée] Elastic — ILM concepts : https://www.elastic.co/guide/en/elasticsearch/reference/current/ilm-concepts.html
+[consultée] Elastic — Product and version EOL policy : https://www.elastic.co/support/eol
+[consultée] Elastic — Detailed deployment comparison : https://www.elastic.co/docs/deploy-manage/deploy/deployment-comparison
+[consultée] Elastic — Elasticsearch release notes : https://www.elastic.co/docs/release-notes/elasticsearch
+[consultée] Documents locaux — `state/signals.yaml` et `dist/`, fenêtre de déduplication appliquée : consultés
+[échec] Aucun échec de consultation retenu.

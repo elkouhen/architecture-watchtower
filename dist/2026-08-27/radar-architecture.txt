@@ -1,5 +1,5 @@
 RADAR ARCHITECTURE — 2026-08-27
-Période : 21–27 août 2026. Déduplication : archives Gmail sur 90 jours. Le rapport a été envoyé par email le 27 août 2026.
+Période : 21–27 août 2026. Déduplication : `state/signals.yaml` et rapports locaux `dist/` sur 90 jours. Publication : commit Git local.
 
 SYNTHÈSE
 1. Patcher les plateformes composées au niveau produit : mesh, API management et observabilité.

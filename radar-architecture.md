@@ -18,13 +18,14 @@ SOURCES
 Priorise les architectures de référence, blogs d’architecture, changelogs, release notes et dépôts officiels. Consulte notamment Google Cloud Architecture Center, AWS Architecture Blog et Prescriptive Guidance, CNCF, Martin Fowler, Microservices.io, Thoughtworks Technology Radar et les dépôts des projets suivis. Recoupe tout fait important avec une source primaire.
 
 DÉDUPLICATION
-Recherche dans Gmail les rapports envoyés à mehdi.elkouhen@gmail.com au cours des 90 derniers jours avec les objets « Alerte DevOps », « Radar Architecture » et « Revue Architecture ». Ne répète un élément que si une évolution substantielle justifie une mise à jour.
+Recherche dans `state/signals.yaml` et dans les rapports locaux `dist/` des 90 derniers jours les sujets déjà signalés. Ne répète un élément que si une évolution substantielle justifie une mise à jour.
 
 TRIAGE ET GOUVERNANCE
 - conserve pour chaque sujet un identifiant, une source primaire, un niveau de confiance, un propriétaire et une date de réexamen ;
 - distingue « information à suivre » de « décision à prendre » ; une information sans action ou impact plausible ne doit pas entrer au radar ;
 - avant de proposer « adopter », exige une preuve d’usage comparable ou un retour d’expérience interne ; à défaut, propose « évaluer » ou un test limité ;
 - si un élément est écarté, documente brièvement le motif : hors périmètre, non exposé, immaturité, coût disproportionné ou doublon.
+- conserve dans le registre le statut du cycle précédent afin de distinguer une nouveauté d’une simple répétition.
 
 SCORING SUR 10
 - pertinence : 0–3 ;
@@ -56,7 +57,7 @@ Ajoute un court « Journal des décisions » : sujet, action (surveiller/évalue
 
 Présente clairement les comparaisons connues sous forme de tableau. Identifie comme « inférence » tout rapprochement qui n’est pas directement affirmé par la source.
 
-EMAIL
-Envoie chaque vendredi le rapport complet par Gmail à mehdi.elkouhen@gmail.com avec l’objet « Radar Architecture — AAAA-MM-JJ ». Même si aucune nouveauté n’atteint le seuil, envoie un bref heartbeat indiquant les sources vérifiées et l’absence de changement significatif.
+PUBLICATION LOCALE
+Chaque vendredi, écris le rapport complet dans `dist/AAAA-MM-JJ/radar-architecture.txt`, valide-le puis committe-le localement. Même sans nouveauté, le livrable doit contenir un heartbeat. Consigne le hash du commit dans le journal local si un journal de publication est utilisé.
 
 Réponds en français, de manière synthétique et décisionnelle.
