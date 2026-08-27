@@ -20,16 +20,20 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 
 1. **Identité** : service, éditeur/projet, catégorie, date de la carte, URL canonique, dernière version ou `non déterminée`.
 2. **Résumé décisionnel** : rôle, cas d’usage, décision actuelle (`surveiller`, `évaluer`, `tester`, `adopter`, `éviter`) et justification en trois lignes maximum.
-3. **État Mehdi** : environnement, version, topologie, criticité, données, dépendances et owner. Toute information absente vaut `à qualifier` ; ne jamais déduire une exposition.
-4. **Modèle d’architecture** : composants, flux, état, partitionnement/réplication, haute disponibilité, reprise après sinistre et limites de dimensionnement.
-5. **Exploitation** : déploiement, upgrades/rollback, sauvegarde/restauration, observabilité, SLO/alertes, capacité, maintenance et compétences nécessaires.
-6. **Sécurité** : identité et rôles, secrets, chiffrement en transit et au repos, réseau, audit, vulnérabilités connues et responsabilités par mode de déploiement.
-7. **Données et compatibilité** : rétention, migration, compatibilité client/API/index ou schéma, breaking changes, lifecycle et dates de support.
-8. **Comparaison** : option open source, équivalent GCP, équivalent AWS, coût/charge opérationnelle, verrouillage et réversibilité. Employer `pas d’équivalent direct` lorsque nécessaire.
-9. **Évolutions depuis la dernière carte** : maximum cinq, avec date, fait vérifié, impact, score de pertinence sur 10, confiance et URL primaire.
-10. **Décisions et actions** : action, propriétaire, échéance ou date de réexamen, livrable et critère de succès si un test est proposé.
-11. **Incertitudes et limites** : inventaire manquant, sources échouées, hypothèses et conséquences.
-12. **Sources effectivement consultées** : URL, titre court, date de consultation et statut (`consultée` ou `échec`).
+3. **Position dans le système** : problèmes résolus, utilisateurs, producteurs, consommateurs, entrées, sorties, données traversantes et services remplacés ou complémentaires.
+4. **Carte fonctionnelle** : capacités principales, sous-composants, APIs/interfaces, traitements synchrones et asynchrones, plan de données et plan de contrôle.
+5. **Carte d’architecture** : diagramme textuel des flux, état, partitionnement/réplication, haute disponibilité, reprise après sinistre et limites de dimensionnement.
+6. **Variantes de déploiement** : self-managed, managé, Kubernetes/serverless si pertinent ; responsabilité de l’équipe versus fournisseur, fonctionnalités perdues et hypothèse de choix.
+7. **État Mehdi** : environnement, version, topologie, criticité, données, dépendances et owner. Toute information absente vaut `à qualifier` ; ne jamais déduire une exposition.
+8. **Données et cycle de vie** : modèle, schéma, indexation, rétention, archivage, migration, sauvegarde/restauration, compatibilité et dates de support.
+9. **Exploitation** : upgrades/rollback, observabilité, SLO/alertes, capacité, maintenance, compétences et modes de panne connus.
+10. **Sécurité et responsabilités** : identité et rôles, secrets, chiffrement, réseau, audit, vulnérabilités connues et partage des responsabilités par mode.
+11. **Économie et alternatives** : coûts/charge opérationnelle, option open source, équivalent GCP, équivalent AWS, verrouillage et réversibilité. Employer `pas d’équivalent direct` lorsque nécessaire.
+12. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et conditions de sortie.
+13. **Évolutions depuis la dernière carte** : maximum cinq, avec date, fait vérifié, impact, score de pertinence sur 10, confiance et URL primaire.
+14. **Décisions et actions** : action, propriétaire, échéance ou date de réexamen, livrable et critère de succès si un test est proposé.
+15. **Incertitudes et limites** : inventaire manquant, sources échouées, hypothèses et conséquences.
+16. **Sources effectivement consultées** : URL, titre court, date de consultation et statut (`consultée` ou `échec`).
 
 ## Règles de précision
 
@@ -37,7 +41,7 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 - Ne pas présenter une alerte comme une exposition confirmée.
 - Pour une Preview, beta ou disponibilité limitée, proposer un repli et interdire son usage comme contrôle critique de production.
 - Tout test doit avoir une durée maximale, un owner et un critère de succès mesurable.
-- Une carte reste concise : deux pages de texte environ, cinq évolutions maximum.
+- Une carte globale peut dépasser deux pages si nécessaire, mais doit rester lisible : un schéma textuel, des tableaux courts et cinq évolutions maximum.
 
 ## Sortie et publication
 
