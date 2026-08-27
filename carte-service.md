@@ -33,10 +33,18 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 3. **Position dans le système** : problèmes résolus, utilisateurs, producteurs, consommateurs, entrées, sorties, données traversantes et services remplacés ou complémentaires.
 4. **Carte fonctionnelle** : capacités principales, sous-composants, APIs/interfaces, traitements synchrones et asynchrones, plan de données et plan de contrôle.
 5. **Carte d’architecture** : diagramme textuel des flux, état, partitionnement/réplication, haute disponibilité, reprise après sinistre et limites de dimensionnement.
+   Pour tout service distribué ou stateful, détailler obligatoirement :
+   - les rôles des composants ou nœuds et leurs responsabilités (par exemple control plane, master, data, ingest, worker, coordinator) ;
+   - les communications entre rôles, les dépendances, les ports/interfaces et les chemins de panne ;
+   - le partitionnement, la réplication, le quorum, l’élection, le placement multi-zone et le rééquilibrage ;
+   - les classes de stockage ou de données (par exemple hot, warm, cold, frozen), leurs critères d’entrée/sortie, leur coût et leurs performances ;
+   - les flux d’écriture, de lecture, de réplication, de sauvegarde/restauration et de migration ;
+   - un diagramme séparant clairement plan de données, plan de contrôle et chemins d’administration.
 6. **Variantes de déploiement** : self-managed, managé, Kubernetes/serverless si pertinent ; responsabilité de l’équipe versus fournisseur, fonctionnalités perdues et hypothèse de choix.
 7. **État Mehdi** : environnement, version, topologie, criticité, données, dépendances et owner. Toute information absente vaut `à qualifier` ; ne jamais déduire une exposition.
 8. **Données et cycle de vie** : modèle, schéma, indexation, rétention, archivage, migration, sauvegarde/restauration, compatibilité et dates de support.
 9. **Exploitation** : upgrades/rollback, observabilité, SLO/alertes, capacité, maintenance, compétences et modes de panne connus.
+   La capacité doit comporter une première hypothèse chiffrée : charge CPU, mémoire et heap, stockage utile et provisionné, IOPS/latence disque, réseau, croissance, rétention, réplication et marge de sécurité. Expliquer ce qui sature en premier et quelles métriques permettent de le confirmer.
 10. **Sécurité et responsabilités** : identité et rôles, secrets, chiffrement, réseau, audit, vulnérabilités connues et partage des responsabilités par mode.
 11. **Économie et alternatives** : coûts/charge opérationnelle, option open source, équivalent GCP, équivalent AWS, verrouillage et réversibilité. Employer `pas d’équivalent direct` lorsque nécessaire.
 12. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et conditions de sortie.
@@ -53,10 +61,19 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 - Ne pas présenter une alerte comme une exposition confirmée.
 - Toujours expliquer au moins un déploiement local reproductible et un déploiement de production réaliste ; séparer clairement les deux.
 - Décrire au moins un chemin d’utilisation concret, avec entrée, traitement, sortie et vérification.
+- Pour un service distribué, fournir une section de dimensionnement explicite :
+  - hypothèses d’entrée (débit, taille moyenne, pics, rétention, requêtes concurrentes, SLA/SLO, RPO/RTO) ;
+  - méthode de calcul ou ordres de grandeur, avec unités et marge ;
+  - répartition CPU/RAM/heap, stockage/IOPS et réseau par rôle ;
+  - au moins trois topologies : laboratoire, petite production et production multi-zone ;
+  - seuils de saturation, signaux d’alerte et procédure de redimensionnement ;
+  - distinction entre capacité théorique du produit et capacité validée par test.
+- Pour les services à données chaudes et froides, expliquer la politique de transition, le mécanisme de migration, les performances attendues, le coût relatif, la restauration et le comportement en cas de retour vers un tier précédent.
+- Pour Elasticsearch ou un moteur comparable, traiter explicitement les rôles master/data/ingest/coordinating, les shards primaires/replicas, l’allocation multi-zone, les tiers hot/warm/cold/frozen, le sizing CPU-RAM-heap-disque-IOPS-réseau, le nombre de shards et la stratégie de rollover/ILM. Si le concept n’existe pas pour le service étudié, écrire `non applicable` et expliquer l’équivalent.
 - Faire progresser le niveau pédagogique : une carte de niveau `pratique` doit contenir un laboratoire exécutable, pas seulement des recommandations.
 - Pour une Preview, beta ou disponibilité limitée, proposer un repli et interdire son usage comme contrôle critique de production.
 - Tout test doit avoir une durée maximale, un owner et un critère de succès mesurable.
-- Une carte globale peut dépasser deux pages si nécessaire, mais doit rester lisible : un schéma textuel, des tableaux courts et cinq évolutions maximum.
+- Une carte globale peut dépasser deux pages si nécessaire, mais doit rester lisible : une hiérarchie de titres cohérente, des paragraphes courts, des listes, des tableaux courts, un schéma textuel dans un bloc `text`, les commandes dans un bloc `sh` et cinq évolutions maximum. Ne jamais utiliser un titre Markdown pour une simple action, une question ou une ligne de liste.
 
 ## Sortie et publication
 
