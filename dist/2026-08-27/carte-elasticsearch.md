@@ -98,6 +98,30 @@ Applications / agents / pipelines
 - Un cluster sain ne prouve pas que les données sont sauvegardées.
 - Les snapshots vont vers un repository externe et doivent être restaurés en test réel.
 
+### Rôles des nœuds
+
+| Rôle | Responsabilité | Règle d’architecture |
+|---|---|---|
+| `master` | Élection, état du cluster, templates et métadonnées | Trois nœuds master-eligible dédiés dans une production multi-zone ; ne pas leur faire porter la charge data lourde |
+| `data_content` | Documents relativement stables, catalogue et recherche | Optimiser pour requêtes et agrégations ; garder des replicas |
+| `data_hot` | Écriture et recherche des données récentes | SSD rapides, CPU et I/O élevés ; point d’entrée des data streams |
+| `data_warm` | Données moins écrites mais encore consultées | Moins de performance que hot, mais conserver la résilience nécessaire |
+| `data_cold` | Données rarement consultées | Prioriser le coût ; searchable snapshots possibles |
+| `data_frozen` | Données rarement consultées et immuables | Searchable snapshots partiels ; recherches plus lentes, repository obligatoire |
+| `ingest` | Parsing, enrichissement et pipelines d’ingestion | Séparer ce rôle si les pipelines consomment beaucoup de CPU |
+| `coordinating` | Réception, fan-out vers les shards et fusion des résultats | Dédié seulement lorsque le volume de requêtes le justifie |
+| `ml` / `transform` | Machine learning et transforms | Isoler si les jobs sont lourds ou continus |
+
+Un nœud peut porter plusieurs rôles. Au début, un petit cluster peut combiner les rôles ; à mesure que la charge augmente, séparer master, data, ingest, coordinating, ML et transform pour éviter qu’une saturation d’ingestion ou de recherche n’empêche l’élection du cluster.
+
+### Haute disponibilité et multi-zone
+
+- Répartir les nœuds master-eligible sur trois zones ou domaines de panne lorsque c’est possible.
+- Placer les replicas dans une autre zone que leur shard primaire ; vérifier les règles d’allocation et les awareness attributes.
+- Dimensionner chaque tier pour survivre à la perte du nœud ou de la zone prévue par le SLO.
+- Contrôler régulièrement les shards non alloués, la couleur du cluster, les watermarks disque et les décisions d’allocation.
+- Le quorum protège l’élection du master ; il ne remplace ni les replicas, ni les snapshots, ni le plan de reprise après sinistre.
+
 ## 6. Déploiements possibles
 
 | Mode | Responsabilité principale de l’équipe | Quand l’envisager |
@@ -110,11 +134,57 @@ Applications / agents / pipelines
 
 **Point de vigilance :** Hosted et Serverless sont des offres Elastic sur AWS, Azure et GCP. Serverless n’expose pas les mêmes capacités que Hosted : vérifier fonctions, limites, licences et sortie.
 
+### Dimensionnement initial
+
+Le dimensionnement ci-dessous est un point de départ à valider par test. Ce ne sont pas des garanties de capacité.
+
+### Hypothèses à recueillir
+
+| Dimension | Mesure attendue |
+|---|---|
+| Écriture | documents/s, octets/s, taille moyenne, bulk, pics et refresh |
+| Lecture | requêtes/s, concurrence, p95/p99, agrégations et taille des réponses |
+| Données | volume primaire/jour, croissance, nombre de champs et documents supprimés |
+| Durée | rétention hot/warm/cold/frozen et fréquence de consultation par âge |
+| Résilience | replicas, zones, perte de nœud/zone, RPO/RTO et durée de recovery |
+| Contraintes | SLA/SLO, chiffrement, région, budget et fenêtre de maintenance |
+
+### Méthode de calcul
+
+1. Estimer le volume brut journalier : `documents/jour × taille moyenne`.
+2. Ajouter l’overhead d’indexation, les segments, les replicas et la marge de croissance.
+3. Répartir le volume entre les tiers selon la politique de rétention.
+4. Choisir le nombre de shards pour obtenir des shards d’environ **10 à 50 Go** et moins de **200 millions de documents par shard** comme repères initiaux Elastic.
+5. Tester la topologie avec la charge de pointe et mesurer latence, heap, I/O, files d’attente et récupération.
+
+### CPU, RAM, heap, disque et réseau
+
+- **CPU :** dimensionner séparément ingestion, recherche et agrégations ; une recherche s’exécute par shard sur un thread, donc trop de shards augmente le fan-out et la concurrence.
+- **RAM :** réserver assez de mémoire au système pour le filesystem cache ; le heap JVM ne doit pas dépasser 50 % de la mémoire disponible du nœud et `Xms` doit être égal à `Xmx` si le heap est fixé manuellement.
+- **Heap :** surveiller GC, memory pressure, circuit breakers et files d’attente ; un heap plus grand ne corrige pas un mauvais mapping ou un sur-sharding.
+- **Disque :** privilégier SSD/IOPS adaptés au tier hot ; provisionner la capacité utile, les replicas, les merges, les snapshots locaux éventuels et une marge avant watermark.
+- **Réseau :** prévoir trafic client, réplication, recovery, snapshots et fan-out ; séparer ou prioriser les flux si les pics se concurrencent.
+- **Validation :** aucune valeur CPU/RAM ne doit être présentée comme universelle ; publier les hypothèses, la charge de test et les seuils observés.
+
+### Topologies de référence
+
+| Niveau | Topologie indicative | Usage |
+|---|---|---|
+| Laboratoire | 1 nœud combiné, sécurité de test, aucun SLO | Comprendre APIs, mapping, shards et recherche |
+| Petite production | 3 nœuds master/data répartis si possible, 1 replica, hot/content | Faible à moyenne charge, exploitation simple |
+| Production multi-zone | 3 master dédiés, data hot/warm/cold selon rétention, ingest/coordinating dédiés si nécessaire, replicas et snapshots externes | SLO de disponibilité, croissance et séparation des charges |
+
+**À confirmer par benchmark :** nombre de nœuds, vCPU, RAM, heap, type de disque, IOPS, nombre de shards et taille des bulk.
+
 ## 7. Données et cycle de vie
 
 - **Modèle :** documents JSON, index/data streams, mappings, templates, aliases et pipelines.
 - **Schéma :** mapping explicite pour les champs critiques ; surveiller dynamic mapping et nombre de champs.
 - **Rétention :** rollover et suppression par âge, taille ou volume ; ILM selon le mode.
+- **Tiers :** hot reçoit les écritures et les recherches fréquentes ; warm reçoit les données moins modifiées ; cold réduit le coût avec des recherches plus lentes ; frozen s’appuie exclusivement sur des searchable snapshots partiels et un repository externe.
+- **Transition :** définir pour chaque phase l’âge d’entrée, le niveau de performance, le nombre de replicas, le coût cible et le critère de retour arrière. Les tiers warm, cold et frozen sont optionnels ; hot et content sont requis dans l’architecture versionnée.
+- **Allocation :** utiliser la préférence `_tier_preference` et vérifier l’allocation effective ; une liste de tiers de repli évite qu’un index reste non alloué si le tier préféré est absent.
+- **ILM/rollover :** déclencher le rollover par âge, taille ou nombre de documents ; tester la transition réelle des backing indices et la suppression finale.
 - **Sauvegarde :** snapshot vers un repository hors cluster ; vérifier régulièrement le restore.
 - **Migration :** reindexation, aliases, double écriture ou restauration contrôlée ; tester analyzers, mappings et clients.
 - **Limite :** un snapshot n’est pas un rollback applicatif complet ; une restauration vers une version antérieure n’est pas présumée supportée.
@@ -280,6 +350,11 @@ Arrêter le conteneur avec `Ctrl-C`. L’option `--rm` supprime le conteneur du 
 - [Elastic — Snapshot and restore](https://www.elastic.co/docs/deploy-manage/tools/snapshot-and-restore)
 - [Elastic — Cloud health and performance metrics](https://www.elastic.co/docs/deploy-manage/monitor/cloud-health-perf)
 - [Elastic — Index lifecycle management](https://www.elastic.co/docs/manage-data/lifecycle/index-lifecycle-management)
+- [Elastic — Data tiers: hot, warm, cold and frozen](https://www.elastic.co/docs/manage-data/lifecycle/data-tiers)
+- [Elastic — Node roles](https://www.elastic.co/docs/deploy-manage/distributed-architecture/clusters-nodes/node-roles)
+- [Elastic — Size your shards](https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/size-shards)
+- [Elastic — JVM settings](https://www.elastic.co/docs/reference/elasticsearch/jvm-settings)
+- [Elastic — Data tier allocation](https://www.elastic.co/docs/reference/elasticsearch/index-settings/data-tier-allocation)
 - [Elastic — Product and version EOL policy](https://www.elastic.co/support/eol)
 - [Elastic — Elasticsearch release notes](https://www.elastic.co/docs/release-notes/elasticsearch)
 - Documents locaux : `state/signals.yaml`, `state/learning.yaml`, `dist/` et historique Git.
