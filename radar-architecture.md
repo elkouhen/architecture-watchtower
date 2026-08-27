@@ -7,7 +7,7 @@ CONTEXTE
 Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Les sujets prioritaires sont ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : agents, RAG, middleware, inference gateways, évaluation, observabilité, sécurité et gouvernance.
 
 PÉRIODE ET SOURCES
-Recherche les signaux des sept derniers jours et les évolutions de fond des 90 derniers jours. Utilise les sources selon leur rôle :
+Utilise deux fenêtres complémentaires : les nouveautés des sept derniers jours pour le rythme hebdomadaire, et les signaux d’émergence des 30 derniers jours pour éviter de rater une tendance qui démarre lentement. Utilise les sources selon leur rôle :
 
 - **Faits produit :** site officiel, documentation, release notes, changelog, dépôt officiel, page lifecycle et status page ;
 - **Traction open source :** GitHub Trending, releases, croissance des stars, contributeurs, forks, issues, discussions et dépendances ;
@@ -27,16 +27,18 @@ FAMILLES À EXPLORER
 - stockage vectoriel, RAG, event-driven, serverless et nouvelles primitives Cloud.
 
 SÉLECTION DES TENDANCES
-Retient au maximum cinq tendances, en privilégiant les sujets qui montrent au moins deux signaux indépendants parmi : activité de dépôt, release significative, adoption/intégration par un projet reconnu, discussions techniques substantielles, retour d’expérience ou offre managée.
+Fais d’abord remonter jusqu’à dix candidats dès qu’un signal crédible est observé : nouveau dépôt actif, hausse d’activité, release structurante, discussion technique, intégration par un projet reconnu, retour d’expérience, offre managée ou pattern repris par plusieurs équipes. Un seul signal suffit pour la détection, mais marque alors le sujet `signal faible` et ne propose pas d’adoption.
 
-Pour chaque tendance, indique son stade : `signal`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`. Une hausse de popularité seule ne suffit pas. Écarte les annonces marketing, démonstrations sans code, benchmarks non reproductibles et projets sans chemin de déploiement.
+Pour les cinq sujets retenus dans le radar principal, cherche ensuite un deuxième indice indépendant et une source primaire lorsque le sujet porte une affirmation technique. Si ces éléments ne sont pas disponibles, conserve le sujet dans `Signaux à surveiller` au lieu de le supprimer.
+
+Pour chaque tendance, indique son stade : `signal faible`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`. Une hausse de popularité seule ne suffit pas pour recommander une adoption, mais elle reste utile comme signal de découverte. Écarte seulement les annonces marketing sans élément technique, les démonstrations sans code et les projets sans aucun chemin de déploiement identifiable.
 
 FORMAT DE CHAQUE TENDANCE
 
 ### Nom de la tendance
 
 - **Pourquoi maintenant :** événement ou évolution observée cette semaine ;
-- **Preuves de traction :** au moins deux signaux, avec dates et liens ;
+- **Preuves de traction :** signaux observés, avec dates et liens ; indique `signal faible` s’il n’y en a qu’un ;
 - **Fait vérifié :** ce qui est confirmé par une source primaire ;
 - **Analyse :** problème d’architecture résolu et pattern associé ;
 - **Maturité :** stade, limites, dépendances et risques de verrouillage ;
@@ -57,14 +59,15 @@ Propose au maximum un laboratoire prioritaire par semaine, de moins d’une heur
 SORTIE
 1. **Les trois tendances à retenir** : une phrase sur le signal, l’intérêt architectural et l’action proposée.
 2. **Tendances détaillées** : maximum cinq, avec le format ci-dessus.
-3. **À ne pas suivre** : maximum trois sujets écartés et motif.
-4. **Laboratoire de la semaine.**
-5. **Échéances ou releases importantes** uniquement si elles changent une décision.
-6. **Sources consultées** : faits, signaux de traction et sources en échec.
+3. **Signaux à surveiller** : jusqu’à cinq candidats encore faibles, avec signal observé, source de découverte et information manquante pour les qualifier.
+4. **À ne pas suivre** : maximum trois sujets écartés et motif.
+5. **Laboratoire de la semaine**, uniquement si un candidat le justifie.
+6. **Échéances ou releases importantes** uniquement si elles changent une décision.
+7. **Sources consultées** : faits, signaux de traction, sources de découverte et sources en échec.
 
 Ne remplis pas le rapport avec des versions de maintenance ou des nouveautés de produits connus, sauf si elles révèlent une tendance architecturale ou créent une décision. Ne produis aucune explication générale qui ne débouche pas sur une décision, une action, un test ou une qualification.
 
 PUBLICATION LOCALE
-Écris `dist/AAAA-MM-JJ/radar-architecture.md`, vérifie que chaque tendance possède des preuves, un stade, un impact et une action, puis committe localement le livrable. Même sans tendance confirmée, produis un heartbeat indiquant les familles et sources examinées.
+Écris `dist/AAAA-MM-JJ/radar-architecture.md`, vérifie que chaque tendance possède un stade, un signal, un impact et une action ou une information manquante, puis committe localement le livrable. Même sans tendance qualifiée, produis les signaux faibles détectés et indique précisément ce qui manque pour les confirmer. Un radar vide n’est acceptable que si les sources de découverte ont réellement été consultées et qu’aucun signal exploitable n’a été trouvé.
 
 Réponds en français, avec une lecture de moins de quinze minutes.
