@@ -26,6 +26,7 @@ TRIAGE ET GOUVERNANCE
 - avant de proposer « adopter », exige une preuve d’usage comparable ou un retour d’expérience interne ; à défaut, propose « évaluer » ou un test limité ;
 - si un élément est écarté, documente brièvement le motif : hors périmètre, non exposé, immaturité, coût disproportionné ou doublon.
 - conserve dans le registre le statut du cycle précédent afin de distinguer une nouveauté d’une simple répétition.
+- pour chaque sujet prospectif, formule une prévision à 1–3 mois, une hypothèse vérifiable et les signaux attendus ;
 
 SCORING SUR 10
 - pertinence : 0–3 ;
@@ -55,9 +56,12 @@ FORMAT
    - service managé AWS ;
    - maturité, coût opérationnel et verrouillage ;
    - quand l’utiliser et quand l’éviter.
+   - Prévision à 1–3 mois, hypothèse vérifiable, signaux attendus et décision conditionnelle (« si… alors… »).
 4. Échéances et dépréciations.
 5. Un test de lab réalisable en moins d’une heure par sujet d’apprentissage.
 6. Sources consultées et sources en échec.
+
+La synthèse exécutive doit répondre en langage concret à : « qu’est-ce qui a changé ? », « est-ce pertinent pour Mehdi ? » et « que faut-il faire maintenant ? ». Évite les formulations abstraites ou les regroupements de technologies sans impact explicite.
 
 Ajoute un court « Journal des décisions » : sujet, action (surveiller/évaluer/expérimenter/adopter/éviter), justification, propriétaire et échéance. Les sujets immobiles pendant deux cycles sont retirés du radar, sauf risque ou échéance active.
 

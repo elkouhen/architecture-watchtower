@@ -26,6 +26,8 @@ TRIAGE ET TRAÇABILITÉ
 - si un signal est écarté, reporte le motif : non exposé, faux positif, risque accepté ou déjà traité ;
 - traite les flux de découverte non urgents dans le radar hebdomadaire : ils ne doivent pas générer de notification immédiate.
 - enregistre chaque signal, y compris ceux écartés, dans le registre local avec un identifiant stable et un motif d’écartement.
+- pour chaque action ouverte, indique le statut (`à faire`, `en cours`, `bloqué`, `terminé`) et la condition de clôture vérifiable ;
+- pour chaque signal écarté, indique explicitement le motif et, si utile, la condition de réouverture.
 
 SCORING SUR 10
 - pertinence pour la stack : 0 à 3 ;
@@ -40,6 +42,7 @@ RÈGLES DE SORTIE
 - score inférieur à 6 : ne pas inclure, elle sera traitée dans le radar hebdomadaire ;
 - maximum 5 informations ;
 - distingue pour chaque élément : Fait vérifié / Analyse d’architecture / Action recommandée / Incertitude éventuelle ;
+- indique explicitement le motif d’écartement des signaux non retenus lorsque cela éclaire le triage ;
 - donne la date, l’échéance, le score et le lien primaire ;
 - indique le niveau de confiance et les limites de détection de la source ;
 - termine par les sources effectivement consultées et celles qui ont échoué.

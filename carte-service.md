@@ -43,16 +43,14 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 6. **Variantes de déploiement** : self-managed, managé, Kubernetes/serverless si pertinent ; responsabilité de l’équipe versus fournisseur, fonctionnalités perdues et hypothèse de choix.
 7. **Données et cycle de vie** : modèle, schéma, indexation, rétention, archivage, migration, sauvegarde/restauration, compatibilité et dates de support.
 8. **Exploitation** : upgrades/rollback, observabilité, SLO/alertes, capacité, maintenance, compétences et modes de panne connus.
-   La capacité doit comporter une première hypothèse chiffrée : charge CPU, mémoire et heap, stockage utile et provisionné, IOPS/latence disque, réseau, croissance, rétention, réplication et marge de sécurité. Expliquer ce qui sature en premier et quelles métriques permettent de le confirmer.
+   La capacité doit comporter une première hypothèse chiffrée : charge CPU, mémoire et heap, stockage utile et provisionné, IOPS/latence disque, réseau, croissance, rétention, réplication et marge de sécurité. Relie explicitement chaque hypothèse de charge à la ressource sollicitée, à la métrique de confirmation et à l’action de redimensionnement. Explique ce qui sature en premier et quelles métriques permettent de le confirmer.
 9. **Sécurité et responsabilités** : identité et rôles, secrets, chiffrement, réseau, audit, vulnérabilités connues et partage des responsabilités par mode.
 10. **Économie et alternatives** : coûts/charge opérationnelle, option open source, équivalent GCP, équivalent AWS, verrouillage et réversibilité. Employer `pas d’équivalent direct` lorsque nécessaire.
 11. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et conditions de sortie.
 12. **Évolutions depuis la dernière carte** : maximum cinq, avec date, fait vérifié, impact, score de pertinence sur 10, confiance et URL primaire.
 13. **Laboratoire guidé** : objectif, prérequis, commandes ou étapes de déploiement minimal, scénario d’utilisation, observation attendue, nettoyage et critère de réussite en moins de 60 minutes.
-14. **Décisions et actions** : action, propriétaire, échéance ou date de réexamen, livrable et critère de succès si un test est proposé.
-15. **Validation de compréhension** : cinq questions d’architecte et une réponse attendue ou un exercice de restitution.
-16. **Incertitudes et limites** : inventaire manquant, sources échouées, hypothèses et conséquences.
-17. **Sources effectivement consultées** : URL, titre court, date de consultation et statut (`consultée` ou `échec`).
+14. **Incertitudes et limites** : inventaire manquant, sources échouées, hypothèses et conséquences.
+15. **Sources effectivement consultées** : URL, titre court, date de consultation et statut (`consultée` ou `échec`).
 
 ## Règles de précision
 
@@ -63,6 +61,7 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 - Pour un service distribué, fournir une section de dimensionnement explicite :
   - hypothèses d’entrée (débit, taille moyenne, pics, rétention, requêtes concurrentes, SLA/SLO, RPO/RTO) ;
   - méthode de calcul ou ordres de grandeur, avec unités et marge ;
+  - tableau « charge → ressource → métrique → décision », notamment pour CPU, RAM/heap, filesystem cache, stockage/IOPS et réseau ;
   - répartition CPU/RAM/heap, stockage/IOPS et réseau par rôle ;
   - au moins trois topologies : laboratoire, petite production et production multi-zone ;
   - seuils de saturation, signaux d’alerte et procédure de redimensionnement ;
@@ -72,6 +71,7 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 - Faire progresser le niveau pédagogique : une carte de niveau `pratique` doit contenir un laboratoire exécutable, pas seulement des recommandations.
 - Pour une Preview, beta ou disponibilité limitée, proposer un repli et interdire son usage comme contrôle critique de production.
 - Tout test doit avoir une durée maximale, un owner et un critère de succès mesurable.
+- Toute prévision doit préciser son horizon, son hypothèse, les signaux attendus et la décision à prendre si elle se confirme ou est infirmée.
 - Une carte globale peut dépasser deux pages si nécessaire, mais doit rester lisible : une hiérarchie de titres cohérente, des paragraphes courts, des listes, des tableaux courts, un schéma textuel dans un bloc `text`, les commandes dans un bloc `sh` et cinq évolutions maximum. Ne jamais utiliser un titre Markdown pour une simple action, une question ou une ligne de liste.
 
 ## Sortie et publication

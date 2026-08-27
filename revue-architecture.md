@@ -42,6 +42,7 @@ Pour chaque entrée, donne :
 - risque de verrouillage ;
 - coût et charge d’exploitation ;
 - décision et prochaine action.
+- prévision à 1–3 mois, hypothèse vérifiable, signaux attendus et décision conditionnelle (« si… alors… »).
 
 Ajoute pour chaque entrée un propriétaire, une date de réexamen et, pour TESTER, un critère de succès et une limite de durée.
 Une entrée sans source primaire, propriétaire ou date de réexamen est invalide et doit être retirée ou classée `ÉVALUER` avec une action de qualification.
@@ -61,6 +62,7 @@ Ajoute :
 8. Technologies sorties du radar et justification.
 9. Qualité de la veille : sources en erreur, angles morts et ajustements proposés.
 10. Journal des décisions : décision, justification, propriétaire, échéance et statut de l’action du mois précédent.
+11. Écart entre les prévisions du mois précédent et les résultats observés ; explique les erreurs de prévision et ajuste les hypothèses.
 
 DÉDUPLICATION ET QUALITÉ
 Ne répète pas une recommandation inchangée du mois précédent. Indique « évolution » lorsqu’une entrée change de catégorie. Distingue fait vérifié, analyse et inférence. Écarte le marketing et les scores de benchmark non reproductibles.
@@ -68,7 +70,7 @@ Ne répète pas une recommandation inchangée du mois précédent. Indique « é
 Retire du radar les entrées sans évolution pendant deux revues, sauf si une échéance, un risque ou une action active le justifie. Documente le motif de retrait et la condition de retour éventuelle.
 
 FORMAT
-Sois synthétique. Maximum 12 entrées dans le radar. Utilise des tableaux pour les comparaisons et conclus par un plan d’action du mois suivant.
+Sois synthétique et concret. La réponse directe doit expliquer ce qui change, l’impact pour Mehdi et la décision du mois. Maximum 12 entrées dans le radar. Utilise des tableaux pour les comparaisons et conclus par un plan d’action du mois suivant, avec résultats attendus et décisions conditionnelles.
 
 PUBLICATION LOCALE
 Écris le rapport Markdown complet dans `dist/AAAA-MM-JJ/revue-architecture.md`, puis valide et committe-le localement. Le livrable est produit même si le mois a été calme ; la preuve de publication est le hash du commit Git local.
