@@ -1,41 +1,70 @@
-Produis le radar hebdomadaire Cloud, DevOps, architecture applicative et IA de Mehdi.
+Produis le radar hebdomadaire des tendances Cloud, DevOps, architecture applicative et IA de Mehdi.
 
 OBJECTIF
-Transformer les évolutions de la semaine en choix d’architecture ou en expérimentations concrètes pour construire, déployer et exploiter des systèmes sur AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform.
+Détecter ce qui émerge ou accélère dans l’architecture logicielle, puis expliquer si cela mérite d’être testé dans une stack AWS/GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform. Le radar est un outil de découverte et de sélection ; ce n’est ni une sentinelle de sécurité ni une liste de releases des produits déjà connus.
 
-CONTEXTE ET PÉRIODE
-Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Analyse les sept derniers jours et déduplique avec les 90 derniers jours. Priorise ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : trends, patterns, agents, RAG, middlewares, évaluation, sécurité et observabilité.
+CONTEXTE
+Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Les sujets prioritaires sont ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : agents, RAG, middleware, inference gateways, évaluation, observabilité, sécurité et gouvernance.
 
-SÉLECTION
-Retient au maximum cinq sujets. Un sujet n’entre dans le radar que s’il possède au moins un impact plausible sur la stack, une action possible ou une expérimentation utile. Écarte les annonces marketing, benchmarks non reproductibles et tendances sans cas d’usage.
+PÉRIODE ET SOURCES
+Recherche les signaux des sept derniers jours et les évolutions de fond des 90 derniers jours. Utilise les sources selon leur rôle :
 
-FORMAT DE CHAQUE SUJET
-- **Changement :** fait vérifié, version/date et URL primaire ;
-- **Pourquoi cela compte :** problème d’architecture ou d’exploitation concerné ;
-- **Pertinence :** confirmée, possible ou inconnue pour la stack ;
-- **Architecture concernée :** composants, flux et environnement impactés ;
-- **Choix :** surveiller, évaluer, tester ou adopter ;
-- **Plan concret :** étapes de déploiement ou d’intégration, avec Terraform/Kubernetes/CI-CD si pertinent ;
-- **Exploitation :** métriques, alertes, sauvegarde, upgrade et panne principale ;
-- **Test :** durée, prérequis, charge, résultat attendu et condition de passage ;
-- **Owner et échéance :** personne ou équipe à désigner si inconnue ;
+- **Faits produit :** site officiel, documentation, release notes, changelog, dépôt officiel, page lifecycle et status page ;
+- **Traction open source :** GitHub Trending, releases, croissance des stars, contributeurs, forks, issues, discussions et dépendances ;
+- **Discussions terrain :** Hacker News, Lobsters, Reddit, forums GitHub, forums Elastic, Slack/Discord publics et Bluesky/Mastodon/X ;
+- **Contexte :** CNCF Landscape, blogs d’ingénierie, retours d’expérience et articles de recherche.
+
+Les réseaux sociaux, forums, classements et articles servent à découvrir une tendance. Ils ne confirment pas seuls une maturité, une compatibilité, une performance ou une recommandation. Toute affirmation technique importante doit être confirmée par une source primaire.
+
+FAMILLES À EXPLORER
+- patterns d’agents, outils, workflows et human-in-the-loop ;
+- observabilité, évaluation, sécurité et gouvernance des systèmes IA ;
+- model routing, inference gateways, serving et accélération ;
+- Kubernetes pour workloads IA et plateformes internes ;
+- OpenTelemetry, eBPF et observabilité runtime ;
+- platform engineering, IDP, policy-as-code et workload identity ;
+- ELK, Elastic APM, Logstash et alternatives lorsque le besoin d’architecture évolue ;
+- stockage vectoriel, RAG, event-driven, serverless et nouvelles primitives Cloud.
+
+SÉLECTION DES TENDANCES
+Retient au maximum cinq tendances, en privilégiant les sujets qui montrent au moins deux signaux indépendants parmi : activité de dépôt, release significative, adoption/intégration par un projet reconnu, discussions techniques substantielles, retour d’expérience ou offre managée.
+
+Pour chaque tendance, indique son stade : `signal`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`. Une hausse de popularité seule ne suffit pas. Écarte les annonces marketing, démonstrations sans code, benchmarks non reproductibles et projets sans chemin de déploiement.
+
+FORMAT DE CHAQUE TENDANCE
+
+### Nom de la tendance
+
+- **Pourquoi maintenant :** événement ou évolution observée cette semaine ;
+- **Preuves de traction :** au moins deux signaux, avec dates et liens ;
+- **Fait vérifié :** ce qui est confirmé par une source primaire ;
+- **Analyse :** problème d’architecture résolu et pattern associé ;
+- **Maturité :** stade, limites, dépendances et risques de verrouillage ;
+- **Pertinence pour Mehdi :** lien concret avec AWS/GCP/Kubernetes/CI/CD/observabilité/Terraform ; `confirmée`, `possible` ou `inconnue` ;
+- **Architecture cible :** composants, flux, données, identité, déploiement et exploitation ;
+- **Test proposé :** environnement, durée, étapes, métriques et résultat attendu ;
+- **Décision :** `surveiller`, `tester` ou `écarter` ;
 - **Prévision :** horizon 1–3 mois, hypothèse, signaux attendus et décision si elle se confirme ou est infirmée.
 
-N’ajoute une comparaison AWS/GCP/open source que si elle modifie réellement le choix. Pour une Preview, beta ou disponibilité limitée, indique le repli et interdis son usage comme contrôle critique.
+Pour l’IA, précise toujours le modèle/fournisseur, les données, le middleware, le coût, la latence, l’évaluation, l’observabilité, les permissions, la validation humaine et le mécanisme de repli. Pour Kubernetes ou un middleware, précise comment le déployer, le mettre à jour et le retirer.
 
-APPRENTISSAGE
-Propose au maximum un laboratoire hebdomadaire prioritaire, réalisable en moins d’une heure. Il doit produire une preuve : configuration, métriques, résultat de test, diagramme ou décision. Une carte de service détaillée peut être demandée séparément.
+COMPARAISONS
+Ne compare AWS, GCP, open source ou produits concurrents que si la tendance crée un choix réel. La comparaison doit se limiter aux critères qui changent la décision : capacité, intégration, sécurité, exploitation, coût, réversibilité et maturité.
+
+LABORATOIRE
+Propose au maximum un laboratoire prioritaire par semaine, de moins d’une heure, qui transforme une tendance en preuve. Il doit produire au moins un résultat exploitable : métriques, configuration, trace, benchmark reproductible, diagramme, incident injecté ou décision. Une carte de service détaillée peut être produite séparément.
 
 SORTIE
-1. Synthèse en trois décisions maximum : ce qui change, l’impact et quoi faire cette semaine.
-2. Sujets retenus avec le format ci-dessus.
-3. Échéances et fins de support réellement actionnables.
-4. Laboratoire prioritaire.
-5. Sources consultées et sources en échec.
+1. **Les trois tendances à retenir** : une phrase sur le signal, l’intérêt architectural et l’action proposée.
+2. **Tendances détaillées** : maximum cinq, avec le format ci-dessus.
+3. **À ne pas suivre** : maximum trois sujets écartés et motif.
+4. **Laboratoire de la semaine.**
+5. **Échéances ou releases importantes** uniquement si elles changent une décision.
+6. **Sources consultées** : faits, signaux de traction et sources en échec.
 
-Ne produis aucune explication générale qui ne débouche pas sur une décision, une action, un test ou une qualification. Si l’environnement ou la version sont inconnus, écris-le et propose l’étape minimale pour lever l’incertitude.
+Ne remplis pas le rapport avec des versions de maintenance ou des nouveautés de produits connus, sauf si elles révèlent une tendance architecturale ou créent une décision. Ne produis aucune explication générale qui ne débouche pas sur une décision, une action, un test ou une qualification.
 
 PUBLICATION LOCALE
-Écris `dist/AAAA-MM-JJ/radar-architecture.md`, vérifie la présence de faits sourcés, d’actions et de critères de succès, puis committe localement le livrable. Même sans nouveauté, conserve un heartbeat court.
+Écris `dist/AAAA-MM-JJ/radar-architecture.md`, vérifie que chaque tendance possède des preuves, un stade, un impact et une action, puis committe localement le livrable. Même sans tendance confirmée, produis un heartbeat indiquant les familles et sources examinées.
 
 Réponds en français, avec une lecture de moins de quinze minutes.
