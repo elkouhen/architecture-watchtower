@@ -49,11 +49,11 @@ Ne confier aucun contrôle critique à une fonction IA/secret en Preview ou disp
 - Cloud Service Mesh 1.26 et antérieures : EOL sans correctif GCP-2026-057.
 
 ## PLAN SEPTEMBRE
-## 1. Nommer les owners cycle de vie CI/CD et SLO de patch.
-## 2. Clore GitLab/mesh/Grafana avec preuve de déploiement.
-## 3. Réaliser les labs Kubernetes 1.37 et Terraform 1.16.
-## 4. Publier le minimum viable governance MCP.
-## 5. Lancer le benchmark RAG portable.
+1. Nommer les owners cycle de vie CI/CD et SLO de patch.
+2. Clore GitLab/mesh/Grafana avec preuve de déploiement.
+3. Réaliser les labs Kubernetes 1.37 et Terraform 1.16.
+4. Publier le minimum viable governance MCP.
+5. Lancer le benchmark RAG portable.
 
 ## QUALITÉ DE VEILLE
 Les rapports locaux et `state/signals.yaml` évitent les doublons. Les pages dynamiques non corroborées ne sont pas retenues comme faits. Conserver un journal : décision, justification, owner, échéance, statut et motif d’écartement ; retirer après deux cycles sans évolution sauf risque/action active.

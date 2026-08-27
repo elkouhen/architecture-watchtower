@@ -41,6 +41,7 @@ Interfaces principales : HTTP/REST, clients officiels, Bulk API, APIs d’indexa
 ## 5. CARTE D’ARCHITECTURE
 Schéma logique :
 
+```text
   Producteurs (apps, Agent/Beats, Logstash, APM, OTLP)
           │
           ▼
@@ -55,6 +56,7 @@ Schéma logique :
           │
           ▼
   Applications, Kibana, alertes, sécurité, analytics et retrievers IA
+```
 
 Fait : un cluster répartit les documents en shards primaires et copies ; les rôles de nœuds et l’allocation structurent la capacité et la résilience.
 Fait : segments Lucene, translog et réplication participent au chemin d’écriture ; les snapshots copient les segments disponibles des primaires vers un repository hors cluster.
@@ -130,9 +132,15 @@ Source primaire : https://www.elastic.co/docs/release-notes/elasticsearch
 Objectif : comprendre le cycle document → index → recherche et distinguer état du service, données et configuration.
 Prérequis : Docker installé, 2 Go de mémoire disponibles, aucune donnée sensible.
 Déploiement local minimal (sécurité désactivée uniquement pour le laboratoire) :
+
+```sh
   docker run --name elasticsearch-lab --rm -p 9200:9200 -e discovery.type=single-node -e xpack.security.enabled=false docker.elastic.co/elasticsearch/elasticsearch:9.5.2
   curl http://localhost:9200/
   curl http://localhost:9200/_cluster/health
+```
+
+Étapes :
+
   1. Créer `products` avec un mapping explicite pour `name`, `category`, `price` et `description`.
   2. Indexer dix documents, puis exécuter une recherche plein texte et une agrégation par catégorie.
   3. Créer un alias `products-read`, modifier un document, puis vérifier l’alias.
@@ -144,17 +152,17 @@ Critère de réussite : expliquer le chemin d’écriture et de recherche, produ
 Source du déploiement : https://www.elastic.co/docs/deploy-manage/deploy
 
 ## 15. DÉCISIONS ET ACTIONS
-## 1. QUALIFIER — owner : plateforme/observabilité — échéance : 2026-09-03 — inventaire de chaque déploiement, version, mode, région, flux, volumes, SLO et owner — succès : 100 % des déploiements connus et versionnés.
-## 2. TESTER — owner : plateforme — échéance : 2026-09-10 — lab de snapshot/restore et upgrade sur données non sensibles, durée maximale 2 heures — succès : restore vérifié, RPO/RTO mesurés, aucune régression de requête critique.
-## 3. SURVEILLER — owner : sécurité — réexamen : 2026-09-03 puis quotidien — release notes, EOL et avis Elastic reliés aux versions inventoriées — succès : chaque version possède une fenêtre de maintenance/support.
-## 4. DÉCIDER — owner : architecture — réexamen : après qualification — choisir source de vérité, mode de déploiement et stratégie de sortie — succès : décision documentée par workload et coût.
+1. **QUALIFIER** — owner : plateforme/observabilité — échéance : 2026-09-03 — inventaire de chaque déploiement, version, mode, région, flux, volumes, SLO et owner — succès : 100 % des déploiements connus et versionnés.
+2. **TESTER** — owner : plateforme — échéance : 2026-09-10 — lab de snapshot/restore et upgrade sur données non sensibles, durée maximale 2 heures — succès : restore vérifié, RPO/RTO mesurés, aucune régression de requête critique.
+3. **SURVEILLER** — owner : sécurité — réexamen : 2026-09-03 puis quotidien — release notes, EOL et avis Elastic reliés aux versions inventoriées — succès : chaque version possède une fenêtre de maintenance/support.
+4. **DÉCIDER** — owner : architecture — réexamen : après qualification — choisir source de vérité, mode de déploiement et stratégie de sortie — succès : décision documentée par workload et coût.
 
 ## 16. VALIDATION DE COMPRÉHENSION
-## 1. Pourquoi Elasticsearch ne doit-il généralement pas être le système de référence d’une transaction métier ?
-## 2. Quelle différence entre index, shard primaire, replica et alias ?
-## 3. Que faut-il dimensionner séparément pour l’ingestion et la recherche ?
-## 4. Pourquoi un snapshot ne suffit-il pas à garantir un rollback applicatif ?
-## 5. Dans quel cas choisir Hosted, Serverless ou ECK plutôt que self-managed ?
+1. Pourquoi Elasticsearch ne doit-il généralement pas être le système de référence d’une transaction métier ?
+2. Quelle différence entre index, shard primaire, replica et alias ?
+3. Que faut-il dimensionner séparément pour l’ingestion et la recherche ?
+4. Pourquoi un snapshot ne suffit-il pas à garantir un rollback applicatif ?
+5. Dans quel cas choisir Hosted, Serverless ou ECK plutôt que self-managed ?
 Réponse attendue : restitution orale ou écrite de cinq minutes avec un schéma des flux, un choix de déploiement justifié et un plan de test de restauration.
 
 ## 17. INCERTITUDES ET LIMITES
