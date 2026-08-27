@@ -18,7 +18,7 @@ SOURCES
 Commence par les bulletins, changelogs, release notes, pages de lifecycle et dépôts officiels AWS, Google Cloud, Kubernetes/CNCF, Elastic, OpenTelemetry, Grafana, GitHub, GitLab et Model Context Protocol. Utilise une analyse secondaire seulement pour expliquer un fait déjà confirmé par une source primaire.
 
 PRIORITÉS DU MOMENT
-Accorde une attention prioritaire à ELK (Elasticsearch, Logstash, Kibana), Elastic APM, Logstash et Kubernetes lorsqu’un changement peut affecter leur sécurité, support, compatibilité ou exploitation.
+Accorde une attention prioritaire à ELK (Elasticsearch, Logstash, Kibana), Elastic APM, Logstash et Kubernetes lorsqu’un changement peut affecter leur sécurité, support, compatibilité ou exploitation. Pour l’IA, ne retiens que les changements urgents touchant l’identité, les permissions, les données, les modèles, les agents, les middlewares ou les contrôles de production.
 
 DÉDUPLICATION DURABLE
 Lis `state/context.yaml` avant de qualifier les signaux.

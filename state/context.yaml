@@ -21,6 +21,7 @@ priority_topics:
   - Elastic APM
   - Logstash
   - Kubernetes
+  - IA appliquée aux architectures : trends, patterns, middlewares et bonnes pratiques
 
 unknowns:
   - régions et comptes/projets utilisés
@@ -35,3 +36,4 @@ usage:
   - Proposer des étapes de déploiement compatibles AWS/GCP, Kubernetes, GitHub/GitLab et Terraform.
   - Prioriser les tests reproductibles et les preuves d’exploitation sur ces composants.
   - Traiter en priorité les évolutions qui concernent ELK, Elastic APM, Logstash ou Kubernetes.
+  - Pour l’IA, relier chaque tendance à un cas d’usage, une architecture déployable, un middleware ou composant précis, un modèle d’exploitation, des contrôles de sécurité et un critère de décision.
