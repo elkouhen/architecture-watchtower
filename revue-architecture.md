@@ -7,6 +7,7 @@ PRINCIPE
 La revue mensuelle est l’instance de décision : toute recommandation doit être reliée à un besoin, une preuve primaire et une prochaine action. Distingue sans ambiguïté fait vérifié, analyse, inférence et décision. Une technologie médiatisée mais non contextualisée reste « ÉVALUER ».
 
 ENTRÉES
+- lis `state/context.yaml` et évalue les décisions par rapport aux environnements AWS/GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK et Terraform ;
 - analyse les rapports et journaux locaux sous `dist/` et `state/` au cours des six derniers mois ;
 - utilise les rapports du dernier mois comme registre ;
 - vérifie les faits encore déterminants auprès des sources primaires actuelles ;

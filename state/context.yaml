@@ -1,0 +1,30 @@
+# Contexte d’architecture de Mehdi — référence pour rendre la veille actionnable.
+# Les champs inconnus doivent rester explicitement à qualifier dans les rapports.
+clouds:
+  - AWS
+  - GCP
+container_platform:
+  product: Kubernetes
+  version: unknown
+  distributions: []
+ci_cd:
+  - GitHub Actions
+  - GitLab CI/CD
+observability:
+  - CloudWatch
+  - ELK
+infrastructure_as_code:
+  - Terraform
+
+unknowns:
+  - régions et comptes/projets utilisés
+  - versions Kubernetes et providers Terraform
+  - topologie des clusters et modes de déploiement
+  - workloads critiques, volumes et débits
+  - SLO, RPO/RTO et contraintes de coût
+  - responsables opérationnels par plateforme
+
+usage:
+  - Relier chaque signal à un environnement concerné ou écrire `exposition inconnue`.
+  - Proposer des étapes de déploiement compatibles AWS/GCP, Kubernetes, GitHub/GitLab et Terraform.
+  - Prioriser les tests reproductibles et les preuves d’exploitation sur ces composants.

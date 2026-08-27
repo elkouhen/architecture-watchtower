@@ -3,6 +3,9 @@ Produis le radar hebdomadaire Cloud, DevOps, architecture applicative et archite
 PÉRIODE
 Analyse les nouveautés des sept derniers jours. Vérifie aussi si une information pertinente a été manquée par la sentinelle quotidienne.
 
+CONTEXTE D’ARCHITECTURE
+Lis `state/context.yaml` avant la recherche. Relie chaque sujet à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK ou Terraform lorsqu’il existe un lien vérifiable. Si la version, l’environnement ou l’exposition sont inconnus, écris-le explicitement et propose l’étape de qualification.
+
 PRINCIPE
 Le radar hebdomadaire sélectionne un petit nombre de produits connus ou en tendance et explique pourquoi ils méritent d’être appris. Pour chaque sujet, relie la nouveauté à un modèle mental, un cas d’usage, un mode de déploiement et une expérience pratique. Ne transforme pas une annonce ou un benchmark en standard d’architecture. Sépare systématiquement collecte, fait vérifié, analyse, inférence et décision proposée.
 

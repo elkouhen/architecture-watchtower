@@ -9,10 +9,11 @@ La carte n’est ni une brochure marketing ni une recommandation d’adoption. E
 ## Entrées et déduplication
 
 1. Lire cette consigne avant la recherche.
-2. Consulter `state/signals.yaml` pour les signaux déjà connus.
-3. Rechercher les cartes locales `dist/*/carte-<service>.md` et les rapports de veille locaux sur les 30 derniers jours ; compléter avec `state/signals.yaml` si le service y est cité.
-4. Ne signaler une évolution que si la version, le statut, la sécurité, le coût, la compatibilité, la date de support ou la recommandation a changé. Sinon conserver la carte comme `heartbeat` sans inventer de nouveauté.
-5. Prioriser la documentation, les release notes, les avis de sécurité, les pages de lifecycle, les dépôts et les matrices de compatibilité officielles. Une source secondaire sert uniquement à expliquer un fait déjà confirmé.
+2. Lire `state/context.yaml` pour relier le produit aux environnements AWS/GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK et Terraform.
+3. Consulter `state/signals.yaml` pour les signaux déjà connus.
+4. Rechercher les cartes locales `dist/*/carte-<service>.md` et les rapports de veille locaux sur les 30 derniers jours ; compléter avec `state/signals.yaml` si le service y est cité.
+5. Ne signaler une évolution que si la version, le statut, la sécurité, le coût, la compatibilité, la date de support ou la recommandation a changé. Sinon conserver la carte comme `heartbeat` sans inventer de nouveauté.
+6. Prioriser la documentation, les release notes, les avis de sécurité, les pages de lifecycle, les dépôts et les matrices de compatibilité officielles. Une source secondaire sert uniquement à expliquer un fait déjà confirmé.
 
 ## Sélection pédagogique
 
@@ -58,6 +59,7 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 - Ne pas présenter une alerte comme une exposition confirmée.
 - Toujours expliquer au moins un déploiement local reproductible et un déploiement de production réaliste ; séparer clairement les deux.
 - Décrire au moins un chemin d’utilisation concret, avec entrée, traitement, sortie et vérification.
+- Relier le produit à au moins un environnement connu de `state/context.yaml` et proposer un chemin de déploiement ou d’intégration réaliste ; si ce lien est inconnu, fournir uniquement les questions de qualification nécessaires.
 - Pour un service distribué, fournir une section de dimensionnement explicite :
   - hypothèses d’entrée (débit, taille moyenne, pics, rétention, requêtes concurrentes, SLA/SLO, RPO/RTO) ;
   - méthode de calcul ou ordres de grandeur, avec unités et marge ;
