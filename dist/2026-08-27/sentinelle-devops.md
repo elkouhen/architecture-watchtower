@@ -1,25 +1,41 @@
-# ALERTE DEVOPS — 2026-08-27
-Fenêtre : depuis l’alerte du 26 août 2026, 22:13 CEST.
-Déduplication : `state/signals.yaml` et rapports locaux `dist/` sur 90 jours.
+# SENTINELLE DEVOPS — 2026-08-27
 
-## RÉSULTAT : AUCUN SIGNAL PRIORITAIRE SUPPLÉMENTAIRE
+Fenêtre : changements vérifiés depuis la dernière exécution. Exposition de la stack : partiellement inconnue.
 
-Aucun changement confirmé depuis le dernier cycle n’atteint 6/10 après déduplication. La publication Grafana du 27 août est une build nightly explicitement destinée au développement ; elle ne justifie aucune action de production.
-Source : https://grafana.com/grafana/download/13.3.0-33030554180?edition=oss&platform=linux
+## RÉSULTAT
 
-## SUIVI DES ACTIONS TOUJOURS OUVERTES (non comptées comme nouveautés)
+### Aucun signal prioritaire de production confirmé
 
-1. **GitLab self-managed** : mettre à jour vers 19.3.1, 19.2.5 ou 19.1.7 selon la branche. Owner : plateforme/sécurité. Échéance : immédiate.
-Source : https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-3-1-released/
+La sortie de Kubernetes `1.37.0` est une évolution à qualifier, pas une urgence de production. L’incident Elastic Cloud du 26 août concernant des endpoints APM Serverless est résolu ; l’exposition de la stack de Mehdi à Serverless est inconnue.
 
-2. **GitHub Actions** : inventorier et renouveler les runners auto-hébergés ; l’enforcement Enterprise Cloud est annoncé le 25 septembre 2026. Owner : CI/CD. Échéance : 48 h pour l’inventaire.
-Source : https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/
+## À QUALIFIER
 
-3. **Cloud Service Mesh in-cluster** : vérifier version et patcher les versions touchées par GCP-2026-057. Owner : plateforme Kubernetes. Échéance : immédiate.
-Source : https://docs.cloud.google.com/service-mesh/docs/security-bulletins
+**Elastic Cloud / APM Serverless — endpoint APM indisponible pendant environ neuf heures le 26 août**
 
-4. **Grafana multi-tenant** : appliquer les versions corrigées de CVE-2026-19197 et inventorier les snapshots publics. Owner : observabilité. Échéance : immédiate.
-Source : https://grafana.com/security/security-advisories/cve-2026-19197/
+- Verdict : `à qualifier` ;
+- Fait : Elastic indique qu’une modification des Managed Inputs a supprimé des endpoints `.apm` pour certains projets Serverless ; le service a été restauré ;
+- Impact possible : perte d’ingestion APM ou de visibilité applicative si un projet Serverless est utilisé ;
+- Action sous 48 h : vérifier si un endpoint APM Serverless est utilisé et si des traces ont manqué ;
+- Owner : observabilité, à désigner ;
+- Statut : `à faire` ;
+- Clôture : confirmer `non utilisé`, ou produire la preuve qu’aucune perte de télémétrie n’a affecté un service critique ;
+- Confiance : élevée sur l’incident, inconnue sur l’exposition.
 
-## LIMITES
-Les pages dynamiques non corroborées de GCP/AWS ne sont pas retenues comme faits. Publication : commit Git local.
+Source primaire : https://status.elastic.co/
+
+## SUJETS ÉCARTÉS
+
+- Kubernetes `1.37.0` : sortie confirmée, mais aucune action immédiate sans connaître les versions des clusters et le support EKS/GKE ;
+- Terraform `1.16.0` : version disponible, mais pas de breaking change confirmé dans la fenêtre et exposition inconnue ;
+- signaux IA et dépôts GitHub tendances : signaux de découverte, sans preuve d’exposition ni d’urgence.
+
+## SOURCES CONSULTÉES
+
+- Kubernetes release : https://kubernetes.io/releases/1.37/ ;
+- Elastic status : https://status.elastic.co/ ;
+- Elastic release notes : https://www.elastic.co/docs/release-notes ;
+- HashiCorp releases : https://releases.hashicorp.com/terraform/.
+
+## Publication
+
+Livrable local généré le 27 août 2026. Le hash du commit de publication sera la preuve locale.

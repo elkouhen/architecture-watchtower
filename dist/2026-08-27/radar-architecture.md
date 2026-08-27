@@ -1,44 +1,67 @@
 # RADAR ARCHITECTURE — 2026-08-27
-Période : 21–27 août 2026. Déduplication : `state/signals.yaml` et rapports locaux `dist/` sur 90 jours. Publication : commit Git local.
+
+Période : 21–27 août 2026. Contexte : AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform. Versions et exposition réelles à qualifier.
 
 ## SYNTHÈSE
-- Patcher les plateformes composées au niveau produit : mesh, API management et observabilité.
-- Terraform 1.16 est une amélioration de golden paths, à qualifier avant généralisation.
-- Les nouveautés IA/gateway sont à tester : elles ne doivent pas devenir un contrôle critique en Preview.
 
-## 1. [8/10 — MISE À JOUR] Cloud Service Mesh : patch in-cluster
-Fait : GCP-2026-057 affecte toutes les versions ; correctifs in-cluster 1.29.7-asm.2, 1.28.10-asm.24 et 1.27.9-asm.34. Les versions 1.26 et antérieures sont EOL.
-Décision : ADOPTER le SLO de patch mesh. Owner : plateforme. Réexamen : après tests RBAC négatifs, ext_authz et HTTP/2/3.
-Source : https://docs.cloud.google.com/service-mesh/docs/security-bulletins
+1. **Kubernetes `1.37.0` est disponible** : préparer un test de compatibilité, mais ne pas planifier une mise en production avant validation EKS/GKE, CNI/CSI, operators et workloads.
+2. **Elastic Stack `9.5.2` et Logstash `9.5.2` sont les versions de référence actuelles** : inventorier les versions et tester l’upgrade groupé Elasticsearch/Kibana/Logstash/APM.
+3. **L’observabilité des agents IA devient un sujet d’outillage** : GitHub montre une activité sur ce thème, mais cela reste un signal de tendance ; tester d’abord traces, coûts, actions et erreurs dans un environnement contrôlé.
 
-## 2. [7/10] Apigee hybrid 1.14.8 : qualifier l’upgrade produit
-Fait : la release du 26 août met à jour de nombreux composants via Helm pour corriger des CVE.
-Décision : TESTER l’upgrade complet ; sauvegarder Cassandra/configuration et tester ingress, analytics, runtime et télémétrie. Owner : API platform. Réexamen : après qualification.
-Source : https://docs.cloud.google.com/release-notes
+## 1. Kubernetes 1.37 — TESTER
 
-## 3. [6/10] Terraform 1.16.0 : industrialiser sans opacifier
-Fait : imports dans les modules, lifecycle destroy=false, sorties JSON, graph Mermaid et actions before_destroy/after_destroy.
-Décision : TESTER sur module non critique. Succès : zéro drift et sorties JSON compatibles pipeline. Owner : plateforme IaC. Échéance : deux semaines.
-Source : https://github.com/hashicorp/terraform/releases/tag/v1.16.0
+**Changement :** Kubernetes `1.37.0` est sorti le 26 août 2026. La branche est activement supportée ; le prochain patch `1.37.1` est ciblé au 15 septembre. La release comprend 16 promotions en Stable et une dépréciation/removal. Source : https://kubernetes.io/releases/1.37/ et https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/
 
-## 4. [6/10] Grafana : corriger CVE-2026-19197
-Fait : CVSS 6,3 sur les snapshots ; correctifs 12.4.8, 13.0.6 et 13.1.3.
-Décision : ADOPTER le patch ; désactiver les snapshots publics si inutiles. Owner : observabilité. Réexamen : après inventaire.
-Source : https://grafana.com/security/security-advisories/cve-2026-19197/
+**Pourquoi cela compte :** une mise à niveau modifie la compatibilité du control plane, des kubelets, des APIs, des operators et des add-ons. La release déprécie notamment l’usage de cgroup v1, ce qui doit être vérifié côté nœuds.
 
-## 5. [5/10] RAG DynamoDB/Bedrock
-Fait : AWS décrit une architecture où DynamoDB Streams déclenche les embeddings et où opérations/vecteurs partagent DynamoDB.
-Inférence : moins de synchronisation, mais davantage de couplage AWS.
-Décision : ÉVALUER contre pgvector/OpenSearch (rappel@k, latence, coût, fraîcheur). Owner : IA. Réexamen : après benchmark.
-Source : https://aws.amazon.com/blogs/architecture/build-a-unified-ai-agent-architecture-with-dynamodb-and-bedrock/
+**Pertinence :** possible ; versions des clusters AWS/GCP inconnues.
 
-## 6. [5/10] GKE Gateway Authz
-Fait : GCPAuthzPolicy et GCPAuthzExtension sont en Preview sur certaines GatewayClasses GKE 1.36+.
-Décision : ÉVALUER uniquement sur charge non critique, fail-closed vérifié. Owner : plateforme. Réexamen : POC ou GA.
-Source : https://docs.cloud.google.com/release-notes
+**Plan concret :** créer un environnement de test, appliquer les manifests Terraform/Kubernetes existants, tester CNI/CSI, ingress, HPA, operators, workloads stateful, observabilité et rollback.
+
+**Test :** deux semaines ; succès si aucun manifest/API critique ne casse, les workloads passent leurs tests, les métriques CloudWatch/ELK restent disponibles et le temps de rollback est mesuré.
+
+**Prévision :** dans les 1–3 mois, les distributions managées et les operators détermineront la faisabilité réelle. Si EKS/GKE et les add-ons critiques supportent `1.37`, préparer une migration canary ; sinon rester sur la version supportée actuelle.
+
+**Owner :** plateforme Kubernetes, à désigner. Échéance de qualification : 15 septembre 2026.
+
+## 2. Elastic Stack / Logstash 9.5.2 — ÉVALUER
+
+**Changement :** Elastic documente la version `9.5.2` comme release actuelle. Les notes Logstash `9.5.2` incluent notamment des corrections de plugins et de dépendances.
+
+**Pertinence :** confirmée comme sujet de stack, exposition et versions déployées inconnues.
+
+**Plan concret :** inventorier Elasticsearch, Kibana, Logstash, APM Server et agents ; reproduire le pipeline d’ingestion sur données non sensibles ; tester parsing, mapping, enrichissement, indexation, dashboards, alertes, traces APM et retour arrière.
+
+**Exploitation :** surveiller débit d’ingestion, rejets, latence, heap, files d’attente Logstash, shards non alloués, p95 de recherche et retard APM.
+
+**Test :** un environnement isolé ; succès si aucune perte d’événement, aucune régression de requête critique, restore vérifié et rollback documenté.
+
+**Prévision :** la prochaine décision dépendra moins des nouvelles fonctions que de la compatibilité de la chaîne complète ELK/APM. Si les plugins et mappings passent le test, planifier un upgrade par environnement ; sinon geler la version et ouvrir une qualification.
+
+**Sources :** https://www.elastic.co/docs/release-notes et https://www.elastic.co/docs/release-notes/logstash
+
+## 3. Observabilité des agents IA — ÉVALUER
+
+**Signal :** le topic GitHub `agent-observability` regroupe des projets récents de traces, métriques, coûts et débogage d’agents. Source de découverte : https://github.com/topics/agent-observability
+
+**Analyse :** le besoin opérationnel est réel, mais le classement GitHub ne prouve ni adoption ni maturité. Pour ta stack, le sujet doit être comparé à OpenTelemetry, CloudWatch, ELK et Elastic APM avant d’ajouter un middleware.
+
+**Test :** instrumenter un agent non critique avec traces des appels modèle, outils, latence, tokens/coût, erreurs et décisions ; durée : une semaine.
+
+**Succès :** une exécution est corrélable de bout en bout, les secrets et données sensibles sont filtrés, le coût est calculable et une erreur d’outil est visible dans CloudWatch ou ELK.
+
+**Prévision :** les architectures qui survivront seront celles qui s’intègrent aux standards de télémétrie et aux contrôles IAM ; si un outil exige un format fermé ou un agent propriétaire, le conserver en expérimentation.
+
+## LABORATOIRE PRIORITAIRE — KUBERNETES 1.37
+
+Créer un cluster local avec `kind` ou `minikube`, déployer un Deployment, un StatefulSet et une métrique, puis vérifier APIs, probes, rollout, ressources et logs. Produire un tableau des incompatibilités et une décision `tester`, `attendre` ou `migrer`.
 
 ## ÉCHÉANCES
-runners GitHub 25 septembre ; Kubernetes 1.34 fin de support upstream le 27 octobre ; Cloud Service Mesh 1.26 et antérieures sans correctif.
 
-## LAB (< 1 h)
-Terraform 1.16 sur module non critique — import block, destroy=false, plan/apply/destroy, state show -json et graph Mermaid. Succès : zéro drift et compatibilité providers/pipelines.
+- 15 septembre 2026 : cible du patch Kubernetes `1.37.1` ;
+- à qualifier : versions et support EKS/GKE réellement disponibles ;
+- à qualifier : statut de support des composants Elastic 9.5.2 dans la stack.
+
+## SOURCES
+
+Sources primaires consultées : Kubernetes release et blog, Elastic release notes, Logstash release notes, Elastic status. Sources de tendance : GitHub Topics. Aucune source consultée en échec.

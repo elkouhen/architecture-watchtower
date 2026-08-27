@@ -1,59 +1,68 @@
 # REVUE ARCHITECTURE — AOÛT 2026
-Arrêtée au 27 août 2026. Sources : rapports et journaux locaux des six derniers mois, plus publications primaires. Publication : commit Git local.
+
+Arrêtée au 27 août 2026. Cette revue utilise le contexte AWS/GCP, Kubernetes, GitHub/GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform. Les versions déployées et SLO réels restent à qualifier.
 
 ## RÉPONSE DIRECTE
-La décision du mois est de traiter le cycle de vie comme une capacité produit : patching mesuré, runners CI/CD éphémères et compatibilité Kubernetes/mesh traçable. Pour l’IA, établir identité, allowlist, audit, quotas et confirmation humaine avant tout passage en production.
 
-## ADOPTER
+Les priorités du prochain cycle sont : qualifier l’inventaire Kubernetes et ELK/APM, tester Kubernetes `1.37` sans engagement de production, et construire une observabilité minimale des agents IA avec les outils déjà présents avant d’ajouter un middleware.
 
-A1. Runners CI/CD éphémères et reconstruits continuellement.
-Action : image immuable, rotation automatique, métriques version/âge, canary. Owner : plateforme CI/CD. Réexamen : 15 septembre.
-Critère : aucun runner hors seuil ni secret persistant.
-Source : https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/
+## RÉSULTATS ET PRÉVISIONS
 
-A2. SLO de patch GitLab / mesh / observabilité.
-Action : inventaire versions, qualification, sauvegarde restaurable, preuve de déploiement. Owner : sécurité + plateforme. Réexamen : mensuel.
-Critère : délai médian et P95 de remédiation par criticité.
-Sources : https://docs.gitlab.com/releases/patches/patch-release-gitlab-19-3-1-released/ ; https://docs.cloud.google.com/service-mesh/docs/security-bulletins ; https://grafana.com/security/security-advisories/cve-2026-19197/
+Il n’existe pas de prévision mensuelle précédente conservée dans le registre après régénération des rapports. La prochaine revue devra mesurer : versions effectivement utilisées, compatibilité des add-ons Kubernetes, réussite du restore ELK et couverture des traces APM/IA.
 
-A3. Fédération d’identité plutôt que clés statiques.
-Action : OIDC/WIF avec audiences et durées de jetons minimales. Owner : plateforme identité. Réexamen : fin septembre.
-Critère : aucune nouvelle clé permanente.
+## DÉCISIONS DU MOIS
 
-## TESTER
+### D1 — QUALIFIER l’inventaire Kubernetes et ELK/APM
 
-T1. Kubernetes 1.37 : deux semaines de lab ; conformance, CNI/CSI, operators/CRD, HPA/KEDA et observabilité. Owner : plateforme Kubernetes. Production uniquement après support GKE/EKS explicite.
-Source : https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/
+- Fait : Kubernetes `1.37.0` est sorti le 26 août ; Elastic documente Stack `9.5.2` et Logstash `9.5.2` comme versions actuelles.
+- Impact : sans versions, modes et flux connus, aucune décision d’upgrade ou de capacité n’est fiable.
+- Décision : `évaluer` puis qualifier.
+- Action : produire l’inventaire des clusters, add-ons, Elasticsearch, Kibana, Logstash, APM Server, agents, pipelines et repositories.
+- Owner : plateforme/observabilité, à désigner.
+- Échéance : 3 septembre 2026.
+- Succès : 100 % des composants versionnés, associés à un environnement, un flux et un owner.
+- Sources : https://kubernetes.io/releases/1.37/ ; https://www.elastic.co/docs/release-notes
 
-T2. Terraform 1.16 : imports, destroy=false et sorties JSON sur un module non critique. Owner : plateforme IaC. Succès : zéro drift et policies préservées.
-Source : https://github.com/hashicorp/terraform/releases/tag/v1.16.0
+### D2 — TESTER Kubernetes 1.37
 
-T3. MCP stateless gouverné : OAuth, allowlist, quotas, audit, idempotence et confirmation humaine. Owner : IA/plateforme. Durée : un mois. Succès : aucune action non traçable et reprise sans état caché.
-Source : https://blog.modelcontextprotocol.io/posts/2026-07-28/
+- Fait : release `1.37.0` active, patch `1.37.1` ciblé au 15 septembre.
+- Décision : `tester`, pas adopter.
+- Action : test de compatibilité sur cluster isolé avec manifests Terraform/Kubernetes, CNI/CSI, operators, ingress et observabilité.
+- Owner : plateforme Kubernetes.
+- Durée : deux semaines.
+- Succès : workloads critiques de référence déployés, métriques présentes, rollback mesuré et aucune API supprimée utilisée.
+- Repli : rester sur la version managée actuellement supportée.
+- Source : https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/
 
-## ÉVALUER
+### D3 — ÉVALUER l’observabilité IA avec l’existant
 
-E1. RAG DynamoDB/Bedrock contre pgvector/OpenSearch. Owner : IA. Mesurer rappel@k, latence, coût, fraîcheur et plan de sortie.
-Source : https://aws.amazon.com/blogs/architecture/build-a-unified-ai-agent-architecture-with-dynamodb-and-bedrock/
+- Fait : des projets d’observabilité d’agents apparaissent dans les topics GitHub ; cela ne constitue pas une preuve de maturité.
+- Décision : `évaluer`.
+- Action : instrumenter un agent non critique avec OpenTelemetry si possible, puis exporter vers CloudWatch et/ou ELK/APM.
+- Owner : IA/observabilité, à désigner.
+- Succès : corrélation d’une exécution, coût/latence, appels outils, erreurs et filtrage des données sensibles.
+- Condition : n’ajouter un middleware dédié que si l’existant ne permet pas ces mesures.
+- Source de découverte : https://github.com/topics/agent-observability
 
-E2. GKE Gateway Authz en Preview sur charge non critique ; fail-closed et autorisation métier applicative obligatoires. Owner : plateforme.
-Source : https://docs.cloud.google.com/release-notes
+## PLAN DU PROCHAIN MOIS
 
-## ATTENDRE / ENCADRER
+1. Terminer l’inventaire et identifier les versions réellement exposées.
+2. Exécuter le test Kubernetes `1.37` et publier la décision de migration.
+3. Tester snapshot/restore et upgrade d’un flux ELK/APM non critique.
+4. Produire un prototype de télémétrie d’agent IA sans action de production.
 
-Ne confier aucun contrôle critique à une fonction IA/secret en Preview ou disponibilité limitée. Conserver système de référence et repli jusqu’aux garanties de support, audit, migration et disponibilité.
+## À REPORTER
 
-## ÉCHÉANCES
-- 25 septembre : enforcement GitHub Actions runners Enterprise Cloud.
-- 27 octobre : fin de support upstream Kubernetes 1.34.
-- Cloud Service Mesh 1.26 et antérieures : EOL sans correctif GCP-2026-057.
+- Adoption de Kubernetes `1.37` avant validation EKS/GKE et add-ons ;
+- adoption d’un middleware d’observabilité IA choisi sur sa seule popularité GitHub ;
+- dimensionnement CPU/RAM/disque avant collecte de débits, volumes, requêtes et SLO.
 
-## PLAN SEPTEMBRE
-1. Nommer les owners cycle de vie CI/CD et SLO de patch.
-2. Clore GitLab/mesh/Grafana avec preuve de déploiement.
-3. Réaliser les labs Kubernetes 1.37 et Terraform 1.16.
-4. Publier le minimum viable governance MCP.
-5. Lancer le benchmark RAG portable.
+## ÉCHÉANCES DES 90 PROCHAINS JOURS
 
-## QUALITÉ DE VEILLE
-Les rapports locaux et `state/signals.yaml` évitent les doublons. Les pages dynamiques non corroborées ne sont pas retenues comme faits. Conserver un journal : décision, justification, owner, échéance, statut et motif d’écartement ; retirer après deux cycles sans évolution sauf risque/action active.
+- 15 septembre 2026 : patch Kubernetes `1.37.1` ciblé ;
+- à qualifier : support de `1.37` par les distributions AWS/GCP utilisées ;
+- à qualifier : fenêtre de support et procédure d’upgrade Elastic/APM/Logstash.
+
+## SOURCES ET INCERTITUDES
+
+Sources primaires : Kubernetes release/blog, Elastic release notes, Logstash release notes, Elastic status, HashiCorp releases. Sources de découverte : GitHub Topics. Incertitudes : versions déployées, régions, comptes/projets, topologie, volumes, SLO/RPO/RTO, coûts et owners.

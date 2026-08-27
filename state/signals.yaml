@@ -1,6 +1,60 @@
 # Registre de veille — modèle. Une entrée par signal canonique.
 # Les livraisons sont locales : leur preuve est le commit Git qui contient le livrable.
-signals: []
+signals:
+  - id: SIG-2026-08-27-001
+    canonical_url: https://kubernetes.io/releases/1.37/
+    subject: "Kubernetes 1.37.0 disponible"
+    product_version: "Kubernetes 1.37.0"
+    environment: "unknown"
+    first_seen: 2026-08-27
+    last_seen: 2026-08-27
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "test"
+    owner: "plateforme Kubernetes"
+    due_date: 2026-09-15
+    deliverables:
+      - dist/2026-08-27/radar-architecture.md
+      - dist/2026-08-27/revue-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-27-002
+    canonical_url: https://status.elastic.co/
+    subject: "Incident endpoint APM Serverless résolu"
+    product_version: "Elastic Cloud APM Serverless"
+    environment: "unknown"
+    first_seen: 2026-08-27
+    last_seen: 2026-08-27
+    score: 5
+    confidence: "high"
+    status: "open"
+    decision: "qualify"
+    owner: "observabilité"
+    due_date: 2026-08-29
+    deliverables:
+      - dist/2026-08-27/sentinelle-devops.md
+      - dist/2026-08-27/carte-elasticsearch.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-27-003
+    canonical_url: https://www.elastic.co/docs/release-notes
+    subject: "Elastic Stack 9.5.2 version actuelle documentée"
+    product_version: "Elastic Stack 9.5.2"
+    environment: "unknown"
+    first_seen: 2026-08-27
+    last_seen: 2026-08-27
+    score: 6
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "plateforme/observabilité"
+    due_date: 2026-09-03
+    deliverables:
+      - dist/2026-08-27/radar-architecture.md
+      - dist/2026-08-27/carte-elasticsearch.md
+    publication: "local_commit"
+    discard_reason: null
 
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001
