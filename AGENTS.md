@@ -2,12 +2,14 @@
 
 ## Objet du dépôt
 
-Ce dépôt contient les consignes et les résultats de trois veilles en français pour Mehdi :
+Ce dépôt contient les consignes et les résultats de quatre démarches en français pour Mehdi :
 
 - `sentinelle-devops.md` : détection quotidienne des signaux urgents ;
 - `radar-architecture.md` : radar hebdomadaire Cloud, DevOps, architecture applicative et IA ;
 - `revue-architecture.md` : revue mensuelle stratégique.
 - `carte-service.md` : carte quotidienne détaillée d’un service ciblé.
+
+L’objectif n’est pas seulement de surveiller l’actualité : il est de construire une compréhension d’architecte des produits connus ou en tendance, avec un chemin concret d’usage, de déploiement et d’exploitation.
 
 Les livrables sont des fichiers texte sous `dist/YYYY-MM-DD/`. Chaque cadence produit son propre fichier ; une exécution quotidienne ne doit pas fabriquer un radar hebdomadaire ou une revue mensuelle.
 
@@ -16,18 +18,20 @@ Les livrables sont des fichiers texte sous `dist/YYYY-MM-DD/`. Chaque cadence pr
 - `revue-architecture.txt`.
 - `carte-<service>.txt` (une carte par service exécuté).
 
+Le registre pédagogique `state/learning.yaml` suit les produits étudiés, leur niveau de compréhension et le prochain laboratoire à réaliser.
+
 ## Exécution d’une veille
 
 1. Lire la consigne source concernée avant de lancer la recherche.
-2. Dédupliquer exclusivement avec les documents locaux : `state/signals.yaml` (source d’autorité), les livrables précédents sous `dist/` et les journaux de décisions locaux. Utiliser 90 jours pour la sentinelle et le radar, et 6 mois pour la revue mensuelle.
+2. Dédupliquer exclusivement avec les documents locaux : `state/signals.yaml` (signaux), `state/learning.yaml` (progression), les livrables précédents sous `dist/` et les journaux de décisions locaux. Utiliser 90 jours pour la sentinelle et le radar, 30 jours pour les cartes et 6 mois pour la revue mensuelle.
 3. Prioriser les sources primaires : bulletins de sécurité, changelogs, release notes, dépôts et documentation des fournisseurs/projets.
 4. Ne présenter comme fait que les informations vérifiées. Distinguer explicitement `Fait`, `Analyse`, `Inférence` et `Décision` lorsque ces éléments sont utilisés.
 5. Pour chaque recommandation, indiquer un propriétaire, une échéance ou date de réexamen, et un critère de succès lorsqu’un test est proposé.
 6. Pour chaque signal, conserver au minimum : identifiant stable, URL canonique, produit/version, environnement, première et dernière observation, score, confiance, statut, décision, propriétaire, échéance et livrables associés.
 7. Écrire le résultat dans le répertoire `dist/<date_du_jour>/` sans écraser un livrable d’une autre date.
-8. Vérifier le fichier produit : non vide, sources primaires présentes, sections obligatoires complètes et dates cohérentes avec la cadence. Les trois fichiers ne sont requis que lorsqu’une exécution planifiée des trois cadences a effectivement eu lieu.
+8. Vérifier le fichier produit : non vide, sources primaires présentes, sections obligatoires complètes et dates cohérentes avec la cadence. Les rapports de veille ne sont requis que lorsqu’une exécution planifiée de leur cadence a effectivement eu lieu ; une carte est produite pour chaque produit sélectionné.
 
-Pour une carte de service, appliquer `carte-service.md`, produire uniquement le ou les services demandés dans `dist/<date_du_jour>/`, et ne pas régénérer les veilles quotidiennes, hebdomadaires ou mensuelles. Une carte doit distinguer l’état documenté du produit de l’état réellement observé dans la stack ; si ce dernier est inconnu, écrire `à qualifier` ou `exposition inconnue`.
+Pour une carte de service, appliquer `carte-service.md`, produire uniquement le ou les services demandés dans `dist/<date_du_jour>/`, et ne pas régénérer les autres veilles. Une carte doit d’abord enseigner le produit — modèle mental, usages, déploiement et exploitation — puis distinguer l’état documenté du produit de l’état réellement observé dans la stack ; si ce dernier est inconnu, écrire `à qualifier` ou `exposition inconnue`.
 
 ## Règles de contenu
 

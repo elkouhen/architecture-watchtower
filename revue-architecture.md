@@ -1,7 +1,7 @@
 Produis la revue mensuelle stratégique Cloud, DevOps et architecture de Mehdi.
 
 OBJECTIF
-Transformer les signaux des trente derniers jours en décisions d’architecture, de formation et d’expérimentation. Ne fais pas une simple compilation des rapports quotidiens et hebdomadaires.
+Transformer les signaux des trente derniers jours en décisions d’architecture, de formation et d’expérimentation. La revue doit mesurer ce que Mehdi comprend réellement et définir le prochain parcours d’apprentissage ; ne fais pas une simple compilation des rapports quotidiens et hebdomadaires.
 
 PRINCIPE
 La revue mensuelle est l’instance de décision : toute recommandation doit être reliée à un besoin, une preuve primaire et une prochaine action. Distingue sans ambiguïté fait vérifié, analyse, inférence et décision. Une technologie médiatisée mais non contextualisée reste « ÉVALUER ».
@@ -46,6 +46,9 @@ Pour chaque entrée, donne :
 Ajoute pour chaque entrée un propriétaire, une date de réexamen et, pour TESTER, un critère de succès et une limite de durée.
 Une entrée sans source primaire, propriétaire ou date de réexamen est invalide et doit être retirée ou classée `ÉVALUER` avec une action de qualification.
 
+PARCOURS DE COMPÉTENCES
+Ajoute une matrice des produits étudiés : produit, niveau (`découverte`, `compréhension`, `pratique`, `transmissible`), concepts manquants, laboratoire réalisé, preuve produite et prochaine étape. Priorise les fondamentaux qui structurent plusieurs sujets. Un produit tendance sans laboratoire ou cas d’usage concret reste `ÉVALUER`.
+
 ANALYSE TRANSVERSALE
 Ajoute :
 1. Les cinq changements structurants du mois.
@@ -53,10 +56,11 @@ Ajoute :
 3. Dette technique ou risques à anticiper.
 4. Compétences à apprendre ou approfondir.
 5. Trois expérimentations classées par valeur/effort.
-6. Échéances des 90 prochains jours.
-7. Technologies sorties du radar et justification.
-8. Qualité de la veille : sources en erreur, angles morts et ajustements proposés.
-9. Journal des décisions : décision, justification, propriétaire, échéance et statut de l’action du mois précédent.
+6. Progression d’apprentissage et trois produits à étudier le mois suivant.
+7. Échéances des 90 prochains jours.
+8. Technologies sorties du radar et justification.
+9. Qualité de la veille : sources en erreur, angles morts et ajustements proposés.
+10. Journal des décisions : décision, justification, propriétaire, échéance et statut de l’action du mois précédent.
 
 DÉDUPLICATION ET QUALITÉ
 Ne répète pas une recommandation inchangée du mois précédent. Indique « évolution » lorsqu’une entrée change de catégorie. Distingue fait vérifié, analyse et inférence. Écarte le marketing et les scores de benchmark non reproductibles.

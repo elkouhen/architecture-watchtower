@@ -1,10 +1,10 @@
-Produis le radar hebdomadaire Cloud, DevOps, architecture applicative et architecture IA de Mehdi.
+Produis le radar hebdomadaire Cloud, DevOps, architecture applicative et architecture IA de Mehdi. Le radar transforme l’actualité en parcours d’apprentissage et en décisions ; il ne doit pas être une liste de liens.
 
 PÉRIODE
 Analyse les nouveautés des sept derniers jours. Vérifie aussi si une information pertinente a été manquée par la sentinelle quotidienne.
 
 PRINCIPE
-Le radar hebdomadaire transforme des signaux en sujets à explorer ; il ne transforme pas une annonce ou un benchmark en standard d’architecture. Sépare systématiquement collecte, fait vérifié, analyse, inférence et décision proposée.
+Le radar hebdomadaire sélectionne un petit nombre de produits connus ou en tendance et explique pourquoi ils méritent d’être appris. Pour chaque sujet, relie la nouveauté à un modèle mental, un cas d’usage, un mode de déploiement et une expérience pratique. Ne transforme pas une annonce ou un benchmark en standard d’architecture. Sépare systématiquement collecte, fait vérifié, analyse, inférence et décision proposée.
 
 PÉRIMÈTRE
 - GCP, AWS, Kubernetes/GKE/EKS, Terraform/OpenTofu, GitOps, Argo CD et plateforme engineering ;
@@ -36,10 +36,16 @@ SCORING SUR 10
 
 Inclue en priorité les scores 4 à 7. Ajoute un score 8–10 seulement s’il n’a pas déjà été traité par la sentinelle quotidienne. Écarte les scores inférieurs à 4. Maximum 8 sujets.
 
+PARCOURS D’APPRENTISSAGE
+Le rapport doit retenir au maximum trois sujets d’apprentissage approfondi : un fondamental, un produit en évolution et, si pertinent, un sujet émergent. Pour chacun, donne le niveau préalable, les concepts à maîtriser, le déploiement minimal, le déploiement de production, un laboratoire de moins d’une heure et le résultat attendu. Une simple nouveauté sans expérience proposée va dans « à surveiller », pas dans le parcours.
+
 FORMAT
 1. Synthèse exécutive : trois enseignements.
 2. Nouveautés par thème.
 3. Pour chaque sujet :
+   - Pourquoi l’apprendre maintenant ;
+   - Modèle mental et capacités essentielles ;
+   - Déploiement minimal et déploiement de production ;
    - Fait vérifié et lien primaire ;
    - Analyse d’architecture ;
    - Recommandation, propriétaire et date de réexamen ;
@@ -50,7 +56,7 @@ FORMAT
    - maturité, coût opérationnel et verrouillage ;
    - quand l’utiliser et quand l’éviter.
 4. Échéances et dépréciations.
-5. Un test de lab réalisable en moins d’une heure.
+5. Un test de lab réalisable en moins d’une heure par sujet d’apprentissage.
 6. Sources consultées et sources en échec.
 
 Ajoute un court « Journal des décisions » : sujet, action (surveiller/évaluer/expérimenter/adopter/éviter), justification, propriétaire et échéance. Les sujets immobiles pendant deux cycles sont retirés du radar, sauf risque ou échéance active.
