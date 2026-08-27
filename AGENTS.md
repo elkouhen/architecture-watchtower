@@ -11,12 +11,12 @@ Ce dépôt contient les consignes et les résultats de quatre démarches en fran
 
 L’objectif n’est pas seulement de surveiller l’actualité : il est de construire une compréhension d’architecte des produits connus ou en tendance, avec un chemin concret d’usage, de déploiement et d’exploitation.
 
-Les livrables sont des fichiers texte sous `dist/YYYY-MM-DD/`. Chaque cadence produit son propre fichier ; une exécution quotidienne ne doit pas fabriquer un radar hebdomadaire ou une revue mensuelle.
+Les livrables sont des fichiers Markdown sous `dist/YYYY-MM-DD/`. Chaque cadence produit son propre fichier ; une exécution quotidienne ne doit pas fabriquer un radar hebdomadaire ou une revue mensuelle.
 
-- `sentinelle-devops.txt` ;
-- `radar-architecture.txt` ;
-- `revue-architecture.txt`.
-- `carte-<service>.txt` (une carte par service exécuté).
+- `sentinelle-devops.md` ;
+- `radar-architecture.md` ;
+- `revue-architecture.md` ;
+- `carte-<service>.md` (une carte par service exécuté).
 
 Le registre pédagogique `state/learning.yaml` suit les produits étudiés, leur niveau de compréhension et le prochain laboratoire à réaliser.
 
@@ -28,7 +28,7 @@ Le registre pédagogique `state/learning.yaml` suit les produits étudiés, leur
 4. Ne présenter comme fait que les informations vérifiées. Distinguer explicitement `Fait`, `Analyse`, `Inférence` et `Décision` lorsque ces éléments sont utilisés.
 5. Pour chaque recommandation, indiquer un propriétaire, une échéance ou date de réexamen, et un critère de succès lorsqu’un test est proposé.
 6. Pour chaque signal, conserver au minimum : identifiant stable, URL canonique, produit/version, environnement, première et dernière observation, score, confiance, statut, décision, propriétaire, échéance et livrables associés.
-7. Écrire le résultat dans le répertoire `dist/<date_du_jour>/` sans écraser un livrable d’une autre date.
+7. Écrire le résultat dans le répertoire `dist/<date_du_jour>/` sans écraser un livrable d’une autre date, avec l’extension `.md`.
 8. Vérifier le fichier produit : non vide, sources primaires présentes, sections obligatoires complètes et dates cohérentes avec la cadence. Les rapports de veille ne sont requis que lorsqu’une exécution planifiée de leur cadence a effectivement eu lieu ; une carte est produite pour chaque produit sélectionné.
 
 Pour une carte de service, appliquer `carte-service.md`, produire uniquement le ou les services demandés dans `dist/<date_du_jour>/`, et ne pas régénérer les autres veilles. Une carte doit d’abord enseigner le produit — modèle mental, usages, déploiement et exploitation — puis distinguer l’état documenté du produit de l’état réellement observé dans la stack ; si ce dernier est inconnu, écrire `à qualifier` ou `exposition inconnue`.

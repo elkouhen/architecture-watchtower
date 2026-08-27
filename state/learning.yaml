@@ -9,7 +9,7 @@ products:
     concepts_acquired: ["positionnement", "capacités", "flux", "modes de déploiement", "cycle de vie"]
     gaps: ["déploiement local", "modélisation de recherche", "dimensionnement", "snapshot/restore", "déploiement ECK"]
     lab_status: "planned"
-    lab_deliverable: "dist/2026-08-27/carte-elasticsearch.txt"
+    lab_deliverable: "dist/2026-08-27/carte-elasticsearch.md"
     next_step: "Lancer le laboratoire local et restituer les cinq questions d’architecte"
     next_review: 2026-09-03
 
@@ -22,6 +22,6 @@ products:
 #   concepts_acquired: []
 #   gaps: ["déploiement ECK", "dimensionnement"]
 #   lab_status: "not_started|planned|completed|failed"
-#   lab_deliverable: "dist/AAAA-MM-JJ/carte-elasticsearch.txt"
+#   lab_deliverable: "dist/AAAA-MM-JJ/carte-elasticsearch.md"
 #   next_step: "Déployer un cluster local et tester snapshot/restore"
 #   next_review: 2026-09-03

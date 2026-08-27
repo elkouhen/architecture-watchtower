@@ -16,6 +16,6 @@ signals: []
 #   decision: "monitor|qualify|test|adopt|avoid"
 #   owner: "équipe ou rôle"
 #   due_date: 2026-09-15
-#   deliverables: ["dist/AAAA-MM-JJ/sentinelle-devops.txt"]
+#   deliverables: ["dist/AAAA-MM-JJ/sentinelle-devops.md"]
 #   publication: "local_commit"
 #   discard_reason: null

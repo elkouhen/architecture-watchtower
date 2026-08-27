@@ -71,6 +71,6 @@ FORMAT
 Sois synthétique. Maximum 12 entrées dans le radar. Utilise des tableaux pour les comparaisons et conclus par un plan d’action du mois suivant.
 
 PUBLICATION LOCALE
-Écris le rapport complet dans `dist/AAAA-MM-JJ/revue-architecture.txt`, puis valide et committe-le localement. Le livrable est produit même si le mois a été calme ; la preuve de publication est le hash du commit Git local.
+Écris le rapport Markdown complet dans `dist/AAAA-MM-JJ/revue-architecture.md`, puis valide et committe-le localement. Le livrable est produit même si le mois a été calme ; la preuve de publication est le hash du commit Git local.
 
 Réponds en français avec un ton d’architecte principal.

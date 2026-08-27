@@ -10,7 +10,7 @@ La carte n’est ni une brochure marketing ni une recommandation d’adoption. E
 
 1. Lire cette consigne avant la recherche.
 2. Consulter `state/signals.yaml` pour les signaux déjà connus.
-3. Rechercher les cartes locales `dist/*/carte-<service>.txt` et les rapports de veille locaux sur les 30 derniers jours ; compléter avec `state/signals.yaml` si le service y est cité.
+3. Rechercher les cartes locales `dist/*/carte-<service>.md` et les rapports de veille locaux sur les 30 derniers jours ; compléter avec `state/signals.yaml` si le service y est cité.
 4. Ne signaler une évolution que si la version, le statut, la sécurité, le coût, la compatibilité, la date de support ou la recommandation a changé. Sinon conserver la carte comme `heartbeat` sans inventer de nouveauté.
 5. Prioriser la documentation, les release notes, les avis de sécurité, les pages de lifecycle, les dépôts et les matrices de compatibilité officielles. Une source secondaire sert uniquement à expliquer un fait déjà confirmé.
 
@@ -60,7 +60,7 @@ Chaque fichier doit contenir les champs suivants, dans cet ordre :
 
 ## Sortie et publication
 
-Écrire dans `dist/<date_du_jour>/carte-<service>.txt`, sans écraser une autre date. Le fichier doit être non vide et contenir au moins trois sources primaires, les sections obligatoires et des dates cohérentes.
+Écrire dans `dist/<date_du_jour>/carte-<service>.md`, sans écraser une autre date. Le fichier doit être non vide et contenir au moins trois sources primaires, les sections obligatoires et des dates cohérentes.
 
 Après validation, committer localement le fichier. Consigner le hash du commit dans le journal local si un journal de publication est utilisé. Ne pas envoyer la carte par email.
 

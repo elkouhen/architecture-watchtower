@@ -46,6 +46,6 @@ RÈGLES DE SORTIE
 - si l’exposition ou la version ne peuvent pas être vérifiées, indique `exposition inconnue` et limite l’action à une demande de qualification.
 
 PUBLICATION LOCALE
-Écris le rapport dans `dist/AAAA-MM-JJ/sentinelle-devops.txt`, puis valide et committe le livrable localement. S’il n’existe aucun élément avec un score supérieur ou égal à 6, indique « Aucun signal prioritaire » et conserve le heartbeat dans le fichier. La preuve de publication est l’identifiant du commit Git local.
+Écris le rapport Markdown dans `dist/AAAA-MM-JJ/sentinelle-devops.md`, puis valide et committe le livrable localement. S’il n’existe aucun élément avec un score supérieur ou égal à 6, indique « Aucun signal prioritaire » et conserve le heartbeat dans le fichier. La preuve de publication est l’identifiant du commit Git local.
 
 Réponds en français et reste concis.

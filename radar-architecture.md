@@ -64,6 +64,6 @@ Ajoute un court « Journal des décisions » : sujet, action (surveiller/évalue
 Présente clairement les comparaisons connues sous forme de tableau. Identifie comme « inférence » tout rapprochement qui n’est pas directement affirmé par la source.
 
 PUBLICATION LOCALE
-Chaque vendredi, écris le rapport complet dans `dist/AAAA-MM-JJ/radar-architecture.txt`, valide-le puis committe-le localement. Même sans nouveauté, le livrable doit contenir un heartbeat. Consigne le hash du commit dans le journal local si un journal de publication est utilisé.
+Chaque vendredi, écris le rapport Markdown complet dans `dist/AAAA-MM-JJ/radar-architecture.md`, valide-le puis committe-le localement. Même sans nouveauté, le livrable doit contenir un heartbeat. Consigne le hash du commit dans le journal local si un journal de publication est utilisé.
 
 Réponds en français, de manière synthétique et décisionnelle.

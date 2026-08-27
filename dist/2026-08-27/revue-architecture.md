@@ -1,10 +1,10 @@
-REVUE ARCHITECTURE — AOÛT 2026
+# REVUE ARCHITECTURE — AOÛT 2026
 Arrêtée au 27 août 2026. Sources : rapports et journaux locaux des six derniers mois, plus publications primaires. Publication : commit Git local.
 
-RÉPONSE DIRECTE
+## RÉPONSE DIRECTE
 La décision du mois est de traiter le cycle de vie comme une capacité produit : patching mesuré, runners CI/CD éphémères et compatibilité Kubernetes/mesh traçable. Pour l’IA, établir identité, allowlist, audit, quotas et confirmation humaine avant tout passage en production.
 
-ADOPTER
+## ADOPTER
 
 A1. Runners CI/CD éphémères et reconstruits continuellement.
 Action : image immuable, rotation automatique, métriques version/âge, canary. Owner : plateforme CI/CD. Réexamen : 15 septembre.
@@ -20,7 +20,7 @@ A3. Fédération d’identité plutôt que clés statiques.
 Action : OIDC/WIF avec audiences et durées de jetons minimales. Owner : plateforme identité. Réexamen : fin septembre.
 Critère : aucune nouvelle clé permanente.
 
-TESTER
+## TESTER
 
 T1. Kubernetes 1.37 : deux semaines de lab ; conformance, CNI/CSI, operators/CRD, HPA/KEDA et observabilité. Owner : plateforme Kubernetes. Production uniquement après support GKE/EKS explicite.
 Source : https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/
@@ -31,7 +31,7 @@ Source : https://github.com/hashicorp/terraform/releases/tag/v1.16.0
 T3. MCP stateless gouverné : OAuth, allowlist, quotas, audit, idempotence et confirmation humaine. Owner : IA/plateforme. Durée : un mois. Succès : aucune action non traçable et reprise sans état caché.
 Source : https://blog.modelcontextprotocol.io/posts/2026-07-28/
 
-ÉVALUER
+## ÉVALUER
 
 E1. RAG DynamoDB/Bedrock contre pgvector/OpenSearch. Owner : IA. Mesurer rappel@k, latence, coût, fraîcheur et plan de sortie.
 Source : https://aws.amazon.com/blogs/architecture/build-a-unified-ai-agent-architecture-with-dynamodb-and-bedrock/
@@ -39,21 +39,21 @@ Source : https://aws.amazon.com/blogs/architecture/build-a-unified-ai-agent-arch
 E2. GKE Gateway Authz en Preview sur charge non critique ; fail-closed et autorisation métier applicative obligatoires. Owner : plateforme.
 Source : https://docs.cloud.google.com/release-notes
 
-ATTENDRE / ENCADRER
+## ATTENDRE / ENCADRER
 
 Ne confier aucun contrôle critique à une fonction IA/secret en Preview ou disponibilité limitée. Conserver système de référence et repli jusqu’aux garanties de support, audit, migration et disponibilité.
 
-ÉCHÉANCES
+## ÉCHÉANCES
 - 25 septembre : enforcement GitHub Actions runners Enterprise Cloud.
 - 27 octobre : fin de support upstream Kubernetes 1.34.
 - Cloud Service Mesh 1.26 et antérieures : EOL sans correctif GCP-2026-057.
 
-PLAN SEPTEMBRE
-1. Nommer les owners cycle de vie CI/CD et SLO de patch.
-2. Clore GitLab/mesh/Grafana avec preuve de déploiement.
-3. Réaliser les labs Kubernetes 1.37 et Terraform 1.16.
-4. Publier le minimum viable governance MCP.
-5. Lancer le benchmark RAG portable.
+## PLAN SEPTEMBRE
+## 1. Nommer les owners cycle de vie CI/CD et SLO de patch.
+## 2. Clore GitLab/mesh/Grafana avec preuve de déploiement.
+## 3. Réaliser les labs Kubernetes 1.37 et Terraform 1.16.
+## 4. Publier le minimum viable governance MCP.
+## 5. Lancer le benchmark RAG portable.
 
-QUALITÉ DE VEILLE
+## QUALITÉ DE VEILLE
 Les rapports locaux et `state/signals.yaml` évitent les doublons. Les pages dynamiques non corroborées ne sont pas retenues comme faits. Conserver un journal : décision, justification, owner, échéance, statut et motif d’écartement ; retirer après deux cycles sans évolution sauf risque/action active.
