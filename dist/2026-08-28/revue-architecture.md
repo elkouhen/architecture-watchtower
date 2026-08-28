@@ -2,6 +2,8 @@
 
 **Périmètre :** revue des décisions et prévisions du rapport du 27 août, plus les évolutions vérifiées depuis. Les rapports quotidiens et hebdomadaires restent séparés de cette revue.
 
+**Mise à jour du 28 août, après exécution du radar agressif :** les nouveaux projets ont été détectés et enregistrés, mais aucune qualification de stack, aucun laboratoire et aucune décision d’adoption n’est documenté depuis la dernière revue. Les décisions ci-dessous restent donc inchangées ; leur statut opérationnel est `à faire`.
+
 ## RÉPONSE DIRECTE
 
 1. **Qualifier immédiatement** les versions Kubernetes, les add-ons et l’exposition APM Serverless Elastic ; aucune exposition réelle n’est prouvée dans le dépôt.
@@ -15,7 +17,7 @@
 | Qualifier l’inventaire Kubernetes et ELK/APM | Non réalisé dans le dépôt ; versions et exposition restent inconnues | accès à la stack réelle absent | faire de l’inventaire la première étape obligatoire avant toute recommandation |
 | Tester Kubernetes 1.37 | La release 1.37.0 est confirmée le 26 août, mais aucun test n’est enregistré | laboratoire non exécuté | conserver `tester`, échéance 15 septembre |
 | Évaluer l’observabilité IA avec l’existant | OTel GenAI se structure ; compatibilité Elastic non vérifiée | absence de version/exporter réel | commencer par un test de schéma et de redaction, pas par une adoption |
-| Suivre les nouveaux runtimes et control planes agents | Hermes v0.20.6 et Stately Agent alpha.21 sont sortis le 27 août ; OpenAgentPack est repéré comme projet beta | maturité, sécurité et usage terrain inconnus | conserver en veille active et exiger une seconde preuve avant une carte ou un test |
+| Suivre les nouveaux runtimes et control planes agents | Hermes v0.20.6, Stately Agent alpha.21 et OpenAgentPack sont documentés dans le radar ; aucune comparaison n’est encore réalisée | maturité, sécurité et usage terrain inconnus | conserver en veille active et exiger une seconde preuve avant une carte ou un test |
 
 ## DÉCISIONS DU MOIS
 
@@ -45,6 +47,8 @@
 - **Risque/repli :** conserver un proxy et un schéma de télémétrie internes versionnés.
 
 ## PLAN D’EXÉCUTION ET EXPÉRIMENTATIONS
+
+**État au 28 août :** P0, P1 et P2 sont `à faire`. Le radar a produit les pistes et les sources ; il ne constitue pas l’exécution des tests.
 
 1. **P0 — Inventaire :** récupérer versions Kubernetes, add-ons, Terraform providers et endpoints APM ; livrable : tableau d’exposition ; owner plateforme ; 1er septembre.
 2. **P1 — Agent Sandbox :** exécuter le laboratoire local en v0.5.6 ; livrable : manifeste versionné, observations et décision ; owner plateforme ; 12 septembre.
