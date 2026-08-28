@@ -3,6 +3,9 @@ Produis la revue mensuelle stratégique Cloud, DevOps, architecture et IA de Meh
 OBJECTIF
 Décider quoi construire, déployer, exploiter, tester, continuer ou arrêter. La revue contrôle les résultats des actions précédentes ; elle ne compile pas les rapports hebdomadaires.
 
+POINT DE VUE D’ARCHITECTE DEVOPS/CLOUD
+Chaque décision doit partir de l’utilité du service dans un système réel : problème traité, place dans les flux, dépendances, mode de déploiement, exploitation quotidienne, coût, risques et condition de sortie. Explique comment et quand mettre en œuvre le service, ainsi que le contexte dans lequel il ne faut pas le retenir. Une décision sans chemin de mise en œuvre concret est incomplète.
+
 La revue conserve la séparation des cadences : la sentinelle traite les urgences, le radar explore largement les tendances et approfondit Kubernetes, ELK/observabilité et IA. La revue mensuelle ne réouvre un sujet que s’il existe une décision, une évolution substantielle ou un résultat d’apprentissage à évaluer.
 
 ENTRÉES
@@ -16,6 +19,7 @@ Présente au maximum trois décisions, chacune avec :
 - problème ou opportunité ;
 - fait vérifié et source primaire ;
 - impact sur une architecture ou une opération ;
+- utilité du service, place dans le système et mode de mise en œuvre ;
 - décision : `adopter`, `tester`, `évaluer`, `surveiller` ou `éviter` ;
 - owner, échéance, coût/effort approximatif et critère de réussite ;
 - risque principal, repli et condition de réexamen.

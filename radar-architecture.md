@@ -6,6 +6,9 @@ Détecter largement et le plus tôt possible ce qui émerge ou accélère dans l
 CONTEXTE
 Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Les sujets prioritaires sont ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : agents, RAG, middleware, inference gateways, évaluation, observabilité, sécurité et gouvernance.
 
+POINT DE VUE D’ARCHITECTE DEVOPS/CLOUD
+Pour chaque projet ou pattern, réponds d’abord à quatre questions concrètes : à quoi sert-il dans un système réel, quel problème d’architecture ou d’exploitation résout-il, comment le déployer et l’opérer, et dans quelles conditions ne faut-il pas l’utiliser ? Décris sa place dans les flux, ses dépendances, son identité, ses données, son observabilité, son coût opérationnel, sa mise à jour, son rollback et son retrait lorsque ces éléments influencent la décision. Une tendance n’est intéressante que si son utilité et son chemin de mise en œuvre sont intelligibles.
+
 PÉRIODE ET SOURCES
 Utilise trois fenêtres complémentaires : les dernières 48 heures pour les projets qui trendent ASAP, les nouveautés des sept derniers jours pour le rythme hebdomadaire, et les signaux d’émergence des 30 derniers jours pour éviter de rater une tendance qui démarre lentement. Pour les projets très récents, une seule preuve de découverte suffit pour les remonter dans le flux préliminaire.
 
@@ -48,12 +51,14 @@ FORMAT DE CHAQUE TENDANCE
 ### Nom de la tendance
 
 - **Pitch rapide :** en une ou deux phrases, explique ce que fait le projet ou le pattern, pour quel problème et quel type d’équipe il est utile ; utilise des mots simples et évite le marketing.
+- **Utilité d’architecte :** indique le rôle concret dans un système, le problème résolu et le signal qui justifierait de l’introduire ;
 - **Pourquoi maintenant :** événement ou évolution observée cette semaine ;
 - **Preuves de traction :** signaux observés, avec dates et liens ; indique `signal faible` s’il n’y en a qu’un ;
 - **Fait vérifié :** ce qui est confirmé par une source primaire ;
 - **Analyse :** problème d’architecture résolu et pattern associé ;
 - **Maturité :** stade, limites, dépendances et risques de verrouillage ;
 - **Architecture cible :** composants, flux, données, identité, déploiement et exploitation ;
+- **Mise en œuvre et exploitation :** prérequis, mode de déploiement, intégration à la stack, upgrade, rollback, supervision et condition de retrait ;
 - **Test proposé :** environnement, durée, étapes, métriques et résultat attendu ;
 - **Décision :** `surveiller`, `tester` ou `écarter` ;
 - **Prévision :** horizon 1–3 mois, hypothèse, signaux attendus et décision si elle se confirme ou est infirmée.

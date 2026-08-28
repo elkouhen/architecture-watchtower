@@ -4,6 +4,9 @@
 
 Produis une carte d’apprentissage et de décision pour construire, déployer et exploiter un service Cloud, DevOps, observabilité, sécurité ou IA. Lis `state/context.yaml` pour relier le service à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform lorsque c’est pertinent.
 
+POINT DE VUE D’ARCHITECTE DEVOPS/CLOUD
+Enseigne le service comme un architecte qui doit décider de l’introduire dans un système réel : à quoi sert-il, où se place-t-il, quels flux et dépendances il crée, comment le déployer, l’exploiter, le mettre à jour et le retirer, et quand il vaut mieux choisir une autre solution. Sépare toujours le modèle documenté du produit de ce qui est effectivement observé dans la stack.
+
 La carte est produite en priorité pour un sujet retenu par le radar qui combine un potentiel futur élevé et une maturité démontrée : documentation officielle, déploiement reproductible et maintenance active. Elle n’est pas générée automatiquement pour chaque signal émergent ; les sujets qui n’atteignent pas ce seuil restent dans `Signaux à surveiller`.
 
 La carte n’est ni une brochure marketing ni une recommandation automatique. Distingue `Fait`, `Analyse`, `Inférence` et `Décision proposée`. Si le contexte réel est inconnu, écris `à qualifier` ou `exposition inconnue`.
@@ -19,7 +22,7 @@ La carte n’est ni une brochure marketing ni une recommandation automatique. Di
 ## Format obligatoire
 
 1. **Pitch rapide** : en une ou deux phrases, explique ce que fait le service, quel problème il résout, pour quel type d’équipe ou de workload il est utile, et pourquoi il mérite d’être étudié. Utilise des mots simples et évite le marketing.
-2. **Résumé décisionnel** : rôle du service, problème résolu, cas d’usage, décision actuelle et principal compromis, en cinq lignes maximum.
+2. **Résumé décisionnel** : rôle du service dans une architecture, problème résolu, cas d’usage, conditions de mise en œuvre, décision actuelle et principal compromis, en cinq lignes maximum.
 3. **Position dans le système** : producteurs, consommateurs, entrées, traitements, sorties, flux et services complémentaires ou remplacés.
 4. **Modèle mental** : chemin d’utilisation concret, composants indispensables, état, interfaces et erreurs principales.
 5. **Architecture de déploiement** : un déploiement local reproductible et un déploiement de production réaliste. Pour un service distribué, expliquer rôles, communications, partitionnement, réplication, placement multi-zone, sauvegarde et chemins de panne.

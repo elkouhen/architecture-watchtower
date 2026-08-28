@@ -29,12 +29,14 @@ Ces entrées sont des détections précoces. Un signal de release ou de traction
 ### 1. Agent Sandbox : lifecycle et observabilité des runtimes d’agents — ÉMERGENTE / TRACTION
 
 - **Pitch rapide :** Agent Sandbox transforme une session d’agent en ressource Kubernetes persistante et identifiable, avec un cycle de vie géré par contrôleur. Il vise les équipes plateforme qui doivent exécuter des agents ou du code généré dans des environnements séparés.
+- **Utilité d’architecte :** remplacer l’assemblage manuel Pod/Service/PVC par une primitive de session lorsque l’agent doit conserver un workspace et une identité stable.
 - **Pourquoi maintenant :** la release v0.5.6 renforce la fiabilité du contrôleur, le cycle de vie des warm pools, le diagnostic de scheduling, les métriques suspend/resume et l’intégration Prometheus.
 - **Preuves de traction :** release officielle du 20 août, dépôt Kubernetes SIG Apps actif, exemples Pi coding agent, E2B envd et n8n. Source primaire : https://github.com/kubernetes-sigs/agent-sandbox/releases/tag/v0.5.6.
 - **Fait vérifié :** v0.5.6 ajoute notamment le miroir des conditions `PodScheduled`, des métriques SDK, des outils filesystem MCP bornés et des ressources `ServiceMonitor`/`PrometheusRule` opt-in.
 - **Analyse :** le projet évolue d’un simple CRD de pod singleton vers une primitive opérable pour des sessions agents persistantes et potentiellement préchauffées.
 - **Maturité :** `émergente` ; chemin de déploiement reproductible et maintenance active, mais isolation runtime, compatibilité CRD et coût restent à prouver.
 - **Architecture cible :** contrôleur versionné, namespace dédié, ServiceAccount minimal, NetworkPolicy deny-by-default, PVC borné, métriques Prometheus vers OTel/ELK, runtime isolé si le code est hostile.
+- **Mise en œuvre et exploitation :** installer une version figée dans Kind puis EKS/GKE, gérer CRD et manifests par GitOps, surveiller reconciliation/scheduling/PVC/egress, et revenir à la release précédente si la conversion CRD ou l’isolation échoue.
 - **Test proposé :** Kind + v0.5.6 ; créer/reprendre/suspendre/supprimer une session, vérifier métriques, persistance et refus réseau. Durée 45 minutes. Succès : zéro ressource orpheline, état persistant et egress interdit bloqué.
 - **Décision :** `tester`.
 - **Prévision :** les extensions warm pool et observabilité vont accélérer les usages agents Kubernetes, mais la production dépendra de l’isolation et de la stabilité API dans 1–3 mois.
@@ -42,12 +44,14 @@ Ces entrées sont des détections précoces. Un signal de release ou de traction
 ### 2. Hermes Agent : convergence runtime, MCP et opérations — SIGNAL FAIBLE / ACCÉLÉRATION
 
 - **Pitch rapide :** Hermes Agent est un runtime d’agent installable qui orchestre modèles, outils MCP, navigation et tâches persistantes. Il intéresse surtout les équipes qui évaluent un agent self-hosted complet plutôt qu’un simple SDK.
+- **Utilité d’architecte :** évaluer une plateforme agent complète quand le besoin porte sur l’exécution et les outils, pas seulement sur l’appel à un modèle ; le risque principal est d’adopter une surface trop large sans modèle d’exploitation.
 - **Pourquoi maintenant :** v0.20.6 a été publiée le 27 août et agrège environ 525 PR depuis la release précédente, avec MCP distant, contrôles d’update, garde-fous d’exécution, cache de résultats, clés et opérations de flotte.
 - **Preuves de traction :** release primaire du 27 août : https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27.
 - **Fait vérifié :** la release annonce Docker/hosted deployments, catalogue MCP, contrôles de runtime et mécanismes d’update ; le dépôt est très actif.
 - **Analyse :** le projet illustre un agent qui devient une plateforme opérable : fournisseurs, outils, sessions, mises à jour, secrets et canaux d’exécution deviennent des composants d’infrastructure.
 - **Maturité :** `signal faible` pour un standard d’entreprise ; activité forte mais surface large, modèle de menace et support opérationnel à qualifier.
 - **Architecture cible :** runtime en conteneur non privilégié, secrets hors image, allowlist MCP, egress contrôlé, traces des tool calls, journal d’update signé et repli vers une version précédente.
+- **Mise en œuvre et exploitation :** commencer par une instance isolée et un outil fictif, versionner l’image et les connecteurs, contrôler les permissions/egress, mesurer les timeouts et tester update/rollback avant toute flotte.
 - **Test proposé :** instance isolée avec outil fictif ; mesurer permissions, logs, rollback et comportement en timeout. Ne pas installer en production.
 - **Décision :** `surveiller`.
 - **Prévision :** si les contrats MCP, l’installation et les contrôles de sécurité se stabilisent, le projet peut devenir un cas de référence de runtime agent self-hosted ; réexaminer le 5 septembre.
@@ -55,12 +59,14 @@ Ces entrées sont des détections précoces. Un signal de release ou de traction
 ### 3. OpenAgentPack : agents-as-code et plan d’exécution — SIGNAL FAIBLE
 
 - **Pitch rapide :** OpenAgentPack veut gérer un agent comme une infrastructure déclarative : une définition Git décrit ses instructions, outils, skills, MCP et fournisseur, puis `plan/apply` montre et applique les changements. Il vise les équipes DevOps qui veulent gouverner les agents par pull request.
+- **Utilité d’architecte :** rendre les agents reviewables, reproductibles et réversibles comme de l’IaC, surtout lorsque prompts, outils et références de secrets deviennent des actifs d’équipe.
 - **Pourquoi maintenant :** le projet propose un control plane IaC open source pour gérer des agents cloud par Git/YAML avec `validate → plan → apply`, détection de drift et adaptateurs multi-fournisseurs.
 - **Preuves de traction :** dépôt public avec 70 commits, workflow et quickstart documentés ; source primaire : https://github.com/modelstudioai/OpenAgentPack.
 - **Fait vérifié :** le README indique un statut beta, une déclaration `agents.yaml`, des providers Bailian/Qoder/Claude/Volcengine Ark et une matrice de capacités.
 - **Analyse :** le pattern transpose GitOps/Terraform aux prompts, tools, skills, MCP, credentials references et environnements d’agents.
 - **Maturité :** `signal faible` ; 23 étoiles et beta, APIs et schéma annoncés comme susceptibles de changer.
 - **Architecture cible :** dépôt Git, validation hors ligne en CI, plan dans une merge request, credentials injectés par secret manager, apply avec approbation et état séparé par environnement.
+- **Mise en œuvre et exploitation :** traiter `agents.yaml` comme une configuration déclarative soumise à CI, séparer état et secrets, journaliser les plans/applies et prévoir un rollback de déclaration ; ne pas confondre portabilité du format et portabilité des capacités fournisseurs.
 - **Test proposé :** déclaration minimale d’un agent fictif ; varier prompt/tool/provider, observer le plan, le drift et le rollback sans compte Cloud réel. Durée 30 minutes.
 - **Décision :** `surveiller`.
 - **Prévision :** le besoin agents-as-code va croître ; décision dépendante de la portabilité réelle et des contrats fournisseurs dans 1–3 mois.
@@ -68,12 +74,14 @@ Ces entrées sont des détections précoces. Un signal de release ou de traction
 ### 4. Stately Agent : machines d’état et exécution durable — SIGNAL FAIBLE / ACCÉLÉRATION
 
 - **Pitch rapide :** Stately Agent modélise l’agent comme une machine d’état avec événements, outils et reprises durables. Il vise les équipes qui doivent tester les branches d’un workflow et reprendre proprement après interruption ou approbation humaine.
+- **Utilité d’architecte :** expliciter les états, transitions, reprises et validations humaines d’un workflow agent afin de le tester et l’exploiter comme un système distribué.
 - **Pourquoi maintenant :** la release `2.0.0-alpha.21`, publiée le 27 août, met à jour l’intégration AI SDK v7 et clarifie le placement des paramètres de raisonnement côté hôte ; les releases précédentes ajoutent déjà un runtime durable et une reprise par journal.
 - **Preuves de traction :** releases officielles rapprochées les 21 et 27 août : https://github.com/statelyai/agent/releases.
 - **Fait vérifié :** le projet expose des agents comme machines d’état et décrit `runDurableAgent`, journalisation, reprise et exécution sans rejouer les appels déjà journalisés.
 - **Analyse :** le pattern traite les agents comme des workflows explicites, versionnables et rejouables, ce qui rapproche l’orchestration IA des systèmes durable-workflow.
 - **Maturité :** `signal faible` ; version alpha, dépendances XState/AI SDK évolutives et absence de validation dans la stack réelle.
 - **Architecture cible :** machine versionnée, journal durable, executors côté hôte, secrets et choix de modèle hors définition, traces des transitions et approbation humaine.
+- **Mise en œuvre et exploitation :** commencer par un workflow simulé, persister le journal dans un stockage contrôlé, tracer chaque transition et tester crash/reprise ; attendre une API stable avant d’en faire un socle critique.
 - **Test proposé :** simuler un agent avec appel modèle et validation humaine, tuer le processus, reprendre depuis le journal et vérifier qu’un appel terminé n’est pas rejoué.
 - **Décision :** `surveiller`.
 - **Prévision :** les workflows durables deviennent un pattern clé pour agents fiables ; réexaminer après une release non-alpha ou une intégration de production documentée.

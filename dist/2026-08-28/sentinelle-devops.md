@@ -9,6 +9,10 @@
 
 Deux sujets exigent une qualification rapide. Aucun incident de production dans la stack de Mehdi n’est confirmé.
 
+## Lecture d’architecte DevOps/Cloud
+
+La question prioritaire n’est pas seulement « qu’est-ce qui a changé ? », mais « quel composant de l’architecture peut être concerné, comment le vérifier rapidement, et quelle mise en œuvre corrective est réversible ? ». Les deux signaux ci-dessous restent donc des qualifications, pas des incidents confirmés.
+
 ## À qualifier
 
 ### SIG-2026-08-27-001 — Kubernetes 1.37.0

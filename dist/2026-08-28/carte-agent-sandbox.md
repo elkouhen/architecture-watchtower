@@ -2,6 +2,8 @@
 
 **Régénération :** 28 août 2026, avec pitch rapide obligatoire pour le service.
 
+**Perspective :** carte rédigée du point de vue d’un architecte DevOps/Cloud qui doit décider où placer le service, comment l’opérer et quand ne pas le retenir.
+
 Date : 2026-08-28. Version observée : `v0.5.6` dans la release officielle. Version réellement déployée dans la stack de Mehdi : `à qualifier`.
 
 ## 1. RÉSUMÉ DÉCISIONNEL

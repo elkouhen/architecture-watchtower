@@ -6,6 +6,8 @@
 
 **Mise à jour du 28 août, après exécution du radar agressif :** les nouveaux projets ont été détectés et enregistrés, mais aucune qualification de stack, aucun laboratoire et aucune décision d’adoption n’est documenté depuis la dernière revue. Les décisions ci-dessous restent donc inchangées ; leur statut opérationnel est `à faire`.
 
+**Lecture d’architecte DevOps/Cloud :** chaque décision est évaluée par rapport à son utilité dans un système réel, son chemin de déploiement, son exploitation quotidienne et sa condition de retrait. Les projets agents restent des options d’architecture à qualifier, pas des standards à adopter.
+
 ## RÉPONSE DIRECTE
 
 1. **Qualifier immédiatement** les versions Kubernetes, les add-ons et l’exposition APM Serverless Elastic ; aucune exposition réelle n’est prouvée dans le dépôt.
@@ -39,6 +41,7 @@
 - **Décision :** `tester` en Kind, aucune adoption de production.
 - **Owner :** plateforme Kubernetes. **Échéance :** 12 septembre 2026. **Critère :** persistance, refus réseau, permissions minimales et nettoyage complet démontrés.
 - **Risque/repli :** revenir à un StatefulSet contrôlé ou un runtime plus isolé si le CRD ou le niveau de sécurité ne convient pas.
+- **Mise en œuvre :** Kind d’abord, puis cluster Cloud seulement après validation des CRD, quotas, NetworkPolicy, stockage et métriques.
 
 ### D3 — SURVEILLER les interfaces et runtimes IA de plateforme
 
@@ -47,6 +50,7 @@
 - **Décision :** `surveiller`, avec une expérimentation limitée si une implémentation compatible avec la stack est identifiée.
 - **Owner :** IA/observabilité. **Échéance de réexamen :** 30 septembre 2026. **Succès :** une implémentation, une matrice de compatibilité et un scénario de repli documentés.
 - **Risque/repli :** conserver un proxy et un schéma de télémétrie internes versionnés.
+- **Mise en œuvre :** comparer les projets sur un scénario identique — session, outil, reprise, secret, trace et rollback — avant de choisir un composant de plateforme.
 
 ## PLAN D’EXÉCUTION ET EXPÉRIMENTATIONS
 
