@@ -18,10 +18,11 @@ Utilise trois fenêtres complémentaires : les dernières 48 heures pour les pro
 - **Faits produit :** site officiel, documentation, release notes, changelog, dépôt officiel, page lifecycle et status page ;
 - **Traction open source :** GitHub Trending, releases, croissance des stars, contributeurs, forks, issues, discussions et dépendances ;
 - **Détection de momentum :** Trendshift, notamment les classements daily/weekly, les mentions live et les projets nouvellement détectés ;
+- **Intérêt émergent :** Google Trends, pour les hausses de recherches, requêtes associées et sujets en accélération ;
 - **Discussions terrain :** Hacker News, Lobsters, Reddit, forums GitHub, forums Elastic, Slack/Discord publics et Bluesky/Mastodon/X ;
 - **Contexte :** CNCF Landscape, blogs d’ingénierie, retours d’expérience et articles de recherche.
 
-Les réseaux sociaux, forums, classements — y compris Trendshift — et articles servent à découvrir une tendance. Ils ne confirment pas seuls une maturité, une compatibilité, une performance, une sécurité ou une recommandation. Toute affirmation technique importante doit être confirmée par une source primaire. Pour Trendshift, vérifie systématiquement le dépôt canonique, l’activité récente, le README, la licence, les releases et les signaux de sécurité avant de conserver un projet.
+Les réseaux sociaux, forums, classements — y compris Trendshift — Google Trends et articles servent à découvrir une tendance. Ils ne confirment pas seuls une maturité, une compatibilité, une performance, une sécurité ou une recommandation. Google Trends mesure un intérêt de recherche, pas l’usage par des ingénieurs ; désambiguïse les termes génériques, compare les variantes de nom et indique la zone, la période et la catégorie observées. Toute affirmation technique importante doit être confirmée par une source primaire. Pour Trendshift, vérifie systématiquement le dépôt canonique, l’activité récente, le README, la licence, les releases et les signaux de sécurité avant de conserver un projet.
 
 CONTRÔLE QUALITÉ
 Avant la sortie, vérifie que chaque projet possède un pitch compréhensible, une date de signal, une URL canonique et un niveau de preuve explicite. Pour chaque affirmation technique, cherche une source primaire ; si elle manque, conserve le projet visible mais marque `signal faible` et indique exactement ce qui manque. Note les sources en échec et les corrections à reporter dans `state/feedback.yaml`.
@@ -41,11 +42,11 @@ EXCLUSIONS
 
 SÉLECTION DES TENDANCES
 MODE DE DÉTECTION AGRESSIVE
-Fais d’abord remonter jusqu’à vingt candidats, et non dix, dès qu’un signal crédible ou précurseur est observé : projet nouvellement classé ou mentionné sur Trendshift, nouveau dépôt actif, accélération des commits/issues/releases, hausse rapide de contributeurs ou d’utilisateurs, projet mis en avant par plusieurs développeurs, release structurante, discussion technique, intégration par un projet reconnu, retour d’expérience, offre managée ou pattern repris par plusieurs équipes. Un seul signal suffit pour la détection. Pour les signaux des dernières 48 heures, un dépôt ou une release techniquement lisible peut être remonté même sans seconde preuve ; marque alors `signal faible`, indique la date exacte et la preuve manquante.
+Fais d’abord remonter jusqu’à vingt candidats, et non dix, dès qu’un signal crédible ou précurseur est observé : projet nouvellement classé ou mentionné sur Trendshift, hausse Google Trends désambiguïsée, nouveau dépôt actif, accélération des commits/issues/releases, hausse rapide de contributeurs ou d’utilisateurs, projet mis en avant par plusieurs développeurs, release structurante, discussion technique, intégration par un projet reconnu, retour d’expérience, offre managée ou pattern repris par plusieurs équipes. Un seul signal suffit pour la détection. Pour les signaux des dernières 48 heures, un dépôt ou une release techniquement lisible peut être remonté même sans seconde preuve ; marque alors `signal faible`, indique la date exacte et la preuve manquante.
 
 Ne filtre pas prématurément un projet parce qu’il a peu d’étoiles, peu de documentation ou peu d’historique : ce sont des informations de maturité, pas des critères d’invisibilité. En revanche, écarte les dépôts vides, les annonces sans artefact vérifiable, les copies sans différenciation technique et les sujets purement marketing.
 
-Pour les sujets retenus dans le radar principal, cherche ensuite un deuxième indice indépendant et une source primaire lorsque le sujet porte une affirmation technique. Si ces éléments ne sont pas disponibles, conserve le sujet dans `Signaux à surveiller` au lieu de le supprimer.
+Pour les sujets retenus dans le radar principal, cherche ensuite un deuxième indice indépendant et une source primaire lorsque le sujet porte une affirmation technique. Une hausse Google Trends doit être corroborée par un artefact technique, une release, une discussion qualifiée ou une traction open source avant de faire passer un sujet au-delà de `signal faible`. Si ces éléments ne sont pas disponibles, conserve le sujet dans `Signaux à surveiller` au lieu de le supprimer.
 
 La seconde preuve est obligatoire pour passer de la détection précoce à `émergente` ou `traction`, mais elle n’est pas obligatoire pour apparaître dans le rapport. Un projet découvert très récemment doit rester visible dans `Projets qui trendent maintenant` même si sa maturité, son adoption et son chemin de production sont encore inconnus.
 
@@ -86,7 +87,7 @@ SORTIE
 5. **À ne pas suivre** : maximum trois sujets écartés et motif.
 6. **Laboratoire de la semaine**, uniquement si un candidat le justifie.
 7. **Échéances ou releases importantes** uniquement si elles changent une décision.
-8. **Sources consultées** : faits, signaux de traction, sources de découverte et sources en échec.
+8. **Sources consultées** : faits, signaux de traction, sources de découverte et sources en échec. Pour Google Trends, indiquer les termes comparés, la zone, la période et la catégorie ; ne pas présenter un indice de recherche comme une preuve d’adoption.
 
 La priorité de détection est, dans cet ordre : fraîcheur du signal, vitesse d’accélération, potentiel futur, maturité et facilité d’adoption, pertinence pour la stack actuelle, puis valeur pédagogique. La maturité ne se déduit jamais de la popularité seule. La priorité de décision reste : potentiel futur, maturité, facilité d’adoption et pertinence pour la stack.
 
