@@ -53,7 +53,6 @@ FORMAT DE CHAQUE TENDANCE
 - **Fait vérifié :** ce qui est confirmé par une source primaire ;
 - **Analyse :** problème d’architecture résolu et pattern associé ;
 - **Maturité :** stade, limites, dépendances et risques de verrouillage ;
-- **Pertinence pour Mehdi :** lien concret avec AWS/GCP/Kubernetes/CI/CD/observabilité/Terraform ; `confirmée`, `possible` ou `inconnue` ;
 - **Architecture cible :** composants, flux, données, identité, déploiement et exploitation ;
 - **Test proposé :** environnement, durée, étapes, métriques et résultat attendu ;
 - **Décision :** `surveiller`, `tester` ou `écarter` ;
