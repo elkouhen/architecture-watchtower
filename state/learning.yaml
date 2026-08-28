@@ -12,6 +12,17 @@ products:
     lab_deliverable: "dist/2026-08-27/carte-elasticsearch.md"
     next_step: "Lancer le laboratoire local et restituer les cinq questions d’architecte"
     next_review: 2026-09-03
+  - product: Agent Sandbox
+    category: "tendance"
+    level: "découverte"
+    first_studied: 2026-08-28
+    last_studied: 2026-08-28
+    concepts_acquired: ["positionnement", "CRD Sandbox", "workload singleton", "persistance", "isolation à qualifier"]
+    gaps: ["déploiement Kind", "isolation runtime", "observabilité", "coût", "support API"]
+    lab_status: "planned"
+    lab_deliverable: "dist/2026-08-28/carte-agent-sandbox.md"
+    next_step: "Déployer Agent Sandbox sur Kind et vérifier persistance, egress et nettoyage"
+    next_review: 2026-09-12
 
 # Schéma recommandé :
 # - product: Elasticsearch

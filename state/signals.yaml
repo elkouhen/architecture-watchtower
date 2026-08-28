@@ -7,7 +7,7 @@ signals:
     product_version: "Kubernetes 1.37.0"
     environment: "unknown"
     first_seen: 2026-08-27
-    last_seen: 2026-08-27
+    last_seen: 2026-08-28
     score: 7
     confidence: "high"
     status: "new"
@@ -25,7 +25,7 @@ signals:
     product_version: "Elastic Cloud APM Serverless"
     environment: "unknown"
     first_seen: 2026-08-27
-    last_seen: 2026-08-27
+    last_seen: 2026-08-28
     score: 5
     confidence: "high"
     status: "open"
@@ -35,6 +35,7 @@ signals:
     deliverables:
       - dist/2026-08-27/sentinelle-devops.md
       - dist/2026-08-27/carte-elasticsearch.md
+      - dist/2026-08-28/sentinelle-devops.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-27-003
@@ -53,6 +54,61 @@ signals:
     deliverables:
       - dist/2026-08-27/radar-architecture.md
       - dist/2026-08-27/carte-elasticsearch.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-001
+    canonical_url: https://github.com/kubernetes-sigs/agent-sandbox
+    subject: "Agent Sandbox propose une CRD pour les workloads singleton persistants d’agents"
+    product_version: "Agent Sandbox v0.4.6 observé ; v0.5.3 à confirmer"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "test"
+    owner: "plateforme Kubernetes"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+      - dist/2026-08-28/carte-agent-sandbox.md
+      - dist/2026-08-28/revue-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-002
+    canonical_url: https://github.com/open-telemetry/semantic-conventions-genai
+    subject: "Les conventions OpenTelemetry GenAI évoluent dans un dépôt dédié"
+    product_version: "GenAI semantic conventions"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/observabilité"
+    due_date: 2026-09-30
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+      - dist/2026-08-28/revue-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-003
+    canonical_url: https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/
+    subject: "Le groupe de travail Kubernetes AI Gateway développe des patterns de routage IA"
+    product_version: "non applicable"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme Kubernetes"
+    due_date: 2026-09-30
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+      - dist/2026-08-28/revue-architecture.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-27-004
