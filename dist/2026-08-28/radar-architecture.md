@@ -1,5 +1,7 @@
 # RADAR DES TENDANCES — 2026-08-28
 
+**Régénération :** 28 août 2026, avec détection ASAP et pitch rapide par projet.
+
 **Période :** 48 dernières heures pour l’alerte ASAP, 7 jours pour le rythme hebdomadaire, 30 jours pour l’émergence.
 **Lecture cible :** moins de 30 minutes. Les projets très récents sont visibles même lorsqu’ils sont immatures.
 

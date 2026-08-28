@@ -18,18 +18,19 @@ La carte n’est ni une brochure marketing ni une recommandation automatique. Di
 
 ## Format obligatoire
 
-1. **Résumé décisionnel** : rôle du service, problème résolu, cas d’usage, décision actuelle et principal compromis, en cinq lignes maximum.
-2. **Position dans le système** : producteurs, consommateurs, entrées, traitements, sorties, flux et services complémentaires ou remplacés.
-3. **Modèle mental** : chemin d’utilisation concret, composants indispensables, état, interfaces et erreurs principales.
-4. **Architecture de déploiement** : un déploiement local reproductible et un déploiement de production réaliste. Pour un service distribué, expliquer rôles, communications, partitionnement, réplication, placement multi-zone, sauvegarde et chemins de panne.
-5. **Données et cycle de vie** : modèle, schéma, indexation, rétention, migration, sauvegarde/restauration et compatibilité, uniquement si applicable.
-6. **Exploitation** : SLO, métriques, alertes, upgrade, rollback, maintenance, capacité et pannes. Pour un service dimensionnable, fournir un tableau `charge → ressource → métrique → décision` couvrant CPU, RAM/heap, stockage/IOPS et réseau ; donner des hypothèses chiffrées et une méthode de validation.
-7. **Sécurité et responsabilités** : identité, rôles, secrets, chiffrement, réseau, audit, vulnérabilités et partage fournisseur/équipe.
-8. **Choix et alternatives** : coût, charge opérationnelle, verrouillage, réversibilité et alternatives uniquement si elles sont réellement pertinentes. Écrire `pas d’équivalent direct` lorsque nécessaire.
-9. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et condition de sortie.
-10. **Évolutions depuis la dernière carte** : maximum cinq, datées, sourcées et reliées à un impact ou à une action.
-11. **Laboratoire guidé** : durée maximale de 60 minutes, prérequis, étapes/commandes, scénario, observation, nettoyage et critère de réussite mesurable.
-12. **Incertitudes et sources** : inventaire manquant, hypothèses, conséquences, URL primaires consultées et sources en échec.
+1. **Pitch rapide** : en une ou deux phrases, explique ce que fait le service, quel problème il résout, pour quel type d’équipe ou de workload il est utile, et pourquoi il mérite d’être étudié. Utilise des mots simples et évite le marketing.
+2. **Résumé décisionnel** : rôle du service, problème résolu, cas d’usage, décision actuelle et principal compromis, en cinq lignes maximum.
+3. **Position dans le système** : producteurs, consommateurs, entrées, traitements, sorties, flux et services complémentaires ou remplacés.
+4. **Modèle mental** : chemin d’utilisation concret, composants indispensables, état, interfaces et erreurs principales.
+5. **Architecture de déploiement** : un déploiement local reproductible et un déploiement de production réaliste. Pour un service distribué, expliquer rôles, communications, partitionnement, réplication, placement multi-zone, sauvegarde et chemins de panne.
+6. **Données et cycle de vie** : modèle, schéma, indexation, rétention, migration, sauvegarde/restauration et compatibilité, uniquement si applicable.
+7. **Exploitation** : SLO, métriques, alertes, upgrade, rollback, maintenance, capacité et pannes. Pour un service dimensionnable, fournir un tableau `charge → ressource → métrique → décision` couvrant CPU, RAM/heap, stockage/IOPS et réseau ; donner des hypothèses chiffrées et une méthode de validation.
+8. **Sécurité et responsabilités** : identité, rôles, secrets, chiffrement, réseau, audit, vulnérabilités et partage fournisseur/équipe.
+9. **Choix et alternatives** : coût, charge opérationnelle, verrouillage, réversibilité et alternatives uniquement si elles sont réellement pertinentes. Écrire `pas d’équivalent direct` lorsque nécessaire.
+10. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et condition de sortie.
+11. **Évolutions depuis la dernière carte** : maximum cinq, datées, sourcées et reliées à un impact ou à une action.
+12. **Laboratoire guidé** : durée maximale de 60 minutes, prérequis, étapes/commandes, scénario, observation, nettoyage et critère de réussite mesurable.
+13. **Incertitudes et sources** : inventaire manquant, hypothèses, conséquences, URL primaires consultées et sources en échec.
 
 ## Règles de conditionnalité
 

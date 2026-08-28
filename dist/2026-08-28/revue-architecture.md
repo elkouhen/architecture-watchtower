@@ -1,5 +1,7 @@
 # REVUE ARCHITECTURE — 28 AOÛT 2026
 
+**Régénération :** 28 août 2026, après mise à jour du radar et des consignes de présentation.
+
 **Périmètre :** revue des décisions et prévisions du rapport du 27 août, plus les évolutions vérifiées depuis. Les rapports quotidiens et hebdomadaires restent séparés de cette revue.
 
 **Mise à jour du 28 août, après exécution du radar agressif :** les nouveaux projets ont été détectés et enregistrés, mais aucune qualification de stack, aucun laboratoire et aucune décision d’adoption n’est documenté depuis la dernière revue. Les décisions ci-dessous restent donc inchangées ; leur statut opérationnel est `à faire`.

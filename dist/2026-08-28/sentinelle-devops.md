@@ -1,5 +1,7 @@
 # SENTINELLE DEVOPS — 2026-08-28
 
+**Régénération :** 28 août 2026, avec les consignes actuelles du projet.
+
 **Période examinée :** changements depuis le 27 août 2026, avec déduplication locale sur 90 jours  
 **Environnement réel :** non accessible dans le dépôt ; toute exposition est `inconnue` tant qu’elle n’est pas qualifiée.
 

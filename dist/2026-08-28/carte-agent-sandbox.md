@@ -1,8 +1,12 @@
 # CARTE SERVICE — AGENT SANDBOX
 
-Date : 2026-08-28. Version observée : `v0.4.6` dans le dépôt GitHub ; une release `v0.5.3` apparaît dans l’index des releases consulté, à confirmer avant de figer. Version réellement déployée dans la stack de Mehdi : `à qualifier`.
+**Régénération :** 28 août 2026, avec pitch rapide obligatoire pour le service.
+
+Date : 2026-08-28. Version observée : `v0.5.6` dans la release officielle. Version réellement déployée dans la stack de Mehdi : `à qualifier`.
 
 ## 1. RÉSUMÉ DÉCISIONNEL
+
+**Pitch rapide :** Agent Sandbox fournit une ressource Kubernetes pour exécuter un agent dans un environnement persistant et identifiable, avec un cycle de vie géré par contrôleur. Il s’adresse aux équipes plateforme qui veulent isoler les sessions d’agents ou de code généré sans recomposer manuellement Pod, Service et stockage.
 
 Agent Sandbox est un contrôleur Kubernetes pour des workloads singleton, persistants et isolés, adaptés aux runtimes d’agents et à l’exécution de code non fiable. Le potentiel est élevé pour la plateforme IA, mais le produit reste émergent. Décision proposée : `tester` localement, sans usage critique ni secrets. Principal compromis : simplicité de cycle de vie contre nouvelle CRD, surface d’isolation et dépendance à un projet jeune.
 
