@@ -264,6 +264,40 @@ signals:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-08-28-011
+    canonical_url: https://github.com/GetBusbar/busbar
+    subject: "Busbar propose une frontière d’exécution gouvernée pour les systèmes IA"
+    product_version: "Busbar 1.5.x"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "test"
+    owner: "IA/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-012
+    canonical_url: https://github.com/oomol-lab/open-connector
+    subject: "OpenConnector fournit une gateway de connecteurs gouvernés pour agents IA"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "test"
+    owner: "IA/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
 
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001

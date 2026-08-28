@@ -20,6 +20,8 @@ Fenêtres observées : 48 h pour le momentum immédiat, 7 jours pour les évolut
 | [sapientinc/PRAXIST](https://github.com/sapientinc/PRAXIST) | Système de recherche autonome qui tente de rendre les expérimentations mesurables et exécutables par ordinateur. À surveiller pour les pipelines d’expérimentation reproductibles. | Trendshift daily, rang 5, 28/08 ; `signal faible` | Domaine et modèle de sécurité à clarifier ; faible lien direct avec la plateforme actuelle. | 12/09 |
 | [modelstudioai/OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack) | Control plane déclaratif pour décrire, déployer et gouverner des agents cloud. Le rapprochement avec IaC peut rendre les agents versionnables et auditables. | Signal local récent et présence Trendshift ; `émergente` | Dépôt primaire disponible ; maturité, sécurité des outils et dépendances managées à confirmer. | 12/09 |
 | [kubernetes-sigs/agent-sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | CRD et contrôleur Kubernetes pour gérer des environnements isolés et persistants d’agents. Il fournit un chemin plus explicite pour le cycle de vie, les outils et l’observabilité. | v0.5.6 le 20/08 ; `émergente` | Preuves primaires et exemples disponibles ; version encore pré-1.0 et intégration à tester. | 12/09 |
+| [GetBusbar/busbar](https://github.com/GetBusbar/busbar) | Gateway IA self-hosted en Rust qui centralise routage, failover, budgets, credentials et preuves d’exécution. Il vise les équipes qui veulent gouverner les appels modèles et outils sur un point de passage opérable. | Trendshift featured, 28/08 ; `émergente` | README et déploiement Kubernetes documentés ; benchmarks à reproduire et sécurité à qualifier. | 05/09 |
+| [oomol-lab/open-connector](https://github.com/oomol-lab/open-connector) | Gateway de connecteurs qui expose plus de 1 000 fournisseurs aux agents via SDK, MCP, HTTP et OpenAPI. Il garde credentials, scopes, politiques et logs derrière une frontière d’exécution. | Trendshift featured, 28/08 ; `traction` | Dépôt actif, Helm, Docker et Cloudflare documentés ; catalogue, OAuth et isolation restent à auditer. | 05/09 |
 
 ## 3. Tendances détaillées
 
@@ -83,9 +85,39 @@ Fenêtres observées : 48 h pour le momentum immédiat, 7 jours pour les évolut
 - **Décision :** `surveiller`.
 - **Prévision :** requalifier au 12/09 si une release, une licence claire et un benchmark reproductible sont disponibles.
 
+### Gouvernance du chemin d’exécution IA — Busbar
+
+- **Pitch rapide :** Busbar est un proxy/gateway self-hosted qui place une frontière de contrôle entre les applications IA et les fournisseurs de modèles, outils MCP ou agents A2A. Il centralise routage, credentials, budgets, résilience et preuves d’exécution.
+- **Utilité d’architecte :** fournir un point de contrôle commun quand plusieurs agents et modèles doivent respecter les mêmes politiques ; pertinent pour réduire la logique de failover et de budget dispersée dans les applications.
+- **Pourquoi maintenant :** Trendshift le met en avant le 28/08 et le dépôt dispose d’une documentation Kubernetes et d’un binaire Rust statique.
+- **Preuves de traction :** présence featured sur Trendshift ; dépôt primaire actif avec 1 742 commits et 112 stars observées le 28/08. Les benchmarks restent des affirmations du projet à reproduire.
+- **Fait vérifié :** le README documente les protocoles OpenAI, Anthropic, Gemini, Cohere et Bedrock, les pools pondérés, circuit breakers, failover avant premier octet, OTLP/Prometheus, audit webhooks et Helm.
+- **Analyse :** pattern AI execution gateway ; bénéfice de gouvernance élevé, mais la gateway devient un composant critique du chemin synchrone et peut concentrer le risque de panne.
+- **Maturité :** `émergente` ; Apache-2.0 et déploiement simple, mais couverture fournisseur plus étroite que certaines alternatives et absence de preuve d’usage de production.
+- **Architecture cible :** applications/agents → Busbar → fournisseurs modèles/outils ; secrets au niveau gateway, clés virtuelles par consommateur, métriques p95/coût/erreurs, traces OTLP et journal d’audit redigé.
+- **Mise en œuvre et exploitation :** déployer deux replicas Kubernetes avec configuration GitOps verrouillée, readiness/liveness, NetworkPolicy et secrets externes ; tester mTLS, quotas, failover et retour temporaire à un endpoint fournisseur direct.
+- **Test proposé :** 45 minutes avec deux fournisseurs et 50 requêtes synthétiques ; mesurer p95, coût, taux de failover, perte de contexte et visibilité audit. Succès : aucun secret côté client, fallback contrôlé et surcharge conforme au budget défini.
+- **Décision :** `tester` en environnement non productif.
+- **Prévision :** confirmer sous 1–3 mois si releases, intégrations outils et preuves reproductibles progressent ; sinon conserver comme option de gateway spécialisée.
+
+### Connecteurs gouvernés pour agents — OpenConnector
+
+- **Pitch rapide :** OpenConnector fournit un runtime qui connecte des agents aux SaaS via des contrats d’actions inspectables, OAuth/API keys, MCP, HTTP et OpenAPI. Il évite de remettre les credentials fournisseurs au processus agent.
+- **Utilité d’architecte :** standardiser l’accès aux outils externes et isoler identité, scopes, tokens, politiques allow/block et logs ; pertinent pour un produit agentique qui doit conserver des connexions utilisateurs durables.
+- **Pourquoi maintenant :** projet featured sur Trendshift le 28/08 et dépôt primaire désormais vérifié avec chemins self-hosted, Kubernetes Helm et Cloudflare.
+- **Preuves de traction :** 5,4 k stars, 461 forks et 570 commits observés dans le dépôt primaire ; Trendshift fournit le signal de découverte, pas une garantie de qualité du catalogue.
+- **Fait vérifié :** le README documente Docker/Node.js, SQLite/PostgreSQL, Helm avec PVC, Cloudflare Workers/D1/R2, MCP, OpenAPI, OAuth et migrations PostgreSQL explicites.
+- **Analyse :** pattern connector gateway + policy enforcement ; il déplace la complexité d’intégration hors des agents, mais élargit fortement la surface de permissions et de supply chain.
+- **Maturité :** `traction` pour la plateforme open source, adoption production à qualifier ; risques : scopes excessifs, secrets, exécuteurs tiers et compatibilité des APIs SaaS.
+- **Architecture cible :** agent → MCP/SDK/API → gateway → identité/connexion → action versionnée → SaaS ; PostgreSQL en multi-instance, stockage transit chiffré, logs redigés et allowlist d’actions.
+- **Mise en œuvre et exploitation :** commencer avec un fournisseur non critique, versionner l’image, exécuter les migrations explicitement, limiter les scopes OAuth et surveiller erreurs d’action, refresh tokens et appels par utilisateur. Prévoir révocation et désactivation d’un connecteur.
+- **Test proposé :** déployer en namespace isolé avec PostgreSQL, connecter GitHub via token de test et exécuter une action en lecture seule via MCP puis OpenAPI. Succès : secret absent des logs, scope minimal, audit complet et rollback d’image vérifié.
+- **Décision :** `tester` sur données non sensibles.
+- **Prévision :** sous 1–3 mois, passer en qualification plateforme si sécurité, catalogue et migrations restent stables sur plusieurs versions.
+
 ## 4. Signaux à surveiller
 
-- **open-connector/open-connector** — Trendshift le met en avant comme gateway de connecteurs pour agents ; dépôt primaire non suffisamment récupéré pendant cette veille. Réexaminer le 05/09.
+- **vercel-labs/vgpu** — Trendshift daily, rang 24 ; intéressant pour l’exécution GPU cross-runtime mais sans bénéfice serveur immédiat démontré. Réexaminer le 12/09.
 - **SenteLabsAI/OpenExecutive** — multi-agent exécutif remonté rang 9 ; qualifier architecture, permissions et cas d’usage réel avant de retenir le projet.
 - **K-Dense-AI/scientific-agent-skills** — catalogue de skills validées remonté rang 6 ; vérifier maintenance, isolation et provenance des skills.
 - **openJiuwen-ai/jiuwenswarm** — plateforme d’agents remontée rang 7 ; manque de preuve de déploiement opérable.
@@ -104,14 +136,14 @@ Fenêtres observées : 48 h pour le momentum immédiat, 7 jours pour les évolut
 
 ## 7. Échéances ou releases importantes
 
-- **05/09/2026 :** requalifier Archify, WorkWeave/router, Tailcat et open-connector avec README, licence, release et chemin de déploiement.
+- **05/09/2026 :** requalifier Archify, WorkWeave/router, Tailcat, Busbar et OpenConnector avec README, licence, release, sécurité et chemin de déploiement.
 - **12/09/2026 :** réexaminer WeMM-Embedding, Orca, OpenAgentPack et Agent Sandbox ; décider si une carte de service est justifiée.
 
 ## 8. Sources consultées
 
 - Découverte et momentum : [Trendshift](https://trendshift.io/), classement daily et projets nouvellement détectés le 28/08/2026.
-- Sources primaires : [Archify](https://github.com/tt-a1i/archify), [WorkWeave/router](https://github.com/workweave/router), [WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding), [Tailcat](https://github.com/tailscale/tailcat), [Orca](https://github.com/stablyai/orca), [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack), [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox/releases).
-- Source en échec ou insuffisante : dépôt [open-connector](https://github.com/open-connector/open-connector) non exploitable pendant la collecte ; conservé seulement comme signal à qualifier.
+- Sources primaires : [Archify](https://github.com/tt-a1i/archify), [WorkWeave/router](https://github.com/workweave/router), [WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding), [Tailcat](https://github.com/tailscale/tailcat), [Orca](https://github.com/stablyai/orca), [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack), [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox/releases), [Busbar](https://github.com/GetBusbar/busbar), [OpenConnector](https://github.com/oomol-lab/open-connector).
+- Source en échec ou insuffisante : certains détails de WorkWeave/router, vGPU et des projets secondaires Trendshift restent à confirmer ; ils demeurent des signaux faibles.
 
 ## Contrôle qualité
 
