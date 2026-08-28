@@ -19,6 +19,9 @@ Utilise trois fenêtres complémentaires : les dernières 48 heures pour les pro
 
 Les réseaux sociaux, forums, classements et articles servent à découvrir une tendance. Ils ne confirment pas seuls une maturité, une compatibilité, une performance ou une recommandation. Toute affirmation technique importante doit être confirmée par une source primaire.
 
+CONTRÔLE QUALITÉ
+Avant la sortie, vérifie que chaque projet possède un pitch compréhensible, une date de signal, une URL canonique et un niveau de preuve explicite. Pour chaque affirmation technique, cherche une source primaire ; si elle manque, conserve le projet visible mais marque `signal faible` et indique exactement ce qui manque. Note les sources en échec et les corrections à reporter dans `state/feedback.yaml`.
+
 FAMILLES À EXPLORER
 - patterns d’agents, outils, workflows et human-in-the-loop ;
 - observabilité, évaluation, sécurité et gouvernance des systèmes IA ;

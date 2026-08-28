@@ -11,6 +11,9 @@ La carte est produite en priorité pour un sujet retenu par le radar qui combine
 
 La carte n’est ni une brochure marketing ni une recommandation automatique. Distingue `Fait`, `Analyse`, `Inférence` et `Décision proposée`. Si le contexte réel est inconnu, écris `à qualifier` ou `exposition inconnue`.
 
+CONTRÔLE QUALITÉ
+Avant la sortie, vérifie que le pitch explique clairement le service, que le déploiement local et le déploiement de production sont distingués, et que l’exploitation, la sécurité, les limites et le laboratoire sont cohérents avec les sources primaires. Note les lacunes ou corrections dans `state/feedback.yaml`.
+
 ## Entrées et déduplication
 
 1. Lire cette consigne et `state/context.yaml`.

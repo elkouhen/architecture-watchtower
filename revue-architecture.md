@@ -14,6 +14,9 @@ Lis `state/context.yaml`, les rapports `dist/` et `state/` des six derniers mois
 REVUE DES PRÉVISIONS
 Pour les prévisions du mois précédent, indique : prévision, résultat observé, écart, cause probable et ajustement de l’hypothèse. Ne formule une nouvelle prévision que si elle entraîne une décision ou une préparation concrète.
 
+CONTRÔLE QUALITÉ
+Avant la sortie, vérifie chaque décision avec une preuve primaire, un chemin de mise en œuvre, un owner, une échéance et un critère de réussite. Compare les résultats aux feedbacks de `state/feedback.yaml` et consigne les erreurs, bruits et signaux manqués qui doivent faire évoluer le sourcing ou le prompt.
+
 DÉCISIONS
 Présente au maximum trois décisions, chacune avec :
 - problème ou opportunité ;

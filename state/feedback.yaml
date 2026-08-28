@@ -1,0 +1,17 @@
+# Feedback de qualité des rapports.
+# Une entrée peut être ajoutée après chaque rapport ou lors de la revue mensuelle.
+feedback: []
+
+# Modèle recommandé :
+# - date: 2026-08-28
+#   report: radar-architecture
+#   item: "Nom du signal ou projet"
+#   factual_accuracy: 0|1|2
+#   source_quality: 0|1|2
+#   architectural_value: 0|1|2
+#   pitch_clarity: 0|1|2
+#   action_quality: 0|1|2
+#   noise: 0|1|2
+#   outcome: "confirmed|useful|noise|missed|pending"
+#   correction: "Correction factuelle, source à ajouter ou règle de prompt à revoir"
+#   recheck_date: 2026-09-05

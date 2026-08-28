@@ -21,6 +21,9 @@ N’inclus pas les annonces de modèles, benchmarks, nouveautés frontend ou rel
 SOURCES
 Commence par les bulletins de sécurité, changelogs, release notes, pages de lifecycle, matrices de compatibilité et dépôts officiels. Une source secondaire ne sert qu’à expliquer un fait confirmé par une source primaire.
 
+CONTRÔLE QUALITÉ
+Avant la sortie, vérifie chaque fait contre une source primaire, note les sources consultées ou en échec, sépare exposition confirmée et exposition inconnue, et signale toute correction à enregistrer dans `state/feedback.yaml`. Ne transforme pas une alerte de découverte en incident confirmé.
+
 QUALIFICATION
 Pour chaque signal retenu, vérifie produit, version, environnement, exposition et correctif. Si l’exposition n’est pas vérifiable, écris `exposition inconnue` et limite la recommandation à l’action de qualification. Ne transforme jamais une alerte en vulnérabilité confirmée de la stack.
 

@@ -1,0 +1,51 @@
+# Registre local des sources de veille.
+# Les sources de découverte servent à trouver un sujet ; une source primaire doit confirmer les faits importants.
+sources:
+  - id: kubernetes-official
+    name: Kubernetes releases, blog and documentation
+    type: primary
+    topics: [kubernetes, gateway-api, ai-infrastructure]
+    cadence: daily
+    reliability: high
+    fallback: https://github.com/kubernetes/kubernetes/releases
+    last_checked: 2026-08-28
+    notes: "Confirmer versions, dépréciations, APIs et calendriers."
+  - id: elastic-official
+    name: Elastic release notes, advisories and status
+    type: primary
+    topics: [elasticsearch, elastic-apm, logstash, observability]
+    cadence: daily
+    reliability: high
+    fallback: https://status.elastic.co/
+    last_checked: 2026-08-28
+    notes: "Séparer release documentée, incident fournisseur et exposition locale."
+  - id: opentelemetry-official
+    name: OpenTelemetry specifications and repositories
+    type: primary
+    topics: [opentelemetry, genai-observability, traces]
+    cadence: weekly
+    reliability: high
+    fallback: https://github.com/open-telemetry
+    last_checked: 2026-08-28
+    notes: "Vérifier le niveau de stabilité des conventions et leur implémentation."
+  - id: github-releases
+    name: GitHub repositories and releases
+    type: primary_and_discovery
+    topics: [open-source, ai-agents, cloud, devops]
+    cadence: daily
+    reliability: medium
+    fallback: https://github.com/trending
+    last_checked: 2026-08-28
+    notes: "La release est primaire pour le projet ; la popularité reste un signal de découverte."
+  - id: github-trending
+    name: GitHub Trending and topic pages
+    type: discovery
+    topics: [open-source, ai-agents, cloud, devops]
+    cadence: daily
+    reliability: low
+    fallback: https://github.com/explore
+    last_checked: 2026-08-28
+    notes: "Ne jamais utiliser seul pour conclure à la maturité, sécurité ou adoption."
+
+# Ajouter une entrée lorsqu’une source est utile, morte, déplacée ou trompeuse.
+# Champs attendus : id, name, type, topics, cadence, reliability, fallback, last_checked, notes.
