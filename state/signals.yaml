@@ -59,7 +59,7 @@ signals:
   - id: SIG-2026-08-28-001
     canonical_url: https://github.com/kubernetes-sigs/agent-sandbox
     subject: "Agent Sandbox propose une CRD pour les workloads singleton persistants d’agents"
-    product_version: "Agent Sandbox v0.4.6 observé ; v0.5.3 à confirmer"
+    product_version: "Agent Sandbox v0.5.6"
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
@@ -109,6 +109,57 @@ signals:
     deliverables:
       - dist/2026-08-28/radar-architecture.md
       - dist/2026-08-28/revue-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-004
+    canonical_url: https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27
+    subject: "Hermes Agent v0.20.6 accélère les capacités runtime, MCP et opérations"
+    product_version: "Hermes Agent v0.20.6"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-005
+    canonical_url: https://github.com/statelyai/agent/releases
+    subject: "Stately Agent alpha.21 formalise davantage les agents comme machines d’état"
+    product_version: "@statelyai/agent 2.0.0-alpha.21"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 6
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-006
+    canonical_url: https://github.com/modelstudioai/OpenAgentPack
+    subject: "OpenAgentPack propose un control plane IaC pour les agents cloud"
+    product_version: "OpenAgentPack beta"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 6
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-27-004

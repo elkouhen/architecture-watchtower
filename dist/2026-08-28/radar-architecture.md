@@ -1,84 +1,105 @@
 # RADAR DES TENDANCES — 2026-08-28
 
-**Période :** 7 derniers jours pour les nouveautés ; 30 derniers jours pour l’émergence.  
-**Lecture cible :** moins de 30 minutes. Découverte large dominante ; approfondissement d’environ 40 % sur Kubernetes, ELK/observabilité et IA appliquée.
+**Période :** 48 dernières heures pour l’alerte ASAP, 7 jours pour le rythme hebdomadaire, 30 jours pour l’émergence.
+**Lecture cible :** moins de 30 minutes. Les projets très récents sont visibles même lorsqu’ils sont immatures.
 
 ## LES TROIS TENDANCES À RETENIR
 
-1. **AI Gateway / inference gateway — émergente :** les APIs Kubernetes commencent à traiter le routage, la politique et l’observabilité du trafic d’inférence ; `surveiller`, puis tester sur un flux non critique.
-2. **Agent Sandbox sur Kubernetes — émergente avec chemin de déploiement :** un CRD formalise des workloads agents isolés, persistants et singleton ; `tester` en environnement local avant toute exposition à des outils ou secrets.
-3. **OpenTelemetry GenAI — émergente :** les conventions GenAI se structurent dans un dépôt dédié ; `surveiller` l’interopérabilité avec Elastic APM avant de standardiser les attributs.
+1. **L’infrastructure d’exécution des agents se densifie :** Agent Sandbox, Hermes et Stately Agent publient des briques concrètes autour de l’exécution, de la persistance, de la durabilité et des outils ; `surveiller` le pattern, `tester` Agent Sandbox.
+2. **Les agents deviennent des ressources déclaratives et gouvernables :** OpenAgentPack propose un workflow `validate → plan → apply` pour des agents gérés ; `signal faible`, mais très pertinent pour Terraform/GitOps.
+3. **Le socle Kubernetes/observabilité IA continue de se structurer :** AI Gateway et OpenTelemetry GenAI restent des axes de standardisation ; `surveiller` tant que les APIs et intégrations ne sont pas stabilisées.
+
+## PROJETS QUI TRENDENT MAINTENANT
+
+| Projet | Signal daté | Intérêt architectural | Stade / manque |
+|---|---|---|---|
+| [Hermes Agent](https://github.com/NousResearch/hermes-agent) | v0.20.6 publiée le 27 août ; 209 commits depuis la release | runtime d’agent, MCP, exécution, mises à jour et opérations | `signal faible` ; vérifier sécurité, déploiement et gouvernance |
+| [Stately Agent](https://github.com/statelyai/agent) | `2.0.0-alpha.21` publiée le 27 août | agents comme machines d’état, portabilité AI SDK, exécution durable | `signal faible` ; API alpha et preuve terrain manquante |
+| [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | v0.5.6 publiée le 20 août ; nouvelle télémétrie et lifecycle warm pool | isolation et sessions persistantes pour agents sur Kubernetes | `émergente` ; tester isolation et CRD |
+| [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack) | dépôt repéré dans les signaux d’infrastructure agent du 25–28 août | IaC/GitOps pour prompts, outils, skills, MCP et agents multi-fournisseurs | `signal faible` ; 23 étoiles, beta et APIs mouvantes |
+| [AgentField](https://github.com/Agent-Field/AgentField) | release `v0.1.135` signalée le 27 août par un tracker | control plane observable et identity-aware pour agents backend | `signal faible` ; release à confirmer sur le dépôt primaire |
+| [Go UTCP](https://github.com/universal-tool-calling-protocol/go-utcp) | release `v1.12.3` signalée le 27 août | découverte et appel d’outils multi-transport | `signal faible` ; adoption, sécurité et relation avec MCP à qualifier |
+
+Ces entrées sont des détections précoces. Un signal de release ou de traction ne prouve ni maturité, ni sécurité, ni compatibilité avec la stack de Mehdi.
 
 ## TENDANCES DÉTAILLÉES
 
-### 1. AI Gateway et routage d’inférence — ÉMERGENTE
+### 1. Agent Sandbox : lifecycle et observabilité des runtimes d’agents — ÉMERGENTE / TRACTION
 
-- **Pourquoi maintenant :** le Kubernetes AI Gateway Working Group, annoncé en mars 2026, travaille sur le routage de modèles, le traitement de payloads et les passerelles egress vers Bedrock, Vertex AI ou OpenAI.
-- **Preuves de traction :** groupe de travail Kubernetes et propositions actives ; Gateway API v1.6 publiée en août 2026 avec plusieurs implémentations conformantes. Sources : https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/ ; https://kubernetes.io/blog/2026/08/03/gateway-api-v1-6-release/.
-- **Fait vérifié :** les propositions sont en développement actif ; ce n’est pas une API standardisée et stable de production pour tous les contrôleurs.
-- **Analyse :** le pattern déplace le contrôle du routage, de l’authentification, du rate limiting, du failover et éventuellement du filtrage au bord du plan d’inférence.
-- **Maturité :** `émergente` ; risque de divergence entre contrôleurs et de dépendance aux extensions. Ne pas placer un contrôle critique sur une fonctionnalité Preview/bêta seule.
-- **Pertinence pour Mehdi :** `possible` ; forte pertinence Kubernetes, Terraform, CI/CD et observabilité, mais distribution et workloads inconnus.
-- **Architecture cible :** Gateway API devant des backends de modèles internes et externes ; identité de workload pour les appels fournisseurs ; logs et traces vers OTel/ELK ; repli vers un endpoint connu si le routage échoue.
-- **Test proposé :** sur Kind, router deux backends factices selon modèle et priorité ; mesurer taux d’erreur, latence p95, décision de routage et comportement de repli en 45 minutes.
-- **Décision :** `surveiller` puis `tester` si l’implémentation choisie documente les capacités nécessaires.
-- **Prévision :** à 1–3 mois, les contrôleurs vont diverger avant qu’un socle commun ne se stabilise ; signal attendu : nouvelles GEP/CRD et conformance tests. Si la couverture reste partielle, conserver un proxy explicite et réversible.
+- **Pourquoi maintenant :** la release v0.5.6 renforce la fiabilité du contrôleur, le cycle de vie des warm pools, le diagnostic de scheduling, les métriques suspend/resume et l’intégration Prometheus.
+- **Preuves de traction :** release officielle du 20 août, dépôt Kubernetes SIG Apps actif, exemples Pi coding agent, E2B envd et n8n. Source primaire : https://github.com/kubernetes-sigs/agent-sandbox/releases/tag/v0.5.6.
+- **Fait vérifié :** v0.5.6 ajoute notamment le miroir des conditions `PodScheduled`, des métriques SDK, des outils filesystem MCP bornés et des ressources `ServiceMonitor`/`PrometheusRule` opt-in.
+- **Analyse :** le projet évolue d’un simple CRD de pod singleton vers une primitive opérable pour des sessions agents persistantes et potentiellement préchauffées.
+- **Maturité :** `émergente` ; chemin de déploiement reproductible et maintenance active, mais isolation runtime, compatibilité CRD et coût restent à prouver.
+- **Pertinence pour Mehdi :** `confirmée` pour Kubernetes, IA, CI/CD et observabilité ; exposition réelle inconnue.
+- **Architecture cible :** contrôleur versionné, namespace dédié, ServiceAccount minimal, NetworkPolicy deny-by-default, PVC borné, métriques Prometheus vers OTel/ELK, runtime isolé si le code est hostile.
+- **Test proposé :** Kind + v0.5.6 ; créer/reprendre/suspendre/supprimer une session, vérifier métriques, persistance et refus réseau. Durée 45 minutes. Succès : zéro ressource orpheline, état persistant et egress interdit bloqué.
+- **Décision :** `tester`.
+- **Prévision :** les extensions warm pool et observabilité vont accélérer les usages agents Kubernetes, mais la production dépendra de l’isolation et de la stabilité API dans 1–3 mois.
 
-### 2. Agent Sandbox — ÉMERGENTE / TRACTION
+### 2. Hermes Agent : convergence runtime, MCP et opérations — SIGNAL FAIBLE / ACCÉLÉRATION
 
-- **Pourquoi maintenant :** le projet Kubernetes SIG Apps propose un CRD `Sandbox` pour des workloads singleton, persistants et isolés, adaptés aux runtimes d’agents qui exécutent du code généré ou non fiable.
-- **Preuves de traction :** dépôt actif, documentation officielle, 11 releases affichées et une release v0.4.6 en mai 2026 ; la documentation décrit un déploiement par manifests et un quickstart. Sources : https://github.com/kubernetes-sigs/agent-sandbox ; https://agent-sandbox.sigs.k8s.io/docs/.
-- **Fait vérifié :** le projet fournit un contrôleur, des CRD et des exemples ; son niveau de maturité API et son adéquation à une production critique restent à qualifier.
-- **Analyse :** il encapsule identité stable, persistance et cycle de vie d’une session agent, au lieu de recomposer StatefulSet, Service et PVC.
-- **Maturité :** `émergente` ; maintenance et chemin de déploiement sont démontrés, mais version/API, isolation réelle, coût et observabilité doivent être testés.
-- **Pertinence pour Mehdi :** `confirmée` pour l’axe Kubernetes/IA, sans exposition réelle connue.
-- **Architecture cible :** contrôleur dans un namespace dédié ; image agent sans secrets par défaut ; NetworkPolicy, ServiceAccount minimal, PVC borné et traces d’exécution ; EKS/GKE seulement après validation locale.
-- **Test proposé :** déployer la version explicitement choisie sur Kind, créer un Sandbox, vérifier persistance et suppression, puis injecter une tentative d’accès réseau non autorisé. Critères : isolation observée, nettoyage idempotent et aucun secret accessible.
-- **Décision :** `tester` en laboratoire ; pas d’adoption de production.
-- **Prévision :** si API v1beta1, documentation et intégrations d’observabilité progressent sous 3 mois, produire une carte de standardisation ; sinon conserver comme pattern expérimental.
+- **Pourquoi maintenant :** v0.20.6 a été publiée le 27 août et agrège environ 525 PR depuis la release précédente, avec MCP distant, contrôles d’update, garde-fous d’exécution, cache de résultats, clés et opérations de flotte.
+- **Preuves de traction :** release primaire du 27 août : https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27.
+- **Fait vérifié :** la release annonce Docker/hosted deployments, catalogue MCP, contrôles de runtime et mécanismes d’update ; le dépôt est très actif.
+- **Analyse :** le projet illustre un agent qui devient une plateforme opérable : fournisseurs, outils, sessions, mises à jour, secrets et canaux d’exécution deviennent des composants d’infrastructure.
+- **Maturité :** `signal faible` pour un standard d’entreprise ; activité forte mais surface large, modèle de menace et support opérationnel à qualifier.
+- **Pertinence pour Mehdi :** `possible` ; intérêt pour middleware IA, MCP, CI/CD et observabilité, mais pas d’adoption directe sans cas d’usage.
+- **Architecture cible :** runtime en conteneur non privilégié, secrets hors image, allowlist MCP, egress contrôlé, traces des tool calls, journal d’update signé et repli vers une version précédente.
+- **Test proposé :** instance isolée avec outil fictif ; mesurer permissions, logs, rollback et comportement en timeout. Ne pas installer en production.
+- **Décision :** `surveiller`.
+- **Prévision :** si les contrats MCP, l’installation et les contrôles de sécurité se stabilisent, le projet peut devenir un cas de référence de runtime agent self-hosted ; réexaminer le 5 septembre.
 
-### 3. OpenTelemetry GenAI — ÉMERGENTE
+### 3. OpenAgentPack : agents-as-code et plan d’exécution — SIGNAL FAIBLE
 
-- **Pourquoi maintenant :** les conventions GenAI ont été déplacées vers un dépôt dédié, signe que l’écosystème formalise les attributs et spans des appels LLM, agents et outils.
-- **Preuves de traction :** documentation OTel 1.44.0 et dépôt officiel `semantic-conventions-genai`, avec des conventions de spans GenAI. Sources : https://opentelemetry.io/docs/specs/semconv/ ; https://github.com/open-telemetry/semantic-conventions-genai.
-- **Fait vérifié :** OTel définit des noms communs pour les données de télémétrie ; les conventions GenAI sont encore un domaine en évolution et leur implémentation par les agents n’est pas uniforme.
-- **Analyse :** un vocabulaire commun peut relier modèle, fournisseur, tokens, outils, erreurs et latence dans ELK/APM, mais la capture de prompts/réponses crée des risques de données sensibles et de coût.
-- **Maturité :** `émergente` ; risque de changements de schéma et de coexistence avec des conventions propriétaires.
-- **Pertinence pour Mehdi :** `confirmée` pour ELK et Elastic APM, sous réserve de vérifier le support exact de la version réellement déployée.
-- **Architecture cible :** instrumentation côté application, OTel Collector avec filtrage/redaction, export métriques/traces vers Elastic APM/ELK ; conservation séparée des contenus sensibles ; corrélation avec CI/CD et identités.
-- **Test proposé :** instrumenter un appel LLM fictif et un appel outil ; vérifier les attributs, la redaction, le coût de stockage et la recherche dans Kibana.
-- **Décision :** `surveiller` ; tester uniquement comme expérimentation d’observabilité.
-- **Prévision :** la convergence sera utile si Elastic, OTel et les frameworks d’agents consomment le même vocabulaire ; signal attendu : support documenté dans les SDK/exporters utilisés.
+- **Pourquoi maintenant :** le projet propose un control plane IaC open source pour gérer des agents cloud par Git/YAML avec `validate → plan → apply`, détection de drift et adaptateurs multi-fournisseurs.
+- **Preuves de traction :** dépôt public avec 70 commits, workflow et quickstart documentés ; source primaire : https://github.com/modelstudioai/OpenAgentPack.
+- **Fait vérifié :** le README indique un statut beta, une déclaration `agents.yaml`, des providers Bailian/Qoder/Claude/Volcengine Ark et une matrice de capacités.
+- **Analyse :** le pattern transpose GitOps/Terraform aux prompts, tools, skills, MCP, credentials references et environnements d’agents.
+- **Maturité :** `signal faible` ; 23 étoiles et beta, APIs et schéma annoncés comme susceptibles de changer.
+- **Pertinence pour Mehdi :** `confirmée` pour Terraform, GitLab/GitHub CI/CD et gouvernance IA ; fournisseurs utilisés inconnus.
+- **Architecture cible :** dépôt Git, validation hors ligne en CI, plan dans une merge request, credentials injectés par secret manager, apply avec approbation et état séparé par environnement.
+- **Test proposé :** déclaration minimale d’un agent fictif ; varier prompt/tool/provider, observer le plan, le drift et le rollback sans compte Cloud réel. Durée 30 minutes.
+- **Décision :** `surveiller`.
+- **Prévision :** le besoin agents-as-code va croître ; décision dépendante de la portabilité réelle et des contrats fournisseurs dans 1–3 mois.
 
-### 4. Kubernetes 1.37 comme cycle de plateforme — TRACTION
+### 4. Stately Agent : machines d’état et exécution durable — SIGNAL FAIBLE / ACCÉLÉRATION
 
-- **Pourquoi maintenant :** Kubernetes 1.37.0 est sorti le 26 août 2026, avec 67 améliorations.
-- **Preuves de traction :** release officielle et branche maintenue parmi les trois dernières mineures. Sources : https://kubernetes.io/blog/2026/08/26/kubernetes-v1-37-release/ ; https://kubernetes.io/releases/.
-- **Fait vérifié :** 16 améliorations sont stables, 23 bêta, 27 alpha et une dépréciation/suppression ; la prochaine patch release annoncée est 1.37.1.
-- **Analyse :** l’intérêt n’est pas la version seule mais le cycle de validation des APIs, add-ons, providers Terraform, politiques et workloads.
-- **Maturité :** `mature` pour Kubernetes, `à qualifier` pour la compatibilité de la stack de Mehdi.
-- **Pertinence pour Mehdi :** `possible`, car la version réellement déployée est inconnue.
-- **Architecture cible :** environnement de test paritaire, plan de rollback, validation des CRD/admission controllers et observabilité des erreurs API.
-- **Test proposé :** inventaire puis upgrade d’un cluster de test ; comparer déploiements, événements, erreurs API, SLO et plans Terraform.
-- **Décision :** `surveiller` jusqu’à l’inventaire, puis `tester`.
-- **Prévision :** la décision dépendra plus des add-ons et providers que du control plane ; réexaminer le 15 septembre 2026.
+- **Pourquoi maintenant :** la release `2.0.0-alpha.21`, publiée le 27 août, met à jour l’intégration AI SDK v7 et clarifie le placement des paramètres de raisonnement côté hôte ; les releases précédentes ajoutent déjà un runtime durable et une reprise par journal.
+- **Preuves de traction :** releases officielles rapprochées les 21 et 27 août : https://github.com/statelyai/agent/releases.
+- **Fait vérifié :** le projet expose des agents comme machines d’état et décrit `runDurableAgent`, journalisation, reprise et exécution sans rejouer les appels déjà journalisés.
+- **Analyse :** le pattern traite les agents comme des workflows explicites, versionnables et rejouables, ce qui rapproche l’orchestration IA des systèmes durable-workflow.
+- **Maturité :** `signal faible` ; version alpha, dépendances XState/AI SDK évolutives et absence de validation dans la stack réelle.
+- **Pertinence pour Mehdi :** `possible` pour middleware, évaluation et observabilité ; pas de lien direct avec ELK sans instrumentation.
+- **Architecture cible :** machine versionnée, journal durable, executors côté hôte, secrets et choix de modèle hors définition, traces des transitions et approbation humaine.
+- **Test proposé :** simuler un agent avec appel modèle et validation humaine, tuer le processus, reprendre depuis le journal et vérifier qu’un appel terminé n’est pas rejoué.
+- **Décision :** `surveiller`.
+- **Prévision :** les workflows durables deviennent un pattern clé pour agents fiables ; réexaminer après une release non-alpha ou une intégration de production documentée.
 
 ## SIGNAUX À SURVEILLER
 
-- **AgentOps / observabilité d’agents :** signal local du 27 août ; preuve manquante : deux implémentations actives et une source primaire décrivant les garanties opérationnelles. Réexamen : 5 septembre 2026.
-- **Inference Extension Gateway API :** projet officiel et documentation Kubernetes ; preuve manquante : niveau de conformance et support du contrôleur retenu. Réexamen : 15 septembre 2026.
-- **Évolutions Elastic 9.5.x :** release notes et artefacts 9.5.2 observés, mais la page de release notes consultée met en avant 9.5.1 ; preuve manquante : version supportée et notes détaillées correspondant à l’environnement réel. Réexamen : 3 septembre 2026.
+- **AI Gateway Kubernetes / Gateway API Inference Extension :** travaux officiels et APIs en évolution ; preuve manquante : conformance et support du contrôleur choisi. https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/ ; https://kubernetes.io/blog/2025/06/05/introducing-gateway-api-inference-extension/ ; réexamen 15 septembre.
+- **OpenTelemetry GenAI :** dépôt dédié et conventions de spans ; preuve manquante : support documenté par Elastic APM et SDK retenu. https://github.com/open-telemetry/semantic-conventions-genai ; réexamen 30 septembre.
+- **AgentField :** release `v0.1.135` détectée par un tracker ; preuve manquante : confirmation du tag et documentation primaire de déploiement/observabilité. https://github.com/Agent-Field/AgentField ; réexamen 5 septembre.
+- **Go UTCP :** release récente signalée ; preuve manquante : sécurité du protocole, adoption et comparaison concrète avec MCP. https://github.com/universal-tool-calling-protocol/go-utcp ; réexamen 5 septembre.
 
 ## À NE PAS SUIVRE CETTE SEMAINE
 
-- Benchmarks LLM isolés sans architecture ni protocole reproductible.
-- Annonces de modèles sans changement de routage, déploiement, coût, sécurité ou exploitation.
-- Releases de maintenance Elastic sans conséquence sur compatibilité, sécurité ou architecture.
+- Benchmarks LLM isolés sans artefact de déploiement ou protocole reproductible.
+- Annonces de modèles sans changement démontré de routage, coût, sécurité ou exploitation.
+- Dépôts purement frontend, copies sans différenciation technique et releases de maintenance sans conséquence d’architecture.
 
 ## LABORATOIRE DE LA SEMAINE
 
-Tester **Agent Sandbox sur Kind** en moins d’une heure : installation de la version figée, création d’un Sandbox, vérification d’identité/persistance, tentative réseau contrôlée, suppression et vérification du nettoyage. Critère : aucune permission hors périmètre et état nettoyé sans ressource orpheline.
+**Agent Sandbox v0.5.6 sur Kind**, 45–60 minutes : installer la release figée, créer une session, vérifier persistance et métriques, tenter un egress interdit, suspendre/reprendre puis supprimer. Critère : permissions minimales, métriques exploitables, état conservé et nettoyage complet.
+
+## ÉCHÉANCES OU RELEASES IMPORTANTES
+
+- **5 septembre 2026 :** requalifier Hermes, AgentField et Go UTCP avec une seconde preuve primaire.
+- **12 septembre 2026 :** sortie du laboratoire Agent Sandbox.
+- **15 septembre 2026 :** requalifier Kubernetes 1.37 et AI Gateway.
+- **30 septembre 2026 :** vérifier l’interopérabilité OpenTelemetry GenAI / Elastic APM.
 
 ## SOURCES CONSULTÉES
 
-Sources primaires : Kubernetes releases/blog, Agent Sandbox GitHub/documentation, OpenTelemetry documentation/repository, Elastic release notes/status. Sources locales : `state/context.yaml`, `state/signals.yaml`, rapports du 27 août 2026. Les sources sociales n’ont pas été utilisées pour confirmer un fait.
+Sources primaires : Agent Sandbox v0.5.6, Hermes Agent v0.20.6, Stately Agent alpha.21, OpenAgentPack, Kubernetes AI Gateway, OpenTelemetry GenAI et Kubernetes releases. Sources de découverte : GitHub releases/topics et trackers ; utilisées uniquement pour détecter les projets et signalées lorsqu’elles ne sont pas confirmées par une source primaire. Sources locales : `state/context.yaml`, `state/signals.yaml`, radar du 27 août.
