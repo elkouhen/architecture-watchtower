@@ -298,6 +298,23 @@ signals:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-08-28-013
+    canonical_url: https://github.com/JetBrains/go-modern-guidelines
+    subject: "JetBrains/go-modern-guidelines formalise des pratiques Go pour les agents de code"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 7
+    confidence: "medium"
+    status: "new"
+    decision: "test"
+    owner: "architecture/engineering"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
 
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001

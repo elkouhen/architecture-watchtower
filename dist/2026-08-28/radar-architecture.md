@@ -22,6 +22,7 @@ Fenêtres observées : 48 h pour le momentum immédiat, 7 jours pour les évolut
 | [kubernetes-sigs/agent-sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | CRD et contrôleur Kubernetes pour gérer des environnements isolés et persistants d’agents. Il fournit un chemin plus explicite pour le cycle de vie, les outils et l’observabilité. | v0.5.6 le 20/08 ; `émergente` | Preuves primaires et exemples disponibles ; version encore pré-1.0 et intégration à tester. | 12/09 |
 | [GetBusbar/busbar](https://github.com/GetBusbar/busbar) | Gateway IA self-hosted en Rust qui centralise routage, failover, budgets, credentials et preuves d’exécution. Il vise les équipes qui veulent gouverner les appels modèles et outils sur un point de passage opérable. | Trendshift featured, 28/08 ; `émergente` | README et déploiement Kubernetes documentés ; benchmarks à reproduire et sécurité à qualifier. | 05/09 |
 | [oomol-lab/open-connector](https://github.com/oomol-lab/open-connector) | Gateway de connecteurs qui expose plus de 1 000 fournisseurs aux agents via SDK, MCP, HTTP et OpenAPI. Il garde credentials, scopes, politiques et logs derrière une frontière d’exécution. | Trendshift featured, 28/08 ; `traction` | Dépôt actif, Helm, Docker et Cloudflare documentés ; catalogue, OAuth et isolation restent à auditer. | 05/09 |
+| [JetBrains/go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) | Ensemble de consignes pour aider les agents de code à produire du Go moderne. Le projet transforme des conventions d’ingénierie en contexte directement exploitable par un agent. | Trendshift daily, rang 15, et GitHub Trending #1 Go le 27/08 ; `émergente` | 2,5 k stars, 73 forks et licence Apache-2.0 observés ; impact sur qualité et gouvernance à mesurer dans CI. | 05/09 |
 
 ## 3. Tendances détaillées
 
@@ -115,9 +116,25 @@ Fenêtres observées : 48 h pour le momentum immédiat, 7 jours pour les évolut
 - **Décision :** `tester` sur données non sensibles.
 - **Prévision :** sous 1–3 mois, passer en qualification plateforme si sécurité, catalogue et migrations restent stables sur plusieurs versions.
 
+### Standards d’ingénierie pour agents de code — go-modern-guidelines
+
+- **Pitch rapide :** le dépôt JetBrains fournit des règles et exemples destinés à guider les agents qui écrivent du Go moderne. Il peut servir de garde-fou de qualité dans un workflow de génération et de revue de code.
+- **Utilité d’architecte :** réduire les écarts de style, d’API et de pratiques entre code généré et standards d’équipe ; l’introduire si les agents produisent régulièrement du Go soumis à revue humaine.
+- **Pourquoi maintenant :** Trendshift le classe dans le daily du 28/08 et sa page indique un premier passage #1 Go sur GitHub Trending le 27/08.
+- **Preuves de traction :** 2,5 k stars, 73 forks, cinq contributeurs et Apache-2.0 sur la fiche Trendshift ; ces chiffres mesurent la visibilité, pas l’efficacité des règles.
+- **Fait vérifié :** le dépôt primaire est public et décrit son objectif comme l’aide aux agents de code pour écrire du Go moderne.
+- **Analyse :** pattern « engineering policy as agent context » ; il complète lint, tests et revue, mais ne les remplace pas.
+- **Maturité :** `émergente` ; risque de règles obsolètes, de conflit avec les conventions internes et d’acceptation de code techniquement valide mais fonctionnellement incorrect.
+- **Architecture cible :** règles versionnées → contexte de l’agent → génération → gofmt/lint/tests → revue humaine → CI ; aucune règle ne doit contourner les contrôles de sécurité ou de qualité existants.
+- **Mise en œuvre et exploitation :** épingler une version, adapter les règles au dépôt, mesurer les corrections et faux positifs, puis retirer les consignes qui dégradent la lisibilité ou les tests.
+- **Test proposé :** appliquer les règles à un petit service Go sur 10 tâches ; mesurer taux de réussite des tests, défauts de revue et temps de correction par rapport à une baseline. Succès : moins de corrections de style/API sans régression fonctionnelle.
+- **Décision :** `tester` sur un dépôt non critique.
+- **Prévision :** confirmer dans 1–3 mois si le dépôt publie une méthode d’évaluation et si des équipes réutilisent les règles dans leurs workflows.
+
 ## 4. Signaux à surveiller
 
 - **vercel-labs/vgpu** — Trendshift daily, rang 24 ; intéressant pour l’exécution GPU cross-runtime mais sans bénéfice serveur immédiat démontré. Réexaminer le 12/09.
+- **agentready-org/standard** — projet featured et mentions live sur Trendshift ; dépôt primaire non récupéré pendant cette collecte, donc `signal faible`. Réexaminer le 05/09.
 - **SenteLabsAI/OpenExecutive** — multi-agent exécutif remonté rang 9 ; qualifier architecture, permissions et cas d’usage réel avant de retenir le projet.
 - **K-Dense-AI/scientific-agent-skills** — catalogue de skills validées remonté rang 6 ; vérifier maintenance, isolation et provenance des skills.
 - **openJiuwen-ai/jiuwenswarm** — plateforme d’agents remontée rang 7 ; manque de preuve de déploiement opérable.
@@ -136,12 +153,13 @@ Fenêtres observées : 48 h pour le momentum immédiat, 7 jours pour les évolut
 
 ## 7. Échéances ou releases importantes
 
-- **05/09/2026 :** requalifier Archify, WorkWeave/router, Tailcat, Busbar et OpenConnector avec README, licence, release, sécurité et chemin de déploiement.
+- **05/09/2026 :** requalifier Archify, WorkWeave/router, Tailcat, Busbar, OpenConnector et go-modern-guidelines avec README, licence, release, sécurité et chemin de déploiement.
 - **12/09/2026 :** réexaminer WeMM-Embedding, Orca, OpenAgentPack et Agent Sandbox ; décider si une carte de service est justifiée.
 
 ## 8. Sources consultées
 
-- Découverte et momentum : [Trendshift](https://trendshift.io/), classement daily et projets nouvellement détectés le 28/08/2026.
+- Découverte et momentum : [Trendshift](https://trendshift.io/), classement daily, GitHub Trending relayé et projets nouvellement détectés le 28/08/2026 ; Archify était rang 1, WorkWeave/router rang 11, JetBrains/go-modern-guidelines rang 15 et vGPU rang 25 lors de la collecte.
+- Intérêt de recherche : [Google Trends](https://trends.google.com/trends/) consulté ; l’URL d’exploration multi-termes n’a pas pu être récupérée dans cet environnement, donc aucun signal Google Trends n’est présenté comme preuve.
 - Sources primaires : [Archify](https://github.com/tt-a1i/archify), [WorkWeave/router](https://github.com/workweave/router), [WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding), [Tailcat](https://github.com/tailscale/tailcat), [Orca](https://github.com/stablyai/orca), [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack), [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox/releases), [Busbar](https://github.com/GetBusbar/busbar), [OpenConnector](https://github.com/oomol-lab/open-connector).
 - Source en échec ou insuffisante : certains détails de WorkWeave/router, vGPU et des projets secondaires Trendshift restent à confirmer ; ils demeurent des signaux faibles.
 
