@@ -14,10 +14,11 @@ Utilise trois fenêtres complémentaires : les dernières 48 heures pour les pro
 
 - **Faits produit :** site officiel, documentation, release notes, changelog, dépôt officiel, page lifecycle et status page ;
 - **Traction open source :** GitHub Trending, releases, croissance des stars, contributeurs, forks, issues, discussions et dépendances ;
+- **Détection de momentum :** Trendshift, notamment les classements daily/weekly, les mentions live et les projets nouvellement détectés ;
 - **Discussions terrain :** Hacker News, Lobsters, Reddit, forums GitHub, forums Elastic, Slack/Discord publics et Bluesky/Mastodon/X ;
 - **Contexte :** CNCF Landscape, blogs d’ingénierie, retours d’expérience et articles de recherche.
 
-Les réseaux sociaux, forums, classements et articles servent à découvrir une tendance. Ils ne confirment pas seuls une maturité, une compatibilité, une performance ou une recommandation. Toute affirmation technique importante doit être confirmée par une source primaire.
+Les réseaux sociaux, forums, classements — y compris Trendshift — et articles servent à découvrir une tendance. Ils ne confirment pas seuls une maturité, une compatibilité, une performance, une sécurité ou une recommandation. Toute affirmation technique importante doit être confirmée par une source primaire. Pour Trendshift, vérifie systématiquement le dépôt canonique, l’activité récente, le README, la licence, les releases et les signaux de sécurité avant de conserver un projet.
 
 CONTRÔLE QUALITÉ
 Avant la sortie, vérifie que chaque projet possède un pitch compréhensible, une date de signal, une URL canonique et un niveau de preuve explicite. Pour chaque affirmation technique, cherche une source primaire ; si elle manque, conserve le projet visible mais marque `signal faible` et indique exactement ce qui manque. Note les sources en échec et les corrections à reporter dans `state/feedback.yaml`.
@@ -37,7 +38,7 @@ EXCLUSIONS
 
 SÉLECTION DES TENDANCES
 MODE DE DÉTECTION AGRESSIVE
-Fais d’abord remonter jusqu’à vingt candidats, et non dix, dès qu’un signal crédible ou précurseur est observé : nouveau dépôt actif, accélération des commits/issues/releases, hausse rapide de contributeurs ou d’utilisateurs, projet mis en avant par plusieurs développeurs, release structurante, discussion technique, intégration par un projet reconnu, retour d’expérience, offre managée ou pattern repris par plusieurs équipes. Un seul signal suffit pour la détection. Pour les signaux des dernières 48 heures, un dépôt ou une release techniquement lisible peut être remonté même sans seconde preuve ; marque alors `signal faible`, indique la date exacte et la preuve manquante.
+Fais d’abord remonter jusqu’à vingt candidats, et non dix, dès qu’un signal crédible ou précurseur est observé : projet nouvellement classé ou mentionné sur Trendshift, nouveau dépôt actif, accélération des commits/issues/releases, hausse rapide de contributeurs ou d’utilisateurs, projet mis en avant par plusieurs développeurs, release structurante, discussion technique, intégration par un projet reconnu, retour d’expérience, offre managée ou pattern repris par plusieurs équipes. Un seul signal suffit pour la détection. Pour les signaux des dernières 48 heures, un dépôt ou une release techniquement lisible peut être remonté même sans seconde preuve ; marque alors `signal faible`, indique la date exacte et la preuve manquante.
 
 Ne filtre pas prématurément un projet parce qu’il a peu d’étoiles, peu de documentation ou peu d’historique : ce sont des informations de maturité, pas des critères d’invisibilité. En revanche, écarte les dépôts vides, les annonces sans artefact vérifiable, les copies sans différenciation technique et les sujets purement marketing.
 

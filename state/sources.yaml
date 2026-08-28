@@ -46,6 +46,15 @@ sources:
     fallback: https://github.com/explore
     last_checked: 2026-08-28
     notes: "Ne jamais utiliser seul pour conclure à la maturité, sécurité ou adoption."
+  - id: trendshift
+    name: Trendshift live trending GitHub repositories
+    type: discovery
+    topics: [open-source, ai-agents, cloud, devops, ai-infrastructure]
+    cadence: daily
+    reliability: low
+    fallback: https://trendshift.io/
+    last_checked: 2026-08-28
+    notes: "Utiliser pour la fraîcheur et l’accélération ; confirmer chaque projet dans son dépôt primaire. Filtrer les dépôts suspects, vides ou sans utilité architecturale."
 
 # Ajouter une entrée lorsqu’une source est utile, morte, déplacée ou trompeuse.
 # Champs attendus : id, name, type, topics, cadence, reliability, fallback, last_checked, notes.
