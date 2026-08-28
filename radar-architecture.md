@@ -47,6 +47,7 @@ FORMAT DE CHAQUE TENDANCE
 
 ### Nom de la tendance
 
+- **Pitch rapide :** en une ou deux phrases, explique ce que fait le projet ou le pattern, pour quel problème et quel type d’équipe il est utile ; utilise des mots simples et évite le marketing.
 - **Pourquoi maintenant :** événement ou évolution observée cette semaine ;
 - **Preuves de traction :** signaux observés, avec dates et liens ; indique `signal faible` s’il n’y en a qu’un ;
 - **Fait vérifié :** ce qui est confirmé par une source primaire ;
@@ -68,7 +69,7 @@ Propose au maximum un laboratoire prioritaire par semaine, de moins d’une heur
 
 SORTIE
 1. **Les trois tendances à retenir** : une phrase sur le signal, l’intérêt architectural et l’action proposée.
-2. **Projets qui trendent maintenant** : jusqu’à dix projets détectés dans les dernières 48 heures ou les sept derniers jours, avec nom, URL canonique, date du signal, preuve de traction ou signal précurseur, intérêt architectural, stade (`signal faible` par défaut si nécessaire), preuve manquante et date de réexamen. Cette section doit rester présente même si aucun projet n’est assez mûr pour une fiche.
+2. **Projets qui trendent maintenant** : jusqu’à dix projets détectés dans les dernières 48 heures ou les sept derniers jours, avec nom, URL canonique, **pitch rapide de 1–2 phrases**, date du signal, preuve de traction ou signal précurseur, intérêt architectural, stade (`signal faible` par défaut si nécessaire), preuve manquante et date de réexamen. Le pitch doit permettre de comprendre immédiatement le projet sans ouvrir ses sources. Cette section doit rester présente même si aucun projet n’est assez mûr pour une fiche.
 3. **Tendances détaillées** : nombre variable, plafonné par une lecture de 30 minutes, avec le format ci-dessus. Chaque tendance retenue doit avoir une synthèse courte avant son développement.
 4. **Signaux à surveiller** : jusqu’à dix candidats encore faibles, avec signal observé, source de découverte et information manquante pour les qualifier.
 5. **À ne pas suivre** : maximum trois sujets écartés et motif.
@@ -83,4 +84,4 @@ Ne remplis pas le rapport avec des versions de maintenance ou des nouveautés de
 PUBLICATION LOCALE
 Écris `dist/AAAA-MM-JJ/radar-architecture.md`, vérifie que chaque tendance possède un stade, un signal, un impact et une action ou une information manquante, puis committe localement le livrable. Même sans tendance qualifiée, produis les signaux faibles détectés et indique précisément ce qui manque pour les confirmer. Un radar vide n’est acceptable que si les sources de découverte ont réellement été consultées et qu’aucun signal exploitable n’a été trouvé.
 
-Réponds en français, avec une lecture de moins de trente minutes. La section `Projets qui trendent maintenant` doit rester très scannable : une ou deux lignes par projet avant les tendances détaillées.
+Réponds en français, avec une lecture de moins de trente minutes. La section `Projets qui trendent maintenant` doit rester très scannable : une ou deux lignes de pitch par projet avant les tendances détaillées. Le pitch est une `Analyse` ou une `Inférence` clairement identifiée, jamais un fait présenté sans source.
