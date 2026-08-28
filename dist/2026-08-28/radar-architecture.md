@@ -1,115 +1,120 @@
-# RADAR DES TENDANCES — 2026-08-28
+# Radar architecture — 2026-08-28
 
-**Régénération :** 28 août 2026, avec détection ASAP et pitch rapide par projet.
+Fenêtres observées : 48 h pour le momentum immédiat, 7 jours pour les évolutions récentes, 30 jours pour les signaux d’émergence. Trendshift a été utilisé comme source de découverte ; les affirmations techniques sont confirmées dans les dépôts primaires lorsque possible.
 
-**Période :** 48 dernières heures pour l’alerte ASAP, 7 jours pour le rythme hebdomadaire, 30 jours pour l’émergence.
-**Lecture cible :** moins de 30 minutes. Les projets très récents sont visibles même lorsqu’ils sont immatures.
+## 1. Les trois tendances à retenir
 
-## LES TROIS TENDANCES À RETENIR
+1. **Les artefacts d’architecture deviennent exécutables et vérifiables.** Archify est fortement remonté sur Trendshift et transforme une description de système ou un dépôt en carte interactive validable. Action : surveiller puis tester sur un petit dépôt, sans lui déléguer la vérité architecturale.
+2. **Le routage dynamique des modèles devient une brique de plateforme.** WorkWeave/router matérialise le pattern « endpoint unique, choix de modèle en amont ». Action : qualifier la latence, les règles, les données envoyées et le coût avant tout essai.
+3. **Les plateformes d’agents se structurent autour de primitives d’exécution.** Agent Sandbox, OpenAgentPack et les projets repérés sur Trendshift convergent vers isolation, cycle de vie, outils et gouvernance. Action : poursuivre le test Kubernetes Agent Sandbox, mais traiter les nouveaux projets comme des signaux faibles.
 
-1. **L’infrastructure d’exécution des agents se densifie :** Agent Sandbox, Hermes et Stately Agent publient des briques concrètes autour de l’exécution, de la persistance, de la durabilité et des outils ; `surveiller` le pattern, `tester` Agent Sandbox.
-2. **Les agents deviennent des ressources déclaratives et gouvernables :** OpenAgentPack propose un workflow `validate → plan → apply` pour des agents gérés ; `signal faible`, mais très pertinent pour Terraform/GitOps.
-3. **Le socle Kubernetes/observabilité IA continue de se structurer :** AI Gateway et OpenTelemetry GenAI restent des axes de standardisation ; `surveiller` tant que les APIs et intégrations ne sont pas stabilisées.
+## 2. Projets qui trendent maintenant
 
-## PROJETS QUI TRENDENT MAINTENANT
+| Projet | Pitch rapide | Signal et stade | Intérêt architectural / manque | Réexamen |
+|---|---|---|---|---|
+| [tt-a1i/archify](https://github.com/tt-a1i/archify) | Produit des cartes d’architecture interactives à partir d’un dépôt ou d’une description, avec une représentation intermédiaire typée et des sorties HTML/SVG autonomes. Utile aux équipes plateforme et architecture qui veulent rendre une vue système révisable. | Trendshift daily, rang 2, 28/08 ; `émergente` | Source primaire lisible ; manque de preuve d’adoption et de robustesse sur grands dépôts. | 05/09 |
+| [workweave/router](https://github.com/workweave/router) | Propose un point d’entrée de routage pour choisir un modèle selon la requête ou la politique. Le pattern peut centraliser coût, latence et fallback des agents. | Trendshift daily, rang 10, 28/08 ; `signal faible` | README primaire à qualifier plus finement, métriques annoncées non vérifiées indépendamment. | 05/09 |
+| [Tencent/WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding) | Famille d’embeddings multimodaux destinée à rapprocher compréhension et recherche de contenus texte, image ou autres modalités. Intéressant pour des RAG où les documents ne sont pas uniquement textuels. | Trendshift daily, rang 23, 28/08 ; `signal faible` | Déploiement, licence, coût GPU et qualité sur données métier à vérifier. | 12/09 |
+| [tailscale/tailcat](https://github.com/tailscale/tailcat) | Outil de type netcat qui utilise le data plane Tailscale sans dépendre de son control plane. Il pourrait simplifier certains diagnostics réseau dans des environnements maillés. | Trendshift daily, rang 13, 28/08 ; `signal faible` | Cas d’usage opérationnel prometteur, mais sécurité, packaging et support à qualifier. | 05/09 |
+| [stablyai/orca](https://github.com/stablyai/orca) | Environnement pour exécuter et coordonner une flotte d’agents en parallèle. Il cible un problème de cycle de vie et de supervision plutôt qu’un simple chatbot. | Trendshift daily, rang 17, 28/08 ; `signal faible` | Architecture et garanties d’isolation encore à qualifier ; pas de preuve de production. | 12/09 |
+| [sapientinc/PRAXIST](https://github.com/sapientinc/PRAXIST) | Système de recherche autonome qui tente de rendre les expérimentations mesurables et exécutables par ordinateur. À surveiller pour les pipelines d’expérimentation reproductibles. | Trendshift daily, rang 5, 28/08 ; `signal faible` | Domaine et modèle de sécurité à clarifier ; faible lien direct avec la plateforme actuelle. | 12/09 |
+| [modelstudioai/OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack) | Control plane déclaratif pour décrire, déployer et gouverner des agents cloud. Le rapprochement avec IaC peut rendre les agents versionnables et auditables. | Signal local récent et présence Trendshift ; `émergente` | Dépôt primaire disponible ; maturité, sécurité des outils et dépendances managées à confirmer. | 12/09 |
+| [kubernetes-sigs/agent-sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | CRD et contrôleur Kubernetes pour gérer des environnements isolés et persistants d’agents. Il fournit un chemin plus explicite pour le cycle de vie, les outils et l’observabilité. | v0.5.6 le 20/08 ; `émergente` | Preuves primaires et exemples disponibles ; version encore pré-1.0 et intégration à tester. | 12/09 |
 
-| Projet | Pitch rapide | Signal daté | Stade / manque |
-|---|---|---|---|
-| [Hermes Agent](https://github.com/NousResearch/hermes-agent) | Runtime d’agent open source qui regroupe modèles, outils MCP, navigation et exécution dans un produit installable ; utile aux équipes qui veulent opérer un agent self-hosted. | v0.20.6 publiée le 27 août ; 209 commits depuis la release | `signal faible` ; vérifier sécurité, déploiement et gouvernance |
-| [Stately Agent](https://github.com/statelyai/agent) | Bibliothèque qui décrit un agent comme une machine d’état ; utile pour rendre les transitions, validations humaines et reprises après panne explicites et testables. | `2.0.0-alpha.21` publiée le 27 août | `signal faible` ; API alpha et preuve terrain manquante |
-| [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | Contrôleur Kubernetes qui fournit à chaque agent un environnement isolé, persistant et identifiable ; utile aux plateformes qui exécutent du code ou des outils par session. | v0.5.6 publiée le 20 août ; nouvelle télémétrie et lifecycle warm pool | `émergente` ; tester isolation et CRD |
-| [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack) | Control plane de type Terraform pour décrire dans Git les prompts, outils, skills, MCP et fournisseurs d’un agent ; utile aux équipes qui veulent review, rollback et drift detection. | dépôt repéré dans les signaux d’infrastructure agent du 25–28 août | `signal faible` ; 23 étoiles, beta et APIs mouvantes |
-| [AgentField](https://github.com/Agent-Field/AgentField) | Projet présenté comme un control plane pour déployer, mettre à l’échelle et sécuriser des agents backend observables et identifiés ; intéressant pour une plateforme agent centralisée. | release `v0.1.135` signalée le 27 août par un tracker | `signal faible` ; release à confirmer sur le dépôt primaire |
-| [Go UTCP](https://github.com/universal-tool-calling-protocol/go-utcp) | Bibliothèque Go destinée à découvrir et appeler des outils via plusieurs transports ; intéressante pour comparer une couche d’outillage alternative ou complémentaire à MCP. | release `v1.12.3` signalée le 27 août | `signal faible` ; adoption, sécurité et relation avec MCP à qualifier |
+## 3. Tendances détaillées
 
-Ces entrées sont des détections précoces. Un signal de release ou de traction ne prouve ni maturité, ni sécurité, ni compatibilité avec la stack de Mehdi.
+### Artefacts d’architecture exécutables — Archify
 
-## TENDANCES DÉTAILLÉES
+- **Pitch rapide :** Archify transforme une description de système ou un codebase en représentation structurée puis en diagramme interactif autonome. Il sert à accélérer la compréhension et la revue, pas à remplacer une décision d’architecture.
+- **Utilité d’architecte :** produire une première carte des composants, flux et dépendances lors d’un onboarding, d’une revue ou d’une analyse d’impact ; l’introduire si le coût de maintenir les diagrammes dépasse celui de les régénérer.
+- **Pourquoi maintenant :** Trendshift le classe deuxième dans sa vue daily du 28/08, avec une forte accélération de visibilité.
+- **Preuves de traction :** classement Trendshift ; dépôt primaire actif, 185 commits et 1,6 k forks observés le 28/08. Le classement est un signal de découverte, pas une preuve d’adoption.
+- **Fait vérifié :** le dépôt décrit une IR JSON typée, une validation/rendu Node.js, des sorties HTML/SVG autonomes et des comparaisons avant/après.
+- **Analyse :** le pattern est celui d’une documentation dérivée du code, contrôlée dans CI ; la valeur est la réduction de divergence entre architecture déclarée et architecture observée.
+- **Maturité :** `émergente` ; version de développement v2.16.0-dev.0, dépendance au parsing et à l’interprétation IA, risque de fausse assurance.
+- **Architecture cible :** job CI ou outil local → extraction/IR → validation humaine → artefact HTML/SVG publié avec le commit ; aucune donnée sensible hors dépôt sans politique explicite.
+- **Mise en œuvre et exploitation :** commencer en local sur un dépôt non sensible ; versionner les sorties, vérifier les liens et les composants manquants, comparer les diffs, conserver un rendu manuel de repli. Retirer si les diagrammes deviennent plus trompeurs que la documentation existante.
+- **Test proposé :** 45 minutes sur un service avec Kubernetes et observabilité ; comparer carte générée et manifestes/README, relever faux positifs, composants absents et temps de génération. Résultat attendu : une carte exploitable et une liste d’écarts vérifiables.
+- **Décision :** `tester` en sandbox, puis `surveiller` pour l’usage CI.
+- **Prévision :** à 1–3 mois, le signal sera confirmé si releases, intégrations CI et exemples reproductibles augmentent ; sinon conserver comme outil ponctuel.
 
-### 1. Agent Sandbox : lifecycle et observabilité des runtimes d’agents — ÉMERGENTE / TRACTION
+### Routage de modèles pour agents — WorkWeave/router
 
-- **Pitch rapide :** Agent Sandbox transforme une session d’agent en ressource Kubernetes persistante et identifiable, avec un cycle de vie géré par contrôleur. Il vise les équipes plateforme qui doivent exécuter des agents ou du code généré dans des environnements séparés.
-- **Utilité d’architecte :** remplacer l’assemblage manuel Pod/Service/PVC par une primitive de session lorsque l’agent doit conserver un workspace et une identité stable.
-- **Pourquoi maintenant :** la release v0.5.6 renforce la fiabilité du contrôleur, le cycle de vie des warm pools, le diagnostic de scheduling, les métriques suspend/resume et l’intégration Prometheus.
-- **Preuves de traction :** release officielle du 20 août, dépôt Kubernetes SIG Apps actif, exemples Pi coding agent, E2B envd et n8n. Source primaire : https://github.com/kubernetes-sigs/agent-sandbox/releases/tag/v0.5.6.
-- **Fait vérifié :** v0.5.6 ajoute notamment le miroir des conditions `PodScheduled`, des métriques SDK, des outils filesystem MCP bornés et des ressources `ServiceMonitor`/`PrometheusRule` opt-in.
-- **Analyse :** le projet évolue d’un simple CRD de pod singleton vers une primitive opérable pour des sessions agents persistantes et potentiellement préchauffées.
-- **Maturité :** `émergente` ; chemin de déploiement reproductible et maintenance active, mais isolation runtime, compatibilité CRD et coût restent à prouver.
-- **Architecture cible :** contrôleur versionné, namespace dédié, ServiceAccount minimal, NetworkPolicy deny-by-default, PVC borné, métriques Prometheus vers OTel/ELK, runtime isolé si le code est hostile.
-- **Mise en œuvre et exploitation :** installer une version figée dans Kind puis EKS/GKE, gérer CRD et manifests par GitOps, surveiller reconciliation/scheduling/PVC/egress, et revenir à la release précédente si la conversion CRD ou l’isolation échoue.
-- **Test proposé :** Kind + v0.5.6 ; créer/reprendre/suspendre/supprimer une session, vérifier métriques, persistance et refus réseau. Durée 45 minutes. Succès : zéro ressource orpheline, état persistant et egress interdit bloqué.
-- **Décision :** `tester`.
-- **Prévision :** les extensions warm pool et observabilité vont accélérer les usages agents Kubernetes, mais la production dépendra de l’isolation et de la stabilité API dans 1–3 mois.
-
-### 2. Hermes Agent : convergence runtime, MCP et opérations — SIGNAL FAIBLE / ACCÉLÉRATION
-
-- **Pitch rapide :** Hermes Agent est un runtime d’agent installable qui orchestre modèles, outils MCP, navigation et tâches persistantes. Il intéresse surtout les équipes qui évaluent un agent self-hosted complet plutôt qu’un simple SDK.
-- **Utilité d’architecte :** évaluer une plateforme agent complète quand le besoin porte sur l’exécution et les outils, pas seulement sur l’appel à un modèle ; le risque principal est d’adopter une surface trop large sans modèle d’exploitation.
-- **Pourquoi maintenant :** v0.20.6 a été publiée le 27 août et agrège environ 525 PR depuis la release précédente, avec MCP distant, contrôles d’update, garde-fous d’exécution, cache de résultats, clés et opérations de flotte.
-- **Preuves de traction :** release primaire du 27 août : https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27.
-- **Fait vérifié :** la release annonce Docker/hosted deployments, catalogue MCP, contrôles de runtime et mécanismes d’update ; le dépôt est très actif.
-- **Analyse :** le projet illustre un agent qui devient une plateforme opérable : fournisseurs, outils, sessions, mises à jour, secrets et canaux d’exécution deviennent des composants d’infrastructure.
-- **Maturité :** `signal faible` pour un standard d’entreprise ; activité forte mais surface large, modèle de menace et support opérationnel à qualifier.
-- **Architecture cible :** runtime en conteneur non privilégié, secrets hors image, allowlist MCP, egress contrôlé, traces des tool calls, journal d’update signé et repli vers une version précédente.
-- **Mise en œuvre et exploitation :** commencer par une instance isolée et un outil fictif, versionner l’image et les connecteurs, contrôler les permissions/egress, mesurer les timeouts et tester update/rollback avant toute flotte.
-- **Test proposé :** instance isolée avec outil fictif ; mesurer permissions, logs, rollback et comportement en timeout. Ne pas installer en production.
+- **Pitch rapide :** un routeur de modèles place une politique de sélection entre l’application et plusieurs fournisseurs ou modèles. Il vise à arbitrer coût, latence, capacité et qualité sans modifier chaque agent.
+- **Utilité d’architecte :** centraliser fallback, quotas et règles par cas d’usage ; pertinent quand plusieurs modèles coexistent et que les décisions de choix deviennent difficiles à maintenir dans le code applicatif.
+- **Pourquoi maintenant :** rang 10 daily Trendshift le 28/08 et mise en avant d’un endpoint unique.
+- **Preuves de traction :** signal Trendshift unique, donc `signal faible` ; la promesse de réduction de coût/latence n’est pas retenue comme fait.
+- **Fait vérifié :** le dépôt canonique existe ; les détails de déploiement et les métriques annoncées doivent encore être confirmés par lecture complète et essai.
+- **Analyse :** pattern inference gateway/policy engine ; il ajoute une dépendance critique et peut masquer les différences de qualité entre modèles.
+- **Maturité :** `non confirmé` ; risques : fuite de données vers le mauvais fournisseur, explosion des dimensions de coût, latence de décision et verrouillage de configuration.
+- **Architecture cible :** client agent → gateway authentifiée → politique/routage → fournisseur ; journaliser modèle choisi, version, latence, tokens, coût estimé, score d’évaluation et fallback.
+- **Mise en œuvre et exploitation :** ne tester qu’avec données synthétiques ; imposer allowlist de modèles, budgets, timeout, circuit breaker, redaction et traces ; rollback par retour au fournisseur fixe.
+- **Test proposé :** comparer un endpoint fixe et le routeur sur 50 requêtes synthétiques ; mesurer p95, taux d’erreur, coût et score de qualité. Aucun passage production sans preuve primaire et contrôles de données.
 - **Décision :** `surveiller`.
-- **Prévision :** si les contrats MCP, l’installation et les contrôles de sécurité se stabilisent, le projet peut devenir un cas de référence de runtime agent self-hosted ; réexaminer le 5 septembre.
+- **Prévision :** confirmer si une release, une documentation de déploiement et des traces reproductibles apparaissent avant le 05/09 ; sinon classer en signal faible persistant.
 
-### 3. OpenAgentPack : agents-as-code et plan d’exécution — SIGNAL FAIBLE
+### Exécution isolée des agents — Agent Sandbox
 
-- **Pitch rapide :** OpenAgentPack veut gérer un agent comme une infrastructure déclarative : une définition Git décrit ses instructions, outils, skills, MCP et fournisseur, puis `plan/apply` montre et applique les changements. Il vise les équipes DevOps qui veulent gouverner les agents par pull request.
-- **Utilité d’architecte :** rendre les agents reviewables, reproductibles et réversibles comme de l’IaC, surtout lorsque prompts, outils et références de secrets deviennent des actifs d’équipe.
-- **Pourquoi maintenant :** le projet propose un control plane IaC open source pour gérer des agents cloud par Git/YAML avec `validate → plan → apply`, détection de drift et adaptateurs multi-fournisseurs.
-- **Preuves de traction :** dépôt public avec 70 commits, workflow et quickstart documentés ; source primaire : https://github.com/modelstudioai/OpenAgentPack.
-- **Fait vérifié :** le README indique un statut beta, une déclaration `agents.yaml`, des providers Bailian/Qoder/Claude/Volcengine Ark et une matrice de capacités.
-- **Analyse :** le pattern transpose GitOps/Terraform aux prompts, tools, skills, MCP, credentials references et environnements d’agents.
-- **Maturité :** `signal faible` ; 23 étoiles et beta, APIs et schéma annoncés comme susceptibles de changer.
-- **Architecture cible :** dépôt Git, validation hors ligne en CI, plan dans une merge request, credentials injectés par secret manager, apply avec approbation et état séparé par environnement.
-- **Mise en œuvre et exploitation :** traiter `agents.yaml` comme une configuration déclarative soumise à CI, séparer état et secrets, journaliser les plans/applies et prévoir un rollback de déclaration ; ne pas confondre portabilité du format et portabilité des capacités fournisseurs.
-- **Test proposé :** déclaration minimale d’un agent fictif ; varier prompt/tool/provider, observer le plan, le drift et le rollback sans compte Cloud réel. Durée 30 minutes.
+- **Pitch rapide :** Agent Sandbox fournit une ressource Kubernetes dédiée aux workloads singleton persistants d’agents, avec cycle de vie contrôlé et intégrations d’outils. Il répond au besoin d’isoler des agents qui manipulent état, fichiers ou commandes.
+- **Utilité d’architecte :** séparer exécution agentique et plan de contrôle, avec quotas, identité et observabilité Kubernetes ; à envisager quand un agent nécessite un environnement durable plutôt qu’une simple invocation stateless.
+- **Pourquoi maintenant :** v0.5.6 publiée le 20/08 avec améliorations de contrôleur, warm pool, statut de scheduling, outils filesystem MCP et métriques Prometheus.
+- **Preuves de traction :** release primaire et documentation du projet ; maturité `émergente`, pas preuve de production généralisée.
+- **Fait vérifié :** la release mentionne ServiceMonitor/PrometheusRule, suspend/resume et exemples ; le projet reste pré-1.0.
+- **Analyse :** pattern sandbox par workload, utile pour limiter blast radius et gérer l’état ; la surface de permissions est plus importante qu’avec un job classique.
+- **Maturité :** `émergente` ; dépend de Kubernetes, runtime de conteneur, stockage persistant et politiques réseau/identité.
+- **Architecture cible :** API agent → orchestrateur → AgentSandbox → pod isolé → outils MCP/stockage ; traces et métriques séparées, NetworkPolicy restrictive, service account minimal et approbation humaine pour actions sensibles.
+- **Mise en œuvre et exploitation :** installer en cluster de test, définir quotas et PDB si pertinent, observer création/suspension/reprise, tester upgrade et suppression avec volumes. Prévoir un worker/job classique comme repli.
+- **Test proposé :** 45 minutes avec un agent synthétique ; créer, suspendre, reprendre puis supprimer un sandbox, injecter une erreur d’outil et vérifier métriques, logs, isolation réseau et nettoyage. Succès : aucun accès hors allowlist et état récupérable.
+- **Décision :** `tester` en environnement non productif.
+- **Prévision :** à 1–3 mois, passer à une qualification plateforme si la compatibilité runtime, la documentation et la stabilité des CRD progressent.
+
+### Embeddings multimodaux — WeMM-Embedding
+
+- **Pitch rapide :** WeMM-Embedding explore des représentations communes pour la recherche multimodale. Il peut compléter un pipeline RAG lorsque les données utiles combinent texte, images ou documents riches.
+- **Utilité d’architecte :** décider si l’indexation multimodale réduit le nombre de pipelines spécialisés ; à introduire seulement avec un jeu d’évaluation métier et une stratégie de stockage/rafraîchissement maîtrisée.
+- **Pourquoi maintenant :** rang 23 daily Trendshift le 28/08, dans une vague de projets d’infrastructure IA.
+- **Preuves de traction :** signal Trendshift unique ; `signal faible`.
+- **Fait vérifié :** le dépôt Tencent présente une famille de modèles d’embeddings multimodaux ; les performances, licences et exigences d’inférence restent à qualifier.
+- **Analyse :** ajoute un service d’encodage et un index vectoriel, avec coût GPU et problèmes de version d’embedding ; le changement de modèle impose souvent une réindexation.
+- **Maturité :** `non confirmé` pour un usage production ; risque de qualité insuffisante sur le vocabulaire métier et de dépendance GPU.
+- **Architecture cible :** ingestion → extraction/redaction → encodeur versionné → index vectoriel → retrieval → reranking/LLM ; journaliser version, modalité, score et provenance.
+- **Mise en œuvre et exploitation :** tester offline, isoler les modèles, mesurer coût par document et latence, prévoir double index et rollback de l’encodeur.
+- **Test proposé :** jeu de 100 requêtes texte+image annotées ; comparer rappel@k, latence p95 et coût à la baseline textuelle. Succès : gain mesurable sans régression de sécurité ni provenance.
 - **Décision :** `surveiller`.
-- **Prévision :** le besoin agents-as-code va croître ; décision dépendante de la portabilité réelle et des contrats fournisseurs dans 1–3 mois.
+- **Prévision :** requalifier au 12/09 si une release, une licence claire et un benchmark reproductible sont disponibles.
 
-### 4. Stately Agent : machines d’état et exécution durable — SIGNAL FAIBLE / ACCÉLÉRATION
+## 4. Signaux à surveiller
 
-- **Pitch rapide :** Stately Agent modélise l’agent comme une machine d’état avec événements, outils et reprises durables. Il vise les équipes qui doivent tester les branches d’un workflow et reprendre proprement après interruption ou approbation humaine.
-- **Utilité d’architecte :** expliciter les états, transitions, reprises et validations humaines d’un workflow agent afin de le tester et l’exploiter comme un système distribué.
-- **Pourquoi maintenant :** la release `2.0.0-alpha.21`, publiée le 27 août, met à jour l’intégration AI SDK v7 et clarifie le placement des paramètres de raisonnement côté hôte ; les releases précédentes ajoutent déjà un runtime durable et une reprise par journal.
-- **Preuves de traction :** releases officielles rapprochées les 21 et 27 août : https://github.com/statelyai/agent/releases.
-- **Fait vérifié :** le projet expose des agents comme machines d’état et décrit `runDurableAgent`, journalisation, reprise et exécution sans rejouer les appels déjà journalisés.
-- **Analyse :** le pattern traite les agents comme des workflows explicites, versionnables et rejouables, ce qui rapproche l’orchestration IA des systèmes durable-workflow.
-- **Maturité :** `signal faible` ; version alpha, dépendances XState/AI SDK évolutives et absence de validation dans la stack réelle.
-- **Architecture cible :** machine versionnée, journal durable, executors côté hôte, secrets et choix de modèle hors définition, traces des transitions et approbation humaine.
-- **Mise en œuvre et exploitation :** commencer par un workflow simulé, persister le journal dans un stockage contrôlé, tracer chaque transition et tester crash/reprise ; attendre une API stable avant d’en faire un socle critique.
-- **Test proposé :** simuler un agent avec appel modèle et validation humaine, tuer le processus, reprendre depuis le journal et vérifier qu’un appel terminé n’est pas rejoué.
-- **Décision :** `surveiller`.
-- **Prévision :** les workflows durables deviennent un pattern clé pour agents fiables ; réexaminer après une release non-alpha ou une intégration de production documentée.
+- **open-connector/open-connector** — Trendshift le met en avant comme gateway de connecteurs pour agents ; dépôt primaire non suffisamment récupéré pendant cette veille. Réexaminer le 05/09.
+- **SenteLabsAI/OpenExecutive** — multi-agent exécutif remonté rang 9 ; qualifier architecture, permissions et cas d’usage réel avant de retenir le projet.
+- **K-Dense-AI/scientific-agent-skills** — catalogue de skills validées remonté rang 6 ; vérifier maintenance, isolation et provenance des skills.
+- **openJiuwen-ai/jiuwenswarm** — plateforme d’agents remontée rang 7 ; manque de preuve de déploiement opérable.
+- **vercel-labs/vgpu** — bibliothèque WebGPU remontée rang 24 ; intérêt possible pour l’inférence/runtime, mais faible lien avec la stack serveur actuelle.
+- **ai-engineer-notebooks** — visibilité Trendshift rang 12 ; contenu pédagogique à distinguer d’un composant exploitable.
 
-## SIGNAUX À SURVEILLER
+## 5. À ne pas suivre
 
-- **AI Gateway Kubernetes / Gateway API Inference Extension :** travaux officiels et APIs en évolution ; preuve manquante : conformance et support du contrôleur choisi. https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/ ; https://kubernetes.io/blog/2025/06/05/introducing-gateway-api-inference-extension/ ; réexamen 15 septembre.
-- **OpenTelemetry GenAI :** dépôt dédié et conventions de spans ; preuve manquante : support documenté par Elastic APM et SDK retenu. https://github.com/open-telemetry/semantic-conventions-genai ; réexamen 30 septembre.
-- **AgentField :** release `v0.1.135` détectée par un tracker ; preuve manquante : confirmation du tag et documentation primaire de déploiement/observabilité. https://github.com/Agent-Field/AgentField ; réexamen 5 septembre.
-- **Go UTCP :** release récente signalée ; preuve manquante : sécurité du protocole, adoption et comparaison concrète avec MCP. https://github.com/universal-tool-calling-protocol/go-utcp ; réexamen 5 septembre.
+- `ManacleMelodyKnife/gpu-cpu-miner-crypto-silent` : dépôt suspect et sans intérêt architectural légitime ; écarté.
+- Projets vidéo ou frontend remontés uniquement pour leur démonstration : pas de conséquence claire sur une plateforme Cloud/DevOps.
+- Benchmarks et annonces de modèles sans artefact de déploiement, d’évaluation ou de gouvernance : insuffisants pour une décision d’architecture.
 
-## À NE PAS SUIVRE CETTE SEMAINE
+## 6. Laboratoire de la semaine
 
-- Benchmarks LLM isolés sans artefact de déploiement ou protocole reproductible.
-- Annonces de modèles sans changement démontré de routage, coût, sécurité ou exploitation.
-- Dépôts purement frontend, copies sans différenciation technique et releases de maintenance sans conséquence d’architecture.
+**Archify sur un dépôt de service réel mais non sensible (45 minutes).** Générer la carte, vérifier cinq composants et trois flux contre les manifestes et la documentation, puis enregistrer les écarts et le temps de génération. Décision attendue : usage ponctuel, intégration CI expérimentale ou abandon.
 
-## LABORATOIRE DE LA SEMAINE
+## 7. Échéances ou releases importantes
 
-**Agent Sandbox v0.5.6 sur Kind**, 45–60 minutes : installer la release figée, créer une session, vérifier persistance et métriques, tenter un egress interdit, suspendre/reprendre puis supprimer. Critère : permissions minimales, métriques exploitables, état conservé et nettoyage complet.
+- **05/09/2026 :** requalifier Archify, WorkWeave/router, Tailcat et open-connector avec README, licence, release et chemin de déploiement.
+- **12/09/2026 :** réexaminer WeMM-Embedding, Orca, OpenAgentPack et Agent Sandbox ; décider si une carte de service est justifiée.
 
-## ÉCHÉANCES OU RELEASES IMPORTANTES
+## 8. Sources consultées
 
-- **5 septembre 2026 :** requalifier Hermes, AgentField et Go UTCP avec une seconde preuve primaire.
-- **12 septembre 2026 :** sortie du laboratoire Agent Sandbox.
-- **15 septembre 2026 :** requalifier Kubernetes 1.37 et AI Gateway.
-- **30 septembre 2026 :** vérifier l’interopérabilité OpenTelemetry GenAI / Elastic APM.
+- Découverte et momentum : [Trendshift](https://trendshift.io/), classement daily et projets nouvellement détectés le 28/08/2026.
+- Sources primaires : [Archify](https://github.com/tt-a1i/archify), [WorkWeave/router](https://github.com/workweave/router), [WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding), [Tailcat](https://github.com/tailscale/tailcat), [Orca](https://github.com/stablyai/orca), [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack), [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox/releases).
+- Source en échec ou insuffisante : dépôt [open-connector](https://github.com/open-connector/open-connector) non exploitable pendant la collecte ; conservé seulement comme signal à qualifier.
 
-## SOURCES CONSULTÉES
+## Contrôle qualité
 
-Sources primaires : Agent Sandbox v0.5.6, Hermes Agent v0.20.6, Stately Agent alpha.21, OpenAgentPack, Kubernetes AI Gateway, OpenTelemetry GenAI et Kubernetes releases. Sources de découverte : GitHub releases/topics et trackers ; utilisées uniquement pour détecter les projets et signalées lorsqu’elles ne sont pas confirmées par une source primaire. Sources locales : `state/context.yaml`, `state/signals.yaml`, radar du 27 août.
+- Chaque projet principal possède un pitch, une date de signal, une URL canonique, un stade et une action ou preuve manquante.
+- Les classements Trendshift sont traités comme des signaux de découverte ; ils ne suffisent pas à établir la maturité, la sécurité ou la performance.
+- Les environnements de la stack et l’exposition réelle n’ont pas été inférés : ils restent `unknown`/`à qualifier`.

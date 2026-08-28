@@ -196,6 +196,74 @@ signals:
       - dist/2026-08-27/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-08-28-007
+    canonical_url: https://github.com/tt-a1i/archify
+    subject: "Archify transforme des descriptions de systèmes en artefacts d’architecture interactifs"
+    product_version: "Archify v2.16.0-dev.0"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "test"
+    owner: "architecture/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-008
+    canonical_url: https://github.com/workweave/router
+    subject: "WorkWeave/router signale le pattern de routage dynamique des modèles"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 6
+    confidence: "low"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-009
+    canonical_url: https://github.com/Tencent/WeMM-Embedding
+    subject: "WeMM-Embedding signale une convergence des embeddings multimodaux et du RAG"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 6
+    confidence: "low"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-28-010
+    canonical_url: https://github.com/tailscale/tailcat
+    subject: "Tailcat signale un outil de diagnostic réseau sur data plane maillé"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-28
+    last_seen: 2026-08-28
+    score: 5
+    confidence: "low"
+    status: "new"
+    decision: "monitor"
+    owner: "réseau/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-28/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
 
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001
