@@ -1,5 +1,9 @@
 # Contexte d’architecture de Mehdi — référence pour rendre la veille actionnable.
 # Les champs inconnus doivent rester explicitement à qualifier dans les rapports.
+profile:
+  role: "architecte Cloud/DevOps"
+  objective: "maintenir et développer une expertise à jour sur les nouveautés qui transforment les plateformes, les architectures et leur exploitation"
+  expectation: "détecter tôt les projets, patterns et services réellement intéressants, puis expliquer leur utilité et leur mise en œuvre"
 clouds:
   - AWS
   - GCP
@@ -32,6 +36,9 @@ unknowns:
   - responsables opérationnels par plateforme
 
 usage:
+  - Considérer la veille comme un outil de maintien d’expertise, pas comme une simple revue d’actualité.
+  - Donner la priorité aux nouveautés qui changent une décision d’architecture, un mode d’exploitation, un niveau de sécurité, un coût ou une capacité.
+  - Faire remonter rapidement les signaux faibles à fort potentiel, en séparant explicitement découverte, maturité et recommandation.
   - Relier chaque signal à un environnement concerné ou écrire `exposition inconnue`.
   - Proposer des étapes de déploiement compatibles AWS/GCP, Kubernetes, GitHub/GitLab et Terraform.
   - Prioriser les tests reproductibles et les preuves d’exploitation sur ces composants.

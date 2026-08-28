@@ -4,6 +4,8 @@
 
 Produis une carte d’apprentissage et de décision pour construire, déployer et exploiter un service Cloud, DevOps, observabilité, sécurité ou IA. Lis `state/context.yaml` pour relier le service à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform lorsque c’est pertinent.
 
+La carte contribue au maintien de l’expertise de Mehdi, architecte Cloud/DevOps. Elle doit donc rendre explicite ce que le service change dans une architecture moderne, dans quels scénarios il devient pertinent et quel niveau de compétence opérationnelle il permet d’acquérir. Privilégie les explications qui aident à décider et à agir plutôt qu’une description encyclopédique.
+
 POINT DE VUE D’ARCHITECTE DEVOPS/CLOUD
 Enseigne le service comme un architecte qui doit décider de l’introduire dans un système réel : à quoi sert-il, où se place-t-il, quels flux et dépendances il crée, comment le déployer, l’exploiter, le mettre à jour et le retirer, et quand il vaut mieux choisir une autre solution. Sépare toujours le modèle documenté du produit de ce qui est effectivement observé dans la stack.
 

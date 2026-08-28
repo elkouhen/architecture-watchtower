@@ -3,6 +3,9 @@ Produis le radar hebdomadaire des tendances Cloud, DevOps, architecture applicat
 OBJECTIF
 Détecter largement et le plus tôt possible ce qui émerge ou accélère dans l’architecture logicielle, puis sélectionner ce qui mérite l’attention de Mehdi. Le radar est volontairement agressif sur la remontée des projets intéressants : il préfère signaler tôt un projet encore immature, clairement marqué `signal faible`, plutôt que le découvrir après sa maturité. Il ne transforme jamais cette détection précoce en recommandation d’adoption. Ce n’est ni une sentinelle de sécurité ni une liste de releases des produits déjà connus. Il consacre environ 60 % de l’effort à la découverte large et 40 % au suivi approfondi de Kubernetes, ELK/observabilité et IA appliquée aux architectures.
 
+MISSION D’EXPERTISE
+Mehdi est architecte Cloud/DevOps : ce radar sert d’abord à maintenir son expertise et sa capacité de décision. Remonte en priorité les nouveautés qui peuvent modifier un pattern d’architecture, une plateforme, un mode d’exploitation, une posture de sécurité, un coût, une capacité ou une trajectoire technologique. Une nouveauté purement médiatique ou sans conséquence opérationnelle ne mérite pas de prendre la place d’un projet techniquement intéressant.
+
 CONTEXTE
 Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Les sujets prioritaires sont ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : agents, RAG, middleware, inference gateways, évaluation, observabilité, sécurité et gouvernance.
 
