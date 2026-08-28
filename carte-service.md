@@ -4,6 +4,8 @@
 
 Produis une carte d’apprentissage et de décision pour construire, déployer et exploiter un service Cloud, DevOps, observabilité, sécurité ou IA. Lis `state/context.yaml` pour relier le service à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform lorsque c’est pertinent.
 
+La carte est produite en priorité pour un sujet retenu par le radar qui combine un potentiel futur élevé et une maturité démontrée : documentation officielle, déploiement reproductible et maintenance active. Elle n’est pas générée automatiquement pour chaque signal émergent ; les sujets qui n’atteignent pas ce seuil restent dans `Signaux à surveiller`.
+
 La carte n’est ni une brochure marketing ni une recommandation automatique. Distingue `Fait`, `Analyse`, `Inférence` et `Décision proposée`. Si le contexte réel est inconnu, écris `à qualifier` ou `exposition inconnue`.
 
 ## Entrées et déduplication

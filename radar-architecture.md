@@ -1,7 +1,7 @@
 Produis le radar hebdomadaire des tendances Cloud, DevOps, architecture applicative et IA de Mehdi.
 
 OBJECTIF
-Détecter ce qui émerge ou accélère dans l’architecture logicielle, puis expliquer si cela mérite d’être testé dans une stack AWS/GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform. Le radar est un outil de découverte et de sélection ; ce n’est ni une sentinelle de sécurité ni une liste de releases des produits déjà connus.
+Détecter largement ce qui émerge ou accélère dans l’architecture logicielle, puis sélectionner ce qui mérite l’attention de Mehdi. Le radar est un outil de découverte et de sélection ; ce n’est ni une sentinelle de sécurité ni une liste de releases des produits déjà connus. Il consacre environ 60 % de l’effort à la découverte large et 40 % au suivi approfondi de Kubernetes, ELK/observabilité et IA appliquée aux architectures.
 
 CONTEXTE
 Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Les sujets prioritaires sont ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : agents, RAG, middleware, inference gateways, évaluation, observabilité, sécurité et gouvernance.
@@ -26,12 +26,17 @@ FAMILLES À EXPLORER
 - ELK, Elastic APM, Logstash et alternatives lorsque le besoin d’architecture évolue ;
 - stockage vectoriel, RAG, event-driven, serverless et nouvelles primitives Cloud.
 
+EXCLUSIONS
+Écarte les annonces de modèles, benchmarks ou levées de fonds sans conséquence architecturale démontrée, les nouveautés purement applicatives/frontend et les releases de maintenance sans impact de sécurité, compatibilité, architecture ou exploitation.
+
 SÉLECTION DES TENDANCES
 Fais d’abord remonter jusqu’à dix candidats dès qu’un signal crédible est observé : nouveau dépôt actif, hausse d’activité, release structurante, discussion technique, intégration par un projet reconnu, retour d’expérience, offre managée ou pattern repris par plusieurs équipes. Un seul signal suffit pour la détection, mais marque alors le sujet `signal faible` et ne propose pas d’adoption.
 
-Pour les cinq sujets retenus dans le radar principal, cherche ensuite un deuxième indice indépendant et une source primaire lorsque le sujet porte une affirmation technique. Si ces éléments ne sont pas disponibles, conserve le sujet dans `Signaux à surveiller` au lieu de le supprimer.
+Pour les sujets retenus dans le radar principal, cherche ensuite un deuxième indice indépendant et une source primaire lorsque le sujet porte une affirmation technique. Si ces éléments ne sont pas disponibles, conserve le sujet dans `Signaux à surveiller` au lieu de le supprimer.
 
 Pour chaque tendance, indique son stade : `signal faible`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`. Une hausse de popularité seule ne suffit pas pour recommander une adoption, mais elle reste utile comme signal de découverte. Écarte seulement les annonces marketing sans élément technique, les démonstrations sans code et les projets sans aucun chemin de déploiement identifiable.
+
+Une fiche pédagogique ou une carte de service n’est déclenchée que si le sujet a un potentiel futur élevé et satisfait le seuil de maturité suivant : documentation officielle, chemin de déploiement reproductible et maintenance active. Sinon, conserve-le dans `Signaux à surveiller` avec la preuve manquante et une date de réexamen.
 
 FORMAT DE CHAQUE TENDANCE
 
@@ -58,12 +63,14 @@ Propose au maximum un laboratoire prioritaire par semaine, de moins d’une heur
 
 SORTIE
 1. **Les trois tendances à retenir** : une phrase sur le signal, l’intérêt architectural et l’action proposée.
-2. **Tendances détaillées** : maximum cinq, avec le format ci-dessus.
+2. **Tendances détaillées** : nombre variable, plafonné par une lecture de 30 minutes, avec le format ci-dessus. Chaque tendance retenue doit avoir une synthèse courte avant son développement.
 3. **Signaux à surveiller** : jusqu’à cinq candidats encore faibles, avec signal observé, source de découverte et information manquante pour les qualifier.
 4. **À ne pas suivre** : maximum trois sujets écartés et motif.
 5. **Laboratoire de la semaine**, uniquement si un candidat le justifie.
 6. **Échéances ou releases importantes** uniquement si elles changent une décision.
 7. **Sources consultées** : faits, signaux de traction, sources de découverte et sources en échec.
+
+La priorité de sélection est, dans cet ordre : potentiel futur, maturité et facilité d’adoption, pertinence pour la stack actuelle, puis valeur pédagogique. La maturité ne se déduit jamais de la popularité seule.
 
 Ne remplis pas le rapport avec des versions de maintenance ou des nouveautés de produits connus, sauf si elles révèlent une tendance architecturale ou créent une décision. Ne produis aucune explication générale qui ne débouche pas sur une décision, une action, un test ou une qualification.
 

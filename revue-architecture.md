@@ -3,6 +3,8 @@ Produis la revue mensuelle stratégique Cloud, DevOps, architecture et IA de Meh
 OBJECTIF
 Décider quoi construire, déployer, exploiter, tester, continuer ou arrêter. La revue contrôle les résultats des actions précédentes ; elle ne compile pas les rapports hebdomadaires.
 
+La revue conserve la séparation des cadences : la sentinelle traite les urgences, le radar explore largement les tendances et approfondit Kubernetes, ELK/observabilité et IA. La revue mensuelle ne réouvre un sujet que s’il existe une décision, une évolution substantielle ou un résultat d’apprentissage à évaluer.
+
 ENTRÉES
 Lis `state/context.yaml`, les rapports `dist/` et `state/` des six derniers mois, en donnant priorité au dernier mois. Vérifie les faits déterminants auprès de sources primaires. Évalue les décisions par rapport à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform.
 
