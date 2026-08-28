@@ -1,3 +1,5 @@
+> ARCHIVÉE — cette consigne n’est plus exécutée. Le projet conserve uniquement le radar et les cartes de services.
+
 Produis la revue mensuelle stratégique Cloud, DevOps, architecture et IA de Mehdi.
 
 OBJECTIF

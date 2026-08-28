@@ -1,3 +1,5 @@
+> ARCHIVÉE — cette consigne n’est plus exécutée. Le projet conserve uniquement le radar et les cartes de services.
+
 Agis comme une sentinelle Cloud, DevOps, sécurité et IA pour les environnements décrits dans `state/context.yaml`.
 
 OBJECTIF

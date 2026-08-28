@@ -6,7 +6,7 @@ Améliorer séparément la qualité de l’analyse et la qualité du sourcing, s
 
 ## Boucle de travail
 
-1. **Détecter :** rechercher largement dans les fenêtres prévues par chaque cadence et consigner les sources consultées, y compris les échecs.
+1. **Détecter :** rechercher largement dans les fenêtres du radar ou de la carte demandée et consigner les sources consultées, y compris les échecs.
 2. **Qualifier :** séparer `Fait`, `Analyse`, `Inférence` et `Décision`; confirmer les affirmations techniques avec une source primaire.
 3. **Livrer :** produire le rapport avec pitch, utilité, mise en œuvre, limites et action lorsque ces éléments sont connus.
 4. **Évaluer :** inscrire le retour dans `state/feedback.yaml` : exactitude, source, valeur architecturale, clarté, action et bruit.
@@ -15,7 +15,7 @@ Améliorer séparément la qualité de l’analyse et la qualité du sourcing, s
 
 ## Rythme
 
-- **Après chaque rapport :** corriger les erreurs certaines et noter les sources en échec.
+- **Après chaque radar ou carte :** corriger les erreurs certaines et noter les sources en échec.
 - **Chaque semaine :** examiner les signaux bruyants, les projets utiles et les sujets manqués ; ajouter au plus trois feedbacks prioritaires.
 - **Chaque mois :** calculer les tendances de qualité, revoir les sources et décider d’une seule évolution de prompt.
 - **Chaque trimestre :** retirer les sources mortes, vérifier la couverture des domaines et réviser les seuils de sélection.

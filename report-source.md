@@ -1,11 +1,11 @@
 # Revue des démarches de veille et correction pédagogique
 
 **Date :** 27 août 2026  
-**Portée :** les quatre démarches documentées dans ce dépôt — sentinelle quotidienne, carte quotidienne, radar hebdomadaire et revue mensuelle — ainsi que leur articulation avec les sources, les laboratoires et les livrables.
+**Portée historique :** les démarches documentées dans ce dépôt et leur articulation avec les sources, les laboratoires et les livrables. Depuis le 28 août 2026, seules le radar et les cartes de services sont actives ; la sentinelle et la revue mensuelle sont archivées.
 
 ## Conclusion
 
-Les démarches sont complémentaires, mais l’ancien fonctionnement privilégiait la collecte et le tri au détriment de l’apprentissage. La correction est une boucle en quatre couches : détecter l’urgence, construire une carte pédagogique, pratiquer par un laboratoire, puis décider et réviser. La veille ne doit pas seulement dire ce qui change ; elle doit expliquer comment utiliser et déployer les produits.
+L’ancien fonctionnement privilégiait la collecte et le tri au détriment de l’apprentissage. Le modèle actif est désormais une boucle en deux formats : le radar détecte et priorise les tendances, puis la carte de service enseigne un produit et propose un chemin de test, de déploiement et d’exploitation. La veille ne doit pas seulement dire ce qui change ; elle doit expliquer comment utiliser et déployer les produits.
 
 La source de vérité est locale : `state/signals.yaml` pour les signaux, `state/learning.yaml` pour la progression, `dist/` pour les cartes et rapports, et Git pour l’historique. Les commits locaux prouvent les livraisons.
 
