@@ -17,6 +17,7 @@ Les livrables actifs sont des fichiers Markdown sous `dist/YYYY-MM-DD/`. Chaque 
 - `carte-<service>.md` (une carte par service exécuté).
 
 Le registre pédagogique `state/learning.yaml` suit les produits étudiés, leur niveau de compréhension et le prochain laboratoire à réaliser.
+L’index transversal `index.md` classe par thème les outils et patterns analysés et fournit les liens vers leurs radars ou cartes de services.
 
 ## Exécution d’une veille
 
@@ -28,6 +29,7 @@ Le registre pédagogique `state/learning.yaml` suit les produits étudiés, leur
 6. Pour chaque signal, conserver au minimum : identifiant stable, URL canonique, produit/version, environnement, première et dernière observation, score, confiance, statut, décision, propriétaire, échéance et livrables associés.
 7. Écrire le résultat dans le répertoire `dist/<date_du_jour>/` sans écraser un livrable d’une autre date, avec l’extension `.md`.
 8. Vérifier le fichier produit : non vide, sources primaires présentes, sections obligatoires complètes et dates cohérentes avec la cadence. Ne produire que le radar demandé ou la carte de service demandée.
+9. Mettre à jour `index.md` lorsqu’un outil ou pattern est analysé ; conserver une entrée canonique par outil et ajouter le lien vers le nouveau livrable.
 
 Pour une carte de service, appliquer `carte-service.md`, produire uniquement le ou les services demandés dans `dist/<date_du_jour>/`, et ne pas régénérer les autres veilles. Une carte doit d’abord enseigner le produit — modèle mental, usages, déploiement et exploitation — puis distinguer l’état documenté du produit de l’état réellement observé dans la stack ; si ce dernier est inconnu, écrire `à qualifier` ou `exposition inconnue`.
 
