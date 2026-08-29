@@ -19,6 +19,10 @@ Les livrables actifs sont des fichiers Markdown sous `dist/YYYY-MM-DD/`. Chaque 
 Le registre pédagogique `state/learning.yaml` suit les produits étudiés, leur niveau de compréhension et le prochain laboratoire à réaliser.
 L’index transversal `README.md` classe par thème les outils et patterns analysés et fournit les liens vers leurs radars ou cartes de services.
 
+## Clarté des demandes
+
+Ne pas démarrer une tâche lorsque la demande, son périmètre ou le résultat attendu ne semble pas suffisamment clair. Dans ce cas, s’arrêter avant toute modification ou recherche et poser à Mehdi les questions nécessaires pour préciser l’objectif, les fichiers concernés, les contraintes et le niveau de résultat attendu. Ne reprendre l’exécution qu’après clarification.
+
 ## Exécution d’une veille
 
 **Règle de synchronisation des prompts :** lorsqu’une consigne utilisateur modifie le contenu, le format, le périmètre, les sources ou le comportement attendu d’un type de revue, mettre à jour en premier le prompt associé (`radar-architecture.md` pour un radar, `carte-service.md` pour une carte), puis appliquer cette règle au livrable. Ne jamais modifier durablement un rapport sans synchroniser son prompt source.
