@@ -1,4 +1,4 @@
-# CARTE SERVICE — AGENT SANDBOX
+# CARTE SERVICE — [AGENT SANDBOX](https://github.com/kubernetes-sigs/agent-sandbox)
 
 **Régénération :** 28 août 2026, avec pitch rapide obligatoire pour le service.
 

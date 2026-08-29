@@ -4,13 +4,13 @@
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| JiuwenSwarm | plateforme | Plateforme multi-agents distribuée pour orchestrer des tâches complexes. | [Voir la fiche](#jiuwenswarm) |
-| PRAXIST | outil | Boucle de recherche agentique persistante avec preuves et évaluation. | [Voir la fiche](#praxist) |
-| Hezo | plateforme | Équipe d’agents IA destinée à livrer des tâches. | [Voir la fiche](#hezo) |
-| Boop | service | Inbox de notifications self-hosted pour développeurs. | [Voir la fiche](#boop) |
-| AgentReady standard | standard | Standard proposé pour évaluer la préparation d’un dépôt à l’usage par des agents. | [Voir la fiche](#agentready-standard) |
+| [JiuwenSwarm](https://github.com/openJiuwen-ai/jiuwenswarm) | plateforme | Plateforme multi-agents distribuée pour orchestrer des tâches complexes. | [Voir la fiche](#jiuwenswarm) |
+| [PRAXIST](https://github.com/sapientinc/PRAXIST) | outil | Boucle de recherche agentique persistante avec preuves et évaluation. | [Voir la fiche](#praxist) |
+| [Hezo](https://github.com/hezo-ai/hezo) | plateforme | Équipe d’agents IA destinée à livrer des tâches. | [Voir la fiche](#hezo) |
+| [Boop](https://github.com/chrisgreg/boop) | service | Inbox de notifications self-hosted pour développeurs. | [Voir la fiche](#boop) |
+| [AgentReady standard](https://github.com/agentready-org/standard) | standard | Standard proposé pour évaluer la préparation d’un dépôt à l’usage par des agents. | [Voir la fiche](#agentready-standard) |
 
-## JiuwenSwarm
+## [JiuwenSwarm](https://github.com/openJiuwen-ai/jiuwenswarm)
 
 - **Pitch rapide :** JiuwenSwarm est une plateforme d’agents collaboratifs capables de décomposer une tâche, d’orchestrer plusieurs agents, d’appeler des outils et de fonctionner sur une machine ou un cluster. Elle cible les workflows complexes qui nécessitent des étapes, de la supervision humaine et une réutilisation des skills.
 - **Utilité :** intéressante pour étudier un orchestrateur multi-agents avec workflows déterministes, budget de tokens, permissions d’outils et exécution distribuée. Elle peut inspirer une plateforme interne, mais ne doit pas être introduite avant d’avoir clarifié isolation, secrets, coûts et observabilité.
@@ -24,7 +24,7 @@ Le projet semble pertinent pour des tâches longues ou décomposables, avec budg
 
 Le dépôt fournit un chemin d’installation et des contrôles d’outils, mais la maturité production, l’isolation réseau, la gestion des secrets et la reprise sur panne restent à qualifier. Décision : `surveiller`, puis `tester` localement sur données synthétiques avec allowlist d’outils et budget borné.
 
-## PRAXIST
+## [PRAXIST](https://github.com/sapientinc/PRAXIST)
 
 - **Pitch rapide :** PRAXIST transforme une recherche technique en processus persistant avec pairs parallèles, évaluations propres à chaque tâche, preuves durables et synthèse entre générations. Il est utile lorsque l’objectif est mesurable mais que la meilleure méthode reste inconnue.
 - **Utilité :** signal intéressant pour les plateformes d’expérimentation et d’évaluation d’agents : il rapproche recherche, exécution, preuves et décision. La valeur potentielle est la reproductibilité des essais, pas l’autonomie sans contrôle.
@@ -38,19 +38,19 @@ Le cas d’usage crédible est une question technique bornée — comparaison de
 
 Le dépôt est très jeune et sa licence Fair Source impose une vérification juridique. Décision : `tester` uniquement en environnement isolé, avec corpus connu et budget fixe ; aucun accès direct aux systèmes de production.
 
-## Hezo
+## [Hezo](https://github.com/hezo-ai/hezo)
 
 - **Pitch rapide :** Hezo se présente comme une équipe d’agents IA destinée à livrer des tâches. Le signal est intéressant pour suivre la convergence entre agent manager, automatisation de workflow et exécution self-hosted.
 - **Utilité :** surveiller le pattern d’une équipe d’agents préconfigurée et son chemin d’exploitation. Il ne mérite pas encore un test sans documentation sur les rôles, les outils, les permissions et le déploiement.
 - **Preuves de traction :** Trendshift daily rang 8 le 29/08 ; dépôt primaire avec 1 061 commits, 140 stars, 4 forks et 2 issues observés. Outils similaires : OpenHands, CrewAI et AutoGen ; différence fonctionnelle à qualifier.
 
-## Boop
+## [Boop](https://github.com/chrisgreg/boop)
 
 - **Pitch rapide :** Boop est une boîte de réception de notifications self-hosted pour développeurs, déclenchées par les applications. Il peut servir de petit composant de notification lorsque l’équipe veut conserver le contrôle de l’hébergement.
 - **Utilité :** intérêt limité mais concret pour comparer un endpoint d’événements, une inbox et des notifications mobiles dans une stack interne. Il ne s’agit pas d’une nouvelle brique d’observabilité complète.
 - **Preuves de traction :** Trendshift daily rang 13 le 29/08 et dépôt primaire accessible. Outils similaires : ntfy, Apprise et Grafana Alerting ; choisir selon push, routage, rétention et intégration existante.
 
-## AgentReady standard
+## [AgentReady standard](https://github.com/agentready-org/standard)
 
 - **Pitch rapide :** AgentReady propose de formaliser les critères qui rendent un dépôt exploitable par des agents de code. Le sujet peut devenir une checklist de qualité pour documentation, tests, scripts, conventions et permissions.
 - **Utilité :** intéressant pour améliorer la préparation des dépôts avant automatisation agentique. Il faut vérifier si le standard produit des contrôles concrets plutôt qu’un label déclaratif.

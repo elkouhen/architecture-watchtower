@@ -1,4 +1,4 @@
-# CARTE SERVICE — ELASTICSEARCH
+# CARTE SERVICE — [ELASTICSEARCH](https://www.elastic.co/elasticsearch)
 
 Date : 2026-08-27. Type : `service`. Version de référence documentée : Elastic Stack `9.5.2`. Version réellement déployée : `à qualifier`.
 
