@@ -33,24 +33,23 @@ Explique les sujets avec des mots simples mais précis. Relie toujours le sujet 
 - **Pitch rapide :** en une ou deux phrases, explique ce que fait le sujet, le problème résolu et pour quel type d’équipe ou de workload il est utile.
 - **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier.
 - **Preuves de traction :** indique les signaux observés, leurs dates et leurs sources. Distingue explicitement `Fait`, `Analyse` et `Inférence`. Marque `signal faible` lorsqu’une seule preuve de découverte existe.
+- **Outils similaires :** liste au maximum trois outils ou approches comparables, avec une différence utile pour la décision. Écris `pas d’équivalent direct` si la comparaison serait artificielle.
 
-## Description précise conditionnelle
+## Pitch détaillé conditionnel
 
-Ajoute cette partie uniquement pour les sujets les plus intéressants du radar — au maximum trois — ou lorsqu’une seconde preuve indépendante confirme un potentiel élevé. Ne la produis pas pour remplir le rapport.
+Ajoute cette partie uniquement pour les sujets les plus intéressants du radar — au maximum trois — ou lorsqu’une seconde preuve indépendante confirme un potentiel élevé. Ne la produis pas pour remplir le rapport. Il s’agit d’un pitch plus développé pour comprendre rapidement pourquoi le sujet compte, pas d’une fiche complète de déploiement.
 
-### Description précise
+### Pitch détaillé
 
-Décris uniquement les éléments qui aideront Mehdi à décider s’il doit approfondir :
+En trois à six paragraphes courts, explique :
 
-- problème d’architecture et pattern associé ;
-- composants, flux, données, identité et dépendances ;
-- mode de déploiement et d’intégration avec AWS, GCP, Kubernetes, Terraform, GitHub/GitLab, ELK ou CloudWatch lorsque pertinent ;
-- exploitation : métriques, logs, traces, capacité, coût, upgrade, rollback et retrait ;
-- sécurité, permissions, isolation, données sensibles et risques de verrouillage ;
-- limites, conditions où il ne faut pas l’utiliser et alternatives utiles ;
-- test ou laboratoire de moins d’une heure, avec métriques et critère de réussite ;
-- **Décision proposée :** `surveiller`, `tester` ou `écarter` ;
-- prochaine vérification et signaux qui confirmeraient ou invalideraient l’intérêt.
+- ce que le sujet change par rapport aux approches habituelles ;
+- le problème concret auquel il répond et le type d’équipe qui peut en tirer parti ;
+- son fonctionnement général et sa place dans une architecture, sans détailler tous les composants ;
+- ses bénéfices réels, ses limites, ses dépendances et le principal risque à surveiller ;
+- pourquoi il mérite ou non un test maintenant, avec une décision proposée : `surveiller`, `tester` ou `écarter`.
+
+Ne répète pas les trois champs obligatoires et ne fournis pas ici un plan complet de production. Les détails de déploiement, d’exploitation et de laboratoire appartiennent à `carte-service.md` lorsqu’une carte est déclenchée.
 
 Pour l’IA, préciser le modèle ou fournisseur, les données, le middleware, la latence, le coût, l’évaluation, l’observabilité, les permissions, la validation humaine et le mécanisme de repli. Pour Kubernetes ou un middleware, préciser installation, mise à jour et retrait.
 
@@ -68,11 +67,11 @@ Le rapport doit rester court et lisible en moins de quinze minutes :
 
 1. une liste de cinq à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas cinq sujets réellement nouveaux ;
 2. pour chaque sujet, uniquement `Pitch rapide`, `Utilité` et `Preuves de traction` ;
-3. les `Descriptions précises` conditionnelles, au maximum trois ;
+3. les `Pitchs détaillés` conditionnels, au maximum trois ;
 4. une courte liste de sujets écartés avec leur motif ;
 5. les sources consultées et les sources en échec.
 
-Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans la `Description précise` lorsqu’elle est justifiée.
+Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
 
 ## Contrôle qualité et publication
 
