@@ -28,8 +28,9 @@ Explique les sujets avec des mots simples mais précis. Relie toujours le sujet 
 
 ## Format obligatoire pour chaque sujet
 
-### Nom du projet, service ou pattern
+### Nom du projet, service ou pattern — Type : `outil|service|pattern|standard|plateforme|modèle|bibliothèque`
 
+- **Type :** classe l’élément avant toute description : `outil`, `service`, `pattern`, `standard`, `plateforme`, `modèle`, `bibliothèque` ou une combinaison courte si nécessaire.
 - **Pitch rapide :** en une ou deux phrases, explique ce que fait le sujet, le problème résolu et pour quel type d’équipe ou de workload il est utile.
 - **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier.
 - **Preuves de traction :** indique les signaux observés, leurs dates et leurs sources. Distingue explicitement `Fait`, `Analyse` et `Inférence`. Marque `signal faible` lorsqu’une seule preuve de découverte existe.
@@ -65,20 +66,20 @@ Déduplique d’abord par URL canonique et par sujet dans `state/signals.yaml` e
 
 Le rapport doit rester court et lisible en moins de quinze minutes :
 
-1. un **tableau d’introduction**, utilisé comme table des matières, avec une ligne par sujet et les colonnes : `Sujet`, `Pitch rapide`, `Utilité`, `Traction`, `Niveau` et `Approfondissement` ; la colonne `Approfondissement` pointe vers le `Pitch détaillé` lorsqu’il existe ;
+1. un **tableau d’introduction**, utilisé comme table des matières, avec une ligne par sujet et les colonnes : `Sujet`, `Type`, `Pitch rapide`, `Utilité`, `Traction`, `Niveau` et `Approfondissement` ; la colonne `Approfondissement` pointe vers le `Pitch détaillé` lorsqu’il existe ;
 2. les fiches de cinq à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas cinq sujets réellement nouveaux ;
 3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité`, `Preuves de traction` et `Outils similaires` ;
 4. les `Pitchs détaillés` conditionnels, au maximum trois ;
 5. une courte liste de sujets écartés avec leur motif ;
 6. les sources consultées et les sources en échec.
 
-Le tableau doit rester très scannable : pitch et utilité en une phrase courte, traction sous forme de signal daté, niveau parmi `signal faible`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`, et `—` lorsqu’aucun approfondissement n’est justifié.
+Le tableau doit rester très scannable : type explicite, pitch et utilité en une phrase courte, traction sous forme de signal daté, niveau parmi `signal faible`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`, et `—` lorsqu’aucun approfondissement n’est justifié.
 
 Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
 
 ## Contrôle qualité et publication
 
-Avant la sortie, vérifie que chaque sujet possède un pitch, une utilité, une preuve datée, une URL canonique et un niveau de preuve. Vérifie les faits importants dans une source primaire. Note les sources en échec et les corrections dans `state/feedback.yaml`. Mets à jour `state/signals.yaml` pour les nouveaux signaux avec identifiant stable, score, confiance, statut, décision, propriétaire, échéance et livrable associé.
+Avant la sortie, vérifie que chaque sujet possède un type, un pitch, une utilité, une preuve datée, une URL canonique et un niveau de preuve. Vérifie les faits importants dans une source primaire. Note les sources en échec et les corrections dans `state/feedback.yaml`. Mets à jour `state/signals.yaml` pour les nouveaux signaux avec identifiant stable, score, confiance, statut, décision, propriétaire, échéance et livrable associé.
 
 Écris `dist/AAAA-MM-JJ/radar-architecture.md` sans écraser une autre date. Le fichier doit être non vide et contenir les sources consultées. Après validation, committe localement le livrable. Ne l’envoie par aucun connecteur externe.
 

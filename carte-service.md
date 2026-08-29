@@ -26,7 +26,7 @@ Avant la sortie, vérifie que le pitch explique clairement le service, que le d�
 
 ## Format obligatoire
 
-1. **Pitch rapide** : en une ou deux phrases, explique ce que fait le service, quel problème il résout, pour quel type d’équipe ou de workload il est utile, et pourquoi il mérite d’être étudié. Utilise des mots simples et évite le marketing.
+1. **Type et pitch rapide** : indique `service`, `outil`, `plateforme`, `bibliothèque`, `modèle` ou le type le plus précis, puis explique en une ou deux phrases ce que fait le service, quel problème il résout, pour quel type d’équipe ou de workload il est utile, et pourquoi il mérite d’être étudié. Utilise des mots simples et évite le marketing.
 2. **Résumé décisionnel** : rôle du service dans une architecture, problème résolu, cas d’usage, conditions de mise en œuvre, décision actuelle et principal compromis, en cinq lignes maximum.
 3. **Position dans le système** : producteurs, consommateurs, entrées, traitements, sorties, flux et services complémentaires ou remplacés.
 4. **Modèle mental** : chemin d’utilisation concret, composants indispensables, état, interfaces et erreurs principales.

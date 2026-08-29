@@ -2,13 +2,13 @@
 
 ## Vue d’ensemble
 
-| Sujet | Pitch rapide | Utilité | Traction | Niveau | Approfondissement |
-|---|---|---|---|---|---|
-| [JiuwenSwarm](https://github.com/openJiuwen-ai/jiuwenswarm) | Plateforme multi-agents distribuée pour orchestrer des tâches complexes. | Étudier orchestration, skills, HITL et permissions. | Trendshift #1 ; 2 274 commits, 4,8 k stars. | émergente | [Pitch détaillé](#jiuwenswarm) |
-| [PRAXIST](https://github.com/sapientinc/PRAXIST) | Boucle de recherche agentique persistante avec preuves et évaluation. | Structurer des expérimentations reproductibles. | Trendshift #2 ; dépôt primaire, 4 commits, 244 forks. | signal faible | [Pitch détaillé](#praxist) |
-| [Hezo](https://github.com/hezo-ai/hezo) | Équipe d’agents IA destinée à livrer des tâches. | Surveiller les patterns d’équipes d’agents self-hosted. | Trendshift #8 ; 1 061 commits, 140 stars, 4 forks. | signal faible | — |
-| [Boop](https://github.com/chrisgreg/boop) | Inbox de notifications self-hosted pour développeurs. | Observer un pattern léger de notification applicative. | Trendshift #13 ; dépôt primaire vérifié. | signal faible | — |
-| [AgentReady standard](https://github.com/agentready-org/standard) | Standard proposé pour évaluer la préparation d’un dépôt à l’usage par des agents. | Surveiller la formalisation de critères d’agent-readiness. | Featured et mentions live Trendshift ; détails primaires à qualifier. | signal faible | — |
+| Sujet | Type | Pitch rapide | Utilité | Traction | Niveau | Approfondissement |
+|---|---|---|---|---|---|---|
+| [JiuwenSwarm](https://github.com/openJiuwen-ai/jiuwenswarm) | plateforme | Plateforme multi-agents distribuée pour orchestrer des tâches complexes. | Étudier orchestration, skills, HITL et permissions. | Trendshift #1 ; 2 274 commits, 4,8 k stars. | émergente | [Pitch détaillé](#jiuwenswarm) |
+| [PRAXIST](https://github.com/sapientinc/PRAXIST) | outil | Boucle de recherche agentique persistante avec preuves et évaluation. | Structurer des expérimentations reproductibles. | Trendshift #2 ; dépôt primaire, 4 commits, 244 forks. | signal faible | [Pitch détaillé](#praxist) |
+| [Hezo](https://github.com/hezo-ai/hezo) | plateforme | Équipe d’agents IA destinée à livrer des tâches. | Surveiller les patterns d’équipes d’agents self-hosted. | Trendshift #8 ; 1 061 commits, 140 stars, 4 forks. | signal faible | — |
+| [Boop](https://github.com/chrisgreg/boop) | service | Inbox de notifications self-hosted pour développeurs. | Observer un pattern léger de notification applicative. | Trendshift #13 ; dépôt primaire vérifié. | signal faible | — |
+| [AgentReady standard](https://github.com/agentready-org/standard) | standard | Standard proposé pour évaluer la préparation d’un dépôt à l’usage par des agents. | Surveiller la formalisation de critères d’agent-readiness. | Featured et mentions live Trendshift ; détails primaires à qualifier. | signal faible | — |
 
 ## JiuwenSwarm
 

@@ -1,6 +1,6 @@
 # CARTE SERVICE — ELASTICSEARCH
 
-Date : 2026-08-27. Version de référence documentée : Elastic Stack `9.5.2`. Version réellement déployée : `à qualifier`.
+Date : 2026-08-27. Type : `service`. Version de référence documentée : Elastic Stack `9.5.2`. Version réellement déployée : `à qualifier`.
 
 ## 1. RÉSUMÉ DÉCISIONNEL
 

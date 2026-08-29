@@ -2,19 +2,19 @@
 
 ## Vue d’ensemble
 
-| Sujet | Pitch rapide | Utilité | Traction | Niveau | Approfondissement |
-|---|---|---|---|---|---|
-| [Archify](https://github.com/tt-a1i/archify) | Génère des cartes d’architecture interactives à partir d’un dépôt ou d’une description. | Accélérer compréhension et revue de systèmes. | Trendshift #2 ; dépôt actif. | émergente | [Pitch détaillé](#archify) |
-| [WorkWeave/router](https://github.com/workweave/router) | Route les requêtes d’agents vers différents modèles. | Centraliser coût, latence et fallback. | Trendshift #10. | signal faible | — |
-| [WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding) | Embeddings multimodaux pour compréhension et retrieval. | Étendre un RAG aux contenus riches. | Trendshift #23. | signal faible | — |
-| [Tailcat](https://github.com/tailscale/tailcat) | Outil de type netcat sur le data plane Tailscale. | Diagnostiquer des réseaux maillés. | Trendshift #13. | signal faible | — |
-| [Orca](https://github.com/stablyai/orca) | Environnement pour une flotte d’agents parallèles. | Étudier cycle de vie et coordination. | Trendshift #17. | signal faible | — |
-| [PRAXIST](https://github.com/sapientinc/PRAXIST) | Recherche agentique mesurable et persistante. | Rendre les expérimentations reproductibles. | Trendshift #5. | signal faible | — |
-| [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack) | Control plane déclaratif pour agents cloud. | Versionner et gouverner des agents. | Signal local et Trendshift. | émergente | — |
-| [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | CRD Kubernetes pour workloads d’agents isolés et persistants. | Encadrer état, outils et cycle de vie. | v0.5.6 le 20/08. | émergente | — |
-| [Busbar](https://github.com/GetBusbar/busbar) | Gateway IA self-hosted pour routage, budgets et failover. | Gouverner le chemin d’exécution IA. | Trendshift featured. | émergente | [Pitch détaillé](#busbar) |
-| [OpenConnector](https://github.com/oomol-lab/open-connector) | Gateway de connecteurs SaaS pour agents via MCP, HTTP et OpenAPI. | Isoler credentials, scopes et actions. | Trendshift featured ; 5,4 k stars. | traction | [Pitch détaillé](#openconnector) |
-| [go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) | Consignes Go destinées aux agents de code. | Injecter des standards d’ingénierie versionnés. | Trendshift #15 ; GitHub Trending Go #1. | émergente | — |
+| Sujet | Type | Pitch rapide | Utilité | Traction | Niveau | Approfondissement |
+|---|---|---|---|---|---|---|
+| [Archify](https://github.com/tt-a1i/archify) | outil | Génère des cartes d’architecture interactives à partir d’un dépôt ou d’une description. | Accélérer compréhension et revue de systèmes. | Trendshift #2 ; dépôt actif. | émergente | [Pitch détaillé](#archify) |
+| [WorkWeave/router](https://github.com/workweave/router) | outil | Route les requêtes d’agents vers différents modèles. | Centraliser coût, latence et fallback. | Trendshift #10. | signal faible | — |
+| [WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding) | modèle | Embeddings multimodaux pour compréhension et retrieval. | Étendre un RAG aux contenus riches. | Trendshift #23. | signal faible | — |
+| [Tailcat](https://github.com/tailscale/tailcat) | outil | Outil de type netcat sur le data plane Tailscale. | Diagnostiquer des réseaux maillés. | Trendshift #13. | signal faible | — |
+| [Orca](https://github.com/stablyai/orca) | outil | Environnement pour une flotte d’agents parallèles. | Étudier cycle de vie et coordination. | Trendshift #17. | signal faible | — |
+| [PRAXIST](https://github.com/sapientinc/PRAXIST) | outil | Recherche agentique mesurable et persistante. | Rendre les expérimentations reproductibles. | Trendshift #5. | signal faible | — |
+| [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack) | plateforme | Control plane déclaratif pour agents cloud. | Versionner et gouverner des agents. | Signal local et Trendshift. | émergente | — |
+| [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | outil Kubernetes | CRD Kubernetes pour workloads d’agents isolés et persistants. | Encadrer état, outils et cycle de vie. | v0.5.6 le 20/08. | émergente | — |
+| [Busbar](https://github.com/GetBusbar/busbar) | service/gateway | Gateway IA self-hosted pour routage, budgets et failover. | Gouverner le chemin d’exécution IA. | Trendshift featured. | émergente | [Pitch détaillé](#busbar) |
+| [OpenConnector](https://github.com/oomol-lab/open-connector) | service/gateway | Gateway de connecteurs SaaS pour agents via MCP, HTTP et OpenAPI. | Isoler credentials, scopes et actions. | Trendshift featured ; 5,4 k stars. | traction | [Pitch détaillé](#openconnector) |
+| [go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines) | standard | Consignes Go destinées aux agents de code. | Injecter des standards d’ingénierie versionnés. | Trendshift #15 ; GitHub Trending Go #1. | émergente | — |
 
 ## Archify
 
