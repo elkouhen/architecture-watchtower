@@ -71,7 +71,10 @@ Chaque fiche doit contenir :
 - utilité architecturale ;
 - preuves datées, distinguant `Fait`, `Analyse` et `Inférence` ;
 - outils ou approches similaires ;
+- indicateurs de tendance optionnels et datés : étoiles/forks GitHub, activité de dépôt, dernière release, rang de découverte ou intérêt de recherche ;
 - décision proposée, propriétaire et date de réexamen lorsque pertinent.
+
+Les indicateurs de tendance doivent rester séparés de la maturité, de la sécurité, de la qualité technique et de l’adoption. Une valeur d’étoiles ou de rang ne constitue jamais, seule, une preuve de recommandation.
 
 ### FR-02 — Carte de service
 

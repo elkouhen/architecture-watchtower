@@ -36,7 +36,7 @@ Explique les sujets avec des mots simples mais précis. Relie toujours le sujet 
 - **Lien projet :** le nom du projet dans le titre et dans la colonne `Outil` doit être un lien Markdown direct vers l’URL canonique du dépôt, de la documentation ou du site officiel. Ne pas cacher le lien uniquement dans les sources.
 - **Pitch rapide :** en une ou deux phrases, explique ce que fait le sujet, le problème résolu et pour quel type d’équipe ou de workload il est utile.
 - **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier.
-- **Preuves de traction :** indique les signaux observés, leurs dates et leurs sources. Distingue explicitement `Fait`, `Analyse` et `Inférence`. Marque `signal faible` lorsqu’une seule preuve de découverte existe.
+- **Preuves de traction :** indique les signaux observés, leurs dates et leurs sources. Lorsque disponible, ajoute un bloc court `Indicateurs de tendance` avec étoiles et forks GitHub, évolution observée, date de mesure, activité/release récente, rang GitHub Trending ou Trendshift, et période/métadonnées Google Trends. Distingue explicitement `Fait`, `Analyse` et `Inférence`. Marque `signal faible` lorsqu’une seule preuve de découverte existe.
 - **Outils similaires :** liste au maximum trois outils ou approches comparables, avec une différence utile pour la décision. Écris `pas d’équivalent direct` si la comparaison serait artificielle.
 
 ## Pitch détaillé conditionnel

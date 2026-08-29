@@ -41,6 +41,16 @@ sources:
     fallback: https://github.com/trending
     last_checked: 2026-08-28
     notes: "La release est primaire pour le projet ; la popularité reste un signal de découverte."
+  - id: github-repository-metadata
+    name: GitHub repository metadata and activity
+    type: primary_and_discovery
+    url: https://docs.github.com/en/rest/repos/repos#get-a-repository
+    topics: [open-source, cloud, devops, ai-agents, trend-indicators]
+    cadence: daily
+    reliability: medium
+    fallback: https://github.com/explore
+    last_checked: null
+    notes: "Mesurer étoiles, forks, issues, commits et dernière release avec une date de mesure. Ces métriques indiquent une visibilité ou activité, jamais la maturité, sécurité ou adoption."
   - id: github-trending
     name: GitHub Trending and topic pages
     type: discovery
