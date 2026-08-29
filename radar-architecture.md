@@ -1,99 +1,81 @@
-Produis le radar hebdomadaire des tendances Cloud, DevOps, architecture applicative et IA de Mehdi.
+Produis le radar des tendances Cloud, DevOps, architecture applicative et IA de Mehdi.
 
-OBJECTIF
-Détecter largement et le plus tôt possible ce qui émerge ou accélère dans l’architecture logicielle, puis sélectionner ce qui mérite l’attention de Mehdi. Le radar est volontairement agressif sur la remontée des projets intéressants : il préfère signaler tôt un projet encore immature, clairement marqué `signal faible`, plutôt que le découvrir après sa maturité. Il ne transforme jamais cette détection précoce en recommandation d’adoption. Ce n’est ni une sentinelle de sécurité ni une liste de releases des produits déjà connus. Il consacre environ 60 % de l’effort à la découverte large et 40 % au suivi approfondi de Kubernetes, ELK/observabilité et IA appliquée aux architectures.
+## Objectif
 
-MISSION D’EXPERTISE
-Mehdi est architecte Cloud/DevOps : ce radar sert d’abord à maintenir son expertise et sa capacité de décision. Remonte en priorité les nouveautés qui peuvent modifier un pattern d’architecture, une plateforme, un mode d’exploitation, une posture de sécurité, un coût, une capacité ou une trajectoire technologique. Une nouveauté purement médiatique ou sans conséquence opérationnelle ne mérite pas de prendre la place d’un projet techniquement intéressant.
+Mehdi est architecte Cloud/DevOps et utilise ce radar pour maintenir et développer son expertise. Détecte tôt les projets, services, patterns et pratiques qui peuvent modifier une architecture, une plateforme, une méthode d’exploitation, une posture de sécurité, un coût, une capacité ou une trajectoire technologique.
 
-CONTEXTE
-Lis `state/context.yaml`, `state/signals.yaml` et les rapports locaux. Les sujets prioritaires sont ELK, Elastic APM, Logstash, Kubernetes et l’IA appliquée aux architectures : agents, RAG, middleware, inference gateways, évaluation, observabilité, sécurité et gouvernance.
+Le radar est agressif sur la découverte : conserve les projets prometteurs mais immatures en les marquant `signal faible`. Ne transforme jamais un signal de popularité en recommandation d’adoption. Écarte les sujets purement marketing, les annonces de modèles sans impact architectural, les benchmarks isolés, les clones sans différenciation et les projets sans artefact vérifiable.
 
-POINT DE VUE D’ARCHITECTE DEVOPS/CLOUD
-Pour chaque projet ou pattern, réponds d’abord à quatre questions concrètes : à quoi sert-il dans un système réel, quel problème d’architecture ou d’exploitation résout-il, comment le déployer et l’opérer, et dans quelles conditions ne faut-il pas l’utiliser ? Décris sa place dans les flux, ses dépendances, son identité, ses données, son observabilité, son coût opérationnel, sa mise à jour, son rollback et son retrait lorsque ces éléments influencent la décision. Une tendance n’est intéressante que si son utilité et son chemin de mise en œuvre sont intelligibles.
+## Contexte à lire
 
-PÉRIODE ET SOURCES
-Utilise trois fenêtres complémentaires : les dernières 48 heures pour les projets qui trendent ASAP, les nouveautés des sept derniers jours pour le rythme hebdomadaire, et les signaux d’émergence des 30 derniers jours pour éviter de rater une tendance qui démarre lentement. Pour les projets très récents, une seule preuve de découverte suffit pour les remonter dans le flux préliminaire.
+Lis `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml` et les rapports précédents sous `dist/`. Les priorités sont Kubernetes, ELK/Elasticsearch, Elastic APM, Logstash, observabilité, OpenTelemetry, platform engineering, sécurité, IA appliquée aux architectures, agents, RAG, inference gateways, model routing et gouvernance.
 
-- **Faits produit :** site officiel, documentation, release notes, changelog, dépôt officiel, page lifecycle et status page ;
-- **Traction open source :** GitHub Trending, releases, croissance des stars, contributeurs, forks, issues, discussions et dépendances ;
-- **Détection de momentum :** Trendshift, notamment les classements daily/weekly, les mentions live et les projets nouvellement détectés ;
-- **Intérêt émergent :** Google Trends, pour les hausses de recherches, requêtes associées et sujets en accélération ;
-- **Discussions terrain :** Hacker News, Lobsters, Reddit, forums GitHub, forums Elastic, Slack/Discord publics et Bluesky/Mastodon/X ;
-- **Contexte :** CNCF Landscape, blogs d’ingénierie, retours d’expérience et articles de recherche.
+## Sources et fenêtres
 
-Les réseaux sociaux, forums, classements — y compris Trendshift — Google Trends et articles servent à découvrir une tendance. Ils ne confirment pas seuls une maturité, une compatibilité, une performance, une sécurité ou une recommandation. Google Trends mesure un intérêt de recherche, pas l’usage par des ingénieurs ; désambiguïse les termes génériques, compare les variantes de nom et indique la zone, la période et la catégorie observées. Toute affirmation technique importante doit être confirmée par une source primaire. Pour Trendshift, vérifie systématiquement le dépôt canonique, l’activité récente, le README, la licence, les releases et les signaux de sécurité avant de conserver un projet.
+Utilise :
 
-CONTRÔLE QUALITÉ
-Avant la sortie, vérifie que chaque projet possède un pitch compréhensible, une date de signal, une URL canonique et un niveau de preuve explicite. Pour chaque affirmation technique, cherche une source primaire ; si elle manque, conserve le projet visible mais marque `signal faible` et indique exactement ce qui manque. Note les sources en échec et les corrections à reporter dans `state/feedback.yaml`.
+- les dernières 48 heures pour les signaux ASAP ;
+- les sept derniers jours pour les nouveautés et accélérations ;
+- les trente derniers jours pour les tendances qui démarrent lentement.
 
-FAMILLES À EXPLORER
-- patterns d’agents, outils, workflows et human-in-the-loop ;
-- observabilité, évaluation, sécurité et gouvernance des systèmes IA ;
-- model routing, inference gateways, serving et accélération ;
-- Kubernetes pour workloads IA et plateformes internes ;
-- OpenTelemetry, eBPF et observabilité runtime ;
-- platform engineering, IDP, policy-as-code et workload identity ;
-- ELK, Elastic APM, Logstash et alternatives lorsque le besoin d’architecture évolue ;
-- stockage vectoriel, RAG, event-driven, serverless et nouvelles primitives Cloud.
+Priorise les sources primaires : documentation, dépôts officiels, releases, changelogs, advisories, lifecycle et matrices de compatibilité. Utilise GitHub Trending, Trendshift, Google Trends, CNCF Landscape, blogs d’ingénierie, Hacker News, Lobsters, forums et réseaux sociaux pour découvrir les sujets.
 
-EXCLUSIONS
-Écarte les annonces de modèles, benchmarks ou levées de fonds sans conséquence architecturale démontrée, les nouveautés purement applicatives/frontend et les releases de maintenance sans impact de sécurité, compatibilité, architecture ou exploitation.
+Trendshift mesure un momentum de dépôts. Google Trends mesure un intérêt de recherche. Aucun de ces signaux ne prouve l’adoption, la maturité, la sécurité, la performance ou la qualité technique. Pour Google Trends, désambiguïse les termes et indique la période, la zone, la catégorie et les comparaisons utilisées. Pour chaque sujet conservé, vérifie autant que possible le dépôt canonique, l’activité récente, la licence, les releases, la documentation, le chemin de déploiement et les risques de sécurité.
 
-SÉLECTION DES TENDANCES
-MODE DE DÉTECTION AGRESSIVE
-Fais d’abord remonter jusqu’à vingt candidats, et non dix, dès qu’un signal crédible ou précurseur est observé : projet nouvellement classé ou mentionné sur Trendshift, hausse Google Trends désambiguïsée, nouveau dépôt actif, accélération des commits/issues/releases, hausse rapide de contributeurs ou d’utilisateurs, projet mis en avant par plusieurs développeurs, release structurante, discussion technique, intégration par un projet reconnu, retour d’expérience, offre managée ou pattern repris par plusieurs équipes. Un seul signal suffit pour la détection. Pour les signaux des dernières 48 heures, un dépôt ou une release techniquement lisible peut être remonté même sans seconde preuve ; marque alors `signal faible`, indique la date exacte et la preuve manquante.
+## Point de vue d’architecte
 
-Ne filtre pas prématurément un projet parce qu’il a peu d’étoiles, peu de documentation ou peu d’historique : ce sont des informations de maturité, pas des critères d’invisibilité. En revanche, écarte les dépôts vides, les annonces sans artefact vérifiable, les copies sans différenciation technique et les sujets purement marketing.
+Explique les sujets avec des mots simples mais précis. Relie toujours le sujet à un problème concret d’architecture ou d’exploitation. Quand l’information est inconnue, écris `à qualifier` ou `exposition inconnue`; n’invente jamais la présence du produit dans la stack.
 
-Pour les sujets retenus dans le radar principal, cherche ensuite un deuxième indice indépendant et une source primaire lorsque le sujet porte une affirmation technique. Une hausse Google Trends doit être corroborée par un artefact technique, une release, une discussion qualifiée ou une traction open source avant de faire passer un sujet au-delà de `signal faible`. Si ces éléments ne sont pas disponibles, conserve le sujet dans `Signaux à surveiller` au lieu de le supprimer.
+## Format obligatoire pour chaque sujet
 
-La seconde preuve est obligatoire pour passer de la détection précoce à `émergente` ou `traction`, mais elle n’est pas obligatoire pour apparaître dans le rapport. Un projet découvert très récemment doit rester visible dans `Projets qui trendent maintenant` même si sa maturité, son adoption et son chemin de production sont encore inconnus.
+### Nom du projet, service ou pattern
 
-Pour chaque tendance, indique son stade : `signal faible`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`. Une hausse de popularité seule ne suffit pas pour recommander une adoption, mais elle reste utile comme signal de découverte. Écarte seulement les annonces marketing sans élément technique, les démonstrations sans code et les projets sans aucun chemin de déploiement identifiable.
+- **Pitch rapide :** en une ou deux phrases, explique ce que fait le sujet, le problème résolu et pour quel type d’équipe ou de workload il est utile.
+- **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier.
+- **Preuves de traction :** indique les signaux observés, leurs dates et leurs sources. Distingue explicitement `Fait`, `Analyse` et `Inférence`. Marque `signal faible` lorsqu’une seule preuve de découverte existe.
 
-Une fiche pédagogique ou une carte de service n’est déclenchée que si le sujet a un potentiel futur élevé et satisfait le seuil de maturité suivant : documentation officielle, chemin de déploiement reproductible et maintenance active. Sinon, conserve-le dans `Signaux à surveiller` avec la preuve manquante et une date de réexamen.
+## Description précise conditionnelle
 
-FORMAT DE CHAQUE TENDANCE
+Ajoute cette partie uniquement pour les sujets les plus intéressants du radar — au maximum trois — ou lorsqu’une seconde preuve indépendante confirme un potentiel élevé. Ne la produis pas pour remplir le rapport.
 
-### Nom de la tendance
+### Description précise
 
-- **Pitch rapide :** en une ou deux phrases, explique ce que fait le projet ou le pattern, pour quel problème et quel type d’équipe il est utile ; utilise des mots simples et évite le marketing.
-- **Utilité d’architecte :** indique le rôle concret dans un système, le problème résolu et le signal qui justifierait de l’introduire ;
-- **Pourquoi maintenant :** événement ou évolution observée cette semaine ;
-- **Preuves de traction :** signaux observés, avec dates et liens ; indique `signal faible` s’il n’y en a qu’un ;
-- **Fait vérifié :** ce qui est confirmé par une source primaire ;
-- **Analyse :** problème d’architecture résolu et pattern associé ;
-- **Maturité :** stade, limites, dépendances et risques de verrouillage ;
-- **Architecture cible :** composants, flux, données, identité, déploiement et exploitation ;
-- **Mise en œuvre et exploitation :** prérequis, mode de déploiement, intégration à la stack, upgrade, rollback, supervision et condition de retrait ;
-- **Test proposé :** environnement, durée, étapes, métriques et résultat attendu ;
-- **Décision :** `surveiller`, `tester` ou `écarter` ;
-- **Prévision :** horizon 1–3 mois, hypothèse, signaux attendus et décision si elle se confirme ou est infirmée.
+Décris uniquement les éléments qui aideront Mehdi à décider s’il doit approfondir :
 
-Pour l’IA, précise toujours le modèle/fournisseur, les données, le middleware, le coût, la latence, l’évaluation, l’observabilité, les permissions, la validation humaine et le mécanisme de repli. Pour Kubernetes ou un middleware, précise comment le déployer, le mettre à jour et le retirer.
+- problème d’architecture et pattern associé ;
+- composants, flux, données, identité et dépendances ;
+- mode de déploiement et d’intégration avec AWS, GCP, Kubernetes, Terraform, GitHub/GitLab, ELK ou CloudWatch lorsque pertinent ;
+- exploitation : métriques, logs, traces, capacité, coût, upgrade, rollback et retrait ;
+- sécurité, permissions, isolation, données sensibles et risques de verrouillage ;
+- limites, conditions où il ne faut pas l’utiliser et alternatives utiles ;
+- test ou laboratoire de moins d’une heure, avec métriques et critère de réussite ;
+- **Décision proposée :** `surveiller`, `tester` ou `écarter` ;
+- prochaine vérification et signaux qui confirmeraient ou invalideraient l’intérêt.
 
-COMPARAISONS
-Ne compare AWS, GCP, open source ou produits concurrents que si la tendance crée un choix réel. La comparaison doit se limiter aux critères qui changent la décision : capacité, intégration, sécurité, exploitation, coût, réversibilité et maturité.
+Pour l’IA, préciser le modèle ou fournisseur, les données, le middleware, la latence, le coût, l’évaluation, l’observabilité, les permissions, la validation humaine et le mécanisme de repli. Pour Kubernetes ou un middleware, préciser installation, mise à jour et retrait.
 
-LABORATOIRE
-Propose au maximum un laboratoire prioritaire par semaine, de moins d’une heure, qui transforme une tendance en preuve. Il doit produire au moins un résultat exploitable : métriques, configuration, trace, benchmark reproductible, diagramme, incident injecté ou décision. Une carte de service détaillée peut être produite séparément.
+## Sélection
 
-SORTIE
-1. **Les trois tendances à retenir** : une phrase sur le signal, l’intérêt architectural et l’action proposée.
-2. **Projets qui trendent maintenant** : jusqu’à dix projets détectés dans les dernières 48 heures ou les sept derniers jours, avec nom, URL canonique, **pitch rapide de 1–2 phrases**, date du signal, preuve de traction ou signal précurseur, intérêt architectural, stade (`signal faible` par défaut si nécessaire), preuve manquante et date de réexamen. Le pitch doit permettre de comprendre immédiatement le projet sans ouvrir ses sources. Cette section doit rester présente même si aucun projet n’est assez mûr pour une fiche.
-3. **Tendances détaillées** : nombre variable, plafonné par une lecture de 30 minutes, avec le format ci-dessus. Chaque tendance retenue doit avoir une synthèse courte avant son développement.
-4. **Signaux à surveiller** : jusqu’à dix candidats encore faibles, avec signal observé, source de découverte et information manquante pour les qualifier.
-5. **À ne pas suivre** : maximum trois sujets écartés et motif.
-6. **Laboratoire de la semaine**, uniquement si un candidat le justifie.
-7. **Échéances ou releases importantes** uniquement si elles changent une décision.
-8. **Sources consultées** : faits, signaux de traction, sources de découverte et sources en échec. Pour Google Trends, indiquer les termes comparés, la zone, la période et la catégorie ; ne pas présenter un indice de recherche comme une preuve d’adoption.
+Remonte jusqu’à vingt candidats pendant la recherche, puis présente au maximum dix sujets dans le radar. Un seul signal crédible suffit pour faire apparaître un sujet dans le radar, mais un sujet ne peut être décrit comme `émergent` ou `traction` qu’avec une deuxième preuve indépendante et une source primaire suffisante. La maturité doit rester distincte de la popularité.
 
-La priorité de détection est, dans cet ordre : fraîcheur du signal, vitesse d’accélération, potentiel futur, maturité et facilité d’adoption, pertinence pour la stack actuelle, puis valeur pédagogique. La maturité ne se déduit jamais de la popularité seule. La priorité de décision reste : potentiel futur, maturité, facilité d’adoption et pertinence pour la stack.
+Déduplique avec les documents locaux. Ne répète pas un sujet sans évolution substantielle ; dans ce cas, indique `Mise à jour`. Retire un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte de service est produite séparément uniquement si le sujet atteint le seuil prévu dans `carte-service.md`.
 
-Ne remplis pas le rapport avec des versions de maintenance ou des nouveautés de produits connus, sauf si elles révèlent une tendance architecturale ou créent une décision. Ne produis aucune explication générale qui ne débouche pas sur une décision, une action, un test ou une qualification.
+## Sortie
 
-PUBLICATION LOCALE
-Écris `dist/AAAA-MM-JJ/radar-architecture.md`, vérifie que chaque tendance possède un stade, un signal, un impact et une action ou une information manquante, puis committe localement le livrable. Même sans tendance qualifiée, produis les signaux faibles détectés et indique précisément ce qui manque pour les confirmer. Un radar vide n’est acceptable que si les sources de découverte ont réellement été consultées et qu’aucun signal exploitable n’a été trouvé.
+Le rapport doit rester court et lisible en moins de quinze minutes :
 
-Réponds en français, avec une lecture de moins de trente minutes. La section `Projets qui trendent maintenant` doit rester très scannable : une ou deux lignes de pitch par projet avant les tendances détaillées. Le pitch est une `Analyse` ou une `Inférence` clairement identifiée, jamais un fait présenté sans source.
+1. une liste de sujets classés par fraîcheur et intérêt architectural ;
+2. pour chaque sujet, uniquement `Pitch rapide`, `Utilité` et `Preuves de traction` ;
+3. les `Descriptions précises` conditionnelles, au maximum trois ;
+4. une courte liste de sujets écartés avec leur motif ;
+5. les sources consultées et les sources en échec.
+
+Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans la `Description précise` lorsqu’elle est justifiée.
+
+## Contrôle qualité et publication
+
+Avant la sortie, vérifie que chaque sujet possède un pitch, une utilité, une preuve datée, une URL canonique et un niveau de preuve. Vérifie les faits importants dans une source primaire. Note les sources en échec et les corrections dans `state/feedback.yaml`. Mets à jour `state/signals.yaml` pour les nouveaux signaux avec identifiant stable, score, confiance, statut, décision, propriétaire, échéance et livrable associé.
+
+Écris `dist/AAAA-MM-JJ/radar-architecture.md` sans écraser une autre date. Le fichier doit être non vide et contenir les sources consultées. Après validation, committe localement le livrable. Ne l’envoie par aucun connecteur externe.
+
+Réponds en français.
