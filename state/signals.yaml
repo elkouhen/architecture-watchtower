@@ -395,6 +395,177 @@ signals:
     publication: "local_commit"
     discard_reason: null
 
+  - id: SIG-2026-08-29-006
+    canonical_url: https://github.com/hashicorp/terraform/releases
+    subject: "Terraform 1.17 alpha fait évoluer terraform test et terraform query"
+    product_version: "Terraform v1.17.0-alpha20260827"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "IaC"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-007
+    canonical_url: https://www.hashicorp.com/en/long-term-support
+    subject: "Les versions HashiCorp postérieures à avril 2026 suivent Support Cycle 2"
+    product_version: "HashiCorp support model"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "plateforme/IaC"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-008
+    canonical_url: https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678
+    subject: "Vault CVE-2026-5006 corrigée dans les versions 2.0.4 et branches maintenues"
+    product_version: "Vault 2.0.4 / 1.21.9 / 1.20.14 / 1.19.20"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 9
+    confidence: "high"
+    status: "open"
+    decision: "qualify"
+    owner: "sécurité/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-009
+    canonical_url: https://developer.hashicorp.com/nomad/docs/release-notes/v1-10-x
+    subject: "Nomad 1.10 impose l’identité de workload pour Vault et Consul"
+    product_version: "Nomad 1.10.x"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "plateforme"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-010
+    canonical_url: https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/
+    subject: "Agent Plugins 1.0 standardise le packaging skill et MCP"
+    product_version: "Agent Plugins 1.0"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "architecture/engineering"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-011
+    canonical_url: https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/
+    subject: "GitHub rend les allowlists MCP disponibles dans les paramètres entreprise"
+    product_version: "GitHub Copilot managed settings"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "sécurité/engineering"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-012
+    canonical_url: https://opentelemetry.io/blog/2026/consuming-opentelemetry-entity-events/
+    subject: "OpenTelemetry documente le pattern des entity events pour l’inventaire temporel"
+    product_version: "Entity Data Model / v1.58.0 relationships"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "observabilité"
+    due_date: 2026-09-30
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-013
+    canonical_url: https://opentelemetry.io/blog/2026/cardinality-limits-in-opentelemetry/
+    subject: "OpenTelemetry explicite les effets des limites de cardinalité sur les ventilations"
+    product_version: "OpenTelemetry Metrics SDK cardinality limits"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "observabilité"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-014
+    canonical_url: https://github.com/agentgateway/agentgateway/releases
+    subject: "agentgateway 1.4 ajoute MCP 2026-07-28 et des contrôles de gateway IA"
+    product_version: "agentgateway v1.4.0"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-015
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-ecs-action-logs/
+    subject: "Amazon ECS fournit des Action Logs pour les déploiements et mises à jour de daemon"
+    product_version: "ECS Action Logs"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 6
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "Cloud/observabilité"
+    due_date: 2026-09-30
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001
 #   canonical_url: https://...

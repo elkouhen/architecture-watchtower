@@ -9,7 +9,7 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://github.com/kubernetes/kubernetes/releases
-    last_checked: 2026-08-28
+    last_checked: 2026-08-29
     notes: "Confirmer versions, dépréciations, APIs et calendriers."
   - id: elastic-official
     name: Elastic release notes, advisories and status
@@ -19,17 +19,17 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://status.elastic.co/
-    last_checked: 2026-08-28
+    last_checked: 2026-08-29
     notes: "Séparer release documentée, incident fournisseur et exposition locale."
   - id: opentelemetry-official
     name: OpenTelemetry specifications and repositories
     type: primary
     url: https://opentelemetry.io/docs/
-    topics: [opentelemetry, genai-observability, traces]
+    topics: [opentelemetry, genai-observability, traces, entity-events, metrics]
     cadence: weekly
     reliability: high
     fallback: https://github.com/open-telemetry
-    last_checked: 2026-08-28
+    last_checked: 2026-08-29
     notes: "Vérifier le niveau de stabilité des conventions et leur implémentation."
   - id: github-releases
     name: GitHub repositories and releases
@@ -146,7 +146,7 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://docs.aws.amazon.com/whats-new/
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Suivre les changements de service, régions, limites et intégrations ; une annonce ne suffit pas à conclure au fit ou à la disponibilité dans les comptes utilisés."
 
   - id: aws-security-bulletins
@@ -175,11 +175,11 @@ sources:
     name: GitHub Changelog — Actions and platform
     type: primary
     url: https://github.blog/changelog/label/actions/
-    topics: [github-actions, ci-cd, security, platform-engineering]
+    topics: [github-actions, ci-cd, security, platform-engineering, copilot, mcp, agents]
     cadence: weekly
     reliability: high
     fallback: https://github.com/actions/runner/releases
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Suivre runners, permissions, OIDC, artifacts, cache et changements de comportement ; distinguer fonctionnalité annoncée et disponibilité dans l’organisation."
 
   - id: gitlab-releases
@@ -201,7 +201,7 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://registry.terraform.io/browse/providers
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Suivre séparément le binaire Terraform et les providers ; vérifier changelog, contraintes de version, migrations d’état et breaking changes."
 
   - id: hashicorp-products
@@ -212,7 +212,7 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/hashicorp
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Source pivot pour découvrir les produits et leurs documentations ; confirmer chaque évolution dans la page de release ou le dépôt officiel du produit concerné."
 
   - id: hashicorp-releases
@@ -223,7 +223,7 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/hashicorp
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Suivre les changelogs par produit ; relever version, breaking changes, dépréciations, compatibilité et impact sur installation, upgrade ou retrait."
 
   - id: hashicorp-security
@@ -234,7 +234,7 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/hashicorp
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Qualifier produit, versions affectées, vecteur, correctif et exposition ; compléter par les advisories GitHub du dépôt concerné."
 
   - id: hashicorp-lifecycle
@@ -245,7 +245,7 @@ sources:
     cadence: monthly
     reliability: high
     fallback: https://developer.hashicorp.com/
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Surveiller fin de support, canaux de release, éditions et conditions de migration ; ne pas confondre HCP, self-managed et open source."
 
   - id: ossf-scorecard
