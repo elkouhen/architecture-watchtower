@@ -58,7 +58,7 @@ Pour l’IA, préciser le modèle ou fournisseur, les données, le middleware, l
 
 Remonte jusqu’à vingt candidats pendant la recherche, puis présente au maximum dix sujets dans le radar. Un seul signal crédible suffit pour faire apparaître un sujet dans le radar, mais un sujet ne peut être décrit comme `émergent` ou `traction` qu’avec une deuxième preuve indépendante et une source primaire suffisante. La maturité doit rester distincte de la popularité.
 
-Déduplique avec les documents locaux. Ne répète pas un sujet sans évolution substantielle ; dans ce cas, indique `Mise à jour`. Retire un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte de service est produite séparément uniquement si le sujet atteint le seuil prévu dans `carte-service.md`.
+Déduplique d’abord par URL canonique et par sujet dans `state/signals.yaml` et les rapports des 90 derniers jours, avant toute sélection. Un sujet déjà présenté ne peut réapparaître que si une évolution substantielle est vérifiée : nouvelle release structurante, changement de licence, incident ou vulnérabilité, changement d’architecture, nouvelle intégration, adoption documentée, échéance ou décision modifiée. Un simple changement de rang, de stars, de mentions Trendshift ou de volume de recherche ne suffit pas. En cas d’évolution substantielle, indique `Mise à jour` et explique précisément ce qui a changé ; sinon exclue le sujet du rapport. Retire un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte de service est produite séparément uniquement si le sujet atteint le seuil prévu dans `carte-service.md`.
 
 ## Sortie
 
