@@ -86,6 +86,6 @@ Avant la sortie, vérifie que chaque sujet possède un type, un nom lié à une 
 
 Écris `dist/AAAA-MM-JJ/radar-architecture.md` sans écraser une autre date. Le fichier doit être non vide et contenir les sources consultées. Après validation, committe localement le livrable. Ne l’envoie par aucun connecteur externe.
 
-Après l’analyse, mets à jour `index.md` pour chaque outil ou pattern effectivement décrit, en ajoutant ou complétant son entrée thématique avec un lien vers ce radar. Ne pas indexer les sujets seulement mentionnés comme écartés.
+Après l’analyse, mets à jour `README.md` pour chaque outil ou pattern effectivement décrit, en ajoutant ou complétant son entrée thématique avec un lien vers ce radar. Ne pas indexer les sujets seulement mentionnés comme écartés.
 
 Réponds en français.

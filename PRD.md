@@ -111,7 +111,7 @@ Les statuts autorisés sont `new`, `open`, `closed`, `deferred` et `discarded`. 
 
 ### FR-06 — Index transversal
 
-`index.md` doit conserver une entrée canonique par outil, service, standard ou pattern effectivement analysé, avec type, résumé, niveau et liens vers les radars ou cartes.
+`README.md` doit conserver une entrée canonique par outil, service, standard ou pattern effectivement analysé, avec type, résumé, niveau et liens vers les radars ou cartes.
 
 ### FR-07 — Contrôle qualité
 
@@ -161,7 +161,7 @@ Valider puis committer localement
 | `state/signals.yaml` | Registre canonique des signaux |
 | `state/learning.yaml` | Progression et lacunes par produit |
 | `state/feedback.yaml` | Corrections et retours qualité |
-| `index.md` | Index thématique transversal |
+| `README.md` | Index thématique transversal |
 | `dist/YYYY-MM-DD/` | Livrables datés |
 
 ## 9. Règles éditoriales

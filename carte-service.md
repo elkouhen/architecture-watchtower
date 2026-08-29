@@ -56,6 +56,6 @@ Avant la sortie, vérifie que le pitch explique clairement le service, que le d�
 
 Écrire `dist/<date_du_jour>/carte-<service>.md`, sans écraser une autre date. Le fichier doit être non vide, contenir au moins trois sources primaires et distinguer clairement laboratoire et production. Après validation, committe localement le fichier. Ne pas envoyer la carte par email.
 
-Après la production de la carte, mettre à jour `index.md` avec une entrée canonique pour le service, son thème principal, son niveau d’étude et un lien vers la carte. Si le service existe déjà dans l’index, compléter la ligne au lieu de créer un doublon.
+Après la production de la carte, mettre à jour `README.md` avec une entrée canonique pour le service, son thème principal, son niveau d’étude et un lien vers la carte. Si le service existe déjà dans l’index, compléter la ligne au lieu de créer un doublon.
 
 Réponds en français, de manière concrète et lisible en moins de trente minutes hors laboratoire.
