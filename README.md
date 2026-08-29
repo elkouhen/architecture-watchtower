@@ -4,11 +4,8 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 
 ## Navigation
 
-- [Agents et orchestration](docs/agents.md)
-- [IA, gateways et gouvernance MCP](docs/ia-gateways.md)
-- [Observabilité et standards](docs/observability.md)
-- [HashiCorp et Cloud](docs/hashicorp-cloud.md)
-- [Kubernetes, inférence et réseau](docs/kubernetes-reseau.md)
+- [Catalogue canonique des éléments étudiés](docs/catalogue.md)
+- [Rapports et cartes par date](docs/rapports.md)
 
 ## Livrables
 
@@ -27,4 +24,4 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - L’exposition réelle reste `à qualifier` tant que l’inventaire n’est pas établi.
 - La preuve de publication est un commit Git local.
 
-L’index détaillé est réparti dans les pages thématiques ci-dessus pour conserver une page d’accueil lisible.
+Le catalogue évite les doublons entre thèmes ; les rapports et cartes restent regroupés par date pour faciliter la navigation historique.
