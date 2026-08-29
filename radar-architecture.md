@@ -10,7 +10,7 @@ Le radar est agressif sur la découverte : conserve les projets prometteurs mais
 
 ## Contexte à lire
 
-Lis `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml` et les rapports précédents sous `dist/`. Les priorités sont Kubernetes, ELK/Elasticsearch, Elastic APM, Logstash, observabilité, OpenTelemetry, platform engineering, sécurité, IA appliquée aux architectures, agents, RAG, inference gateways, model routing et gouvernance.
+Lis `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml` et les rapports précédents sous `dist/`. Les priorités sont Kubernetes, ELK/Elasticsearch, Elastic APM, Logstash, l’écosystème HashiCorp (Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint et HCP), observabilité, OpenTelemetry, platform engineering, sécurité, IA appliquée aux architectures, agents, RAG, inference gateways, model routing et gouvernance.
 
 ## Sources et fenêtres
 

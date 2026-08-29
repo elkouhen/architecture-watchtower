@@ -204,6 +204,50 @@ sources:
     last_checked: null
     notes: "Suivre séparément le binaire Terraform et les providers ; vérifier changelog, contraintes de version, migrations d’état et breaking changes."
 
+  - id: hashicorp-products
+    name: HashiCorp product documentation and releases
+    type: primary
+    url: https://developer.hashicorp.com/
+    topics: [hashicorp, terraform, vault, consul, nomad, boundary, packer, vagrant, waypoint, hcp]
+    cadence: weekly
+    reliability: high
+    fallback: https://github.com/hashicorp
+    last_checked: null
+    notes: "Source pivot pour découvrir les produits et leurs documentations ; confirmer chaque évolution dans la page de release ou le dépôt officiel du produit concerné."
+
+  - id: hashicorp-releases
+    name: HashiCorp product changelogs and releases
+    type: primary
+    url: https://developer.hashicorp.com/terraform/cloud-docs/release-notes
+    topics: [hashicorp, terraform, vault, consul, nomad, boundary, packer, vagrant, waypoint, hcp, lifecycle]
+    cadence: weekly
+    reliability: high
+    fallback: https://github.com/hashicorp
+    last_checked: null
+    notes: "Suivre les changelogs par produit ; relever version, breaking changes, dépréciations, compatibilité et impact sur installation, upgrade ou retrait."
+
+  - id: hashicorp-security
+    name: HashiCorp security advisories
+    type: primary
+    url: https://www.hashicorp.com/en/trust/security
+    topics: [hashicorp, security, vulnerabilities, terraform, vault, consul, nomad, boundary]
+    cadence: weekly
+    reliability: high
+    fallback: https://github.com/hashicorp
+    last_checked: null
+    notes: "Qualifier produit, versions affectées, vecteur, correctif et exposition ; compléter par les advisories GitHub du dépôt concerné."
+
+  - id: hashicorp-lifecycle
+    name: HashiCorp product lifecycle and support policy
+    type: primary
+    url: https://www.hashicorp.com/en/official-releases
+    topics: [hashicorp, lifecycle, compatibility, terraform, vault, consul, nomad]
+    cadence: monthly
+    reliability: high
+    fallback: https://developer.hashicorp.com/
+    last_checked: null
+    notes: "Surveiller fin de support, canaux de release, éditions et conditions de migration ; ne pas confondre HCP, self-managed et open source."
+
   - id: ossf-scorecard
     name: OpenSSF Scorecard
     type: assessment

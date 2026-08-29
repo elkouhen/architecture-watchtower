@@ -20,11 +20,17 @@ observability:
 infrastructure_as_code:
   - Terraform
 
+vendor_ecosystems:
+  - name: HashiCorp
+    products: [Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint, HCP]
+    interest: "suivre l’ensemble de l’écosystème, ses releases, advisories, lifecycle, intégrations et changements de licence"
+
 priority_topics:
   - ELK (Elasticsearch, Logstash, Kibana)
   - Elastic APM
   - Logstash
   - Kubernetes
+  - Écosystème HashiCorp : Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint et HCP
   - IA appliquée aux architectures : trends, patterns, middlewares et bonnes pratiques
 
 unknowns:
