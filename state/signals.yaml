@@ -16,7 +16,6 @@ signals:
     due_date: 2026-09-15
     deliverables:
       - dist/2026-08-27/radar-architecture.md
-      - dist/2026-08-27/revue-architecture.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-27-002
@@ -33,9 +32,7 @@ signals:
     owner: "observabilité"
     due_date: 2026-08-29
     deliverables:
-      - dist/2026-08-27/sentinelle-devops.md
       - dist/2026-08-27/carte-elasticsearch.md
-      - dist/2026-08-28/sentinelle-devops.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-27-003
@@ -72,7 +69,6 @@ signals:
     deliverables:
       - dist/2026-08-28/radar-architecture.md
       - dist/2026-08-28/carte-agent-sandbox.md
-      - dist/2026-08-28/revue-architecture.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-28-002
@@ -90,7 +86,6 @@ signals:
     due_date: 2026-09-30
     deliverables:
       - dist/2026-08-28/radar-architecture.md
-      - dist/2026-08-28/revue-architecture.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-28-003
@@ -108,7 +103,6 @@ signals:
     due_date: 2026-09-30
     deliverables:
       - dist/2026-08-28/radar-architecture.md
-      - dist/2026-08-28/revue-architecture.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-28-004
@@ -415,6 +409,6 @@ signals:
 #   decision: "monitor|qualify|test|adopt|avoid"
 #   owner: "équipe ou rôle"
 #   due_date: 2026-09-15
-#   deliverables: ["dist/AAAA-MM-JJ/sentinelle-devops.md"]
+#   deliverables: ["dist/AAAA-MM-JJ/radar-architecture.md"]
 #   publication: "local_commit"
 #   discard_reason: null
