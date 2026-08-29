@@ -7,7 +7,7 @@ Ce dépôt contient désormais deux démarches actives en français pour Mehdi :
 - `radar-architecture.md` : radar Cloud, DevOps, architecture applicative et IA ;
 - `carte-service.md` : carte détaillée d’un service ciblé.
 
-`sentinelle-devops.md` et `revue-architecture.md` sont conservés comme archives de conception uniquement. Ils ne doivent plus être exécutés ni régénérés.
+Les anciennes sentinelles et revues mensuelles sous `dist/` sont conservées uniquement comme historique ; elles ne doivent plus être exécutées ni régénérées.
 
 L’objectif n’est pas seulement de surveiller l’actualité : il est de construire une compréhension d’architecte des produits connus ou en tendance, avec un chemin concret d’usage, de déploiement et d’exploitation.
 
