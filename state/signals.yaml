@@ -315,6 +315,57 @@ signals:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-08-29-003
+    canonical_url: https://github.com/hezo-ai/hezo
+    subject: "Hezo remonte dans Trendshift avec un pattern d’équipe d’agents IA self-hosted"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 6
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-004
+    canonical_url: https://github.com/chrisgreg/boop
+    subject: "Boop signale une inbox de notifications développeur self-hosted"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 4
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme/observabilité"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-005
+    canonical_url: https://github.com/agentready-org/standard
+    subject: "AgentReady propose un standard de préparation des dépôts pour les agents"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 6
+    confidence: "low"
+    status: "new"
+    decision: "monitor"
+    owner: "architecture/engineering"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
   - id: SIG-2026-08-29-001
     canonical_url: https://github.com/openJiuwen-ai/jiuwenswarm
     subject: "JiuwenSwarm remonte en tête du Trendshift daily avec une plateforme multi-agents distribuée"
