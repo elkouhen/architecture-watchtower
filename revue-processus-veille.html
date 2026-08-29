@@ -40,8 +40,6 @@
     .matrix th,.matrix td { text-align:left; vertical-align:top; padding:13px 12px; border-bottom:1px solid var(--line); }
     .matrix th { color:var(--blue); font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
     .ok { color:var(--green); font-weight:700; } .warn { color:var(--amber); font-weight:700; } .bad { color:var(--red); font-weight:700; }
-    .priority { border-left:3px solid var(--amber); }
-    .priority strong { color:var(--amber); }
     .footer { margin-top:28px; color:#8491a6; font-size:12px; }
     code { color:#c4ddff; background:#0c1320; padding:2px 5px; border-radius:5px; }
     @media (max-width:760px) { .hero,.grid { grid-template-columns:1fr; } .stats { grid-template-columns:repeat(2,1fr); } .matrix { font-size:13px; } }
@@ -54,19 +52,19 @@
   <section class="hero">
     <div class="card verdict">
       <h2>Verdict exécutif</h2>
-      <p>Le processus possède de bonnes défenses contre le bruit : prompts explicites, sources primaires, déduplication locale, distinction des niveaux de preuve et angle d’architecte. Sa faiblesse principale est la fermeture de boucle : les signaux s’accumulent plus vite que les qualifications et laboratoires ne produisent des résultats vérifiables.</p>
+      <p>Le processus possède de bonnes défenses contre le bruit : prompts explicites, sources primaires, déduplication locale, distinction des niveaux de preuve et angle d’architecte. Sa faiblesse principale est la fermeture de boucle : les signaux s’accumulent plus vite que les qualifications et décisions documentées ne produisent des résultats vérifiables.</p>
       <p><strong>Décision proposée :</strong> conserver le radar et les cartes, mais ajouter une gouvernance légère de portefeuille : limites de WIP, états de sortie obligatoires, mesure de conversion signal → décision → preuve et arrêt effectif des anciennes sorties.</p>
     </div>
     <div class="card">
       <div class="score">7.5<small>/10</small></div>
       <p>Évaluation globale du processus observé au 29/08/2026.</p>
-      <ul><li><span class="ok">Fort</span> : qualité éditoriale et garde-fous épistémiques.</li><li><span class="warn">À renforcer</span> : priorisation, suivi d’actions et mesure d’impact.</li><li><span class="bad">Risque</span> : dérive de périmètre et dette de signaux.</li></ul>
+      <ul><li><span class="ok">Fort</span> : qualité éditoriale et garde-fous épistémiques.</li><li><span class="warn">À renforcer</span> : sélection, suivi d’actions et mesure d’impact.</li><li><span class="bad">Risque</span> : dérive de périmètre et dette de signaux.</li></ul>
     </div>
   </section>
 
   <div class="stats">
     <div class="stat"><b>23</b><span>signaux recensés dans state/signals.yaml</span></div>
-    <div class="stat"><b>2</b><span>cartes d’apprentissage, toutes en planned</span></div>
+    <div class="stat"><b>2</b><span>cartes de service produites</span></div>
     <div class="stat"><b>3</b><span>jours de radars actifs observés</span></div>
     <div class="stat"><b>4</b><span>sorties historiques encore générées malgré l’interdit</span></div>
   </div>
@@ -84,30 +82,30 @@
         <tr><td>Découverte</td><td>Trendshift, GitHub, Google Trends + dépôts</td><td class="ok">Bonne couverture</td><td>Ajouter un scoring de qualité de source et un quota de candidats</td></tr>
         <tr><td>Vérification</td><td>Sources primaires et niveaux Fait/Analyse/Inférence</td><td class="ok">Très bon garde-fou</td><td>Exiger une preuve primaire structurée par signal</td></tr>
         <tr><td>Déduplication</td><td>URL/sujet + fenêtres locales</td><td class="ok">Bonne discipline</td><td>Unifier les doublons sémantiques (AI Gateway observé deux fois)</td></tr>
-        <tr><td>Priorisation</td><td>Score 4–8, décision et échéance</td><td class="warn">Score peu opératoire</td><td>Score = impact × urgence × confiance × différenciation</td></tr>
-        <tr><td>Apprentissage</td><td>learning.yaml, prochaines étapes</td><td class="bad">Deux laboratoires restent planned</td><td>Limiter à 1–2 tests actifs et enregistrer leurs résultats</td></tr>
+        <tr><td>Sélection</td><td>Score 4–8, décision et échéance</td><td class="warn">Score peu opératoire</td><td>Score = impact × urgence × confiance × différenciation</td></tr>
+        <tr><td>Apprentissage</td><td>learning.yaml, prochaines étapes</td><td class="bad">Deux entrées restent ouvertes</td><td>Enregistrer les résultats, écarts observés et dates de clôture</td></tr>
         <tr><td>Publication</td><td>Markdown local, index, commit attendu</td><td class="bad">Dérive constatée</td><td>Bloquer toute sortie hors radar/carte, CI de conformité</td></tr>
-        <tr><td>Mesure d’impact</td><td>Pas de métrique de conversion ou de valeur</td><td class="bad">Angle mort</td><td>Suivre signaux retenus, décisions, tests terminés, abandons justifiés</td></tr>
+        <tr><td>Mesure d’impact</td><td>Pas de métrique de conversion ou de valeur</td><td class="bad">Angle mort</td><td>Suivre signaux retenus, décisions documentées et abandons justifiés</td></tr>
       </tbody></table>
     </div>
   </section>
 
   <section id="findings" class="tab"><div class="grid">
     <div class="card finding"><span class="badge high">Force</span><h3>Le cadre épistémique est supérieur à la moyenne</h3><p>Les prompts demandent explicitement de distinguer fait, analyse, inférence et décision, de qualifier l’exposition réelle et de ne pas transformer la popularité en adoption. Les rapports récents appliquent souvent cette séparation.</p></div>
-    <div class="card finding"><span class="badge high">Force</span><h3>La carte de service complète bien le radar</h3><p>La progression radar → carte → laboratoire est bien conçue : position dans le système, déploiement, exploitation, sécurité, alternatives et critère de réussite. L’index transversal rend le portefeuille navigable.</p></div>
+    <div class="card finding"><span class="badge high">Force</span><h3>La carte de service complète bien le radar</h3><p>La progression radar → carte de service → décision est bien conçue : position dans le système, déploiement, exploitation, sécurité et alternatives. L’index transversal rend le portefeuille navigable.</p></div>
     <div class="card finding"><span class="badge risk">Risque</span><h3>La règle “deux démarches actives” n’est pas appliquée</h3><p>Des <code>revue-architecture.md</code> et <code>sentinelle-devops.md</code> ont encore été produits les 27–28 août. Cela brouille la source d’autorité et contredit la règle de ne plus les exécuter.</p></div>
-    <div class="card finding"><span class="badge risk">Risque</span><h3>Le registre mesure l’intention, pas l’apprentissage</h3><p>Les deux entrées de <code>state/learning.yaml</code> sont <code>planned</code>. Les échéances et next steps existent, mais il manque le résultat du test, les écarts observés, la décision post-lab et la date de clôture.</p></div>
+    <div class="card finding"><span class="badge risk">Risque</span><h3>Le registre mesure l’intention, pas l’apprentissage</h3><p>Les deux entrées de <code>state/learning.yaml</code> restent ouvertes. Les échéances et prochaines étapes existent, mais il manque le résultat, les écarts observés, la décision de suivi et la date de clôture.</p></div>
     <div class="card finding"><span class="badge med">À renforcer</span><h3>Le radar est riche, parfois trop permissif</h3><p>23 signaux en trois jours et jusqu’à 11 sujets dans un radar créent une dette de qualification. Les signaux faibles sont légitimes, mais leur durée de vie et leur budget de suivi ne sont pas bornés.</p></div>
     <div class="card finding"><span class="badge med">À renforcer</span><h3>Les alternatives sont surtout descriptives</h3><p>Les fiches citent de bons comparables (LiteLLM, LangGraph, OpenHands, etc.), mais sans grille constante : fit, coût, charge d’exploitation, réversibilité, sécurité, preuve d’adoption et condition de sortie.</p></div>
   </div></section>
 
   <section id="roadmap" class="tab"><div class="grid">
-    <div class="card priority"><h3>P0 — arrêter la dérive de sortie</h3><p><strong>Owner :</strong> Mehdi · <strong>Échéance :</strong> immédiate · <strong>Succès :</strong> une exécution ne produit que <code>radar-architecture.md</code> ou <code>carte-&lt;service&gt;.md</code>. Ajouter une vérification qui échoue si un ancien type de fichier est créé dans <code>dist/</code>.</p></div>
-    <div class="card priority"><h3>P0 — instaurer une limite de travail en cours</h3><p><strong>Owner :</strong> architecture/plateforme · <strong>Échéance :</strong> 7 jours · <strong>Succès :</strong> maximum 3 sujets “test/qualify” ouverts et maximum 2 laboratoires planifiés ; tout nouveau candidat remplace explicitement un candidat abandonné ou reporté.</p></div>
-    <div class="card"><h3>P1 — rendre le signal actionnable</h3><p>Ajouter <code>next_action</code>, <code>success_criteria</code>, <code>closed_at</code>, <code>result</code> et <code>decision_after_test</code> au schéma. Un signal ne passe à <code>closed</code> qu’avec une preuve ou une raison d’abandon.</p></div>
-    <div class="card"><h3>P1 — séparer momentum et pertinence</h3><p>Remplacer le score unique par quatre dimensions 0–3 : impact architectural, urgence, confiance de preuve, différenciation par rapport à la stack. Un score de popularité ne doit jamais augmenter directement la décision.</p></div>
-    <div class="card"><h3>P1 — transformer les laboratoires en expériences</h3><p>Pour chaque carte : hypothèse, baseline, variables, durée, coût, observations, décision et artefact de sortie. Mettre à jour <code>learning.yaml</code> le jour du laboratoire, pas seulement à la génération de la carte.</p></div>
-    <div class="card"><h3>P2 — mesurer la valeur de la veille</h3><p>Chaque mois, compter : signaux découverts, retenus, écartés, cartes produites, tests terminés, décisions modifiées et actions réellement lancées. Revoir les sources qui produisent beaucoup de bruit sans décisions.</p></div>
+    <div class="card"><h3>Arrêter la dérive de sortie</h3><p><strong>Owner :</strong> Mehdi · <strong>Échéance :</strong> immédiate · <strong>Succès :</strong> une exécution ne produit que <code>radar-architecture.md</code> ou <code>carte-&lt;service&gt;.md</code>. Ajouter une vérification qui échoue si un ancien type de fichier est créé dans <code>dist/</code>.</p></div>
+    <div class="card"><h3>Limiter le portefeuille actif</h3><p><strong>Owner :</strong> architecture/plateforme · <strong>Échéance :</strong> 7 jours · <strong>Succès :</strong> maximum 3 sujets “qualify” ouverts ; tout nouveau candidat remplace explicitement un candidat abandonné ou reporté.</p></div>
+    <div class="card"><h3>Rendre le signal actionnable</h3><p>Ajouter <code>next_action</code>, <code>success_criteria</code>, <code>closed_at</code>, <code>result</code> et <code>decision_after_review</code> au schéma. Un signal ne passe à <code>closed</code> qu’avec une preuve ou une raison d’abandon.</p></div>
+    <div class="card"><h3>Séparer momentum et pertinence</h3><p>Remplacer le score unique par quatre dimensions 0–3 : impact architectural, urgence, confiance de preuve, différenciation par rapport à la stack. Un score de popularité ne doit jamais augmenter directement la décision.</p></div>
+    <div class="card"><h3>Relier les cartes aux décisions</h3><p>Pour chaque carte : hypothèse, périmètre, coût, observations, décision et artefact de sortie. Mettre à jour <code>learning.yaml</code> à la clôture de l’évaluation, pas seulement à la génération de la carte.</p></div>
+    <div class="card"><h3>Mesurer la valeur de la veille</h3><p>Chaque mois, compter : signaux découverts, retenus, écartés, cartes produites, évaluations clôturées, décisions modifiées et actions réellement lancées. Revoir les sources qui produisent beaucoup de bruit sans décisions.</p></div>
   </div></section>
 
   <section id="battlecard" class="tab"><div class="card"><h2>Approches comparées</h2><p>Lecture “battlecard” du skill : votre dispositif est comparé à des façons concurrentes de faire de la veille.</p>
