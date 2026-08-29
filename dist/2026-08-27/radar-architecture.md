@@ -2,13 +2,13 @@
 
 ## Vue d’ensemble
 
-| Sujet | Type | Pitch rapide | Utilité | Traction | Niveau | Approfondissement |
-|---|---|---|---|---|---|---|
-| [AgentOps et observabilité IA](https://github.com/topics/agent-observability) | pattern | Couche de traces, coûts, évaluations et actions pour les agents. | Rendre une exécution agentique explicable et exploitable. | 360 dépôts GitHub et plusieurs mises à jour. | émergente | [Pitch détaillé](#agentops-et-observabilité-ia) |
-| [AI Gateway](https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/) | pattern | Gateway spécialisée pour gouverner le trafic vers les modèles. | Centraliser identité, quotas, routage et failover. | Groupe de travail Kubernetes et travaux CNCF. | émergente | [Pitch détaillé](#ai-gateway) |
-| [Inférence cloud-native](https://www.cncf.io/blog/2026/03/24/welcome-llm-d-to-the-cncf-evolving-kubernetes-into-sota-ai-infrastructure/) | pattern | Patterns Kubernetes pour servir des modèles avec GPU, cache et scheduling. | Opérer l’inférence comme un workload spécialisé. | llm-d en CNCF Sandbox et écosystème KServe/vLLM. | traction | [Pitch détaillé](#inférence-cloud-native) |
-| [OpenTelemetry GenAI](https://opentelemetry.io/blog/2026/genai-observability/) | standard | Conventions de télémétrie pour modèles, tokens, outils et traces. | Éviter des formats d’observabilité propriétaires. | Projet OpenTelemetry et conventions en évolution. | émergente | — |
-| [Kubernetes 1.37](https://kubernetes.io/releases/1.37/) | plateforme | Nouvelle version Kubernetes avec évolutions de plateforme. | Vérifier compatibilité et opportunités pour les clusters. | Release 1.37.0 du 26/08. | mature | — |
+| Outil | Type | Pitch rapide | Lien vers la section |
+|---|---|---|---|
+| AgentOps et observabilité IA | pattern | Couche de traces, coûts, évaluations et actions pour les agents. | [Voir la fiche](#agentops-et-observabilité-ia) |
+| AI Gateway | pattern | Gateway spécialisée pour gouverner le trafic vers les modèles. | [Voir la fiche](#ai-gateway) |
+| Inférence cloud-native | pattern | Patterns Kubernetes pour servir des modèles avec GPU, cache et scheduling. | [Voir la fiche](#inférence-cloud-native) |
+| OpenTelemetry GenAI | standard | Conventions de télémétrie pour modèles, tokens, outils et traces. | [Voir la fiche](#opentelemetry-genai) |
+| Kubernetes 1.37 | plateforme | Nouvelle version Kubernetes avec évolutions de plateforme. | [Voir la fiche](#kubernetes-137) |
 
 ## AgentOps et observabilité IA
 

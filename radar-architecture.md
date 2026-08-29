@@ -66,14 +66,14 @@ Déduplique d’abord par URL canonique et par sujet dans `state/signals.yaml` e
 
 Le rapport doit rester court et lisible en moins de quinze minutes :
 
-1. un **tableau d’introduction**, utilisé comme table des matières, avec une ligne par sujet et les colonnes : `Sujet`, `Type`, `Pitch rapide`, `Utilité`, `Traction`, `Niveau` et `Approfondissement` ; la colonne `Approfondissement` pointe vers le `Pitch détaillé` lorsqu’il existe ;
+1. une **vue d’ensemble**, utilisée comme table des matières, avec une ligne par sujet et uniquement les colonnes : `Outil`, `Type`, `Pitch rapide` et `Lien vers la section` ; le lien pointe vers la fiche du sujet ou son `Pitch détaillé` lorsqu’il existe ;
 2. les fiches de cinq à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas cinq sujets réellement nouveaux ;
 3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité`, `Preuves de traction` et `Outils similaires` ;
 4. les `Pitchs détaillés` conditionnels, au maximum trois ;
 5. une courte liste de sujets écartés avec leur motif ;
 6. les sources consultées et les sources en échec.
 
-Le tableau doit rester très scannable : type explicite, pitch et utilité en une phrase courte, traction sous forme de signal daté, niveau parmi `signal faible`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`, et `—` lorsqu’aucun approfondissement n’est justifié.
+La vue d’ensemble doit rester très scannable : une ligne par outil ou élément revu, type explicite, pitch court et lien Markdown vers la section correspondante. Les preuves de traction et le niveau de maturité restent dans la fiche, jamais dans ce tableau.
 
 Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
 
