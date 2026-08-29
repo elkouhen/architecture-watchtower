@@ -53,7 +53,7 @@ sources:
     cadence: daily
     reliability: low
     fallback: https://trendshift.io/
-    last_checked: 2026-08-28
+    last_checked: 2026-08-29
     notes: "Utiliser pour la fraîcheur et l’accélération ; confirmer chaque projet dans son dépôt primaire. Filtrer les dépôts suspects, vides ou sans utilité architecturale."
   - id: google-trends
     name: Google Trends
@@ -62,7 +62,7 @@ sources:
     cadence: weekly
     reliability: low
     fallback: https://trends.google.com/trends/
-    last_checked: 2026-08-28
+    last_checked: 2026-08-29
     notes: "Mesurer l’intérêt de recherche et les requêtes associées pour détecter un momentum émergent. Ne jamais utiliser seul pour prouver traction, qualité, maturité, sécurité ou adoption ; désambiguïser les termes et confirmer dans des sources primaires."
 
 # Ajouter une entrée lorsqu’une source est utile, morte, déplacée ou trompeuse.

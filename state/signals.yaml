@@ -315,6 +315,40 @@ signals:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-08-29-001
+    canonical_url: https://github.com/openJiuwen-ai/jiuwenswarm
+    subject: "JiuwenSwarm remonte en tête du Trendshift daily avec une plateforme multi-agents distribuée"
+    product_version: "v0.2.4.beta3 documentée"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-05
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-29-002
+    canonical_url: https://github.com/sapientinc/PRAXIST
+    subject: "PRAXIST remonte en deuxième position avec un système de recherche agentique mesurable"
+    product_version: "unknown"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 7
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
 
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001
