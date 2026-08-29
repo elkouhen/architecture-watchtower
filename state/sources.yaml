@@ -4,6 +4,7 @@ sources:
   - id: kubernetes-official
     name: Kubernetes releases, blog and documentation
     type: primary
+    url: https://kubernetes.io/
     topics: [kubernetes, gateway-api, ai-infrastructure]
     cadence: daily
     reliability: high
@@ -13,6 +14,7 @@ sources:
   - id: elastic-official
     name: Elastic release notes, advisories and status
     type: primary
+    url: https://www.elastic.co/docs/release-notes
     topics: [elasticsearch, elastic-apm, logstash, observability]
     cadence: daily
     reliability: high
@@ -22,6 +24,7 @@ sources:
   - id: opentelemetry-official
     name: OpenTelemetry specifications and repositories
     type: primary
+    url: https://opentelemetry.io/docs/
     topics: [opentelemetry, genai-observability, traces]
     cadence: weekly
     reliability: high
@@ -31,6 +34,7 @@ sources:
   - id: github-releases
     name: GitHub repositories and releases
     type: primary_and_discovery
+    url: https://github.com/explore
     topics: [open-source, ai-agents, cloud, devops]
     cadence: daily
     reliability: medium
@@ -40,6 +44,7 @@ sources:
   - id: github-trending
     name: GitHub Trending and topic pages
     type: discovery
+    url: https://github.com/trending
     topics: [open-source, ai-agents, cloud, devops]
     cadence: daily
     reliability: low
@@ -49,6 +54,7 @@ sources:
   - id: trendshift
     name: Trendshift live trending GitHub repositories
     type: discovery
+    url: https://trendshift.io/
     topics: [open-source, ai-agents, cloud, devops, ai-infrastructure]
     cadence: daily
     reliability: low
@@ -58,6 +64,7 @@ sources:
   - id: google-trends
     name: Google Trends
     type: discovery
+    url: https://trends.google.com/trends/
     topics: [cloud, devops, kubernetes, observability, ai, ai-agents]
     cadence: weekly
     reliability: low
@@ -65,5 +72,148 @@ sources:
     last_checked: 2026-08-29
     notes: "Mesurer l’intérêt de recherche et les requêtes associées pour détecter un momentum émergent. Ne jamais utiliser seul pour prouver traction, qualité, maturité, sécurité ou adoption ; désambiguïser les termes et confirmer dans des sources primaires."
 
+  - id: kubernetes-security
+    name: Kubernetes security advisories and CVE feed
+    type: primary
+    url: https://kubernetes.io/docs/reference/issues-security/official-cve-feed/
+    topics: [kubernetes, security, vulnerabilities]
+    cadence: daily
+    reliability: high
+    fallback: https://github.com/kubernetes/kubernetes/security/advisories
+    last_checked: null
+    notes: "Confirmer CVE, versions affectées, correctif et conditions d’exposition. Une alerte ne prouve pas que la stack est exposée."
+
+  - id: kubernetes-lifecycle
+    name: Kubernetes release calendar and version skew policy
+    type: primary
+    url: https://kubernetes.io/releases/version-skew-policy/
+    topics: [kubernetes, lifecycle, compatibility]
+    cadence: weekly
+    reliability: high
+    fallback: https://kubernetes.io/releases/
+    last_checked: null
+    notes: "Qualifier support, fenêtres d’upgrade, compatibilité control plane/nodes et dépréciations avant toute recommandation."
+
+  - id: elastic-security
+    name: Elastic security advisories
+    type: primary
+    url: https://www.elastic.co/community/security
+    topics: [elasticsearch, elastic-apm, logstash, security, vulnerabilities]
+    cadence: weekly
+    reliability: high
+    fallback: https://www.elastic.co/support/security
+    last_checked: null
+    notes: "Relier l’avis à la version et au mode Elastic concerné ; distinguer correctif disponible, exposition locale et incident fournisseur."
+
+  - id: elastic-lifecycle
+    name: Elastic product lifecycle and end-of-life
+    type: primary
+    url: https://www.elastic.co/support/eol
+    topics: [elasticsearch, elastic-apm, logstash, lifecycle, compatibility]
+    cadence: monthly
+    reliability: high
+    fallback: https://www.elastic.co/support/matrix
+    last_checked: null
+    notes: "Détecter les échéances de support et les migrations à planifier ; conserver la version réellement déployée comme inconnue tant qu’elle n’est pas inventoriée."
+
+  - id: opentelemetry-releases
+    name: OpenTelemetry releases and stability status
+    type: primary
+    url: https://github.com/open-telemetry/opentelemetry-collector-releases
+    topics: [opentelemetry, collector, observability, compatibility]
+    cadence: weekly
+    reliability: high
+    fallback: https://opentelemetry.io/docs/collector/
+    last_checked: null
+    notes: "Vérifier version, statut stable/beta/experimental, compatibilité des composants et procédure d’upgrade."
+
+  - id: cncf-landscape
+    name: CNCF landscape and technical blog
+    type: discovery
+    url: https://landscape.cncf.io/
+    topics: [kubernetes, cloud-native, observability, platform-engineering, ai-infrastructure]
+    cadence: weekly
+    reliability: medium
+    fallback: https://www.cncf.io/blog/
+    last_checked: null
+    notes: "Découvrir des catégories et projets ; confirmer ensuite dans les dépôts, releases, documentations et avis de sécurité officiels."
+
+  - id: aws-whats-new
+    name: AWS What's New and service release notes
+    type: primary
+    url: https://aws.amazon.com/new/
+    topics: [aws, cloud, kubernetes, observability, ai-infrastructure]
+    cadence: daily
+    reliability: high
+    fallback: https://docs.aws.amazon.com/whats-new/
+    last_checked: null
+    notes: "Suivre les changements de service, régions, limites et intégrations ; une annonce ne suffit pas à conclure au fit ou à la disponibilité dans les comptes utilisés."
+
+  - id: aws-security-bulletins
+    name: AWS security bulletins
+    type: primary
+    url: https://aws.amazon.com/security/security-bulletins/
+    topics: [aws, security, vulnerabilities]
+    cadence: weekly
+    reliability: high
+    fallback: https://aws.amazon.com/security/
+    last_checked: null
+    notes: "Qualifier services, régions et mesures correctives ; compléter par l’inventaire des comptes et workloads concernés."
+
+  - id: gcp-release-notes
+    name: Google Cloud release notes
+    type: primary
+    url: https://cloud.google.com/release-notes
+    topics: [gcp, cloud, kubernetes, observability, ai-infrastructure]
+    cadence: daily
+    reliability: high
+    fallback: https://cloud.google.com/feeds/cloud-release-notes.xml
+    last_checked: null
+    notes: "Filtrer par produit et région, puis vérifier disponibilité, quotas, breaking changes et documentation de migration."
+
+  - id: github-actions-changelog
+    name: GitHub Changelog — Actions and platform
+    type: primary
+    url: https://github.blog/changelog/label/actions/
+    topics: [github-actions, ci-cd, security, platform-engineering]
+    cadence: weekly
+    reliability: high
+    fallback: https://github.com/actions/runner/releases
+    last_checked: null
+    notes: "Suivre runners, permissions, OIDC, artifacts, cache et changements de comportement ; distinguer fonctionnalité annoncée et disponibilité dans l’organisation."
+
+  - id: gitlab-releases
+    name: GitLab release posts and runner releases
+    type: primary
+    url: https://about.gitlab.com/releases/categories/releases/
+    topics: [gitlab, ci-cd, platform-engineering, security]
+    cadence: weekly
+    reliability: high
+    fallback: https://gitlab.com/gitlab-org/gitlab-runner/-/releases
+    last_checked: null
+    notes: "Vérifier édition, tier, version self-managed ou SaaS, dépréciations et compatibilité des runners avant de retenir un signal."
+
+  - id: terraform-releases
+    name: Terraform and provider releases
+    type: primary
+    url: https://github.com/hashicorp/terraform/releases
+    topics: [terraform, infrastructure-as-code, aws, gcp, kubernetes]
+    cadence: weekly
+    reliability: high
+    fallback: https://registry.terraform.io/browse/providers
+    last_checked: null
+    notes: "Suivre séparément le binaire Terraform et les providers ; vérifier changelog, contraintes de version, migrations d’état et breaking changes."
+
+  - id: ossf-scorecard
+    name: OpenSSF Scorecard
+    type: assessment
+    url: https://scorecard.dev/
+    topics: [open-source, security, supply-chain]
+    cadence: monthly
+    reliability: medium
+    fallback: https://github.com/ossf/scorecard
+    last_checked: null
+    notes: "Utiliser comme indice de risque de chaîne d’approvisionnement, jamais comme preuve suffisante de sécurité, qualité ou maintenabilité."
+
 # Ajouter une entrée lorsqu’une source est utile, morte, déplacée ou trompeuse.
-# Champs attendus : id, name, type, topics, cadence, reliability, fallback, last_checked, notes.
+# Champs attendus : id, name, type, url, topics, cadence, reliability, fallback, last_checked, notes.
