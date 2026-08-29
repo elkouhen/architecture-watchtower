@@ -3,6 +3,7 @@
 ## 29 août 2026
 
 - [Radar architecture](../dist/2026-08-29/radar-architecture.md)
+- [Carte Model Context Protocol (MCP)](../dist/2026-08-29/carte-mcp.md)
 
 ## 28 août 2026
 

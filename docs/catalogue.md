@@ -34,6 +34,7 @@ Une entrée par outil, service, standard, pattern ou évolution étudiée. Le ni
 | Amazon ECS Action Logs | service observabilité | émergente | [Radar 29/08](../dist/2026-08-29/radar-architecture.md#amazon-ecs-action-logs) |
 | Agent Plugins 1.0 | standard | émergente | [Radar 29/08](../dist/2026-08-29/radar-architecture.md#agent-plugins-10) |
 | GitHub MCP allowlists | gouvernance/sécurité | à qualifier | [Radar 29/08](../dist/2026-08-29/radar-architecture.md#gouvernance-mcp-github) |
+| Model Context Protocol (MCP) | standard/protocole | à qualifier | [Carte 29/08](../dist/2026-08-29/carte-mcp.md) |
 | Tailcat | outil | signal faible | [Radar 28/08](../dist/2026-08-28/radar-architecture.md#tailcat) |
 | Boop | service | signal faible | [Radar 29/08](../dist/2026-08-29/radar-architecture.md#boop) |
 
@@ -80,5 +81,6 @@ Relevé très succinct : étoiles/forks et dernier push GitHub lorsque disponibl
 | Amazon ECS Action Logs | N/A — service AWS managé ; annonce du 21/07 |
 | Agent Plugins 1.0 | N/A — format/fonctionnalité produit |
 | GitHub MCP allowlists | N/A — contrôle produit GitHub |
+| Model Context Protocol (MCP) | Version stable 2026-07-28 ; cœur stateless, extensions et dépréciations à qualifier |
 | Tailcat | GitHub ★3,0 k · forks 81 · push 29/08 |
 | Boop | GitHub ★225 · forks 11 · push 28/08 |

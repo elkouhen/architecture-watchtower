@@ -23,6 +23,17 @@ products:
     lab_deliverable: "dist/2026-08-28/carte-agent-sandbox.md"
     next_step: "Déployer Agent Sandbox sur Kind et vérifier persistance, egress et nettoyage"
     next_review: 2026-09-12
+  - product: Model Context Protocol (MCP)
+    category: "pont"
+    level: "compréhension"
+    first_studied: 2026-08-29
+    last_studied: 2026-08-29
+    concepts_acquired: ["outils/ressources/prompts", "cœur stateless", "Streamable HTTP", "extensions", "Tasks", "autorisation OAuth/CIMD", "dépréciations"]
+    gaps: ["versions réellement négociées", "clients et SDK utilisés", "gateway", "IAM", "observabilité", "coût"]
+    lab_status: "planned"
+    lab_deliverable: "dist/2026-08-29/carte-mcp.md"
+    next_step: "Tester la compatibilité 2025-11-25/2026-07-28 derrière un proxy round-robin"
+    next_review: 2026-09-12
 
 # Schéma recommandé :
 # - product: Elasticsearch

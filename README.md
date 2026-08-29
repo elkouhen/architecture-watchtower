@@ -15,6 +15,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Registre des sources : [`state/sources.yaml`](state/sources.yaml)
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)
 - PRD : [`PRD.md`](PRD.md)
+- Carte du jour : [Model Context Protocol (MCP)](dist/2026-08-29/carte-mcp.md)
 
 ## Principes
 

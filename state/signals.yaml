@@ -1,6 +1,23 @@
 # Registre de veille — modèle. Une entrée par signal canonique.
 # Les livraisons sont locales : leur preuve est le commit Git qui contient le livrable.
 signals:
+  - id: SIG-2026-08-29-001
+    canonical_url: https://modelcontextprotocol.io/specification/2026-07-28
+    subject: "MCP 2026-07-28 stabilise un cœur stateless et formalise les extensions"
+    product_version: "MCP 2026-07-28"
+    environment: "unknown"
+    first_seen: 2026-08-29
+    last_seen: 2026-08-29
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "IA/plateforme"
+    due_date: 2026-09-12
+    deliverables:
+      - dist/2026-08-29/carte-mcp.md
+    publication: "local_commit"
+    discard_reason: null
   - id: SIG-2026-08-27-001
     canonical_url: https://kubernetes.io/releases/1.37/
     subject: "Kubernetes 1.37.0 disponible"

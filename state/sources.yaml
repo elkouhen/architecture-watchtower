@@ -41,6 +41,16 @@ sources:
     fallback: https://github.com/trending
     last_checked: 2026-08-28
     notes: "La release est primaire pour le projet ; la popularité reste un signal de découverte."
+  - id: mcp-specification
+    name: Model Context Protocol specification and changelog
+    type: primary
+    url: https://modelcontextprotocol.io/specification/2026-07-28
+    topics: [mcp, ai-agents, protocols, security, interoperability]
+    cadence: per_release
+    reliability: high
+    fallback: https://github.com/modelcontextprotocol/modelcontextprotocol/releases
+    last_checked: 2026-08-29
+    notes: "Vérifier la version stable, le changelog, les extensions, les dépréciations et la compatibilité des SDK."
   - id: github-repository-metadata
     name: GitHub repository metadata and activity
     type: primary_and_discovery
