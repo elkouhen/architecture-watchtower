@@ -1,5 +1,7 @@
 # Carte quotidienne d’un service — consigne
 
+Toute nouvelle consigne de Mehdi concernant le contenu, le format, le périmètre, les sources ou le comportement d’une carte de service doit d’abord être intégrée à ce prompt avant la génération ou la mise à jour d’une carte.
+
 ## Objectif
 
 Produis une carte d’apprentissage et de décision pour construire, déployer et exploiter un service Cloud, DevOps, observabilité, sécurité ou IA. Lis `state/context.yaml` pour relier le service à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform lorsque c’est pertinent.

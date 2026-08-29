@@ -1,5 +1,7 @@
 Produis le radar des tendances Cloud, DevOps, architecture applicative et IA de Mehdi.
 
+Toute nouvelle consigne de Mehdi concernant le contenu, le format, le périmètre, les sources ou le comportement du radar doit d’abord être intégrée à ce prompt avant la génération ou la mise à jour d’un rapport.
+
 ## Objectif
 
 Mehdi est architecte Cloud/DevOps et utilise ce radar pour maintenir et développer son expertise. Détecte tôt les projets, services, patterns et pratiques qui peuvent modifier une architecture, une plateforme, une méthode d’exploitation, une posture de sécurité, un coût, une capacité ou une trajectoire technologique.

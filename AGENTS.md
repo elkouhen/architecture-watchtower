@@ -21,6 +21,8 @@ L’index transversal `index.md` classe par thème les outils et patterns analys
 
 ## Exécution d’une veille
 
+**Règle de synchronisation des prompts :** lorsqu’une consigne utilisateur modifie le contenu, le format, le périmètre, les sources ou le comportement attendu d’un type de revue, mettre à jour en premier le prompt associé (`radar-architecture.md` pour un radar, `carte-service.md` pour une carte), puis appliquer cette règle au livrable. Ne jamais modifier durablement un rapport sans synchroniser son prompt source.
+
 1. Lire la consigne source concernée avant de lancer la recherche.
 2. Dédupliquer exclusivement avec les documents locaux : `state/signals.yaml` (signaux), `state/learning.yaml` (progression), les livrables précédents sous `dist/` et les journaux de décisions locaux. Utiliser 90 jours pour le radar et 30 jours pour les cartes.
 3. Prioriser les sources primaires : bulletins de sécurité, changelogs, release notes, dépôts et documentation des fournisseurs/projets.
