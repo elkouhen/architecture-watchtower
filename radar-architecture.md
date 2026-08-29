@@ -65,11 +65,14 @@ Déduplique d’abord par URL canonique et par sujet dans `state/signals.yaml` e
 
 Le rapport doit rester court et lisible en moins de quinze minutes :
 
-1. une liste de cinq à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas cinq sujets réellement nouveaux ;
-2. pour chaque sujet, uniquement `Pitch rapide`, `Utilité` et `Preuves de traction` ;
-3. les `Pitchs détaillés` conditionnels, au maximum trois ;
-4. une courte liste de sujets écartés avec leur motif ;
-5. les sources consultées et les sources en échec.
+1. un **tableau d’introduction**, utilisé comme table des matières, avec une ligne par sujet et les colonnes : `Sujet`, `Pitch rapide`, `Utilité`, `Traction`, `Niveau` et `Approfondissement` ; la colonne `Approfondissement` pointe vers le `Pitch détaillé` lorsqu’il existe ;
+2. les fiches de cinq à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas cinq sujets réellement nouveaux ;
+3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité`, `Preuves de traction` et `Outils similaires` ;
+4. les `Pitchs détaillés` conditionnels, au maximum trois ;
+5. une courte liste de sujets écartés avec leur motif ;
+6. les sources consultées et les sources en échec.
+
+Le tableau doit rester très scannable : pitch et utilité en une phrase courte, traction sous forme de signal daté, niveau parmi `signal faible`, `émergente`, `traction`, `mature`, `en recul` ou `non confirmé`, et `—` lorsqu’aucun approfondissement n’est justifié.
 
 Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
 
