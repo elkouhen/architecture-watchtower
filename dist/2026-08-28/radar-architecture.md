@@ -21,6 +21,7 @@
 - **Pitch rapide :** Archify transforme une description de système ou un codebase en représentation structurée puis en diagramme interactif autonome. Il sert à accélérer compréhension et revue, pas à remplacer la décision d’architecture.
 - **Utilité :** produire une première carte des composants, flux et dépendances lors d’un onboarding ou d’une analyse d’impact. Le signal justifiant un test est la divergence persistante entre documentation et système réel.
 - **Preuves de traction :** Trendshift daily rang 2 le 28/08 ; dépôt primaire actif avec IR JSON typée, validation/rendu Node.js et sorties HTML/SVG. Outils similaires : Structurizr, Mermaid et Backstage TechDocs ; Archify se différencie par la génération interactive dérivée du code.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★28,5 k · forks 1,8 k · push 28/08.
 
 ### Pitch détaillé
 
@@ -33,48 +34,56 @@ Sa valeur dépend toutefois de la fidélité de l’extraction et de la validati
 - **Pitch rapide :** routeur de modèles pour systèmes agentiques, présenté comme un endpoint unique capable de choisir un modèle selon la requête. Le sujet touche directement coût, latence et résilience des plateformes IA.
 - **Utilité :** surveiller le pattern inference gateway/policy engine lorsque plusieurs modèles coexistent. Les métriques annoncées et le chemin de déploiement restent à qualifier.
 - **Preuves de traction :** Trendshift daily rang 10 le 28/08 ; signal unique, donc `signal faible`. Outils similaires : LiteLLM, OpenRouter et Portkey ; comparer fournisseur, politiques, données et observabilité.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★2,5 k · forks 72 · push 29/08.
 
 ## [WeMM-Embedding](https://github.com/Tencent/WeMM-Embedding)
 
 - **Pitch rapide :** famille d’embeddings multimodaux Tencent pour compréhension et recherche de contenus texte, image ou autres modalités. Elle peut compléter un RAG de documents riches.
 - **Utilité :** surveiller les architectures de retrieval multimodal et leurs coûts GPU. Licence, qualité sur données métier et stratégie de réindexation restent à qualifier.
 - **Preuves de traction :** Trendshift daily rang 23 le 28/08 et dépôt primaire identifié. Outils similaires : CLIP, BGE-M3 et modèles d’embeddings managés ; comparaison à faire sur rappel, coût et réversibilité.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★856 · forks 51 · push 28/08.
 
 ## [Tailcat](https://github.com/tailscale/tailcat)
 
 - **Pitch rapide :** outil proche de netcat mais transporté sur le data plane Tailscale sans dépendre du control plane. Il vise le diagnostic de connectivité dans des réseaux maillés.
 - **Utilité :** utile potentiellement pour isoler rapidement un problème de chemin réseau dans un environnement distribué. Sécurité, packaging et support doivent être vérifiés avant usage opérationnel.
 - **Preuves de traction :** Trendshift daily rang 13 le 28/08. Outils similaires : netcat, curl et Tailscale ping ; Tailcat se distingue par le chemin de transport.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★3,0 k · forks 81 · push 29/08.
 
 ## [Orca](https://github.com/stablyai/orca)
 
 - **Pitch rapide :** environnement pour exécuter et coordonner une flotte d’agents en parallèle. Il cible le cycle de vie d’agents de code plutôt qu’une simple conversation.
 - **Utilité :** surveiller les patterns de fleet management, supervision et isolation des agents. Le modèle de permissions et le déploiement restent à qualifier.
 - **Preuves de traction :** Trendshift daily rang 17 le 28/08 et dépôt primaire identifié. Outils similaires : OpenHands, Coder et Agent Sandbox ; périmètres différents.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★56,4 k · forks 3,8 k · push 29/08.
 
 ## [PRAXIST](https://github.com/sapientinc/PRAXIST)
 
 - **Pitch rapide :** système de recherche autonome qui coordonne des pairs, des évaluations et des preuves durables. Il peut inspirer des pipelines d’expérimentation reproductibles.
 - **Utilité :** surveiller les boucles de recherche agentique avec critères mesurables. Licence, sécurité et coût opérationnel restent à qualifier.
 - **Preuves de traction :** Trendshift daily rang 5 le 28/08 et dépôt primaire public. Outils similaires : MLflow, LangSmith et AutoGPT ; aucun équivalent direct complet.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★2,1 k · forks 247 · push 28/08.
 
 ## [OpenAgentPack](https://github.com/modelstudioai/OpenAgentPack)
 
 - **Pitch rapide :** control plane déclaratif pour décrire, déployer et gouverner des agents cloud. Il rapproche les agents des pratiques IaC et du versionnement de plateforme.
 - **Utilité :** intéressant lorsque les agents deviennent des workloads récurrents à gérer par une équipe plateforme. Maturité et sécurité des outils restent à confirmer.
 - **Preuves de traction :** signal local et présence Trendshift ; dépôt primaire disponible. Outils similaires : Terraform, Kubernetes Operators et Agent Sandbox ; modèle de ressources à comparer.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★23 · forks 0 · push 27/08.
 
 ## [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox)
 
 - **Pitch rapide :** CRD et contrôleur Kubernetes pour gérer des environnements isolés et persistants d’agents. Il apporte un chemin explicite pour cycle de vie, outils et observabilité.
 - **Utilité :** étudier l’isolation et l’état durable d’agents qui exécutent commandes ou manipulent des fichiers. Version pré-1.0 et intégration runtime à qualifier.
 - **Preuves de traction :** release primaire v0.5.6 le 20/08, avec warm pool, suspend/resume et métriques Prometheus. Outils similaires : Kubernetes Jobs, gVisor et Kata Containers ; périmètres complémentaires.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★3,7 k · forks 471 · push 28/08.
 
 ## [Busbar](https://github.com/GetBusbar/busbar)
 
 - **Pitch rapide :** Busbar est une gateway IA self-hosted qui centralise routage multi-modèles, failover, budgets, credentials et preuves d’exécution. Elle se place entre applications/agents et fournisseurs de modèles ou outils.
 - **Utilité :** candidat prioritaire pour le pattern AI execution gateway et la gouvernance du chemin synchrone. Il faut mesurer latence, couverture fournisseurs et risque de panne centralisée.
 - **Preuves de traction :** featured Trendshift le 28/08 ; dépôt primaire documentant binaire Rust, Helm, Prometheus/OTLP, mTLS et circuit breakers. Outils similaires : LiteLLM, Kong AI Gateway et Envoy AI Gateway.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★116 · forks 5 · push 29/08.
 
 ### Pitch détaillé
 
@@ -87,6 +96,7 @@ Le compromis est la centralisation : une panne ou une mauvaise politique affecte
 - **Pitch rapide :** OpenConnector connecte les agents aux SaaS avec OAuth, scopes, politiques, logs, MCP, HTTP et OpenAPI, en gardant les credentials derrière le runtime. Il propose des chemins Docker, Kubernetes, Cloudflare et Fly.io.
 - **Utilité :** étudier la séparation entre agent et accès aux outils externes, notamment identité, permissions et contrats d’actions. Une qualification sécurité est obligatoire avant toute donnée réelle.
 - **Preuves de traction :** featured Trendshift le 28/08 ; dépôt primaire avec Helm, PostgreSQL, migrations explicites et 5,4 k stars/461 forks observés. Outils similaires : Composio, Pipedream et n8n ; comparer contrôle des secrets, catalogue et réversibilité.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★5,4 k · forks 461 · push 29/08.
 
 ### Pitch détaillé
 
@@ -99,6 +109,7 @@ La surface de risque est importante : credentials, refresh tokens, exécuteurs e
 - **Pitch rapide :** dépôt JetBrains de consignes destinées aux agents qui écrivent du Go moderne. Il transforme des conventions d’ingénierie en contexte versionné.
 - **Utilité :** surveiller le pattern `engineering policy as agent context` pour réduire les corrections répétitives. Les règles doivent compléter lint, tests et revue humaine.
 - **Preuves de traction :** Trendshift daily rang 15 et GitHub Trending Go #1 signalé le 27/08 ; dépôt public Apache-2.0. Outils similaires : golangci-lint, règles de repository et fichiers AGENTS.md.
+- **Indicateur de tendance (29/08/2026) :** GitHub ★2,7 k · forks 79 · push 19/08.
 
 ## Sujets écartés
 

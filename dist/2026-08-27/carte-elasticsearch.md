@@ -6,6 +6,8 @@ Date : 2026-08-27. Type : `service`. Version de référence documentée : Elasti
 
 Elasticsearch est un moteur distribué de recherche et d’analytique pour documents, logs, événements, observabilité et recherche hybride/vectorielle. Pour ta stack, il se place dans ELK et peut compléter CloudWatch ; il ne remplace pas une base transactionnelle. Décision : `évaluer` la version et le mode de déploiement avant upgrade.
 
+**Indicateur de tendance (29/08/2026) :** GitHub ★77,9 k · forks 26,1 k · dernier push 29/08. Visibilité/activité, pas preuve de maturité.
+
 ## 2. POSITION DANS LE SYSTÈME
 
 ```text

@@ -12,6 +12,8 @@ Date : 2026-08-28. Type : `outil Kubernetes / contrôleur`. Version observée : 
 
 Agent Sandbox est un contrôleur Kubernetes pour des workloads singleton, persistants et isolés, adaptés aux runtimes d’agents et à l’exécution de code non fiable. Le potentiel est élevé pour la plateforme IA, mais le produit reste émergent. Décision proposée : `tester` localement, sans usage critique ni secrets. Principal compromis : simplicité de cycle de vie contre nouvelle CRD, surface d’isolation et dépendance à un projet jeune.
 
+**Indicateur de tendance (29/08/2026) :** GitHub ★3,7 k · forks 471 · dernier push 28/08. Visibilité/activité, pas preuve de maturité.
+
 ## 2. POSITION DANS LE SYSTÈME
 
 Producteur : orchestrateur d’agent ou plateforme interne.  

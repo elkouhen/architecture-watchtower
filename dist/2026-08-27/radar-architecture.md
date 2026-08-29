@@ -15,6 +15,7 @@
 - **Pitch rapide :** les outils AgentOps ajoutent une visibilité sur les étapes d’un agent, ses appels modèles, ses outils, ses retries, ses coûts et ses évaluations. Ils répondent au manque de contexte laissé par un simple log de requête.
 - **Utilité :** utile pour exploiter un agent comme un système distribué : corréler `trace_id`, modèle, outil, permission, coût et résultat. Commencer avec OpenTelemetry et les backends déjà disponibles avant d’ajouter un middleware dédié.
 - **Preuves de traction :** topic GitHub `agent-observability` avec environ 360 dépôts, plusieurs projets mis à jour les 25–27/08, conventions GenAI OpenTelemetry et positionnement CloudWatch AWS. Outils similaires : OpenTelemetry + ELK/APM, CloudWatch Agent Observability, Langfuse ; le choix dépend de la rétention, de la confidentialité et de l’intégration.
+- **Indicateur de tendance (29/08/2026) :** N/A — pattern sans dépôt canonique unique ; signaux répartis entre OTel, fournisseurs et projets AgentOps.
 
 ### Pitch détaillé
 
@@ -27,6 +28,7 @@ La trajectoire la plus réversible est d’instrumenter une chaîne avec OpenTel
 - **Pitch rapide :** une AI Gateway place une politique de contrôle entre les clients et les modèles ou fournisseurs. Elle regroupe routage, quotas, authentification, inspection, cache et guardrails au niveau plateforme.
 - **Utilité :** utile lorsque plusieurs applications réimplémentent les mêmes règles de fournisseur, de région, de budget ou de fallback. L’autorisation métier doit rester dans l’application.
 - **Preuves de traction :** groupe de travail AI Gateway Kubernetes, travaux CNCF autour de l’Inference Gateway et lien avec Gateway API. Outils similaires : Kong AI Gateway, Envoy AI Gateway, LiteLLM ; comparer intégration Kubernetes, sécurité, protocoles et charge opérationnelle.
+- **Indicateur de tendance (29/08/2026) :** N/A — pattern/WG sans compteur unique ; signal officiel Kubernetes/CNCF.
 
 ### Pitch détaillé
 
@@ -39,6 +41,7 @@ Il faut distinguer les APIs et contrôleurs encore mouvants des fonctionnalités
 - **Pitch rapide :** l’inférence moderne sur Kubernetes traite le modèle comme un workload spécialisé avec GPU, scheduling, cache KV, routage et métriques TTFT/TPOT. Elle dépasse le simple Deployment d’un serveur de modèle.
 - **Utilité :** utile pour dimensionner un serving IA et arbitrer coût, débit, latence et placement matériel. Sans workload GPU réel, rester au stade de veille.
 - **Preuves de traction :** llm-d présenté comme CNCF Sandbox, intégrations KServe/vLLM et travaux autour de DRA, LWS, Kueue et Gateway API ; Kubernetes 1.37.0 publié le 26/08. Outils similaires : KServe, Ray Serve, vLLM ; la comparaison porte sur scheduling, GPU, autoscaling et exploitation.
+- **Indicateur de tendance (29/08/2026) :** llm-d ★4,3 k · forks 725 · push 29/08 ; vLLM ★90,4 k · forks 21,4 k · push 29/08.
 
 ### Pitch détaillé
 
@@ -51,12 +54,14 @@ La pertinence dépend entièrement du matériel, du modèle et du profil de char
 - **Pitch rapide :** OpenTelemetry formalise des attributs et événements pour instrumenter les appels modèles et outils. Il peut fournir une base commune à ELK, Elastic APM et CloudWatch.
 - **Utilité :** éviter de verrouiller l’observabilité dans un fournisseur et permettre la corrélation des traces. Outils similaires : OpenInference, Langfuse et instrumentation native des fournisseurs.
 - **Preuves de traction :** conventions GenAI et évolution du projet OpenTelemetry. Niveau `signal faible` pour les détails de stabilité et d’implémentation ; décisions de schéma à surveiller.
+- **Indicateur de tendance (29/08/2026) :** Collector OTel ★7,5 k · forks 2,2 k · push 28/08 ; proxy d’activité de l’écosystème, pas mesure du sous-standard.
 
 ## [Kubernetes 1.37](https://kubernetes.io/releases/1.37/)
 
 - **Pitch rapide :** Kubernetes 1.37 est une release de plateforme qui peut modifier APIs, compatibilités et opérations de cluster. Son intérêt architectural dépend des add-ons et distributions réellement utilisés.
 - **Utilité :** vérifier les dépréciations, versions supportées et gains avant upgrade ; ne pas confondre release produit et tendance d’architecture.
 - **Preuves de traction :** release officielle 1.37.0 le 26/08 et patch 1.37.1 ciblé au 15/09. Outils similaires : distributions Kubernetes managées AWS/GCP et distributions on-prem ; comparaison limitée à support et compatibilité.
+- **Indicateur de tendance (29/08/2026) :** Kubernetes ★125,3 k · forks 43,9 k · issues 3,0 k · push 28/08.
 
 ## Sujets écartés
 

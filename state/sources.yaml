@@ -49,7 +49,7 @@ sources:
     cadence: daily
     reliability: medium
     fallback: https://github.com/explore
-    last_checked: null
+    last_checked: 2026-08-29
     notes: "Mesurer étoiles, forks, issues, commits et dernière release avec une date de mesure. Ces métriques indiquent une visibilité ou activité, jamais la maturité, sécurité ou adoption."
   - id: github-trending
     name: GitHub Trending and topic pages

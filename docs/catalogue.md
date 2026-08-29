@@ -43,3 +43,42 @@ Une entrée par outil, service, standard, pattern ou évolution étudiée. Le ni
 - Conserver une seule ligne par élément et compléter le lien de dernière revue.
 - Ne pas indexer les sujets seulement mentionnés comme écartés.
 - Ne jamais confondre niveau, popularité et recommandation d’adoption.
+
+## Indicateurs de tendance — mesure du 29/08/2026
+
+Relevé très succinct : étoiles/forks et dernier push GitHub lorsque disponibles. Ces chiffres indiquent visibilité ou activité, pas maturité, sécurité ni adoption.
+
+| Élément | Tendance |
+|---|---|
+| JiuwenSwarm | GitHub ★4,8 k · forks 793 · push 29/08 |
+| PRAXIST | GitHub ★2,1 k · forks 247 · push 28/08 |
+| Hezo | GitHub ★363 · forks 92 · push 29/08 |
+| Orca | GitHub ★56,4 k · forks 3,8 k · push 29/08 |
+| OpenAgentPack | GitHub ★23 · forks 0 · push 27/08 |
+| Agent Sandbox | GitHub ★3,7 k · forks 471 · push 28/08 |
+| Busbar | GitHub ★116 · forks 5 · push 29/08 |
+| WorkWeave/router | GitHub ★2,5 k · forks 72 · push 29/08 |
+| OpenConnector | GitHub ★5,4 k · forks 461 · push 29/08 |
+| agentgateway | GitHub ★4,6 k · forks 780 · push 27/08 |
+| AI Gateway | N/A — pattern/WG ; signal Kubernetes/CNCF |
+| Inference Gateway | llm-d ★4,3 k · forks 725 · vLLM ★90,4 k · forks 21,4 k |
+| AgentOps | N/A — pattern sans dépôt canonique unique |
+| OpenTelemetry GenAI | Collector OTel ★7,5 k · forks 2,2 k · push 28/08 |
+| Elastic / Elasticsearch | GitHub ★77,9 k · forks 26,1 k · push 29/08 |
+| go-modern-guidelines | GitHub ★2,7 k · forks 79 · push 19/08 |
+| AgentReady standard | GitHub ★12 · forks 3 · push 27/08 |
+| OpenTelemetry entity events | Collector OTel ★7,5 k · forks 2,2 k · push 28/08 |
+| OpenTelemetry cardinality limits | Collector OTel ★7,5 k · forks 2,2 k · push 28/08 |
+| Kubernetes 1.37 | GitHub ★125,3 k · forks 43,9 k · push 28/08 |
+| Inférence cloud-native | llm-d ★4,3 k · forks 725 · vLLM ★90,4 k · forks 21,4 k |
+| llm-d / KServe / vLLM | llm-d ★4,3 k · vLLM ★90,4 k · KServe N/D |
+| Archify | GitHub ★28,5 k · forks 1,8 k · push 28/08 |
+| Terraform | GitHub ★49,6 k · forks 10,6 k · push 27/08 |
+| HashiCorp Support Cycle 2 | N/A — signal de cycle de vie fournisseur |
+| Vault | GitHub ★36,2 k · forks 4,7 k · push 28/08 |
+| Nomad | GitHub ★16,8 k · forks 2,1 k · push 28/08 |
+| Amazon ECS Action Logs | N/A — service AWS managé ; annonce du 21/07 |
+| Agent Plugins 1.0 | N/A — format/fonctionnalité produit |
+| GitHub MCP allowlists | N/A — contrôle produit GitHub |
+| Tailcat | GitHub ★3,0 k · forks 81 · push 29/08 |
+| Boop | GitHub ★225 · forks 11 · push 28/08 |
