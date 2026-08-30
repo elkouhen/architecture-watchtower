@@ -583,6 +583,87 @@ signals:
     publication: "local_commit"
     discard_reason: null
 
+  - id: SIG-2026-08-30-001
+    canonical_url: https://www.kubeflow.org/
+    subject: "Kubeflow obtient la graduation CNCF et structure le cycle de vie Data & AI sur Kubernetes"
+    product_version: "Kubeflow CNCF graduated"
+    environment: "unknown"
+    first_seen: 2026-08-30
+    last_seen: 2026-08-30
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "plateforme IA"
+    due_date: 2026-09-12
+    deliverables: [dist/2026-08-30/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-30-002
+    canonical_url: https://github.com/kgateway-dev/kgateway
+    subject: "kgateway 2.4 étend Gateway API, les policies et la découverte de backends AWS"
+    product_version: "kgateway v2.4.1"
+    environment: "unknown"
+    first_seen: 2026-08-30
+    last_seen: 2026-08-30
+    score: 8
+    confidence: "high"
+    status: "new"
+    decision: "test"
+    owner: "plateforme réseau"
+    due_date: 2026-09-19
+    deliverables: [dist/2026-08-30/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-30-003
+    canonical_url: https://buildpacks.io/
+    subject: "Cloud Native Buildpacks obtient la graduation CNCF avec une trajectoire SBOM et OCI Artifacts"
+    product_version: "Cloud Native Buildpacks CNCF graduated"
+    environment: "unknown"
+    first_seen: 2026-08-30
+    last_seen: 2026-08-30
+    score: 7
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme CI"
+    due_date: 2026-09-19
+    deliverables: [dist/2026-08-30/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-30-004
+    canonical_url: https://www.elastic.co/docs/release-notes/cloud-serverless/deprecations
+    subject: "Elastic Cloud Serverless déprécie les API internes de Stack Monitoring"
+    product_version: "Elastic Cloud Serverless — 2026-08-26 deprecation"
+    environment: "unknown"
+    first_seen: 2026-08-30
+    last_seen: 2026-08-30
+    score: 8
+    confidence: "high"
+    status: "open"
+    decision: "qualify"
+    owner: "observabilité"
+    due_date: 2026-09-06
+    deliverables: [dist/2026-08-30/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-08-30-005
+    canonical_url: https://github.com/open-telemetry/opentelemetry-collector-releases
+    subject: "OpenTelemetry Collector 0.159 confirme une cadence bimensuelle et une gouvernance par stabilité de composants"
+    product_version: "OpenTelemetry Collector v0.159.0"
+    environment: "unknown"
+    first_seen: 2026-08-30
+    last_seen: 2026-08-30
+    score: 6
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "observabilité"
+    due_date: 2026-09-14
+    deliverables: [dist/2026-08-30/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001
 #   canonical_url: https://...

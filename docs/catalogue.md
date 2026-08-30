@@ -6,6 +6,11 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [Kubeflow](https://www.kubeflow.org/) | plateforme IA/ML | à qualifier | [30/08](../dist/2026-08-30/radar-architecture.md#kubeflow-graduation-cncf) | graduation CNCF · 17/08 |
+| [kgateway](https://github.com/kgateway-dev/kgateway) | gateway Kubernetes | à qualifier | [30/08](../dist/2026-08-30/radar-architecture.md#kgateway-24) | v2.4.1 · 27/07 |
+| [Cloud Native Buildpacks](https://buildpacks.io/) | standard/outillage CI | émergente | [30/08](../dist/2026-08-30/radar-architecture.md#cloud-native-buildpacks-graduation) | graduation CNCF · 11/08 |
+| [Elastic Cloud Serverless monitoring](https://www.elastic.co/docs/release-notes/cloud-serverless/deprecations) | service observabilité | à qualifier | [30/08](../dist/2026-08-30/radar-architecture.md#elastic-cloud-serverless-dépréciation-du-monitoring-interne) | dépréciation · 26/08 |
+| [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector-releases) | observabilité | à qualifier | [30/08](../dist/2026-08-30/radar-architecture.md#opentelemetry-collector-0159) | v0.159.0 · 17/08 |
 | [Agent Plugins 1.0](https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/) | standard | émergente | [29/08](../dist/2026-08-29/radar-architecture.md#agent-plugins-10) | N/A · format produit |
 | [AgentReady standard](https://github.com/agentready-org/standard) | standard | signal faible | [29/08](../dist/2026-08-29/radar-architecture.md#agentready-standard) | ★12 · forks 3 · push 27/08 |
 | [Amazon ECS Action Logs](https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-ecs-action-logs/) | service | émergente | [29/08](../dist/2026-08-29/radar-architecture.md#amazon-ecs-action-logs) | N/A · service AWS |
