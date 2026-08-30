@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "competitive-intelligence": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "skillPath": "sales/skills/competitive-intelligence/SKILL.md",
+      "computedHash": "ab05e382d9c42e8ea630aa64b2f479cbc04887ed0707a4eec3f7b40a853f50a2"
+    }
+  }
+}
