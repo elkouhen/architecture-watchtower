@@ -2,80 +2,81 @@
 
 ## Vue d’ensemble
 
-Déduplication appliquée sur `state/signals.yaml` et les rapports des 90 derniers jours. Cinq sujets sont retenus : trois mises à jour structurantes et deux signaux Elastic opérationnels. L’exposition réelle de la stack de Mehdi reste `à qualifier`.
+Déduplication appliquée sur `state/signals.yaml` et les rapports des 90 derniers jours. Six sujets sont retenus : **trois nouveautés** et **trois mises à jour**. L’exposition réelle de la stack de Mehdi reste `à qualifier`.
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [Kubernetes 1.37](https://kubernetes.io/releases/1.37/) | plateforme | SVM devient GA et RangeStream passe beta, avec un impact direct sur migrations et gros inventaires. | [Voir](#kubernetes-137--storage-version-migration-et-rangestream) |
-| [Terraform 1.16](https://github.com/hashicorp/terraform/releases/tag/v1.16.0) | outil IaC | La release stabilise le stockage de données privées planifiées, `terraform_data.store` et les imports dans les modules. | [Voir](#terraform-116--état-et-actions-plus-expressifs) |
-| [OpenTelemetry Collector 0.160](https://github.com/open-telemetry/opentelemetry-collector-releases) | plateforme observabilité | La cadence bimensuelle continue ; la gouvernance de versions et de composants devient une capacité de plateforme. | [Voir](#opentelemetry-collector-0160) |
-| [Elastic Agent OTel runtime](https://www.elastic.co/docs/release-notes/elastic-agent/known-issues) | agent observabilité | Des défauts silencieux affectent Kafka Kerberos et GCP Pub/Sub avec le runtime OTel sur certaines versions. | [Voir](#elastic-agent--défauts-du-runtime-otel) |
-| [Elastic Cloud Serverless](https://www.elastic.co/docs/release-notes/cloud-serverless) | service observabilité | Les changements du 27/08 ajoutent audit, agents et connecteurs, mais modifient aussi le périmètre de droits et de coûts. | [Voir](#elastic-cloud-serverless--changements-du-2708) |
+| [Cloudflare Computer](https://blog.cloudflare.com/cloudflare-computer/) | nouveau · plateforme | Runtime de travail pour agents, combinant isolate, sandbox et navigateur. | [Voir](#cloudflare-computer--un-ordinateur-pour-les-agents) |
+| [Cloudflare Agents](https://blog.cloudflare.com/agents-on-cloudflare/) | nouveau · service | Déploiement et observabilité de sessions d’agents hébergées. | [Voir](#cloudflare-agents--déployer-et-observer-des-agents) |
+| [LitmusChaos](https://litmuschaos.io/) | nouveau · plateforme | Chaos engineering Kubernetes pour tester la résilience par expériences contrôlées. | [Voir](#litmuschaos--tester-la-résilience-des-plateformes) |
+| [Kubernetes 1.37](https://kubernetes.io/releases/1.37/) | mise à jour · plateforme | SVM devient GA et RangeStream passe beta, avec un impact sur migrations et inventaires volumineux. | [Voir](#kubernetes-137--storage-version-migration-et-rangestream) |
+| [Terraform 1.16](https://github.com/hashicorp/terraform/releases/tag/v1.16.0) | mise à jour · outil IaC | Le state, les imports et la sortie JSON deviennent plus expressifs. | [Voir](#terraform-116--état-et-actions-plus-expressifs) |
+| [OpenTelemetry Collector 0.160](https://github.com/open-telemetry/opentelemetry-collector-releases) | mise à jour · observabilité | La cadence bimensuelle renforce le besoin de distributions et composants maîtrisés. | [Voir](#opentelemetry-collector-0160) |
+
+## [Cloudflare Computer — un ordinateur pour les agents](https://blog.cloudflare.com/cloudflare-computer/)
+
+- **Type :** nouveau · plateforme.
+- **Pitch rapide :** **Nouveau.** Cloudflare présente le 3 août 2026 `@cloudflare/computer`, un runtime qui masque le choix entre isolate, sandbox conteneurisée et navigateur pour donner à chaque agent un environnement de travail. Il vise les tâches de code, de manipulation de fichiers et de création de documents.
+- **Utilité :** ce modèle peut réduire le couplage entre boucle d’agent et infrastructure d’exécution. Il faut qualifier isolation, persistance, accès réseau, coûts à la session et limites de conformité avant tout usage sensible ; exposition : **inconnue**.
+- **Preuves de traction :** **Fait** : annonce officielle et package en early preview le 03/08/2026 ([Cloudflare Blog](https://blog.cloudflare.com/cloudflare-computer/)). **Analyse** : le produit déplace le choix du sandboxing vers la plateforme. **Inférence** : il peut compléter, mais pas remplacer automatiquement, Agent Sandbox sur Kubernetes. Décision : **tester** ; propriétaire : IA/plateforme ; échéance : 2026-09-19 ; succès : exécution d’un workflow non sensible avec isolation vérifiée, journalisation réseau et coût par session mesuré.
+- **Outils similaires :** Agent Sandbox, contrôle Kubernetes ; Docker Sandboxes, isolation conteneur ; navigateur distant, plus spécialisé.
+
+## [Cloudflare Agents — déployer et observer des agents](https://blog.cloudflare.com/agents-on-cloudflare/)
+
+- **Type :** nouveau · service.
+- **Pitch rapide :** **Nouveau.** Cloudflare Agents, annoncé le 04/08/2026, regroupe les sessions d’agents déployés et expose des traces, avec export vers une destination compatible OpenTelemetry. Le service fournit une couche opératoire autour du runtime et des sessions durables.
+- **Utilité :** intéressant pour tester l’observabilité d’agents sans construire immédiatement un control plane. Il faut qualifier rétention, données sensibles dans les traces, granularité des coûts, permissions et repli vers une collecte OTel contrôlée ; exposition : **inconnue**.
+- **Preuves de traction :** **Fait** : Cloudflare documente le déploiement, le suivi des sessions et l’export OTel le 04/08/2026 ([annonce officielle](https://blog.cloudflare.com/agents-on-cloudflare/)). **Analyse** : la télémétrie devient une fonction du service, mais son modèle de données doit être comparé au schéma interne. **Inférence** : une architecture hybride service + export OTel peut accélérer un pilote. Décision : **qualifier** ; propriétaire : IA/observabilité ; échéance : 2026-09-17 ; succès : traces corrélées à un workflow, filtrage des secrets et export vers le backend de référence validés.
+- **Outils similaires :** LangSmith, observabilité LLM ; OpenTelemetry Collector, contrôle de pipeline ; Elastic Observability, intégration au SIEM/APM.
+
+## [LitmusChaos — tester la résilience des plateformes](https://litmuschaos.io/)
+
+- **Type :** nouveau · plateforme.
+- **Pitch rapide :** **Nouveau.** LitmusChaos est une plateforme open source de chaos engineering, centrée sur des expériences contrôlées pour révéler les faiblesses d’infrastructures et de workloads Kubernetes. Le bilan CNCF du 06/08/2026 signale six releases au premier semestre et un usage à grande échelle documenté.
+- **Utilité :** le projet peut transformer des hypothèses de résilience en tests répétables dans les pipelines ou sur des fenêtres contrôlées. Il faut limiter le rayon d’action, protéger les environnements et définir les SLO observés ; usage actuel : **à qualifier**.
+- **Preuves de traction :** **Fait** : CNCF décrit le statut Sandbox, les six releases du premier semestre et le cas Flipkart le 06/08/2026 ([bilan CNCF](https://www.cncf.io/blog/2026/08/06/litmuschaos-q1-q2-2026-update-community-contributions-and-project-progress/)). **Analyse** : la preuve d’usage est plus informative qu’un simple compteur GitHub, sans prouver l’adéquation à la stack de Mehdi. **Inférence** : un premier laboratoire peut cibler Kubernetes et l’observabilité ELK. Décision : **tester** ; propriétaire : SRE/plateforme ; échéance : 2026-09-22 ; succès : expérience de perte de pod non critique, alerte reçue, SLO comparé et arrêt d’urgence validé.
+- **Outils similaires :** Chaos Mesh, chaos natif Kubernetes ; Gremlin, service commercial ; tests de panne ciblés, moins riches mais plus simples à gouverner.
 
 ## [Kubernetes 1.37 — Storage Version Migration et RangeStream](https://kubernetes.io/releases/1.37/)
 
-- **Type :** plateforme.
-- **Pitch rapide :** Kubernetes 1.37 fait passer Storage Version Migration (SVM) en disponibilité générale et RangeStream en beta avec etcd 3.7. Ces changements touchent respectivement la maintenance des versions stockées et la consommation mémoire des lectures de grands ensembles.
-- **Utilité :** SVM peut réduire la dette opératoire liée aux migrations de versions de stockage, mais ajoute un contrôleur et des permissions à vérifier. RangeStream mérite un test sur clusters à grand nombre d’objets ; control plane, etcd et add-ons réellement déployés : **à qualifier**.
-- **Preuves de traction :** **Fait** : l’index du blog Kubernetes annonce SVM GA le 31/08/2026 et RangeStream beta le 01/09/2026 ([blog officiel](https://kubernetes.io/blog/)). **Analyse** : ce sont des évolutions du control plane, plus importantes qu’un simple ajout d’API. **Inférence** : les plateformes riches en CRD peuvent gagner en prévisibilité mémoire, sous réserve de compatibilité etcd. Décision proposée : **tester** ; propriétaire : plateforme Kubernetes ; échéance : 2026-09-16 ; succès : migration d’un objet témoin et lecture d’un inventaire volumineux sans régression d’API server, mémoire ou temps de réponse.
-- **Outils similaires :** mécanismes de migration propres aux distributions managées, scripts opérateur, upgrade etcd sans SVM ; la différence utile est l’intégration native au control plane Kubernetes.
-
-### Pitch détaillé
-
-Kubernetes 1.37 transforme deux tâches souvent traitées comme de la plomberie en fonctions explicites du control plane : maintenir la version de stockage d’objets et lire efficacement de grandes collections. Cela concerne directement les clusters riches en CRD, opérateurs et objets d’inventaire.
-
-SVM doit être évalué comme une opération de maintenance avec droits, charge et reprise, pas comme une migration invisible. RangeStream dépend d’etcd 3.7 et ne dispense pas de contrôler les clients qui listent massivement l’API.
-
-Le gain potentiel est une meilleure maîtrise des pics mémoire et de la dette de stockage. Le risque principal est une incompatibilité entre distribution, etcd, admission webhooks et add-ons. Décision : **tester** sur un cluster non critique, avec rollback documenté et mesures avant/après.
+- **Type :** mise à jour · plateforme.
+- **Pitch rapide :** SVM passe en disponibilité générale et RangeStream en beta avec etcd 3.7. Ces évolutions touchent la maintenance des versions stockées et la mémoire des lectures de grands ensembles.
+- **Utilité :** SVM peut réduire la dette de migration ; RangeStream mérite un test sur clusters riches en CRD. Distribution, etcd et add-ons réellement déployés : **à qualifier**.
+- **Preuves de traction :** **Fait** : l’index officiel annonce les changements les 31/08 et 01/09/2026 ([blog Kubernetes](https://kubernetes.io/blog/) ; [Kubernetes 1.37](https://kubernetes.io/releases/1.37/)). **Analyse** : ce sont des changements du control plane, pas une simple correction. **Inférence** : les gros inventaires peuvent gagner en prévisibilité mémoire. Décision : **tester** ; propriétaire : plateforme Kubernetes ; échéance : 2026-09-16 ; succès : migration témoin et inventaire volumineux sans régression d’API server, mémoire ou latence.
+- **Outils similaires :** mécanismes de migration des distributions managées ; scripts opérateur ; upgrade etcd sans SVM.
 
 ## [Terraform 1.16 — état et actions plus expressifs](https://github.com/hashicorp/terraform/releases/tag/v1.16.0)
 
-- **Type :** outil IaC.
-- **Pitch rapide :** Terraform 1.16.0, publié le 26/08/2026, stabilise des primitives utiles à l’IaC : données privées conservées dans le plan, bloc `terraform_data.store`, imports dans les modules et sortie JSON de commandes d’état.
-- **Utilité :** ces fonctions peuvent améliorer les modules réutilisables, les migrations et l’automatisation de contrôles. Elles touchent le state, les providers et les secrets ; version du CLI, des providers et du backend réellement utilisés : **exposition inconnue**.
-- **Preuves de traction :** **Fait** : la release officielle documente ces fonctionnalités et des changements d’upgrade le 26/08/2026 ([release 1.16.0](https://github.com/hashicorp/terraform/releases/tag/v1.16.0)). **Analyse** : la release stable confirme le signal alpha observé le 29/08 et rend possible un test contrôlé. **Inférence** : la sortie JSON peut simplifier la gouvernance sans parser du texte CLI. Décision proposée : **tester** ; propriétaire : IaC ; échéance : 2026-09-18 ; succès : module de migration testé sur backend non critique, state sensible non exposé et sortie JSON consommée par un contrôle CI.
-- **Outils similaires :** OpenTofu, fork compatible à comparer ; Pulumi, modèle code-first ; outils natifs AWS/GCP, moins portables mais plus proches des APIs cloud.
+- **Type :** mise à jour · outil IaC.
+- **Pitch rapide :** Terraform 1.16.0 stabilise le stockage de données privées planifiées, `terraform_data.store`, les imports dans les modules et des sorties JSON d’état. La release date du 26/08/2026.
+- **Utilité :** ces primitives peuvent améliorer les modules et les contrôles CI, mais touchent le state, les providers et les secrets ; versions CLI/providers/backend : **exposition inconnue**.
+- **Preuves de traction :** **Fait** : la release officielle documente ces changements le 26/08/2026 ([release Terraform 1.16.0](https://github.com/hashicorp/terraform/releases/tag/v1.16.0)). **Analyse** : le test doit porter sur le state et les providers, pas uniquement sur la syntaxe. **Inférence** : la sortie JSON peut simplifier la gouvernance. Décision : **tester** ; propriétaire : IaC ; échéance : 2026-09-18 ; succès : migration sur backend non critique, absence d’exposition du state sensible et contrôle CI reproductible.
+- **Outils similaires :** OpenTofu, fork compatible ; Pulumi, code-first ; outils natifs cloud, plus spécifiques.
 
 ## [OpenTelemetry Collector 0.160](https://github.com/open-telemetry/opentelemetry-collector-releases)
 
-- **Type :** plateforme observabilité.
-- **Pitch rapide :** la release `v0.160.0` du 31/08/2026 confirme la cadence bimensuelle du Collector. Le sujet architectural est la composition d’une distribution interne et la stabilité différente de ses receivers, processors et exporters.
-- **Utilité :** une distribution contrôlée peut fournir un point de sortie commun vers ELK/APM, CloudWatch et d’autres backends. La version et les composants réellement utilisés sont **à qualifier** ; ne pas déduire la stabilité d’un composant de celle du core.
-- **Preuves de traction :** **Fait** : le calendrier officiel liste `v0.160.0` le 31/08, après `v0.159.0` le 17/08 ([calendrier de release](https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/release.md)). **Analyse** : la cadence rend l’upgrade prévisible mais impose pinning, tests et rollback. **Inférence** : une image interne minimale est préférable à une distribution générique non maîtrisée. Décision proposée : **surveiller** ; propriétaire : observabilité ; réexamen : 2026-09-16 ; succès : matrice composants/stabilité, test de charge et restauration de configuration automatisée.
-- **Outils similaires :** Elastic Agent, distribution intégrée ; Vector, pipeline performant ; Fluent Bit, agent léger orienté collecte.
-
-## [Elastic Agent — défauts du runtime OTel](https://www.elastic.co/docs/release-notes/elastic-agent/known-issues)
-
-- **Type :** agent observabilité.
-- **Pitch rapide :** Elastic documente des défauts pouvant perdre silencieusement des données avec le runtime OTel : paramètres Kerberos ignorés pour Kafka et champs GCP Pub/Sub rejetés ou redirigés vers la Failure Store.
-- **Utilité :** le risque porte sur l’intégrité de la télémétrie, pas seulement sur l’état « Healthy » de l’agent. Inventorier les versions 9.5.0–9.5.1, les intégrations Kafka/GCP et le runtime choisi ; exposition locale **inconnue**.
-- **Preuves de traction :** **Fait** : la page officielle signale le problème Kafka découvert le 10/08/2026 et le problème GCP découvert le 05/08/2026, avec correctif annoncé en 9.5.2 ([known issues Elastic Agent](https://www.elastic.co/docs/release-notes/elastic-agent/known-issues)). **Analyse** : l’absence d’erreur visible et l’acknowledgement Pub/Sub rendent une simple vérification de santé insuffisante. **Inférence** : des contrôles de complétude et de Failure Store doivent compléter la supervision agent. Décision proposée : **qualifier** ; propriétaire : observabilité ; échéance : 2026-09-05 ; succès : versions/runtime inventoriés, événement synthétique reçu dans la destination et aucune perte silencieuse constatée.
-- **Outils similaires :** Filebeat process runtime, contournement documenté ; OpenTelemetry Collector, alternative indépendante ; Fluent Bit, agent plus ciblé logs.
-
-## [Elastic Cloud Serverless — changements du 27/08](https://www.elastic.co/docs/release-notes/cloud-serverless)
-
-- **Type :** service observabilité.
-- **Pitch rapide :** le changelog Serverless du 27/08/2026 ajoute l’agent par défaut par espace Kibana, des actions d’écriture pour Jira/Gmail et `user.email` dans les audit logs. Ces capacités élargissent les workflows et la surface de gouvernance.
-- **Utilité :** utile pour qualifier séparation des espaces, permissions, traçabilité et coûts des actions sortantes. Le projet Serverless réellement utilisé et ses intégrations sont **à qualifier** ; disponibilité ne prouve pas activation dans la stack.
-- **Preuves de traction :** **Fait** : le changelog officiel date ces changements du 27/08/2026 et mentionne des corrections ML et d’audit ([changelog Serverless](https://www.elastic.co/docs/release-notes/cloud-serverless)). **Analyse** : l’ajout de write actions transforme des connecteurs consultatifs en chemins de changement externe. **Inférence** : ces actions doivent être traitées comme des intégrations privilégiées avec validation humaine et journaux corrélés. Décision proposée : **qualifier** ; propriétaire : observabilité/sécurité ; échéance : 2026-09-12 ; succès : matrice de permissions, test contrôlé, audit corrélé et estimation de coût validés.
-- **Outils similaires :** Elastic Hosted, plus configurable ; OpenSearch Dashboards, alternative de plateforme ; workflows externes avec approbation, moins intégrés mais plus contrôlables.
+- **Type :** mise à jour · observabilité.
+- **Pitch rapide :** la release `v0.160.0` du 31/08/2026 confirme la cadence bimensuelle du Collector. Le sujet architectural est la composition et la stabilité distincte des receivers, processors et exporters.
+- **Utilité :** une distribution interne peut fournir un point de sortie commun vers ELK/APM et les clouds. Version et composants réellement utilisés : **à qualifier** ; la stabilité du core ne garantit pas celle des composants.
+- **Preuves de traction :** **Fait** : le calendrier officiel liste `v0.160.0` le 31/08 après `v0.159.0` le 17/08 ([calendrier OTel](https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/release.md)). **Analyse** : la cadence impose pinning, tests et rollback. **Inférence** : une image interne minimale est préférable à une distribution générique non maîtrisée. Décision : **surveiller** ; propriétaire : observabilité ; réexamen : 2026-09-16 ; succès : matrice de composants, test de charge et restauration automatisée.
+- **Outils similaires :** Elastic Agent, distribution intégrée ; Vector, pipeline performant ; Fluent Bit, agent léger.
 
 ## Sujets écartés
 
-- MCP, Agent Sandbox, agentgateway, Kubeflow, kgateway, Cloud Native Buildpacks, Nomad, Vault, OpenTelemetry GenAI/entity events/cardinality et ECS Action Logs : déjà présents dans les 90 derniers jours sans évolution substantielle supplémentaire vérifiée.
-- Terraform 1.17 alpha : évolution intéressante mais déjà signalée le 29/08 ; la version stable 1.16 est retenue comme mise à jour distincte.
-- Les résultats GitHub Trending, Trendshift et Google Trends : utilisés pour découverte, mais aucune preuve autonome suffisante n’a été retenue.
+- Elastic Agent OTel et Elastic Cloud Serverless : mises à jour opérationnelles utiles mais écartées pour respecter le plafond de 50 % de mises à jour.
+- MCP, Agent Sandbox, agentgateway, Kubeflow, kgateway, Cloud Native Buildpacks, Nomad, Vault, OpenTelemetry GenAI/entity events/cardinality et ECS Action Logs : déjà présents dans les 90 derniers jours sans évolution substantielle vérifiée.
+- AWS Blocks : nouveauté intéressante mais annoncée le 16/06/2026 ; hors fenêtre de découverte de 30 jours, conservée pour une qualification ultérieure si une preuve récente apparaît.
 
 ## Sources consultées
 
-- [Kubernetes blog](https://kubernetes.io/blog/) et [Kubernetes 1.37](https://kubernetes.io/releases/1.37/)
+- [Cloudflare Computer](https://blog.cloudflare.com/cloudflare-computer/)
+- [Cloudflare Agents](https://blog.cloudflare.com/agents-on-cloudflare/)
+- [Bilan LitmusChaos par la CNCF](https://www.cncf.io/blog/2026/08/06/litmuschaos-q1-q2-2026-update-community-contributions-and-project-progress/)
+- [Kubernetes 1.37](https://kubernetes.io/releases/1.37/) et [blog Kubernetes](https://kubernetes.io/blog/)
 - [Terraform 1.16.0](https://github.com/hashicorp/terraform/releases/tag/v1.16.0)
-- [OpenTelemetry release calendar](https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/release.md)
-- [Elastic Agent known issues](https://www.elastic.co/docs/release-notes/elastic-agent/known-issues)
-- [Elastic Cloud Serverless changelog](https://www.elastic.co/docs/release-notes/cloud-serverless)
-- [Elastic archive August 2026](https://www.elastic.co/blog/archive/2026/august) pour contrôle ECK et releases récentes
+- [Calendrier OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/release.md)
 
 ## Sources en échec
 
-- Les URLs directes des articles Kubernetes SVM/RangeStream et l’article Elastic ECK 3.5 ont renvoyé une erreur d’ouverture. Les faits Kubernetes retenus sont confirmés par l’index officiel du blog ; ECK 3.5 n’est pas retenu comme sujet.
+- Les URLs directes des articles Kubernetes SVM/RangeStream et Elastic ECK n’ont pas été retenues après échec d’ouverture ; les faits Kubernetes sont limités aux pages officielles accessibles.
 - Google Trends n’a pas fourni de comparaison désambiguïsée exploitable dans cette exécution.

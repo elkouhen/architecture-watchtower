@@ -3,6 +3,18 @@
 feedback:
   - date: 2026-09-02
     report: radar-architecture
+    item: "Équilibre nouveautés / mises à jour"
+    factual_accuracy: 2
+    source_quality: 2
+    architectural_value: 2
+    pitch_clarity: 2
+    action_quality: 2
+    noise: 0
+    outcome: "useful"
+    correction: "Le radar doit contenir au moins 50 % de nouveaux projets, services ou patterns ; plafonner les mises à jour à la moitié et réduire le nombre total si nécessaire."
+    recheck_date: 2026-09-09
+  - date: 2026-09-02
+    report: radar-architecture
     item: "Collecte du jour"
     factual_accuracy: 2
     source_quality: 2

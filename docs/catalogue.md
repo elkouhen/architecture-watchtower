@@ -6,6 +6,9 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [Cloudflare Computer](https://blog.cloudflare.com/cloudflare-computer/) | plateforme agents | à qualifier | [02/09](../dist/2026-09-02/radar-architecture.md#cloudflare-computer--un-ordinateur-pour-les-agents) | early preview · 03/08 |
+| [Cloudflare Agents](https://blog.cloudflare.com/agents-on-cloudflare/) | service agents/observabilité | à qualifier | [02/09](../dist/2026-09-02/radar-architecture.md#cloudflare-agents--déployer-et-observer-des-agents) | annonce · 04/08 |
+| [LitmusChaos](https://litmuschaos.io/) | plateforme chaos engineering | à qualifier | [02/09](../dist/2026-09-02/radar-architecture.md#litmuschaos--tester-la-résilience-des-plateformes) | bilan CNCF · 06/08 |
 | [Kubeflow](https://www.kubeflow.org/) | plateforme IA/ML | à qualifier | [30/08](../dist/2026-08-30/radar-architecture.md#kubeflow-graduation-cncf) | graduation CNCF · 17/08 |
 | [kgateway](https://github.com/kgateway-dev/kgateway) | gateway Kubernetes | à qualifier | [30/08](../dist/2026-08-30/radar-architecture.md#kgateway-24) | v2.4.1 · 27/07 |
 | [Cloud Native Buildpacks](https://buildpacks.io/) | standard/outillage CI | émergente | [30/08](../dist/2026-08-30/radar-architecture.md#cloud-native-buildpacks-graduation) | graduation CNCF · 11/08 |
