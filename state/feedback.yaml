@@ -1,6 +1,18 @@
 # Feedback de qualité des rapports.
 # Une entrée peut être ajoutée après chaque rapport ou lors de la revue mensuelle.
-feedback: []
+feedback:
+  - date: 2026-09-02
+    report: radar-architecture
+    item: "Collecte du jour"
+    factual_accuracy: 2
+    source_quality: 2
+    architectural_value: 2
+    pitch_clarity: 2
+    action_quality: 2
+    noise: 0
+    outcome: "pending"
+    correction: "Les pages directes Kubernetes SVM/RangeStream et Elastic ECK ont échoué à l’ouverture ; vérifier ces URLs au prochain cycle."
+    recheck_date: 2026-09-09
 
 # Modèle recommandé :
 # - date: 2026-08-28

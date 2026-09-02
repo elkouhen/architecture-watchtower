@@ -10,6 +10,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 ## Livrables
 
 - Radar quotidien : `dist/YYYY-MM-DD/radar-architecture.md`
+- Radar du 2 septembre 2026 : [`dist/2026-09-02/radar-architecture.md`](dist/2026-09-02/radar-architecture.md)
 - Radar du 30 août 2026 : [`dist/2026-08-30/radar-architecture.md`](dist/2026-08-30/radar-architecture.md)
 - Carte de service : `dist/YYYY-MM-DD/carte-<service>.md`
 - Registre des signaux : [`state/signals.yaml`](state/signals.yaml)
