@@ -17,7 +17,7 @@ Les livrables actifs sont des fichiers Markdown sous `dist/YYYY-MM-DD/`. Chaque 
 - `carte-<service>.md` (une carte par service exécuté).
 
 Le registre pédagogique `state/learning.yaml` suit les produits étudiés, leur niveau de compréhension et le prochain laboratoire à réaliser.
-L’index transversal `README.md` classe par thème les outils et patterns analysés et fournit les liens vers leurs radars ou cartes de services.
+L’index transversal `docs/catalogue.md` classe par thème les outils et patterns analysés et fournit les liens vers leurs radars ou cartes de services. `docs/rapports.md` indexe les livrables par date et `README.md` sert de page de navigation.
 
 ## Clarté des demandes
 
@@ -29,13 +29,14 @@ Ne pas démarrer une tâche lorsque la demande, son périmètre ou le résultat 
 
 1. Lire la consigne source concernée avant de lancer la recherche.
 2. Dédupliquer exclusivement avec les documents locaux : `state/signals.yaml` (signaux), `state/learning.yaml` (progression), les livrables précédents sous `dist/` et les journaux de décisions locaux. Utiliser 90 jours pour le radar et 30 jours pour les cartes.
-3. Prioriser les sources primaires : bulletins de sécurité, changelogs, release notes, dépôts et documentation des fournisseurs/projets.
+3. Pour un radar, contrôler obligatoirement AWS, GCP et IA sur les voies releases/fonctionnalités, sécurité, lifecycle/dépréciations et disponibilité/régions/quotas/coûts. Prioriser les sources primaires : bulletins de sécurité, changelogs, release notes, dépôts et documentation des fournisseurs/projets.
 4. Ne présenter comme fait que les informations vérifiées. Distinguer explicitement `Fait`, `Analyse`, `Inférence` et `Décision` lorsque ces éléments sont utilisés.
 5. Pour chaque recommandation, indiquer un propriétaire, une échéance ou date de réexamen, et un critère de succès lorsqu’un test est proposé.
-6. Pour chaque signal, conserver au minimum : identifiant stable, URL canonique, produit/version, environnement, première et dernière observation, score, confiance, statut, décision, propriétaire, échéance et livrables associés.
+6. Pour chaque signal créé à partir du 3 septembre 2026, conserver au minimum : identifiant stable, URL canonique, produit/version, environnement, première et dernière observation, notes `impact_architectural`, `urgence`, `pertinence_stack` et `confiance` de 1 à 5, statut, décision, propriétaire, échéance et livrables associés. Une évolution du même sujet met à jour l’entrée existante et son historique.
 7. Écrire le résultat dans le répertoire `dist/<date_du_jour>/` sans écraser un livrable d’une autre date, avec l’extension `.md`.
-8. Vérifier le fichier produit : non vide, sources primaires présentes, sections obligatoires complètes et dates cohérentes avec la cadence. Ne produire que le radar demandé ou la carte de service demandée.
-9. Mettre à jour `README.md` lorsqu’un outil ou pattern est analysé ; conserver une entrée canonique par outil et ajouter le lien vers le nouveau livrable.
+8. Avant toute nouvelle sélection, traiter les signaux `new` ou `open` dont l’échéance est atteinte. Les fermer, les différer, les écarter ou maintenir leur ouverture avec un motif, `last_reviewed` et une nouvelle échéance.
+9. Vérifier le fichier produit : non vide, sources primaires présentes, sections obligatoires complètes, dates cohérentes, preuve de couverture AWS/GCP/IA et quota de 33 % de nouveaux projets open source ou exception motivée. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` ; un échec interdit le commit. Ne produire que le radar demandé ou la carte de service demandée.
+10. Mettre à jour `docs/catalogue.md` lorsqu’un outil ou pattern est analysé, ajouter le livrable à `docs/rapports.md` et conserver `README.md` comme navigation vers les livrables récents.
 
 Pour une carte de service, appliquer `carte-service.md`, produire uniquement le ou les services demandés dans `dist/<date_du_jour>/`, et ne pas régénérer les autres veilles. Une carte doit d’abord enseigner le produit — modèle mental, usages, déploiement et exploitation — puis distinguer l’état documenté du produit de l’état réellement observé dans la stack ; si ce dernier est inconnu, écrire `à qualifier` ou `exposition inconnue`.
 
@@ -46,6 +47,7 @@ Pour une carte de service, appliquer `carte-service.md`, produire uniquement le 
 - Ne pas répéter un sujet déjà signalé, sauf changement substantiel de statut, risque, échéance ou recommandation ; l’indiquer alors comme `Mise à jour`.
 - Retirer du radar les sujets sans évolution pendant deux cycles, sauf risque, échéance ou action active.
 - Les fonctions Preview, beta ou en disponibilité limitée ne doivent pas porter seules un contrôle de production critique ; prévoir une solution de repli.
+- Le radar vise au moins 33 % de nouveaux projets open source, arrondis à l’entier supérieur. Ce quota ne doit jamais masquer une vulnérabilité, un incident, une dépréciation, un changement incompatible ou une évolution AWS/GCP/IA à fort impact ; les mises à jour de produits connus ne sont pas plafonnées.
 
 ## Publication locale
 

@@ -10,12 +10,15 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 ## Livrables
 
 - Radar quotidien : `dist/YYYY-MM-DD/radar-architecture.md`
+- Radar du 3 septembre 2026 : [`dist/2026-09-03/radar-architecture.md`](dist/2026-09-03/radar-architecture.md)
 - Radar du 2 septembre 2026 : [`dist/2026-09-02/radar-architecture.md`](dist/2026-09-02/radar-architecture.md)
 - Radar du 30 août 2026 : [`dist/2026-08-30/radar-architecture.md`](dist/2026-08-30/radar-architecture.md)
 - Carte de service : `dist/YYYY-MM-DD/carte-<service>.md`
 - Registre des signaux : [`state/signals.yaml`](state/signals.yaml)
 - Registre des sources : [`state/sources.yaml`](state/sources.yaml)
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)
+- Validation locale : `ruby scripts/validate_watchtower.rb`
+- Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
 - PRD : [`PRD.md`](PRD.md)
 - Carte du jour : [Model Context Protocol (MCP)](dist/2026-08-29/carte-mcp.md)
 
@@ -26,5 +29,9 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - La déduplication du radar porte sur les trois derniers mois.
 - L’exposition réelle reste `à qualifier` tant que l’inventaire n’est pas établi.
 - La preuve de publication est un commit Git local.
+- Chaque nouveau radar prouve la couverture AWS/GCP/IA et vise 33 % de nouveaux projets open source, sauf exception prioritaire motivée.
+- Le validateur bloque les doublons, les échéances actives dépassées et les index locaux incohérents.
+
+Le hook versionné `.githooks/pre-commit` exécute automatiquement la validation. Pour l’activer dans un nouveau clone : `git config core.hooksPath .githooks`.
 
 Le catalogue évite les doublons entre thèmes ; les rapports et cartes restent regroupés par date pour faciliter la navigation historique.

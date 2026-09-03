@@ -1,6 +1,18 @@
 # Feedback de qualité des rapports.
 # Une entrée peut être ajoutée après chaque rapport ou lors de la revue mensuelle.
 feedback:
+  - date: 2026-09-03
+    report: radar-architecture
+    item: "Collecte AWS/GCP/IA et quota OSS"
+    factual_accuracy: 2
+    source_quality: 2
+    architectural_value: 2
+    pitch_clarity: 2
+    action_quality: 2
+    noise: 0
+    outcome: "pending"
+    correction: "Couverture primaire des quatre voies consignée ; quatre nouveaux projets OSS sur sept sujets. Vérifier les licences et releases avant tout test."
+    recheck_date: 2026-09-10
   - date: 2026-09-02
     report: radar-architecture
     item: "Équilibre nouveautés / mises à jour"
@@ -13,6 +25,19 @@ feedback:
     outcome: "useful"
     correction: "Le radar doit contenir au moins 50 % de nouveaux projets, services ou patterns ; plafonner les mises à jour à la moitié et réduire le nombre total si nécessaire."
     recheck_date: 2026-09-09
+    superseded_by: 2026-09-03
+  - date: 2026-09-03
+    report: radar-architecture
+    item: "Quota open source et couverture Cloud/IA"
+    factual_accuracy: 2
+    source_quality: 2
+    architectural_value: 2
+    pitch_clarity: 2
+    action_quality: 2
+    noise: 0
+    outcome: "pending"
+    correction: "Viser 33 % de nouveaux projets open source sans plafonner les mises à jour ; imposer la couverture AWS/GCP/IA et laisser les alertes prioritaires déroger au quota."
+    recheck_date: 2026-09-10
   - date: 2026-09-02
     report: radar-architecture
     item: "Collecte du jour"

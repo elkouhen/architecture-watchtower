@@ -1,6 +1,160 @@
 # Registre de veille — modèle. Une entrée par signal canonique.
 # Les livraisons sont locales : leur preuve est le commit Git qui contient le livrable.
+schema_version: 2
+scoring_policy:
+  effective_from: 2026-09-03
+  scale: "1..5"
+  dimensions: [impact_architectural, urgence, pertinence_stack, confiance]
+  legacy_field: "legacy_score conserve les anciens scores sans être utilisé pour les nouvelles sélections."
+  identity_rule: "Un identifiant reste stable ; une évolution du même sujet met à jour l'entrée et son historique au lieu de créer un doublon."
 signals:
+  - id: SIG-2026-09-03-001
+    canonical_url: https://cloud.google.com/run/docs/release-notes
+    subject: "Cloud Run ajoute les identités d’agents managées et l’enregistrement Agent Registry"
+    product_version: "Cloud Run Agent Platform integration (2026-09-01)"
+    environment: "unknown"
+    first_seen: 2026-09-03
+    last_seen: 2026-09-03
+    impact_architectural: 5
+    urgence: 3
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "IA/plateforme"
+    due_date: 2026-09-17
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-03/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-03-002
+    canonical_url: https://cloud.google.com/kubernetes-engine/security-bulletins
+    subject: "GKE Multi-Cloud corrige une vérification d’autorisation manquante"
+    product_version: "GKE Multi-Cloud APIs bulletin GCP-2026-058"
+    environment: "unknown"
+    first_seen: 2026-09-03
+    last_seen: 2026-09-03
+    impact_architectural: 4
+    urgence: 5
+    pertinence_stack: 3
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "sécurité/plateforme"
+    due_date: 2026-09-10
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-03/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-03-003
+    canonical_url: https://platform.claude.com/docs/en/release-notes/overview
+    subject: "Claude Fable 5.1 augmente le contexte et la durée des tâches agentiques"
+    product_version: "Claude Fable 5.1 (2026-09-01)"
+    environment: "unknown"
+    first_seen: 2026-09-03
+    last_seen: 2026-09-03
+    impact_architectural: 4
+    urgence: 3
+    pertinence_stack: 3
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "IA/plateforme"
+    due_date: 2026-09-24
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-03/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-03-004
+    canonical_url: https://github.com/deepseek-ai/deepseek-harness
+    subject: "DeepSeek Harness propose un agent harness extensible par plugins"
+    product_version: "DeepSeek Harness developer preview"
+    environment: "unknown"
+    first_seen: 2026-09-03
+    last_seen: 2026-09-03
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "test"
+    owner: "IA/plateforme"
+    due_date: 2026-09-24
+    classification: "nouveau_oss"
+    deliverables:
+      - dist/2026-09-03/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-03-005
+    canonical_url: https://github.com/diegosouzapw/OmniRoute
+    subject: "OmniRoute fournit une passerelle multi-fournisseurs avec fallback et routage"
+    product_version: "OmniRoute v3.8.51"
+    environment: "unknown"
+    first_seen: 2026-09-03
+    last_seen: 2026-09-03
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "qualify"
+    owner: "IA/plateforme"
+    due_date: 2026-09-24
+    classification: "nouveau_oss"
+    deliverables:
+      - dist/2026-09-03/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-03-006
+    canonical_url: https://github.com/arcboxlabs/arcbox
+    subject: "Arcbox isole les agents dans des machines compatibles OCI à démarrage rapide"
+    product_version: "Arcbox developer preview"
+    environment: "unknown"
+    first_seen: 2026-09-03
+    last_seen: 2026-09-03
+    impact_architectural: 5
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "test"
+    owner: "plateforme/sécurité"
+    due_date: 2026-09-24
+    classification: "nouveau_oss"
+    deliverables:
+      - dist/2026-09-03/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-03-007
+    canonical_url: https://github.com/ulab-uiuc/LLMRouter
+    subject: "LLMRouter explore le routage de modèles comme bibliothèque open source"
+    product_version: "LLMRouter current repository"
+    environment: "unknown"
+    first_seen: 2026-09-03
+    last_seen: 2026-09-03
+    impact_architectural: 3
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-10-01
+    classification: "nouveau_oss"
+    deliverables:
+      - dist/2026-09-03/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
   - id: SIG-2026-09-02-001
     canonical_url: https://blog.cloudflare.com/cloudflare-computer/
     subject: "Cloudflare Computer propose un runtime de travail pour agents"
@@ -8,7 +162,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-09-02
     last_seen: 2026-09-02
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
@@ -25,7 +179,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-09-02
     last_seen: 2026-09-02
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -42,7 +196,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-09-02
     last_seen: 2026-09-02
-    score: 7
+    legacy_score: 7
     confidence: "medium"
     status: "new"
     decision: "test"
@@ -59,7 +213,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -71,19 +225,25 @@ signals:
     discard_reason: null
   - id: SIG-2026-08-27-001
     canonical_url: https://kubernetes.io/releases/1.37/
-    subject: "Kubernetes 1.37.0 disponible"
-    product_version: "Kubernetes 1.37.0"
+    subject: "Kubernetes 1.37.0 disponible, puis Storage Version Migration GA et RangeStream beta"
+    product_version: "Kubernetes 1.37"
     environment: "unknown"
     first_seen: 2026-08-27
-    last_seen: 2026-08-28
-    score: 7
+    last_seen: 2026-09-02
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
     owner: "plateforme Kubernetes"
-    due_date: 2026-09-15
+    due_date: 2026-09-16
     deliverables:
       - dist/2026-08-27/radar-architecture.md
+      - dist/2026-09-02/radar-architecture.md
+    history:
+      - date: 2026-08-27
+        change: "Release 1.37.0 observée."
+      - date: 2026-09-02
+        change: "Mise à jour substantielle : Storage Version Migration GA et RangeStream beta."
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-27-002
@@ -93,12 +253,14 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-27
     last_seen: 2026-08-28
-    score: 5
+    legacy_score: 5
     confidence: "high"
-    status: "open"
-    decision: "qualify"
+    status: "closed"
+    decision: "monitor"
     owner: "observabilité"
     due_date: 2026-08-29
+    last_reviewed: 2026-09-03
+    review_note: "Incident fournisseur résolu ; aucune exposition locale n'est démontrée. Réouvrir uniquement en cas de récidive ou d'inventaire confirmant un impact."
     deliverables:
       - dist/2026-08-27/carte-elasticsearch.md
     publication: "local_commit"
@@ -110,12 +272,14 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-27
     last_seen: 2026-08-27
-    score: 6
+    legacy_score: 6
     confidence: "high"
-    status: "new"
+    status: "deferred"
     decision: "qualify"
     owner: "plateforme/observabilité"
-    due_date: 2026-09-03
+    due_date: 2026-09-10
+    last_reviewed: 2026-09-03
+    review_note: "La version 9.5.2 reste documentée comme version courante ; qualification reportée jusqu'à l'inventaire des versions Elastic réellement déployées."
     deliverables:
       - dist/2026-08-27/radar-architecture.md
       - dist/2026-08-27/carte-elasticsearch.md
@@ -128,7 +292,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
@@ -146,7 +310,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -161,15 +325,16 @@ signals:
     subject: "Le groupe de travail Kubernetes AI Gateway développe des patterns de routage IA"
     product_version: "non applicable"
     environment: "unknown"
-    first_seen: 2026-08-28
+    first_seen: 2026-08-27
     last_seen: 2026-08-28
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "monitor"
     owner: "plateforme Kubernetes"
     due_date: 2026-09-30
     deliverables:
+      - dist/2026-08-27/radar-architecture.md
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
@@ -180,7 +345,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -197,7 +362,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 6
+    legacy_score: 6
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -214,7 +379,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 6
+    legacy_score: 6
     confidence: "medium"
     status: "new"
     decision: "monitor"
@@ -231,29 +396,12 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-27
     last_seen: 2026-08-27
-    score: 6
+    legacy_score: 6
     confidence: "medium"
     status: "new"
     decision: "test"
     owner: "IA/observabilité"
     due_date: 2026-09-05
-    deliverables:
-      - dist/2026-08-27/radar-architecture.md
-    publication: "local_commit"
-    discard_reason: null
-  - id: SIG-2026-08-27-005
-    canonical_url: https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/
-    subject: "AI Gateway et inference gateway sur Kubernetes"
-    product_version: "non applicable"
-    environment: "unknown"
-    first_seen: 2026-08-27
-    last_seen: 2026-08-27
-    score: 5
-    confidence: "medium"
-    status: "new"
-    decision: "monitor"
-    owner: "plateforme Kubernetes"
-    due_date: 2026-09-15
     deliverables:
       - dist/2026-08-27/radar-architecture.md
     publication: "local_commit"
@@ -265,7 +413,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
@@ -282,7 +430,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 6
+    legacy_score: 6
     confidence: "low"
     status: "new"
     decision: "monitor"
@@ -299,7 +447,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 6
+    legacy_score: 6
     confidence: "low"
     status: "new"
     decision: "monitor"
@@ -316,7 +464,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 5
+    legacy_score: 5
     confidence: "low"
     status: "new"
     decision: "monitor"
@@ -333,7 +481,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
@@ -350,7 +498,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
@@ -367,7 +515,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-28
     last_seen: 2026-08-28
-    score: 7
+    legacy_score: 7
     confidence: "medium"
     status: "new"
     decision: "test"
@@ -384,7 +532,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 6
+    legacy_score: 6
     confidence: "medium"
     status: "new"
     decision: "monitor"
@@ -401,7 +549,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 4
+    legacy_score: 4
     confidence: "medium"
     status: "new"
     decision: "monitor"
@@ -418,7 +566,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 6
+    legacy_score: 6
     confidence: "low"
     status: "new"
     decision: "monitor"
@@ -428,14 +576,14 @@ signals:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
-  - id: SIG-2026-08-29-001
+  - id: SIG-2026-08-29-016
     canonical_url: https://github.com/openJiuwen-ai/jiuwenswarm
     subject: "JiuwenSwarm remonte en tête du Trendshift daily avec une plateforme multi-agents distribuée"
     product_version: "v0.2.4.beta3 documentée"
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -452,7 +600,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 7
+    legacy_score: 7
     confidence: "medium"
     status: "new"
     decision: "monitor"
@@ -470,7 +618,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -487,7 +635,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -504,7 +652,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 9
+    legacy_score: 9
     confidence: "high"
     status: "open"
     decision: "qualify"
@@ -521,7 +669,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -538,7 +686,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -555,7 +703,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -572,7 +720,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -589,7 +737,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -606,7 +754,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -623,7 +771,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-29
     last_seen: 2026-08-29
-    score: 6
+    legacy_score: 6
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -641,7 +789,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-30
     last_seen: 2026-08-30
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -657,7 +805,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-30
     last_seen: 2026-08-30
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
@@ -673,7 +821,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-30
     last_seen: 2026-08-30
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "monitor"
@@ -689,7 +837,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-08-30
     last_seen: 2026-08-30
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "open"
     decision: "qualify"
@@ -700,66 +848,39 @@ signals:
     discard_reason: null
   - id: SIG-2026-08-30-005
     canonical_url: https://github.com/open-telemetry/opentelemetry-collector-releases
-    subject: "OpenTelemetry Collector 0.159 confirme une cadence bimensuelle et une gouvernance par stabilité de composants"
-    product_version: "OpenTelemetry Collector v0.159.0"
+    subject: "OpenTelemetry Collector 0.159 puis 0.160 confirme une cadence bimensuelle et une gouvernance par stabilité de composants"
+    product_version: "OpenTelemetry Collector v0.160.0"
     environment: "unknown"
     first_seen: 2026-08-30
-    last_seen: 2026-08-30
-    score: 6
+    last_seen: 2026-09-02
+    legacy_score: 6
     confidence: "high"
     status: "new"
     decision: "monitor"
     owner: "observabilité"
-    due_date: 2026-09-14
-    deliverables: [dist/2026-08-30/radar-architecture.md]
+    due_date: 2026-09-16
+    deliverables: [dist/2026-08-30/radar-architecture.md, dist/2026-09-02/radar-architecture.md]
+    history:
+      - date: 2026-08-30
+        change: "Version 0.159 et cadence bimensuelle observées."
+      - date: 2026-09-02
+        change: "Mise à jour vers 0.160.0."
     publication: "local_commit"
     discard_reason: null
 
-  - id: SIG-2026-09-02-001
-    canonical_url: https://kubernetes.io/releases/1.37/
-    subject: "Kubernetes 1.37 rend Storage Version Migration GA et RangeStream beta"
-    product_version: "Kubernetes 1.37"
-    environment: "unknown"
-    first_seen: 2026-09-02
-    last_seen: 2026-09-02
-    score: 8
-    confidence: "high"
-    status: "new"
-    decision: "test"
-    owner: "plateforme Kubernetes"
-    due_date: 2026-09-16
-    deliverables: [dist/2026-09-02/radar-architecture.md]
-    publication: "local_commit"
-    discard_reason: null
-  - id: SIG-2026-09-02-002
+  - id: SIG-2026-09-02-006
     canonical_url: https://github.com/hashicorp/terraform/releases/tag/v1.16.0
     subject: "Terraform 1.16 stabilise le stockage privé planifié et les imports modulaires"
     product_version: "Terraform 1.16.0"
     environment: "unknown"
     first_seen: 2026-09-02
     last_seen: 2026-09-02
-    score: 8
+    legacy_score: 8
     confidence: "high"
     status: "new"
     decision: "test"
     owner: "IaC"
     due_date: 2026-09-18
-    deliverables: [dist/2026-09-02/radar-architecture.md]
-    publication: "local_commit"
-    discard_reason: null
-  - id: SIG-2026-09-02-003
-    canonical_url: https://github.com/open-telemetry/opentelemetry-collector-releases
-    subject: "OpenTelemetry Collector 0.160 confirme la cadence bimensuelle"
-    product_version: "OpenTelemetry Collector 0.160.0"
-    environment: "unknown"
-    first_seen: 2026-09-02
-    last_seen: 2026-09-02
-    score: 6
-    confidence: "high"
-    status: "new"
-    decision: "monitor"
-    owner: "observabilité"
-    due_date: 2026-09-16
     deliverables: [dist/2026-09-02/radar-architecture.md]
     publication: "local_commit"
     discard_reason: null
@@ -770,7 +891,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-09-02
     last_seen: 2026-09-02
-    score: 9
+    legacy_score: 9
     confidence: "high"
     status: "open"
     decision: "qualify"
@@ -786,7 +907,7 @@ signals:
     environment: "unknown"
     first_seen: 2026-09-02
     last_seen: 2026-09-02
-    score: 7
+    legacy_score: 7
     confidence: "high"
     status: "new"
     decision: "qualify"
@@ -804,12 +925,16 @@ signals:
 #   environment: "production|staging|unknown"
 #   first_seen: 2026-08-27
 #   last_seen: 2026-08-27
-#   score: 0
-#   confidence: "high|medium|low"
+#   impact_architectural: 1..5
+#   urgence: 1..5
+#   pertinence_stack: 1..5
+#   confiance: 1..5
 #   status: "new|open|closed|deferred|discarded"
 #   decision: "monitor|qualify|test|adopt|avoid"
 #   owner: "équipe ou rôle"
 #   due_date: 2026-09-15
+#   last_reviewed: null
+#   review_note: null
 #   deliverables: ["dist/AAAA-MM-JJ/radar-architecture.md"]
 #   publication: "local_commit"
 #   discard_reason: null

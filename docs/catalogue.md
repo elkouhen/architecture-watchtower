@@ -6,6 +6,13 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [Cloud Run Agent Identity](https://cloud.google.com/run/docs/release-notes) | service agents | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#cloud-run--identités-dagents-et-agent-registry) | GA/Preview · 01/09 |
+| [GKE Multi-Cloud bulletin GCP-2026-058](https://cloud.google.com/kubernetes-engine/security-bulletins) | sécurité | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#gke-multi-cloud--correctif-dautorisation) | correctif · 02/09 |
+| [Claude Fable 5.1](https://platform.claude.com/docs/en/release-notes/overview) | modèle | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#claude-fable-51--contexte-et-tâches-longues) | release · 01/09 |
+| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | outil agents | signal faible | [03/09](../dist/2026-09-03/radar-architecture.md#deepseek-harness--harness-dagents-par-plugins) | preview · 03/09 |
+| [OmniRoute](https://github.com/diegosouzapw/OmniRoute) | gateway IA | signal faible | [03/09](../dist/2026-09-03/radar-architecture.md#omniroute--gateway-multi-fournisseurs) | v3.8.51 · 03/09 |
+| [Arcbox](https://github.com/arcboxlabs/arcbox) | isolation agents | signal faible | [03/09](../dist/2026-09-03/radar-architecture.md#arcbox--isolation-dagents-compatible-oci) | projet · 03/09 |
+| [LLMRouter](https://github.com/ulab-uiuc/LLMRouter) | bibliothèque routage | signal faible | [03/09](../dist/2026-09-03/radar-architecture.md#llmrouter--routage-de-modèles) | projet · 03/09 |
 | [Cloudflare Computer](https://blog.cloudflare.com/cloudflare-computer/) | plateforme agents | à qualifier | [02/09](../dist/2026-09-02/radar-architecture.md#cloudflare-computer--un-ordinateur-pour-les-agents) | early preview · 03/08 |
 | [Cloudflare Agents](https://blog.cloudflare.com/agents-on-cloudflare/) | service agents/observabilité | à qualifier | [02/09](../dist/2026-09-02/radar-architecture.md#cloudflare-agents--déployer-et-observer-des-agents) | annonce · 04/08 |
 | [LitmusChaos](https://litmuschaos.io/) | plateforme chaos engineering | à qualifier | [02/09](../dist/2026-09-02/radar-architecture.md#litmuschaos--tester-la-résilience-des-plateformes) | bilan CNCF · 06/08 |

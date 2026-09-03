@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+
+ruby scripts/validate_watchtower.rb

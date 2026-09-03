@@ -1,5 +1,26 @@
 # Registre local des sources de veille.
 # Les sources de découverte servent à trouver un sujet ; une source primaire doit confirmer les faits importants.
+schema_version: 2
+
+# Chaque radar doit contrôler toutes les voies ci-dessous. Les listes référencent
+# des identifiants du catalogue `sources`; une source peut couvrir plusieurs voies.
+coverage_requirements:
+  AWS:
+    releases_features: [aws-whats-new, aws-bedrock-history]
+    security: [aws-security-bulletins]
+    lifecycle_deprecations: [aws-eks-lifecycle, aws-bedrock-history]
+    availability_quotas_costs: [aws-whats-new, aws-bedrock-history]
+  GCP:
+    releases_features: [gcp-release-notes, gke-release-notes, vertex-ai-release-notes]
+    security: [gcp-security-bulletins, gke-security-bulletins]
+    lifecycle_deprecations: [gcp-deprecation-policy, gke-release-notes, vertex-ai-release-notes]
+    availability_quotas_costs: [gcp-release-notes, vertex-ai-release-notes]
+  IA:
+    releases_features: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
+    security: [aws-security-bulletins, gcp-security-bulletins]
+    lifecycle_deprecations: [aws-bedrock-history, vertex-ai-release-notes, openai-api-deprecations, anthropic-release-notes]
+    availability_quotas_costs: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
+
 sources:
   - id: kubernetes-official
     name: Kubernetes releases, blog and documentation
@@ -9,7 +30,10 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://github.com/kubernetes/kubernetes/releases
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Confirmer versions, dépréciations, APIs et calendriers."
   - id: elastic-official
     name: Elastic release notes, advisories and status
@@ -19,7 +43,10 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://status.elastic.co/
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Séparer release documentée, incident fournisseur et exposition locale."
   - id: opentelemetry-official
     name: OpenTelemetry specifications and repositories
@@ -29,7 +56,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/open-telemetry
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Vérifier le niveau de stabilité des conventions et leur implémentation."
   - id: github-releases
     name: GitHub repositories and releases
@@ -39,7 +69,10 @@ sources:
     cadence: daily
     reliability: medium
     fallback: https://github.com/trending
-    last_checked: 2026-08-28
+    last_attempt: 2026-08-28
+    last_success: 2026-08-28
+    last_item_seen: unknown
+    status: ok
     notes: "La release est primaire pour le projet ; la popularité reste un signal de découverte."
   - id: mcp-specification
     name: Model Context Protocol specification and changelog
@@ -49,7 +82,10 @@ sources:
     cadence: per_release
     reliability: high
     fallback: https://github.com/modelcontextprotocol/modelcontextprotocol/releases
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Vérifier la version stable, le changelog, les extensions, les dépréciations et la compatibilité des SDK."
   - id: github-repository-metadata
     name: GitHub repository metadata and activity
@@ -59,7 +95,10 @@ sources:
     cadence: daily
     reliability: medium
     fallback: https://github.com/explore
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Mesurer étoiles, forks, issues, commits et dernière release avec une date de mesure. Ces métriques indiquent une visibilité ou activité, jamais la maturité, sécurité ou adoption."
   - id: github-trending
     name: GitHub Trending and topic pages
@@ -69,7 +108,10 @@ sources:
     cadence: daily
     reliability: low
     fallback: https://github.com/explore
-    last_checked: 2026-08-28
+    last_attempt: 2026-08-28
+    last_success: 2026-08-28
+    last_item_seen: unknown
+    status: ok
     notes: "Ne jamais utiliser seul pour conclure à la maturité, sécurité ou adoption."
   - id: trendshift
     name: Trendshift live trending GitHub repositories
@@ -79,7 +121,10 @@ sources:
     cadence: daily
     reliability: low
     fallback: https://trendshift.io/
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Utiliser pour la fraîcheur et l’accélération ; confirmer chaque projet dans son dépôt primaire. Filtrer les dépôts suspects, vides ou sans utilité architecturale."
   - id: google-trends
     name: Google Trends
@@ -89,7 +134,10 @@ sources:
     cadence: weekly
     reliability: low
     fallback: https://trends.google.com/trends/
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Mesurer l’intérêt de recherche et les requêtes associées pour détecter un momentum émergent. Ne jamais utiliser seul pour prouver traction, qualité, maturité, sécurité ou adoption ; désambiguïser les termes et confirmer dans des sources primaires."
 
   - id: kubernetes-security
@@ -100,7 +148,10 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://github.com/kubernetes/kubernetes/security/advisories
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Confirmer CVE, versions affectées, correctif et conditions d’exposition. Une alerte ne prouve pas que la stack est exposée."
 
   - id: kubernetes-lifecycle
@@ -111,7 +162,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://kubernetes.io/releases/
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Qualifier support, fenêtres d’upgrade, compatibilité control plane/nodes et dépréciations avant toute recommandation."
 
   - id: elastic-security
@@ -122,7 +176,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://www.elastic.co/support/security
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Relier l’avis à la version et au mode Elastic concerné ; distinguer correctif disponible, exposition locale et incident fournisseur."
 
   - id: elastic-lifecycle
@@ -133,7 +190,10 @@ sources:
     cadence: monthly
     reliability: high
     fallback: https://www.elastic.co/support/matrix
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Détecter les échéances de support et les migrations à planifier ; conserver la version réellement déployée comme inconnue tant qu’elle n’est pas inventoriée."
 
   - id: opentelemetry-releases
@@ -144,7 +204,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://opentelemetry.io/docs/collector/
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Vérifier version, statut stable/beta/experimental, compatibilité des composants et procédure d’upgrade."
 
   - id: cncf-landscape
@@ -155,7 +218,10 @@ sources:
     cadence: weekly
     reliability: medium
     fallback: https://www.cncf.io/blog/
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Découvrir des catégories et projets ; confirmer ensuite dans les dépôts, releases, documentations et avis de sécurité officiels."
 
   - id: aws-whats-new
@@ -166,7 +232,10 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://docs.aws.amazon.com/whats-new/
-    last_checked: 2026-08-29
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
     notes: "Suivre les changements de service, régions, limites et intégrations ; une annonce ne suffit pas à conclure au fit ou à la disponibilité dans les comptes utilisés."
 
   - id: aws-security-bulletins
@@ -177,8 +246,39 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://aws.amazon.com/security/
-    last_checked: null
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
     notes: "Qualifier services, régions et mesures correctives ; compléter par l’inventaire des comptes et workloads concernés."
+
+  - id: aws-eks-lifecycle
+    name: Amazon EKS Kubernetes version lifecycle
+    type: primary
+    url: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html
+    topics: [aws, eks, kubernetes, lifecycle, compatibility, costs]
+    cadence: weekly
+    reliability: high
+    fallback: https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Suivre support standard et étendu, versions disponibles, dates de fin de support et coût du support étendu."
+
+  - id: aws-bedrock-history
+    name: Amazon Bedrock user guide document history
+    type: primary
+    url: https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-ug-doc-history.html
+    topics: [aws, bedrock, ai, models, agents, regions, quotas, lifecycle]
+    cadence: daily
+    reliability: high
+    fallback: https://aws.amazon.com/bedrock/whats-new/
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Vérifier modèles, APIs, régions, quotas, permissions, statuts legacy et changements qui modifient l’architecture d’inférence."
 
   - id: gcp-release-notes
     name: Google Cloud release notes
@@ -188,8 +288,123 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://cloud.google.com/feeds/cloud-release-notes.xml
-    last_checked: null
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
     notes: "Filtrer par produit et région, puis vérifier disponibilité, quotas, breaking changes et documentation de migration."
+
+  - id: gcp-security-bulletins
+    name: Google Cloud security bulletins
+    type: primary
+    url: https://cloud.google.com/support/bulletins
+    topics: [gcp, security, vulnerabilities, vertex-ai, iam]
+    cadence: daily
+    reliability: high
+    fallback: https://cloud.google.com/security
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Qualifier produit, version ou SDK, correctif fournisseur et exposition réelle avant de recommander une action."
+
+  - id: gcp-deprecation-policy
+    name: Google Cloud deprecation policy
+    type: primary
+    url: https://cloud.google.com/terms/deprecation
+    topics: [gcp, lifecycle, deprecations, compatibility]
+    cadence: monthly
+    reliability: high
+    fallback: https://cloud.google.com/release-notes
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Compléter la politique générale avec les avis et calendriers propres à chaque produit."
+
+  - id: gke-release-notes
+    name: Google Kubernetes Engine release notes
+    type: primary
+    url: https://cloud.google.com/kubernetes-engine/docs/release-notes
+    topics: [gcp, gke, kubernetes, releases, lifecycle, regions]
+    cadence: daily
+    reliability: high
+    fallback: https://cloud.google.com/kubernetes-engine/docs/release-notes-new-features
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Suivre canaux, versions, auto-upgrades, fonctionnalités, correctifs, problèmes connus et dépréciations."
+
+  - id: gke-security-bulletins
+    name: Google Kubernetes Engine security bulletins
+    type: primary
+    url: https://cloud.google.com/kubernetes-engine/security-bulletins
+    topics: [gcp, gke, kubernetes, security, vulnerabilities]
+    cadence: daily
+    reliability: high
+    fallback: https://cloud.google.com/kubernetes-engine/docs/resources/security-patching
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Relier chaque bulletin aux versions, images de nœuds, canaux et configurations réellement utilisés."
+
+  - id: vertex-ai-release-notes
+    name: Vertex AI release notes
+    type: primary
+    url: https://cloud.google.com/vertex-ai/docs/core-release-notes
+    topics: [gcp, vertex-ai, ai, models, agents, regions, quotas, lifecycle]
+    cadence: daily
+    reliability: high
+    fallback: https://cloud.google.com/release-notes?product=Vertex%20AI
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Vérifier modèles, APIs, régions, quotas, sécurité, statuts Preview/GA et dépréciations."
+
+  - id: openai-api-changelog
+    name: OpenAI API changelog
+    type: primary
+    url: https://developers.openai.com/api/docs/changelog
+    topics: [ai, openai, models, agents, apis, quotas]
+    cadence: daily
+    reliability: high
+    fallback: https://developers.openai.com/api/docs/models
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Suivre modèles, APIs, outils, capacités et changements d’exploitation ; vérifier séparément coût et disponibilité."
+
+  - id: openai-api-deprecations
+    name: OpenAI API deprecations
+    type: primary
+    url: https://developers.openai.com/api/docs/deprecations
+    topics: [ai, openai, models, apis, lifecycle, deprecations]
+    cadence: weekly
+    reliability: high
+    fallback: https://developers.openai.com/api/docs/changelog
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Relever date d’annonce, date d’arrêt, remplacement et effort de migration."
+
+  - id: anthropic-release-notes
+    name: Claude Platform release notes
+    type: primary
+    url: https://platform.claude.com/docs/en/release-notes/overview
+    topics: [ai, anthropic, claude, models, agents, apis, lifecycle]
+    cadence: daily
+    reliability: high
+    fallback: https://platform.claude.com/docs/en/home
+    last_attempt: 2026-09-03
+    last_success: 2026-09-03
+    last_item_seen: 2026-09-03-check
+    status: ok
+    notes: "Suivre modèles, APIs, limites, disponibilité, dépréciations et changements de comportement documentés."
 
   - id: github-actions-changelog
     name: GitHub Changelog — Actions and platform
@@ -199,7 +414,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/actions/runner/releases
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Suivre runners, permissions, OIDC, artifacts, cache et changements de comportement ; distinguer fonctionnalité annoncée et disponibilité dans l’organisation."
 
   - id: gitlab-releases
@@ -210,7 +428,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://gitlab.com/gitlab-org/gitlab-runner/-/releases
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Vérifier édition, tier, version self-managed ou SaaS, dépréciations et compatibilité des runners avant de retenir un signal."
 
   - id: terraform-releases
@@ -221,7 +442,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://registry.terraform.io/browse/providers
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Suivre séparément le binaire Terraform et les providers ; vérifier changelog, contraintes de version, migrations d’état et breaking changes."
 
   - id: hashicorp-products
@@ -232,7 +456,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/hashicorp
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Source pivot pour découvrir les produits et leurs documentations ; confirmer chaque évolution dans la page de release ou le dépôt officiel du produit concerné."
 
   - id: hashicorp-releases
@@ -243,7 +470,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/hashicorp
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Suivre les changelogs par produit ; relever version, breaking changes, dépréciations, compatibilité et impact sur installation, upgrade ou retrait."
 
   - id: hashicorp-security
@@ -254,7 +484,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://github.com/hashicorp
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Qualifier produit, versions affectées, vecteur, correctif et exposition ; compléter par les advisories GitHub du dépôt concerné."
 
   - id: hashicorp-lifecycle
@@ -265,7 +498,10 @@ sources:
     cadence: monthly
     reliability: high
     fallback: https://developer.hashicorp.com/
-    last_checked: 2026-08-29
+    last_attempt: 2026-08-29
+    last_success: 2026-08-29
+    last_item_seen: unknown
+    status: ok
     notes: "Surveiller fin de support, canaux de release, éditions et conditions de migration ; ne pas confondre HCP, self-managed et open source."
 
   - id: ossf-scorecard
@@ -276,8 +512,12 @@ sources:
     cadence: monthly
     reliability: medium
     fallback: https://github.com/ossf/scorecard
-    last_checked: null
+    last_attempt: null
+    last_success: null
+    last_item_seen: null
+    status: not_checked
     notes: "Utiliser comme indice de risque de chaîne d’approvisionnement, jamais comme preuve suffisante de sécurité, qualité ou maintenabilité."
 
 # Ajouter une entrée lorsqu’une source est utile, morte, déplacée ou trompeuse.
-# Champs attendus : id, name, type, url, topics, cadence, reliability, fallback, last_checked, notes.
+# Champs attendus : id, name, type, url, topics, cadence, reliability, fallback,
+# last_attempt, last_success, last_item_seen, status et notes.
