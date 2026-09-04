@@ -1,5 +1,9 @@
 # Rapports et cartes
 
+## 4 septembre 2026
+
+- [Radar architecture](../dist/2026-09-04/radar-architecture.md)
+
 ## 3 septembre 2026
 
 - [Radar architecture](../dist/2026-09-03/radar-architecture.md)

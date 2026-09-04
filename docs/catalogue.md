@@ -6,6 +6,11 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [API Gateway model routing hostname](https://cloud.google.com/release-notes) | service réseau | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#api-gateway--hostname-des-passerelles-de-routage) | changement · 03/09 |
+| [AWS Config](https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/) | service gouvernance | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#aws-config--couverture-de-60-nouveaux-types) | 60 types · 02/09 |
+| [Amazon Bedrock Web Search](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/) | service IA | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#bedrock-web-search--ancrage-en-govcloud) | GovCloud · 02/09 |
+| [Amazon S3 PrivateLink FIPS](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/) | sécurité réseau | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#s3--privatelink-pour-endpoints-fips) | FIPS 140-3 · 03/09 |
+| [CICD-for-SageMakerUnifiedStudio](https://github.com/aws/CICD-for-SageMakerUnifiedStudio) | outil CI/CD OSS | signal faible | [04/09](../dist/2026-09-04/radar-architecture.md#sagemaker-unified-studio--promotion-ci-cd) | OSS · 04/09 |
 | [Cloud Run Agent Identity](https://cloud.google.com/run/docs/release-notes) | service agents | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#cloud-run--identités-dagents-et-agent-registry) | GA/Preview · 01/09 |
 | [GKE Multi-Cloud bulletin GCP-2026-058](https://cloud.google.com/kubernetes-engine/security-bulletins) | sécurité | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#gke-multi-cloud--correctif-dautorisation) | correctif · 02/09 |
 | [Claude Fable 5.1](https://platform.claude.com/docs/en/release-notes/overview) | modèle | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#claude-fable-51--contexte-et-tâches-longues) | release · 01/09 |

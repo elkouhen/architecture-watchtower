@@ -8,6 +8,111 @@ scoring_policy:
   legacy_field: "legacy_score conserve les anciens scores sans être utilisé pour les nouvelles sélections."
   identity_rule: "Un identifiant reste stable ; une évolution du même sujet met à jour l'entrée et son historique au lieu de créer un doublon."
 signals:
+  - id: SIG-2026-09-04-001
+    canonical_url: https://cloud.google.com/release-notes
+    subject: "Les nouvelles passerelles de routage de modèles GCP peuvent changer de hostname par défaut"
+    product_version: "API Gateway model routing hostname change (2026-09-03)"
+    environment: "unknown"
+    first_seen: 2026-09-04
+    last_seen: 2026-09-04
+    impact_architectural: 4
+    urgence: 4
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "réseau/plateforme"
+    due_date: 2026-09-11
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-04/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-04-002
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/
+    subject: "AWS Config ajoute 60 types de ressources dont Bedrock et Organizations"
+    product_version: "AWS Config resource types expansion (2026-09-02)"
+    environment: "unknown"
+    first_seen: 2026-09-04
+    last_seen: 2026-09-04
+    impact_architectural: 4
+    urgence: 3
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "sécurité/Cloud"
+    due_date: 2026-09-18
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-04/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-04-003
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/
+    subject: "Bedrock Web Search arrive dans AWS GovCloud US-West"
+    product_version: "Amazon Bedrock Web Search GovCloud (US-West) (2026-09-02)"
+    environment: "unknown"
+    first_seen: 2026-09-04
+    last_seen: 2026-09-04
+    impact_architectural: 4
+    urgence: 3
+    pertinence_stack: 3
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "IA/sécurité"
+    due_date: 2026-09-18
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-04/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-04-004
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/
+    subject: "S3 ajoute des endpoints PrivateLink validés FIPS 140-3"
+    product_version: "Amazon S3 PrivateLink FIPS endpoints (2026-09-03)"
+    environment: "unknown"
+    first_seen: 2026-09-04
+    last_seen: 2026-09-04
+    impact_architectural: 4
+    urgence: 3
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "sécurité/Cloud"
+    due_date: 2026-09-18
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-04/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-04-005
+    canonical_url: https://github.com/aws/CICD-for-SageMakerUnifiedStudio
+    subject: "Le CLI OSS SageMaker Unified Studio étend la promotion CI/CD aux notebooks et manifests assistés par IA"
+    product_version: "SMUS CI/CD CLI (2026-09-02 capabilities)"
+    environment: "unknown"
+    first_seen: 2026-09-04
+    last_seen: 2026-09-04
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "test"
+    owner: "plateforme IA/IaC"
+    due_date: 2026-09-25
+    classification: "nouveau_oss"
+    deliverables:
+      - dist/2026-09-04/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
   - id: SIG-2026-09-03-001
     canonical_url: https://cloud.google.com/run/docs/release-notes
     subject: "Cloud Run ajoute les identités d’agents managées et l’enregistrement Agent Registry"
