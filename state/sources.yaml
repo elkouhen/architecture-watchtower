@@ -420,6 +420,76 @@ sources:
     status: ok
     notes: "Suivre runners, permissions, OIDC, artifacts, cache et changements de comportement ; distinguer fonctionnalité annoncée et disponibilité dans l’organisation."
 
+  - id: gcp-iam-release-notes
+    name: Google Cloud IAM and workload identity release notes
+    type: primary
+    url: https://docs.cloud.google.com/iam/docs/release-notes
+    topics: [gcp, iam, workload-identity, agents, security]
+    cadence: weekly
+    reliability: high
+    fallback: https://docs.cloud.google.com/iam/docs/workload-identity-federation
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-workload-identity-check
+    status: ok
+    notes: "Suivre identités de workloads et d’agents, fédération multicloud, contraintes d’organisation et évolutions de permissions."
+
+  - id: apigee-api-hub-release-notes
+    name: Apigee API hub release notes
+    type: primary
+    url: https://docs.cloud.google.com/apigee/docs/apihub/release-notes
+    topics: [gcp, apigee, api-management, mcp, agents, governance]
+    cadence: weekly
+    reliability: high
+    fallback: https://cloud.google.com/apigee
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-apigee-api-hub-check
+    status: ok
+    notes: "Qualifier API catalog, MCP proxies, Agent Registry, policies, preview/GA et disponibilité des fonctionnalités Apigee."
+
+  - id: airflow-release-notes
+    name: Apache Airflow release notes
+    type: primary
+    url: https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html
+    topics: [airflow, data-platform, orchestration, kubernetes, event-driven]
+    cadence: weekly
+    reliability: high
+    fallback: https://airflow.apache.org/announcements/
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-airflow-release-check
+    status: ok
+    notes: "Suivre architecture, scheduler, assets, multi-team, executors, providers, compatibilité et migrations de version."
+
+  - id: ping-identity-releases
+    name: Ping Identity and Advanced Identity Cloud release notes
+    type: primary
+    url: https://docs.pingidentity.com/pingone/release_notes/
+    topics: [identity, forgerock, ping, agents, mcp, governance]
+    cadence: weekly
+    reliability: high
+    fallback: https://docs.pingidentity.com/pingoneaic/home.html
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-ping-agent-identity-check
+    status: ok
+    notes: "Suivre identité des agents, gouvernance, MCP, audit, compatibilité et renommage ForgeRock vers Ping."
+
+  - id: helm-official
+    name: Helm official releases and lifecycle
+    type: primary
+    url: https://helm.sh/blog/
+    topics: [helm, kubernetes, packaging, oci, lifecycle]
+    cadence: weekly
+    reliability: high
+    fallback: https://docs.helm.sh/helm/
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-helm-lifecycle-check
+    status: ok
+    notes: "Suivre Helm 4, fin de vie Helm 3, format OCI, compatibilité des charts et migrations."
+
   - id: gitlab-releases
     name: GitLab release posts and runner releases
     type: primary

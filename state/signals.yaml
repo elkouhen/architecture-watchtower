@@ -1178,6 +1178,126 @@ signals:
       - dist/2026-09-05/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-09-05-007
+    canonical_url: https://docs.cloud.google.com/iam/docs/workload-identity-federation
+    subject: "Workload Identity Federation étend l’accès sans clés aux workloads multicloud et aux pipelines"
+    product_version: "Google Cloud Workload Identity Federation documentation updated 2026-08-28"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 5
+    urgence: 3
+    pertinence_stack: 5
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "sécurité/plateforme"
+    due_date: 2026-09-19
+    classification: "nouveau_hors_oss"
+    deliverables: []
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-008
+    canonical_url: https://docs.cloud.google.com/apigee/docs/apihub/release-notes
+    subject: "Apigee API hub expose des capacités MCP et Agent Registry pour gouverner les APIs"
+    product_version: "Apigee API hub MCP tools and proxies (2026-04/05)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 5
+    urgence: 2
+    pertinence_stack: 5
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "API management/IA"
+    due_date: 2026-09-19
+    classification: "nouveau_hors_oss"
+    deliverables: []
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-009
+    canonical_url: https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html
+    subject: "Airflow 3.3 renforce l’orchestration data-aware par partitionnement d’assets"
+    product_version: "Apache Airflow 3.3.1 / asset partitioning (2026-08-12)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "data-platform"
+    due_date: 2026-09-26
+    classification: "nouveau_hors_oss"
+    deliverables: []
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-010
+    canonical_url: https://docs.gitlab.com/releases/19/gitlab-19-2-released/
+    subject: "GitLab 19.2 rend le CI/CD agentique opérable avec Duo CLI, MCP et human-in-the-loop"
+    product_version: "GitLab 19.2 Duo CLI and custom flows (2026-07-16)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "monitor"
+    owner: "CI/CD-platform"
+    due_date: 2026-09-26
+    classification: "nouveau_hors_oss"
+    deliverables: []
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-011
+    canonical_url: https://docs.pingidentity.com/pingone/release_notes/
+    subject: "Ping Identity ajoute une gouvernance des agents et un serveur MCP administré"
+    product_version: "PingOne Remote MCP Server early access / AI Agents (2026)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 5
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "IAM/sécurité IA"
+    due_date: 2026-09-26
+    classification: "nouveau_hors_oss"
+    deliverables: []
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-012
+    canonical_url: https://helm.sh/blog/
+    subject: "Helm 4 devient la branche stable tandis que Helm 3 entre en support limité"
+    product_version: "Helm 4 current stable / Helm 3 lifecycle (observed 2026-09-05)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 3
+    urgence: 3
+    pertinence_stack: 4
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme Kubernetes"
+    due_date: 2026-09-26
+    classification: "nouveau_hors_oss"
+    deliverables: []
+    publication: "local_commit"
+    discard_reason: null
 
 # Schéma recommandé pour chaque entrée :
 # - id: SIG-AAAA-MM-JJ-001

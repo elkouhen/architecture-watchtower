@@ -18,6 +18,12 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 | [Amazon S3 PrivateLink FIPS](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/) | sécurité réseau | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#s3--privatelink-pour-endpoints-fips) | FIPS 140-3 · 03/09 |
 | [CICD-for-SageMakerUnifiedStudio](https://github.com/aws/CICD-for-SageMakerUnifiedStudio) | outil CI/CD OSS | signal faible | [04/09](../dist/2026-09-04/radar-architecture.md#sagemaker-unified-studio--promotion-ci-cd) | OSS · 04/09 |
 | [Cloud Run Agent Identity](https://cloud.google.com/run/docs/release-notes) | service agents | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#cloud-run--identités-dagents-et-agent-registry) | GA/Preview · 01/09 |
+| [Google Cloud Workload Identity Federation](https://docs.cloud.google.com/iam/docs/workload-identity-federation) | identité multicloud | à qualifier | prochain radar | clés courtes · 28/08 |
+| [Apigee API hub MCP](https://docs.cloud.google.com/apigee/docs/apihub/release-notes) | API management/agents | à qualifier | prochain radar | MCP/Agent Registry · 2026 |
+| [Apache Airflow 3.3 asset partitioning](https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html) | orchestration data | à qualifier | prochain radar | data-aware · 12/08 |
+| [GitLab 19.2 agentic CI/CD](https://docs.gitlab.com/releases/19/gitlab-19-2-released/) | CI/CD agents | à qualifier | prochain radar | Duo CLI/MCP · 16/07 |
+| [Ping Identity agent governance](https://docs.pingidentity.com/pingone/release_notes/) | IAM/agents | à qualifier | prochain radar | MCP/audit · 31/08 |
+| [Helm 4](https://helm.sh/blog/) | packaging Kubernetes | à qualifier | prochain radar | Helm 3 lifecycle · 2026 |
 | [GKE Multi-Cloud bulletin GCP-2026-058](https://cloud.google.com/kubernetes-engine/security-bulletins) | sécurité | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#gke-multi-cloud--correctif-dautorisation) | correctif · 02/09 |
 | [Claude Fable 5.1](https://platform.claude.com/docs/en/release-notes/overview) | modèle | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#claude-fable-51--contexte-et-tâches-longues) | release · 01/09 |
 | [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | outil agents | signal faible | [03/09](../dist/2026-09-03/radar-architecture.md#deepseek-harness--harness-dagents-par-plugins) | preview · 03/09 |
