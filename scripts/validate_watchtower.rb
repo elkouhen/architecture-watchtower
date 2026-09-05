@@ -20,7 +20,11 @@ def warning(message)
 end
 
 def load_yaml(relative_path)
-  YAML.load_file(ROOT.join(relative_path).to_s)
+  YAML.safe_load(
+    File.read(ROOT.join(relative_path).to_s),
+    permitted_classes: [Date, Time],
+    aliases: true
+  )
 rescue StandardError => e
   error("#{relative_path}: YAML invalide (#{e.message})")
   {}
