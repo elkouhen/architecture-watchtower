@@ -22,6 +22,7 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 | [Apigee API hub MCP](https://docs.cloud.google.com/apigee/docs/apihub/release-notes) | API management/agents | à qualifier | prochain radar | MCP/Agent Registry · 2026 |
 | [Apache Airflow 3.3 asset partitioning](https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html) | orchestration data | à qualifier | prochain radar | data-aware · 12/08 |
 | [GitLab 19.2 agentic CI/CD](https://docs.gitlab.com/releases/19/gitlab-19-2-released/) | CI/CD agents | à qualifier | prochain radar | Duo CLI/MCP · 16/07 |
+| [GitLab Duo Agent Platform](https://docs.gitlab.com/user/duo_agent_platform/) | plateforme CI/CD agentique | découverte | [05/09](../dist/2026-09-05/carte-gitlab-duo-agent-platform.md) | flows/runners/MCP · 2026 |
 | [Ping Identity agent governance](https://docs.pingidentity.com/pingone/release_notes/) | IAM/agents | à qualifier | prochain radar | MCP/audit · 31/08 |
 | [Helm 4](https://helm.sh/blog/) | packaging Kubernetes | à qualifier | prochain radar | Helm 3 lifecycle · 2026 |
 | [GKE Multi-Cloud bulletin GCP-2026-058](https://cloud.google.com/kubernetes-engine/security-bulletins) | sécurité | à qualifier | [03/09](../dist/2026-09-03/radar-architecture.md#gke-multi-cloud--correctif-dautorisation) | correctif · 02/09 |

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CARTE SERVICE — GitLab Duo Agent Platform · Architecture Watchtower</title>
+  <meta name="description" content="Veille Cloud, DevOps, architecture applicative et IA.">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
+    <nav><a href="../../index.html">Rapports</a><a href="../../catalogue.html">Catalogue</a><a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">Dépôt GitHub</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+  </header>
+  <main class="shell">
+    <div class="ai-notice"><span>✦</span> Contenu entièrement géré par IA · <a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">voir le dépôt Git</a></div>
+    <article><div class="eyebrow">2026-09-05 · carte</div><h1 id="carte-service-gitlab-duo-agent-platform">CARTE SERVICE — <a href="https://docs.gitlab.com/user/duo_agent_platform/">GitLab Duo Agent Platform</a></h1>
+<p>Date : 2026-09-05. Type : <code>plateforme CI/CD agentique</code>. Version de référence documentée : GitLab Duo Agent Platform GA depuis GitLab 18.8 ; GitLab 19.2 ajoute notamment Duo CLI GA et les custom flows GA. Version réellement utilisée dans la stack de Mehdi : <code>à qualifier</code>.</p>
+<h2 id="1-type-lien-et-pitch-rapide">1. TYPE, LIEN ET PITCH RAPIDE</h2>
+<p>GitLab Duo Agent Platform est une plateforme d’agents intégrée au cycle de développement GitLab : issues, merge requests, code review, pipelines et outils MCP. Elle est intéressante pour une équipe qui possède déjà GitLab CI/CD car elle rapproche l’assistant agentique, l’exécution contrôlée par runner et les garde-fous de livraison, au lieu d’ajouter un agent externe à côté du pipeline.</p>
+<h2 id="2-resume-decisionnel">2. RÉSUMÉ DÉCISIONNEL</h2>
+<p><strong>Fait :</strong> la plateforme propose des flows spécialisés, des custom flows et des connexions MCP ; les flows exécutés dans CI/CD passent par un runner et le GitLab Duo CLI. <strong>Analyse :</strong> GitLab devient à la fois système de gestion du changement, moteur CI/CD et plan d’exécution d’agents. <strong>Décision proposée :</strong> <code>qualifier</code> l’édition, les droits, le runner et le modèle de données avant toute décision d’intégration. Principal compromis : cohérence native et traçabilité contre dépendance à GitLab Duo, aux crédits et à une exécution d’outils potentiellement puissante.</p>
+<h2 id="3-position-dans-le-systeme">3. POSITION DANS LE SYSTÈME</h2>
+<pre><code>développeur / issue / merge request / événement pipeline
+                         │
+                         ▼
+GitLab Duo Agent Platform ──► flow spécialisé ou custom flow
+                         │
+                         ▼
+GitLab CI/CD runner ──► Duo CLI ──► dépôt, Git, tests, outils MCP
+                         │                         │
+                         └──────────────► commit / MR / commentaire / statut</code></pre>
+<p>Producteurs : développeurs, issues, merge requests, règles de projet et événements GitLab. Consommateurs : reviewers, responsables de plateforme, pipelines, registries et environnements de déploiement. Entrées : code, contexte du projet, instructions, variables autorisées et outils MCP. Sorties : modifications, commits, merge requests, commentaires, diagnostics et statuts CI.</p>
+<p>Compléments : GitLab Runner, GitLab CI/CD, CI/CD Catalog, registry de composants, secrets manager, OIDC/identités cloud, observabilité de runners et politiques de merge. Le service peut remplacer une partie des bots de code, scripts de triage et assistants CI isolés ; il ne remplace pas automatiquement les contrôles déterministes du pipeline.</p>
+<h2 id="4-modele-mental">4. MODÈLE MENTAL</h2>
+<p>Un utilisateur ou un événement déclenche un flow. Le flow assemble un ou plusieurs agents, reçoit un contexte contrôlé et demande éventuellement l’usage d’outils. En exécution CI/CD, le runner télécharge le package <code>@gitlab/duo-cli</code>, ouvre une connexion WebSocket vers le service de workflow GitLab Duo, puis exécute les opérations demandées dans son environnement.</p>
+<p>Chemin concret : issue ou pipeline en échec → flow de diagnostic → lecture du dépôt et des logs autorisés → proposition ou modification → tests CI déterministes → commit/MR → revue humaine et merge selon les règles du projet.</p>
+<p>Les éléments d’état à distinguer sont le flow, sa configuration, le contexte injecté, les privilèges d’agent, les appels d’outils, les artefacts et le résultat Git. Erreurs principales : contexte incomplet, runner indisponible, outil MCP non autorisé, credentials absents, boucle d’agent, modification non testée, timeout du service ou sortie trop large.</p>
+<h2 id="5-architecture-de-deploiement">5. ARCHITECTURE DE DÉPLOIEMENT</h2>
+<p><strong>Développement/local :</strong> utiliser un projet GitLab de développement, un flow limité, un runner éphémère et un dépôt sans secrets de production. Les fichiers de personnalisation peuvent vivre dans <code>.gitlab/duo/</code>, avec <code>AGENTS.md</code> et une configuration de flow versionnée. L’environnement doit rester séparé des runners partagés et des réseaux sensibles.</p>
+<p><strong>GitLab.com :</strong> GitLab héberge la plateforme, mais l’équipe contrôle les projets, groupes, politiques, runners, variables, composants et connexions MCP autorisées. Vérifier le tier Premium/Ultimate, l’activation de GitLab Duo et les crédits avant d’exposer la fonctionnalité à une équipe.</p>
+<p><strong>Self-Managed/Dedicated :</strong> prévoir une version GitLab compatible, l’activation de l’Agent Platform, un AI Gateway si le mode choisi l’exige, la connectivité sortante vers la plateforme, des runners isolés et une politique explicite pour les modèles self-hosted ou cloud-connected.</p>
+<p>Chemins de panne : service Duo indisponible → continuer les pipelines déterministes sans flow ; runner compromis → révoquer tokens, isoler l’exécuteur et analyser les artefacts ; MCP indisponible → supprimer l’outil du flow et conserver le chemin manuel ; modification agentique incorrecte → pipeline rouge, MR non fusionnable et retour au dernier commit connu.</p>
+<h2 id="6-donnees-et-cycle-de-vie">6. DONNÉES ET CYCLE DE VIE</h2>
+<p>Les données utiles comprennent le code source, les instructions de projet, le contexte de l’issue/MR, les logs transmis au flow, les sorties d’outils, les commits, les artefacts et les traces d’audit. La rétention et la localisation exacte dépendent de l’offre GitLab, de GitLab Duo et des modèles utilisés ; elles sont <code>à qualifier</code> pour la stack réelle.</p>
+<p>Versionner les configurations <code>.gitlab/duo/</code>, <code>AGENTS.md</code>, les flows et les composants CI/CD. Épingler les composants de pipeline par SHA ou version plutôt que <code>latest</code>. Prévoir une revue de compatibilité lors des upgrades GitLab, Duo CLI, runners et MCP.</p>
+<h2 id="7-exploitation">7. EXPLOITATION</h2>
+<p>SLO à qualifier : disponibilité du pipeline déterministe, taux de réussite des flows, p95 de durée d’un flow, temps d’attente runner, taux de rollback de modifications agentiques et délai de revue humaine. Alertes : hausse des échecs par flow, appels MCP refusés, exécution sur runner non conforme, consommation de crédits, artefacts contenant des secrets et modifications générées sans test associé.</p>
+<div class="table-wrap"><table><thead><tr><th>Charge hypothétique</th><th>Ressource</th><th>Métrique</th></tr></thead><tbody><tr><td>1–10 flows simultanés</td><td>runners et concurrence GitLab</td><td>queue time, durée, saturation</td></tr><tr><td>10–100 jobs agentiques/jour</td><td>crédits, API et WebSocket</td><td>consommation, erreurs, p95</td></tr><tr><td>dépôt monorepo volumineux</td><td>CPU/RAM, clone et contexte</td><td>taille contexte, temps d’indexation, tokens</td></tr><tr><td>outils MCP externes</td><td>réseau et permissions</td><td>appels, refus, egress, erreurs</td></tr></tbody></table></div>
+<p>Upgrade : vérifier les changements de tier, crédits, modèles, runners, API Flow et MCP ; conserver un chemin de pipeline non agentique. Rollback : désactiver le flow ou sa connexion MCP, revenir aux jobs CI déterministes et conserver les commits générés pour audit. Maintenance : propriétaires par flow, revue des instructions, rotation des tokens et revue des composants inclus.</p>
+<h2 id="8-securite-et-responsabilites">8. SÉCURITÉ ET RESPONSABILITÉS</h2>
+<p>Le runner est une frontière d’exécution de code non fiable : GitLab rappelle qu’un job peut voler le code d’autres projets ou les secrets lorsqu’il utilise un runner self-managed non isolé. Préférer des runners éphémères, dédiés par niveau de confiance, non privilégiés lorsque possible, avec réseau segmenté, credentials courts et accès minimal.</p>
+<p>Les flows headless peuvent approuver automatiquement les appels d’outils : ils ne doivent pas être considérés comme équivalents à une validation humaine. N’autoriser que les serveurs MCP de confiance, documenter chaque outil et séparer lecture, écriture et déploiement. Protéger variables, <code>CI_JOB_TOKEN</code>, artefacts, caches, logs et branches protégées.</p>
+<p>Responsabilités GitLab : disponibilité de la plateforme, service Duo et composants hébergés selon l’offre. Responsabilités de l’équipe : configuration, prompts/instructions, flows, permissions, runners, images, secrets, MCP, règles de merge, données transmises et supervision des sorties.</p>
+<h2 id="9-choix-et-alternatives">9. CHOIX ET ALTERNATIVES</h2>
+<p>GitLab Duo Agent Platform est pertinent si GitLab CI/CD est déjà le système de référence et si l’on veut rattacher l’agent aux issues, merge requests, pipelines et permissions existants. La dépendance à GitLab Duo, au tier, aux crédits et aux modèles est le principal verrou potentiel.</p>
+<p>Alternatives pertinentes : GitHub Actions avec Copilot/agents pour une organisation GitHub ; Jenkins avec agents et plugins pour une plateforme déjà centrée Jenkins ; runners CI classiques avec scripts déterministes et un service d’agent externe pour un contrôle plus explicite ; GitLab Duo Self-Hosted lorsque la contrainte de modèle ou de localisation l’exige. Aucune alternative n’offre exactement le même couplage natif GitLab–flow–runner–MR.</p>
+<h2 id="10-quand-lutiliser-leviter">10. QUAND L’UTILISER / L’ÉVITER</h2>
+<p>À utiliser pour diagnostiquer des pipelines, préparer des merge requests, appliquer des transformations répétitives, assister la revue et orchestrer des tâches outillées avec une trace GitLab claire.</p>
+<p>À éviter pour un déploiement production autonome sans approbation, un accès large aux secrets, un runner partagé entre projets de confiance différente, un flow dépendant d’un MCP non audité ou une tâche dont la sortie doit être strictement déterministe. La sortie se fait en désactivant les flows, en révoquant les outils et en conservant les pipelines CI/CD classiques.</p>
+<h2 id="11-evolutions-depuis-la-derniere-carte">11. ÉVOLUTIONS DEPUIS LA DERNIÈRE CARTE</h2>
+<p>Première carte de GitLab Duo Agent Platform dans ce dépôt ; il n’existe pas de carte précédente à comparer.</p>
+<ul>
+<li><strong>2026-07-16 — GitLab 19.2 :</strong> Duo CLI et custom flows sont documentés comme disponibles, avec MCP, exécution headless et points de contrôle humains ; impact : le CI/CD devient une surface d’exécution agentique gouvernable.</li>
+<li><strong>Documentation actuelle :</strong> Agent Platform couvre flows de développement, code review, correction de pipeline, conversion CI/CD, custom flows et clients MCP ; impact : le périmètre dépasse l’assistance au code.</li>
+<li><strong>Documentation actuelle :</strong> l’exécution CI/CD passe par un runner et le Duo CLI ; impact : la sécurité du runner devient une condition de sécurité de l’agent.</li>
+</ul>
+<h2 id="12-incertitudes-et-sources">12. INCERTITUDES ET SOURCES</h2>
+<p>Inconnus : édition GitLab réellement utilisée, GitLab.com ou Self-Managed, activation Duo, modèle et localisation des données, crédits, runners, flows actifs, outils MCP autorisés, politiques de merge et exposition dans la stack. L’exposition réelle est <code>à qualifier</code>.</p>
+<p>Sources primaires consultées :</p>
+<ul>
+<li><a href="https://docs.gitlab.com/user/duo_agent_platform/">GitLab Duo Agent Platform</a></li>
+<li><a href="https://docs.gitlab.com/user/duo_agent_platform/flows/execution/">Configuration de l’exécution des flows</a></li>
+<li><a href="https://docs.gitlab.com/user/gitlab_duo_cli/use/">Utilisation du GitLab Duo CLI</a></li>
+<li><a href="https://docs.gitlab.com/releases/19/gitlab-19-2-released/">GitLab 19.2 release notes</a></li>
+<li><a href="https://docs.gitlab.com/runner/security/">Sécurité des runners self-managed</a></li>
+<li><a href="https://docs.gitlab.com/ci/components/">CI/CD components et bonnes pratiques</a></li>
+<li><a href="https://docs.gitlab.com/runner/runner_autoscale/">GitLab Runner autoscaling</a></li>
+</ul>
+<h2 id="vue-densemble">Vue d’ensemble</h2>
+<p>GitLab Duo Agent Platform est une plateforme CI/CD agentique intégrée à GitLab, avec exécution par runners et accès outillé contrôlable.</p>
+<h2 id="sujets-ecartes">Sujets écartés</h2>
+<p>Aucun sujet connexe n’est écarté de cette carte ; les alternatives sont décrites uniquement lorsqu’elles influencent le choix d’architecture.</p>
+<h2 id="sources-consultees">Sources consultées</h2>
+<p>Les sources officielles GitLab listées ci-dessus couvrent le produit, les flows, le CLI, les runners, les composants CI/CD et la sécurité.</p>
+<h2 id="sources-en-echec">Sources en échec</h2>
+<p>Aucune source primaire en échec. Le tier, les crédits, le modèle réellement utilisé et l’exposition de la stack restent à qualifier.</p></article>
+  </main>
+  <footer class="footer">Veille locale · contenu entièrement géré par IA · <a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">dépôt GitHub</a> · générée le 05/09/2026</footer>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

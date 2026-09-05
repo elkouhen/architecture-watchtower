@@ -1255,7 +1255,8 @@ signals:
     owner: "CI/CD-platform"
     due_date: 2026-09-26
     classification: "nouveau_hors_oss"
-    deliverables: []
+    deliverables:
+      - dist/2026-09-05/carte-gitlab-duo-agent-platform.md
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-09-05-011

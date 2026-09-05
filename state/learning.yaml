@@ -34,6 +34,17 @@ products:
     lab_deliverable: "dist/2026-08-29/carte-mcp.md"
     next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-12
+  - product: GitLab Duo Agent Platform
+    category: "pont"
+    level: "découverte"
+    first_studied: 2026-09-05
+    last_studied: 2026-09-05
+    concepts_acquired: ["flows", "CI/CD runner", "MCP", "tool approvals", "agentic CI/CD"]
+    gaps: ["édition GitLab réelle", "coût/credits", "modèle d’identité", "runners", "exposition MCP", "observabilité"]
+    lab_status: "not_requested"
+    lab_deliverable: "dist/2026-09-05/carte-gitlab-duo-agent-platform.md"
+    next_step: "Décider ultérieurement si une validation pratique est utile"
+    next_review: 2026-09-19
 
 # Schéma recommandé :
 # - product: Elasticsearch

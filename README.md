@@ -15,6 +15,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Radar du 2 septembre 2026 : [`dist/2026-09-02/radar-architecture.md`](dist/2026-09-02/radar-architecture.md)
 - Radar du 30 août 2026 : [`dist/2026-08-30/radar-architecture.md`](dist/2026-08-30/radar-architecture.md)
 - Carte de service : `dist/YYYY-MM-DD/carte-<service>.md`
+- [Carte GitLab Duo Agent Platform](dist/2026-09-05/carte-gitlab-duo-agent-platform.md) · CI/CD agentique · découverte
 - Registre des signaux : [`state/signals.yaml`](state/signals.yaml)
 - Registre des sources : [`state/sources.yaml`](state/sources.yaml)
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)

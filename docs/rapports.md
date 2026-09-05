@@ -6,6 +6,7 @@ Le [classement mensuel](../classement-mensuel.md) est exécuté une fois par moi
 
 - [Radar architecture](../dist/2026-09-05/radar-architecture.md)
 - [Classement mensuel — août 2026](../dist/2026-09-05/classement-mensuel-2026-08.md)
+- [Carte GitLab Duo Agent Platform](../dist/2026-09-05/carte-gitlab-duo-agent-platform.md)
 
 ## 4 septembre 2026
 

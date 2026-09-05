@@ -217,6 +217,7 @@ metadata = reports.map do |path|
   date = relative.split("/")[1]
   basename = File.basename(path, ".md")
   title = File.foreach(path).find { |line| line.start_with?("# ") }&.sub(/^#\s+/, "")&.strip || basename
+  title = title.gsub(/\[([^\]]+)\]\([^)]+\)/, "\\1")
   kind = basename.start_with?("radar-") ? "radar" : basename.start_with?("carte-") ? "carte" : "mensuel"
   excerpt = File.foreach(path).find { |line| line.strip.length > 0 && !line.start_with?("#", "|", "-", "*") }&.strip.to_s
   output = File.join(OUTPUT, relative.sub(/\.md\z/, ".html"))
