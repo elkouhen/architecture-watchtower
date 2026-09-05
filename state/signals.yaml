@@ -452,10 +452,12 @@ signals:
     last_seen: 2026-08-28
     legacy_score: 7
     confidence: "high"
-    status: "new"
+    status: "deferred"
     decision: "monitor"
     owner: "IA/plateforme"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Aucune évolution substantielle confirmée depuis le signal initial ; suivi conservé sans planifier de POC. Réexamen si release structurante, incident ou adoption documentée."
     deliverables:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
@@ -503,10 +505,12 @@ signals:
     last_seen: 2026-08-27
     legacy_score: 6
     confidence: "medium"
-    status: "new"
-    decision: "test"
+    status: "deferred"
+    decision: "monitor"
     owner: "IA/observabilité"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Le pattern reste trop agrégé pour une décision produit ; conservé comme veille thématique sans POC planifié."
     deliverables:
       - dist/2026-08-27/radar-architecture.md
     publication: "local_commit"
@@ -520,10 +524,12 @@ signals:
     last_seen: 2026-08-28
     legacy_score: 8
     confidence: "high"
-    status: "new"
-    decision: "test"
+    status: "deferred"
+    decision: "monitor"
     owner: "architecture/plateforme"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Signal de découverte déjà documenté, sans évolution substantielle indépendante depuis le 28/08 ; qualification laissée à une décision ultérieure."
     deliverables:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
@@ -537,14 +543,16 @@ signals:
     last_seen: 2026-08-28
     legacy_score: 6
     confidence: "low"
-    status: "new"
-    decision: "monitor"
+    status: "discarded"
+    decision: "avoid"
     owner: "IA/plateforme"
     due_date: 2026-09-05
+    last_reviewed: 2026-09-05
+    review_note: "Signal faible sans version, licence ou chemin de déploiement suffisamment vérifiable ; écarté du suivi actif."
+    discard_reason: "Preuves primaires et maturité insuffisantes pour maintenir le signal actif."
     deliverables:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
-    discard_reason: null
   - id: SIG-2026-08-28-009
     canonical_url: https://github.com/Tencent/WeMM-Embedding
     subject: "WeMM-Embedding signale une convergence des embeddings multimodaux et du RAG"
@@ -571,10 +579,12 @@ signals:
     last_seen: 2026-08-28
     legacy_score: 5
     confidence: "low"
-    status: "new"
+    status: "deferred"
     decision: "monitor"
     owner: "réseau/plateforme"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Outil de diagnostic intéressant mais sans évolution substantielle depuis la découverte ; conservé en veille réseau."
     deliverables:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
@@ -588,10 +598,12 @@ signals:
     last_seen: 2026-08-28
     legacy_score: 8
     confidence: "high"
-    status: "new"
-    decision: "test"
+    status: "deferred"
+    decision: "monitor"
     owner: "IA/plateforme"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Le projet reste pertinent pour la gouvernance IA, mais aucune évolution vérifiée ne justifie une nouvelle sélection ; aucun POC planifié."
     deliverables:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
@@ -605,10 +617,12 @@ signals:
     last_seen: 2026-08-28
     legacy_score: 8
     confidence: "high"
-    status: "new"
-    decision: "test"
+    status: "deferred"
+    decision: "monitor"
     owner: "IA/plateforme"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Gateway de connecteurs déjà étudiée ; pas de changement substantiel vérifié depuis le 28/08."
     deliverables:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
@@ -622,10 +636,12 @@ signals:
     last_seen: 2026-08-28
     legacy_score: 7
     confidence: "medium"
-    status: "new"
-    decision: "test"
+    status: "deferred"
+    decision: "monitor"
     owner: "architecture/engineering"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Standard de contexte pour agents de code conservé en veille ; aucun changement substantiel ou décision stack à prendre aujourd’hui."
     deliverables:
       - dist/2026-08-28/radar-architecture.md
     publication: "local_commit"
@@ -639,14 +655,16 @@ signals:
     last_seen: 2026-08-29
     legacy_score: 6
     confidence: "medium"
-    status: "new"
-    decision: "monitor"
+    status: "discarded"
+    decision: "avoid"
     owner: "IA/plateforme"
     due_date: 2026-09-05
+    last_reviewed: 2026-09-05
+    review_note: "Signal Trendshift sans preuve primaire suffisante ni évolution vérifiée ; écarté du suivi actif."
+    discard_reason: "Découverte de popularité insuffisante pour caractériser une technologie exploitable."
     deliverables:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"
-    discard_reason: null
   - id: SIG-2026-08-29-004
     canonical_url: https://github.com/chrisgreg/boop
     subject: "Boop signale une inbox de notifications développeur self-hosted"
@@ -673,14 +691,16 @@ signals:
     last_seen: 2026-08-29
     legacy_score: 6
     confidence: "low"
-    status: "new"
-    decision: "monitor"
+    status: "discarded"
+    decision: "avoid"
     owner: "architecture/engineering"
     due_date: 2026-09-05
+    last_reviewed: 2026-09-05
+    review_note: "Projet très précoce avec confiance faible et sans évolution primaire vérifiée ; écarté."
+    discard_reason: "Maturité et preuves insuffisantes."
     deliverables:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"
-    discard_reason: null
   - id: SIG-2026-08-29-016
     canonical_url: https://github.com/openJiuwen-ai/jiuwenswarm
     subject: "JiuwenSwarm remonte en tête du Trendshift daily avec une plateforme multi-agents distribuée"
@@ -690,10 +710,12 @@ signals:
     last_seen: 2026-08-29
     legacy_score: 8
     confidence: "high"
-    status: "new"
+    status: "deferred"
     decision: "monitor"
     owner: "IA/plateforme"
-    due_date: 2026-09-05
+    due_date: 2026-09-19
+    last_reviewed: 2026-09-05
+    review_note: "Plateforme multi-agents beta conservée en veille ; aucune évolution substantielle confirmée depuis le 29/08."
     deliverables:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"
@@ -725,10 +747,12 @@ signals:
     last_seen: 2026-08-29
     legacy_score: 7
     confidence: "high"
-    status: "new"
+    status: "deferred"
     decision: "monitor"
     owner: "IaC"
-    due_date: 2026-09-05
+    due_date: 2026-09-26
+    last_reviewed: 2026-09-05
+    review_note: "Terraform 1.17 reste alpha ; suivi conservé pour les changements de test et query, sans planifier de validation pratique."
     deliverables:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"
@@ -762,7 +786,9 @@ signals:
     status: "open"
     decision: "qualify"
     owner: "sécurité/plateforme"
-    due_date: 2026-09-05
+    due_date: 2026-09-12
+    last_reviewed: 2026-09-05
+    review_note: "Le correctif Vault reste prioritaire ; exposition et versions réellement déployées inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition."
     deliverables:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"
@@ -810,10 +836,12 @@ signals:
     last_seen: 2026-08-29
     legacy_score: 8
     confidence: "high"
-    status: "new"
+    status: "deferred"
     decision: "qualify"
     owner: "sécurité/engineering"
-    due_date: 2026-09-05
+    due_date: 2026-09-26
+    last_reviewed: 2026-09-05
+    review_note: "La capacité d’allowlist MCP reste pertinente, mais l’usage GitHub de Mehdi est inconnu ; qualification reportée sans POC planifié."
     deliverables:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"
@@ -1001,7 +1029,9 @@ signals:
     status: "open"
     decision: "qualify"
     owner: "observabilité"
-    due_date: 2026-09-05
+    due_date: 2026-09-12
+    last_reviewed: 2026-09-05
+    review_note: "Le risque de pertes silencieuses reste ouvert ; vérifier la version Elastic Agent réellement déployée avant toute recommandation."
     deliverables: [dist/2026-09-02/radar-architecture.md]
     publication: "local_commit"
     discard_reason: null
@@ -1019,6 +1049,133 @@ signals:
     owner: "observabilité/sécurité"
     due_date: 2026-09-12
     deliverables: [dist/2026-09-02/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+
+  - id: SIG-2026-09-05-001
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/09/aws-mcp-server-serverless/
+    subject: "AWS MCP Server ajoute une capacité serverless de diagnostic Lambda"
+    product_version: "AWS MCP Server serverless capability (2026-09-04)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 4
+    urgence: 3
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "plateforme/observabilité"
+    due_date: 2026-09-19
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-05/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-002
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/09/ec2-images-supported-instances/
+    subject: "EC2 permet de déclarer les types d’instances compatibles avec une AMI"
+    product_version: "Amazon EC2 compatible instance types on AMIs (2026-09-04)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 4
+    urgence: 3
+    pertinence_stack: 4
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "plateforme/IaC"
+    due_date: 2026-09-19
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-05/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-003
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/09/transfer-family-sftp-credential-rotation/
+    subject: "Transfer Family permet la rotation des identifiants de connecteurs SFTP"
+    product_version: "AWS Transfer Family SFTP connector credential rotation (2026-09-04)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 4
+    urgence: 4
+    pertinence_stack: 3
+    confiance: 5
+    confidence: "high"
+    status: "new"
+    decision: "qualify"
+    owner: "sécurité/intégration"
+    due_date: 2026-09-19
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-05/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-004
+    canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/09/sagemaker-batch-transform-g6e-instances/
+    subject: "SageMaker Batch Transform supporte les instances G6e"
+    product_version: "Amazon SageMaker Batch Transform G6e (2026-09-04)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 3
+    urgence: 2
+    pertinence_stack: 3
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme"
+    due_date: 2026-09-26
+    classification: "nouveau_hors_oss"
+    deliverables:
+      - dist/2026-09-05/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-005
+    canonical_url: https://github.com/volcano-sh/kthena
+    subject: "Kthena sépare contrôle des workloads et routage pour l’inférence Kubernetes"
+    product_version: "Kthena current repository and release page (observed 2026-09-05)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 4
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "IA/plateforme Kubernetes"
+    due_date: 2026-09-19
+    classification: "nouveau_oss"
+    deliverables:
+      - dist/2026-09-05/radar-architecture.md
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-05-006
+    canonical_url: https://github.com/initializ/forge
+    subject: "Forge propose un runtime de skills et d’agents orienté Kubernetes et environnements isolés"
+    product_version: "Forge current repository and changelog (observed 2026-09-05)"
+    environment: "unknown"
+    first_seen: 2026-09-05
+    last_seen: 2026-09-05
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 3
+    confiance: 4
+    confidence: "medium"
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme/sécurité IA"
+    due_date: 2026-09-19
+    classification: "nouveau_oss"
+    deliverables:
+      - dist/2026-09-05/radar-architecture.md
     publication: "local_commit"
     discard_reason: null
 

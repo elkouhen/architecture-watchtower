@@ -1,5 +1,11 @@
 # Rapports et cartes
 
+Le [classement mensuel](../classement-mensuel.md) est exécuté une fois par mois après clôture de la période ; les fichiers produits suivent le format `classement-mensuel-AAAA-MM.md`.
+
+## 5 septembre 2026
+
+- [Radar architecture](../dist/2026-09-05/radar-architecture.md)
+
 ## 4 septembre 2026
 
 - [Radar architecture](../dist/2026-09-04/radar-architecture.md)

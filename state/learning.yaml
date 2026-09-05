@@ -8,9 +8,9 @@ products:
     last_studied: 2026-08-27
     concepts_acquired: ["positionnement", "capacités", "flux", "modes de déploiement", "cycle de vie"]
     gaps: ["déploiement local", "modélisation de recherche", "dimensionnement", "snapshot/restore", "déploiement ECK"]
-    lab_status: "planned"
+    lab_status: "not_requested"
     lab_deliverable: "dist/2026-08-27/carte-elasticsearch.md"
-    next_step: "Lancer le laboratoire local et restituer les cinq questions d’architecte"
+    next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-03
   - product: Agent Sandbox
     category: "tendance"
@@ -19,9 +19,9 @@ products:
     last_studied: 2026-08-28
     concepts_acquired: ["positionnement", "CRD Sandbox", "workload singleton", "persistance", "isolation à qualifier"]
     gaps: ["déploiement Kind", "isolation runtime", "observabilité", "coût", "support API"]
-    lab_status: "planned"
+    lab_status: "not_requested"
     lab_deliverable: "dist/2026-08-28/carte-agent-sandbox.md"
-    next_step: "Déployer Agent Sandbox sur Kind et vérifier persistance, egress et nettoyage"
+    next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-12
   - product: Model Context Protocol (MCP)
     category: "pont"
@@ -30,9 +30,9 @@ products:
     last_studied: 2026-08-29
     concepts_acquired: ["outils/ressources/prompts", "cœur stateless", "Streamable HTTP", "extensions", "Tasks", "autorisation OAuth/CIMD", "dépréciations"]
     gaps: ["versions réellement négociées", "clients et SDK utilisés", "gateway", "IAM", "observabilité", "coût"]
-    lab_status: "planned"
+    lab_status: "not_requested"
     lab_deliverable: "dist/2026-08-29/carte-mcp.md"
-    next_step: "Tester la compatibilité 2025-11-25/2026-07-28 derrière un proxy round-robin"
+    next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-12
 
 # Schéma recommandé :
@@ -43,7 +43,7 @@ products:
 #   last_studied: 2026-08-27
 #   concepts_acquired: []
 #   gaps: ["déploiement ECK", "dimensionnement"]
-#   lab_status: "not_started|planned|completed|failed"
+#   lab_status: "not_requested|not_started|completed|failed"
 #   lab_deliverable: "dist/AAAA-MM-JJ/carte-elasticsearch.md"
 #   next_step: "Déployer un cluster local et tester snapshot/restore"
 #   next_review: 2026-09-03

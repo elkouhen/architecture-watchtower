@@ -6,6 +6,12 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [AWS MCP Server — capacité serverless](https://aws.amazon.com/about-aws/whats-new/2026/09/aws-mcp-server-serverless/) | service agents | à qualifier | [05/09](../dist/2026-09-05/radar-architecture.md#aws-mcp-server--capacité-serverless) | serverless · 04/09 |
+| [Amazon EC2 compatible instance types](https://aws.amazon.com/about-aws/whats-new/2026/09/ec2-images-supported-instances/) | plateforme | à qualifier | [05/09](../dist/2026-09-05/radar-architecture.md#amazon-ec2--types-dinstances-compatibles-déclarés-dans-les-ami) | compatibilité AMI · 04/09 |
+| [AWS Transfer Family SFTP credential rotation](https://aws.amazon.com/about-aws/whats-new/2026/09/transfer-family-sftp-credential-rotation/) | sécurité/intégration | à qualifier | [05/09](../dist/2026-09-05/radar-architecture.md#aws-transfer-family--rotation-des-identifiants-sftp) | rotation · 04/09 |
+| [SageMaker Batch Transform G6e](https://aws.amazon.com/about-aws/whats-new/2026/09/sagemaker-batch-transform-g6e-instances/) | service IA | à surveiller | [05/09](../dist/2026-09-05/radar-architecture.md#sagemaker-batch-transform--instances-g6e) | GPU batch · 04/09 |
+| [Kthena](https://github.com/volcano-sh/kthena) | infrastructure IA OSS | à surveiller | [05/09](../dist/2026-09-05/radar-architecture.md#kthena--plans-de-contrôle-et-de-routage-pour-linférence) | routage LLM · 05/09 |
+| [Forge](https://github.com/initializ/forge) | runtime agents OSS | à surveiller | [05/09](../dist/2026-09-05/radar-architecture.md#forge--runtime-de-skills-et-dagents) | skills/audit · 05/09 |
 | [API Gateway model routing hostname](https://cloud.google.com/release-notes) | service réseau | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#api-gateway--hostname-des-passerelles-de-routage) | changement · 03/09 |
 | [AWS Config](https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/) | service gouvernance | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#aws-config--couverture-de-60-nouveaux-types) | 60 types · 02/09 |
 | [Amazon Bedrock Web Search](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/) | service IA | à qualifier | [04/09](../dist/2026-09-04/radar-architecture.md#bedrock-web-search--ancrage-en-govcloud) | GovCloud · 02/09 |

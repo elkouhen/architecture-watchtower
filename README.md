@@ -10,6 +10,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 ## Livrables
 
 - Radar quotidien : `dist/YYYY-MM-DD/radar-architecture.md`
+- Classement mensuel : `dist/YYYY-MM-DD/classement-mensuel-AAAA-MM.md`
 - Radar du 3 septembre 2026 : [`dist/2026-09-03/radar-architecture.md`](dist/2026-09-03/radar-architecture.md)
 - Radar du 2 septembre 2026 : [`dist/2026-09-02/radar-architecture.md`](dist/2026-09-02/radar-architecture.md)
 - Radar du 30 août 2026 : [`dist/2026-08-30/radar-architecture.md`](dist/2026-08-30/radar-architecture.md)
@@ -31,6 +32,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - La preuve de publication est un commit Git local.
 - Chaque nouveau radar prouve la couverture AWS/GCP/IA et vise 33 % de nouveaux projets open source, sauf exception prioritaire motivée.
 - Le validateur bloque les doublons, les échéances actives dépassées et les index locaux incohérents.
+- Le classement mensuel récapitule une seule fois par mois toutes les technologies observées, sans planifier de POC ou de laboratoire.
 
 Le hook versionné `.githooks/pre-commit` exécute automatiquement la validation. Pour l’activer dans un nouveau clone : `git config core.hooksPath .githooks`.
 

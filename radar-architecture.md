@@ -6,7 +6,7 @@ Toute nouvelle consigne de Mehdi concernant le contenu, le format, le périmètr
 
 Mehdi est architecte Cloud/DevOps et utilise ce radar pour maintenir et développer son expertise. Détecte tôt les projets, services, patterns et pratiques qui peuvent modifier une architecture, une plateforme, une méthode d’exploitation, une posture de sécurité, un coût, une capacité ou une trajectoire technologique.
 
-Le radar est agressif sur la découverte : conserve les projets prometteurs mais immatures en les marquant `signal faible`. Ne transforme jamais un signal de popularité en recommandation d’adoption. Écarte les sujets purement marketing, les annonces de modèles sans impact architectural, les benchmarks isolés, les clones sans différenciation et les projets sans artefact vérifiable.
+Le radar est agressif sur la découverte : conserve les projets prometteurs mais immatures en les marquant `signal faible`. Ne transforme jamais un signal de popularité en recommandation d’adoption. Écarte les sujets purement marketing, les annonces de modèles sans impact architectural, les benchmarks isolés, les clones sans différenciation et les projets sans artefact vérifiable. Le radar ne planifie aucun POC ni laboratoire par défaut : il fournit des éléments de décision, puis Mehdi déclenche lui-même une validation lorsqu’il le souhaite.
 
 ## Contexte à lire
 
@@ -57,7 +57,7 @@ En trois à six paragraphes courts, explique :
 - ses bénéfices réels, ses limites, ses dépendances et le principal risque à surveiller ;
 - pourquoi il mérite ou non un test maintenant, avec une décision proposée : `surveiller`, `tester` ou `écarter`.
 
-Ne répète pas les trois champs obligatoires et ne fournis pas ici un plan complet de production. Les détails de déploiement, d’exploitation et de laboratoire appartiennent à `carte-service.md` lorsqu’une carte est déclenchée.
+Ne répète pas les trois champs obligatoires et ne fournis pas ici un plan complet de production. Les détails de déploiement et d’exploitation appartiennent à `carte-service.md` lorsqu’une carte est déclenchée ; aucun laboratoire ou POC ne doit être planifié sans demande explicite de Mehdi.
 
 Pour l’IA, préciser le modèle ou fournisseur, les données, le middleware, la latence, le coût, l’évaluation, l’observabilité, les permissions, la validation humaine et le mécanisme de repli. Pour Kubernetes ou un middleware, préciser installation, mise à jour et retrait.
 
@@ -71,7 +71,7 @@ Le quota open source guide la découverte mais ne bloque jamais une information 
 
 Le radar peut contenir jusqu’à dix sujets. Ne répète jamais un sujet uniquement pour atteindre la cible : si la déduplication stricte laisse moins de dix sujets nouveaux, présente le nombre réellement trouvé et la raison du manque. Les sujets supplémentaires peuvent être `signal faible`, mais doivent avoir une URL canonique, un pitch, une utilité et une preuve datée.
 
-Déduplique d'abord par URL canonique et par sujet uniquement dans `state/signals.yaml` et les rapports des **trois derniers mois (90 jours)**, avant toute sélection. Les signaux et rapports plus anciens ne bloquent pas la réapparition d'un sujet. Dans cette fenêtre de trois mois, un sujet déjà présenté ne peut réapparaître que si une évolution substantielle est vérifiée : nouvelle release structurante, changement de licence, incident ou vulnérabilité, changement d'architecture, nouvelle intégration, adoption documentée, échéance ou décision modifiée. Un simple changement de rang, de stars, de mentions Trendshift ou de volume de recherche ne suffit pas. En cas d'évolution substantielle, indique `Mise à jour` et explique précisément ce qui a changé ; sinon exclue le sujet du rapport. Retire un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte de service est produite séparément uniquement si le sujet atteint le seuil prévu dans `carte-service.md`.
+Déduplique d'abord par URL canonique et par sujet uniquement dans `state/signals.yaml` et les rapports des **trois derniers mois (90 jours)**, avant toute sélection. Les signaux et rapports plus anciens ne bloquent pas la réapparition d'un sujet. Dans cette fenêtre de trois mois, un sujet déjà présenté ne peut réapparaître que si une évolution substantielle est vérifiée : nouvelle release structurante, changement de licence, incident ou vulnérabilité, changement d'architecture, nouvelle intégration, adoption documentée, échéance ou décision modifiée. Un simple changement de rang, de stars, de mentions Trendshift ou de volume de recherche ne suffit pas. En cas d'évolution substantielle, indique `Mise à jour` et explique précisément ce qui a changé ; sinon exclue le sujet du rapport. Retire un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte de service est produite séparément uniquement si le sujet atteint le seuil prévu dans `carte-service.md`. Un sujet peut rester au stade `surveiller`, `qualifier` ou `écarter` sans proposition de POC.
 
 Classe les candidats avec quatre notes séparées de 1 à 5 : `impact_architectural`, `urgence`, `pertinence_stack` et `confiance`. N'emploie pas une somme opaque : une urgence à 5 ou un impact à 5 peut justifier la sélection à lui seul, tandis qu'une faible confiance doit rester visible. Conserve ces notes dans `state/signals.yaml`; le rapport peut les résumer dans `Preuves de traction` lorsque cela aide la décision.
 
@@ -90,7 +90,7 @@ Le rapport doit rester court et lisible en moins de quinze minutes :
 
 La vue d’ensemble doit rester très scannable : une ligne par outil ou élément revu, nom lié à l’URL canonique, type explicite, pitch court et lien Markdown vers la section correspondante. Les preuves de traction et le niveau de maturité restent dans la fiche, jamais dans ce tableau.
 
-Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
+Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire`, `POC` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
 
 ## Contrôle qualité et publication
 

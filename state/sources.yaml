@@ -232,9 +232,9 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://docs.aws.amazon.com/whats-new/
-    last_attempt: 2026-09-04
-    last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-aws-check
     status: ok
     notes: "Suivre les changements de service, régions, limites et intégrations ; une annonce ne suffit pas à conclure au fit ou à la disponibilité dans les comptes utilisés."
 
@@ -246,9 +246,9 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://aws.amazon.com/security/
-    last_attempt: 2026-09-04
-    last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-aws-security-check
     status: ok
     notes: "Qualifier services, régions et mesures correctives ; compléter par l’inventaire des comptes et workloads concernés."
 
@@ -260,10 +260,10 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html
-    last_attempt: 2026-09-04
+    last_attempt: 2026-09-05
     last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
-    status: ok
+    last_item_seen: 2026-09-05-fetch-failed
+    status: degraded
     notes: "Suivre support standard et étendu, versions disponibles, dates de fin de support et coût du support étendu."
 
   - id: aws-bedrock-history
@@ -274,9 +274,9 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://aws.amazon.com/bedrock/whats-new/
-    last_attempt: 2026-09-04
+    last_attempt: 2026-09-05
     last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_item_seen: 2026-09-05-not-rechecked
     status: ok
     notes: "Vérifier modèles, APIs, régions, quotas, permissions, statuts legacy et changements qui modifient l’architecture d’inférence."
 
@@ -288,10 +288,10 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://cloud.google.com/feeds/cloud-release-notes.xml
-    last_attempt: 2026-09-04
+    last_attempt: 2026-09-05
     last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
-    status: ok
+    last_item_seen: 2026-09-05-fetch-failed
+    status: degraded
     notes: "Filtrer par produit et région, puis vérifier disponibilité, quotas, breaking changes et documentation de migration."
 
   - id: gcp-security-bulletins
@@ -302,10 +302,10 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://cloud.google.com/security
-    last_attempt: 2026-09-04
+    last_attempt: 2026-09-05
     last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
-    status: ok
+    last_item_seen: 2026-09-05-fetch-timeout
+    status: degraded
     notes: "Qualifier produit, version ou SDK, correctif fournisseur et exposition réelle avant de recommander une action."
 
   - id: gcp-deprecation-policy
@@ -316,10 +316,10 @@ sources:
     cadence: monthly
     reliability: high
     fallback: https://cloud.google.com/release-notes
-    last_attempt: 2026-09-04
+    last_attempt: 2026-09-05
     last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
-    status: ok
+    last_item_seen: 2026-09-05-fetch-failed
+    status: degraded
     notes: "Compléter la politique générale avec les avis et calendriers propres à chaque produit."
 
   - id: gke-release-notes
@@ -330,10 +330,10 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://cloud.google.com/kubernetes-engine/docs/release-notes-new-features
-    last_attempt: 2026-09-04
+    last_attempt: 2026-09-05
     last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
-    status: ok
+    last_item_seen: 2026-09-05-fetch-timeout
+    status: degraded
     notes: "Suivre canaux, versions, auto-upgrades, fonctionnalités, correctifs, problèmes connus et dépréciations."
 
   - id: gke-security-bulletins
@@ -344,9 +344,9 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://cloud.google.com/kubernetes-engine/docs/resources/security-patching
-    last_attempt: 2026-09-04
-    last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-gke-security-check
     status: ok
     notes: "Relier chaque bulletin aux versions, images de nœuds, canaux et configurations réellement utilisés."
 
@@ -358,9 +358,9 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://cloud.google.com/release-notes?product=Vertex%20AI
-    last_attempt: 2026-09-04
-    last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-vertex-doc-check
     status: ok
     notes: "Vérifier modèles, APIs, régions, quotas, sécurité, statuts Preview/GA et dépréciations."
 
@@ -372,9 +372,9 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://developers.openai.com/api/docs/models
-    last_attempt: 2026-09-04
-    last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-openai-changelog-check
     status: ok
     notes: "Suivre modèles, APIs, outils, capacités et changements d’exploitation ; vérifier séparément coût et disponibilité."
 
@@ -386,9 +386,9 @@ sources:
     cadence: weekly
     reliability: high
     fallback: https://developers.openai.com/api/docs/changelog
-    last_attempt: 2026-09-04
-    last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-openai-deprecation-check
     status: ok
     notes: "Relever date d’annonce, date d’arrêt, remplacement et effort de migration."
 
@@ -400,9 +400,9 @@ sources:
     cadence: daily
     reliability: high
     fallback: https://platform.claude.com/docs/en/home
-    last_attempt: 2026-09-04
-    last_success: 2026-09-04
-    last_item_seen: 2026-09-04-check
+    last_attempt: 2026-09-05
+    last_success: 2026-09-05
+    last_item_seen: 2026-09-05-anthropic-release-check
     status: ok
     notes: "Suivre modèles, APIs, limites, disponibilité, dépréciations et changements de comportement documentés."
 
