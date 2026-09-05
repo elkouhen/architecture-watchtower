@@ -15,7 +15,7 @@ Formule cible : `30 % nouveaute_interet + 25 % impact_architectural + 20 % perti
 ## Classement complet
 
 | Rang | Technologie | Nature | Évolution du mois | Nouveauté | Impact | Pertinence stack | Confiance | Urgence | Maturité | Score | Tendance | Classe | Lien vers la preuve |
-|---:|---|---|---|---:|---:|---:|---:|---:|---:|---|---|
+|---:|---|---|---|---|---:|---:|---:|---:|---:|---|---|---|---|
 | 1 | [Model Context Protocol 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28) | standard | cœur stateless, transport et extensions formalisés | forte | inconnu | inconnu | inconnu | inconnu | 3/5 | n.c. | forte | priorité nouveauté | [carte](../2026-08-29/carte-mcp.md) |
 | 2 | [Kubernetes 1.37](https://kubernetes.io/releases/1.37/) | plateforme | version, Storage Version Migration GA et RangeStream beta | forte | inconnu | inconnu | inconnu | inconnu | 4/5 | n.c. | forte | priorité nouveauté | [radar](../2026-08-27/radar-architecture.md#kubernetes-137) |
 | 3 | [Agent Sandbox](https://github.com/kubernetes-sigs/agent-sandbox) | outil Kubernetes | CRD pour workloads d’agents singleton et persistants | forte | inconnu | inconnu | inconnu | inconnu | 2/5 | n.c. | émergente | priorité nouveauté | [carte](../2026-08-28/carte-agent-sandbox.md) |
