@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CARTE SERVICE — [Model Context Protocol (MCP)](https://modelcontextprotocol.io/specification/2026-07-28) · Architecture Watchtower</title>
+  <meta name="description" content="Veille Cloud, DevOps, architecture applicative et IA.">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
+    <nav><a href="../../index.html">Rapports</a><a href="../../catalogue.html">Catalogue</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+  </header>
+  <main class="shell">
+    <article><div class="eyebrow">2026-08-29 · carte</div><h1 id="carte-service-model-context-protocol-mcp">CARTE SERVICE — <a href="https://modelcontextprotocol.io/specification/2026-07-28">Model Context Protocol (MCP)</a></h1>
+<p>Date : 2026-08-29. Type : <code>standard / protocole</code>. Version de référence : <code>2026-07-28</code>. Version réellement utilisée dans la stack de Mehdi : <code>à qualifier</code>.</p>
+<h2 id="1-resume-decisionnel">1. RÉSUMÉ DÉCISIONNEL</h2>
+<p><strong>Pitch rapide :</strong> MCP définit un contrat entre des clients agents et des serveurs qui exposent des outils, ressources et prompts. Il standardise la découverte et l’appel de capacités sans imposer le modèle, le fournisseur ou le backend d’observabilité.</p>
+<p><strong>Fait :</strong> la révision stable <code>2026-07-28</code> est publiée le 28/07/2026. <strong>Analyse :</strong> elle transforme surtout le transport et le cycle de vie, plus que la forme des outils. <strong>Décision proposée :</strong> qualifier la compatibilité des clients/serveurs existants avant adoption ; conserver <code>2025-11-25</code> comme repli pendant la migration.</p>
+<h2 id="2-fonctionnalites-a-retenir">2. FONCTIONNALITÉS À RETENIR</h2>
+<div class="table-wrap"><table><thead><tr><th>Fonctionnalité</th><th>Rôle architectural</th></tr></thead><tbody><tr><td>Outils, ressources, prompts</td><td>Exposer des actions, données et modèles d’instructions</td></tr><tr><td>Streamable HTTP</td><td>Transport distant pour clients et serveurs</td></tr><tr><td>Cœur stateless</td><td>Chaque requête porte son contexte ; pas de session protocolaire obligatoire</td></tr><tr><td><code>server/discover</code></td><td>Découvrir versions et capacités avant usage</td></tr><tr><td><code>Mcp-Method</code> / <code>Mcp-Name</code></td><td>Router et autoriser au niveau gateway</td></tr><tr><td>MRTR</td><td>Remplacer les flux bidirectionnels persistants pour sampling/elicitation</td></tr><tr><td>Résultats de listes cacheables</td><td>Stabiliser <code>tools/list</code>, <code>resources/list</code>, <code>prompts/list</code></td></tr><tr><td>Extensions</td><td>Ajouter une capacité sans modifier immédiatement le cœur</td></tr><tr><td>Tasks</td><td>Suivre des opérations longues via <code>tasks/get</code> / <code>tasks/update</code></td></tr><tr><td>MCP Apps</td><td>Rendre une UI depuis un serveur MCP</td></tr><tr><td>OAuth, CIMD, EMA</td><td>Identité client, autorisation et gestion entreprise</td></tr><tr><td>JSON Schema 2020-12</td><td>Décrire les entrées et sorties d’outils</td></tr></tbody></table></div>
+<h2 id="3-nouveautes-depuis-2025-11-25">3. NOUVEAUTÉS DEPUIS <code>2025-11-25</code></h2>
+<ul>
+<li><strong>Stateless :</strong> suppression de <code>initialize</code>/<code>notifications/initialized</code> et de <code>Mcp-Session-Id</code>. Un serveur distant peut passer derrière un load balancer round-robin sans session partagée ; l’état applicatif doit être explicite, par exemple via un handle géré par le serveur.</li>
+<li><strong>HTTP routable :</strong> <code>MCP-Protocol-Version</code>, <code>Mcp-Method</code> et <code>Mcp-Name</code> rendent le protocole exploitable par un gateway L7 pour le routage, l’autorisation et l’observabilité.</li>
+<li><strong>MRTR :</strong> les demandes serveur-client, dont sampling et elicitation, sont restructurées en multi round-trip requests ; il n’est plus nécessaire de maintenir un flux bidirectionnel ouvert pour chaque interaction.</li>
+<li><strong>Cache et ordre déterministe :</strong> les réponses des listes peuvent fournir des indications de cache et un ordre stable, ce qui réduit la charge de découverte et les variations de catalogues.</li>
+<li><strong>Extensions de première classe :</strong> Tasks sort du cœur expérimental ; MCP Apps et Enterprise-Managed Authorization s’inscrivent dans le modèle d’extensions.</li>
+<li><strong>Autorisation :</strong> les credentials client sont liés à l’émetteur ; Client ID Metadata Documents (CIMD) devient la voie privilégiée, tandis que Dynamic Client Registration (DCR) est déprécié mais conservé pour compatibilité.</li>
+<li><strong>Dépréciations :</strong> Roots, Sampling, Logging et le transport HTTP+SSE restent utilisables pendant une période de transition annoncée d’au moins douze mois ; ne pas les choisir pour une nouvelle implémentation.</li>
+</ul>
+<p>Sources : <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/blog/content/posts/2026-07-28-spec-ga/index.html">annonce de la release</a>, <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/changelog.mdx">changelog officiel</a>, <a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">détail de la spécification</a>.</p>
+<h2 id="4-position-dans-le-systeme">4. POSITION DANS LE SYSTÈME</h2>
+<pre><code>Utilisateur / agent / IDE / service métier
+                 │ client MCP
+                 ▼
+      Gateway HTTP · auth · policy · audit
+                 │ Streamable HTTP
+                 ▼
+     Serveur MCP ──► outils / ressources / prompts
+          │                    │
+          ├── APIs métier, GitHub, AWS, Kubernetes
+          ├── base, fichiers, recherche, modèles
+          └── OTel / logs / SIEM / métriques</code></pre>
+<p>Producteurs : serveurs MCP et systèmes qu’ils encapsulent. Consommateurs : clients agents, applications, IDE et gateways. Entrées : requêtes JSON-RPC et métadonnées HTTP. Sorties : résultats structurés, erreurs, notifications ou tâches. MCP ne remplace ni l’IAM métier, ni un proxy egress, ni un registre de secrets.</p>
+<h2 id="5-modele-mental">5. MODÈLE MENTAL</h2>
+<ol>
+<li>Le client choisit un serveur et négocie/annonce la version supportée.</li>
+<li>Il découvre éventuellement les capacités avec <code>server/discover</code>, puis liste outils, ressources et prompts.</li>
+<li>Il appelle un outil avec des arguments validés par le schéma ; le serveur exécute l’action selon son identité et sa politique.</li>
+<li>Une opération longue utilise l’extension Tasks ; une interaction utilisateur ou modèle suit le mécanisme approprié, avec validation et timeout.</li>
+<li>Le client corrèle <code>request_id</code>, serveur, outil, identité, coût, résultat et erreur dans l’observabilité.</li>
+</ol>
+<p>États à gérer côté application : catalogue découvert, autorisation, appel en cours, tâche en attente, succès, erreur, expiration et révocation. Une erreur MCP n’est pas une preuve d’échec métier : conserver le code JSON-RPC, le statut HTTP, le timeout et la trace d’exécution.</p>
+<h2 id="6-architecture-de-deploiement">6. ARCHITECTURE DE DÉPLOIEMENT</h2>
+<p><strong>Local reproductible :</strong> lancer un serveur MCP de démonstration sur stdio ou Streamable HTTP, l’exposer uniquement sur <code>localhost</code>, utiliser un client compatible <code>2026-07-28</code>, appeler un outil inoffensif et inspecter la négociation, le catalogue et les erreurs. Figer la version du SDK et les exemples officiels ; ne fournir aucun secret réel.</p>
+<p><strong>Production réaliste :</strong> déployer le serveur comme workload HTTP stateless sur EKS/GKE ou une plateforme VM, derrière un gateway. Utiliser un load balancer sans affinité, TLS, authentification OAuth, CIMD lorsque supporté, allowlist de méthodes/outils, quotas, timeouts, egress contrôlé et journalisation structurée. Terraform peut gérer l’infrastructure ; GitHub Actions ou GitLab CI/CD valide schémas, compatibilité et tests de sécurité.</p>
+<p><strong>Chemins de panne :</strong> serveur indisponible → retry borné et circuit breaker ; outil lent → timeout et passage en Task ; catalogue obsolète → TTL/cache et nouvelle découverte ; instance supprimée → aucune dépendance à une session protocolaire ; serveur compromis → révocation, blocage egress et rotation des credentials.</p>
+<h2 id="7-donnees-compatibilite-et-cycle-de-vie">7. DONNÉES, COMPATIBILITÉ ET CYCLE DE VIE</h2>
+<p>MCP transporte des enveloppes et résultats ; les données métier restent dans les systèmes appelés. Définir taille maximale, durée de rétention des logs, cache des listes et durée de vie des handles/Tasks. Valider les schémas JSON et les limites de profondeur/temps de validation.</p>
+<p>La migration <code>2025-11-25</code> → <code>2026-07-28</code> doit tester : suppression de l’initialisation et de <code>Mcp-Session-Id</code>, version portée par requête, routage par headers, remplacement éventuel de server-initiated requests par MRTR, DCR/CIMD, Tasks et dépréciations. Prévoir un client ou serveur compatible ancienne version comme repli pendant la fenêtre de migration.</p>
+<h2 id="8-exploitation">8. EXPLOITATION</h2>
+<p>SLO à qualifier : disponibilité du gateway et des serveurs, p95 de découverte/appel, taux d’erreur par outil, taux de timeout, durée des Tasks, fraîcheur des catalogues et coût par appel. Alertes : hausse <code>4xx/5xx</code>, erreurs d’autorisation, outils nouvellement exposés, catalogue changé, egress inattendu, backlog Tasks et absence de traces corrélées.</p>
+<div class="table-wrap"><table><thead><tr><th>Charge hypothétique</th><th>Ressource</th><th>Métrique</th></tr></thead><tbody><tr><td>10–100 appels/s</td><td>CPU gateway + serveur</td><td>p95, saturation, 5xx</td></tr><tr><td>100–1 000 outils listés</td><td>RAM/cache</td><td>taille catalogue, TTL, hit rate</td></tr><tr><td>1–10 Tasks simultanées/client</td><td>stockage d’état applicatif</td><td>âge, backlog, expiration</td></tr><tr><td>gros résultats</td><td>réseau + stockage</td><td>octets, latence, taille réponse</td></tr></tbody></table></div>
+<p>Upgrade : tester chaque couple client/serveur/SDK sur un environnement éphémère, vérifier les headers et les outils critiques, puis canary. Rollback : revenir au couple précédent et au transport compatible ; ne pas supprimer les anciens chemins avant confirmation des clients actifs.</p>
+<h2 id="9-securite-et-responsabilites">9. SÉCURITÉ ET RESPONSABILITÉS</h2>
+<p>Le serveur MCP est une frontière de confiance : least privilege par outil, validation d’arguments, séparation lecture/écriture, confirmation humaine pour actions sensibles, secrets hors prompts et journal d’audit immuable. Le gateway contrôle identité, TLS, rate limiting, egress et politiques ; l’équipe propriétaire du serveur contrôle le code, les dépendances, les scopes et les données retournées.</p>
+<p>Ne pas confondre la présence d’un outil dans <code>tools/list</code> avec son autorisation réelle. Tester confused deputy, SSRF, injection de prompt dans les résultats, exfiltration via outils, replay de credentials, déni de service par réponses volumineuses et escalade entre serveur et client. Les comptes de service AWS/GCP/Kubernetes doivent être dédiés et bornés.</p>
+<h2 id="10-choix-et-limites">10. CHOIX ET LIMITES</h2>
+<p>MCP est pertinent si plusieurs clients doivent consommer un même catalogue d’outils ou si l’on veut découpler agents et intégrations. Une API REST/gRPC directe reste préférable pour un contrat métier stable, fortement typé et non agentique ; un bus de messages convient mieux aux workflows durables et volumineux. MCP ajoute une surface de gouvernance, de sécurité et de compatibilité : il ne doit pas devenir un passe-partout donnant accès à toute l’entreprise.</p>
+<h2 id="11-quand-lutiliser-leviter">11. QUAND L’UTILISER / L’ÉVITER</h2>
+<p>À utiliser pour des outils agentiques réutilisables, des serveurs distants gouvernés et des intégrations où découverte et consentement comptent. À éviter pour une transaction critique synchrone sans besoin agentique, des payloads massifs, une automatisation nécessitant une garantie exactement une fois, ou un serveur dont les permissions ne sont pas isolables.</p>
+<h2 id="12-evolutions-depuis-la-derniere-carte">12. ÉVOLUTIONS DEPUIS LA DERNIÈRE CARTE</h2>
+<p>Première carte MCP dans ce dépôt ; l’évolution de référence est donc la comparaison officielle <code>2026-07-28</code> / <code>2025-11-25</code>.</p>
+<ul>
+<li>28/07 : cœur stateless et suppression des sessions protocolaire ; impact : déploiement horizontal simplifié, migration obligatoire des clients dépendant de <code>Mcp-Session-Id</code>.</li>
+<li>28/07 : MRTR, routage par headers et listes cacheables ; impact : gateway plus observable et moins dépendant de connexions longues.</li>
+<li>28/07 : Tasks, MCP Apps et EMA dans le cadre d’extensions ; impact : fonctionnalités évolutives, mais compatibilité à vérifier par extension.</li>
+<li>28/07 : CIMD privilégié et DCR déprécié ; impact : revoir l’enregistrement et la gestion des identités clients.</li>
+<li>28/07 : Roots, Sampling, Logging et HTTP+SSE dépréciés ; décision : ne pas les introduire dans un nouveau composant.</li>
+</ul>
+<h2 id="13-laboratoire-guide-45-a-60-minutes">13. LABORATOIRE GUIDÉ — 45 À 60 MINUTES</h2>
+<p><strong>Owner :</strong> plateforme/IA. <strong>Prérequis :</strong> Node.js ou Python, Docker facultatif, un client MCP de test, aucune donnée sensible.</p>
+<ol>
+<li>Figer un serveur MCP de démonstration et son SDK ; lancer une instance stdio puis une instance Streamable HTTP locale.</li>
+<li>Capturer une requête de découverte/liste, vérifier version, capacités, cache hints et ordre des résultats.</li>
+<li>Appeler un outil sans effet de bord puis provoquer un argument invalide et un timeout ; conserver codes, latences et traces.</li>
+<li>Mettre deux instances HTTP derrière un proxy local round-robin et vérifier qu’aucune session protocolaire partagée n’est nécessaire.</li>
+<li>Tester l’autorisation d’un outil, une limite de taille et l’expiration d’un cache ; documenter les écarts SDK.</li>
+</ol>
+<p><strong>Mesures :</strong> p95 appel, taux d’erreur, taille catalogue, hit rate cache, comportement lors du changement d’instance et temps de révocation. <strong>Critère de réussite :</strong> deux instances répondent en round-robin, un outil autorisé réussit, un outil interdit échoue, une entrée invalide est rejetée et aucun secret réel n’est transmis. <strong>Nettoyage :</strong> arrêter le serveur/proxy et supprimer les caches temporaires.</p>
+<h2 id="14-incertitudes-et-sources">14. INCERTITUDES ET SOURCES</h2>
+<p>Inconnus : clients et SDK réellement utilisés, version négociée, serveurs MCP exposés, mécanisme d’IAM, gateway, SLO, volumétrie, données sensibles et propriétaire opérationnel. L’exposition réelle est <code>à qualifier</code>.</p>
+<p>Sources primaires consultées :</p>
+<ul>
+<li><a href="https://modelcontextprotocol.io/specification/2026-07-28">Spécification MCP 2026-07-28</a></li>
+<li><a href="https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2026-07-28/changelog.mdx">Changelog 2026-07-28</a></li>
+<li><a href="https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/blog/content/posts/2026-07-28-spec-ga/index.html">Annonce de la release stable</a></li>
+<li><a href="https://blog.modelcontextprotocol.io/posts/2026-07-28/">Détail des changements</a></li>
+<li><a href="https://blog.modelcontextprotocol.io/posts/mcp-roadmap/">Feuille de route MCP du 22/08/2026</a></li>
+<li><a href="https://github.com/modelcontextprotocol/modelcontextprotocol/releases">Releases du dépôt de spécification</a></li>
+</ul>
+<p>Sources en échec : aucune. Les détails d’implémentation des SDK et clients ne sont pas déduits de la spécification ; ils restent à vérifier dans les versions utilisées.</p></article>
+  </main>
+  <footer class="footer">Veille locale · générée le 05/09/2026</footer>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

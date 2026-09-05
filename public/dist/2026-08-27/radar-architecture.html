@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radar architecture — 2026-08-27 · Architecture Watchtower</title>
+  <meta name="description" content="Veille Cloud, DevOps, architecture applicative et IA.">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
+    <nav><a href="../../index.html">Rapports</a><a href="../../catalogue.html">Catalogue</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+  </header>
+  <main class="shell">
+    <article><div class="eyebrow">2026-08-27 · radar</div><h1 id="radar-architecture-2026-08-27">Radar architecture — 2026-08-27</h1>
+<h2 id="vue-densemble">Vue d’ensemble</h2>
+<div class="table-wrap"><table><thead><tr><th>Outil</th><th>Type</th><th>Pitch rapide</th></tr></thead><tbody><tr><td><a href="https://github.com/topics/agent-observability">AgentOps et observabilité IA</a></td><td>pattern</td><td>Couche de traces, coûts, évaluations et actions pour les agents.</td></tr><tr><td><a href="https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/">AI Gateway</a></td><td>pattern</td><td>Gateway spécialisée pour gouverner le trafic vers les modèles.</td></tr><tr><td><a href="https://www.cncf.io/blog/2026/03/24/welcome-llm-d-to-the-cncf-evolving-kubernetes-into-sota-ai-infrastructure/">Inférence cloud-native</a></td><td>pattern</td><td>Patterns Kubernetes pour servir des modèles avec GPU, cache et scheduling.</td></tr><tr><td><a href="https://opentelemetry.io/blog/2026/genai-observability/">OpenTelemetry GenAI</a></td><td>standard</td><td>Conventions de télémétrie pour modèles, tokens, outils et traces.</td></tr><tr><td><a href="https://kubernetes.io/releases/1.37/">Kubernetes 1.37</a></td><td>plateforme</td><td>Nouvelle version Kubernetes avec évolutions de plateforme.</td></tr></tbody></table></div>
+<h2 id="agentops-et-observabilite-ia"><a href="https://github.com/topics/agent-observability">AgentOps et observabilité IA</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> les outils AgentOps ajoutent une visibilité sur les étapes d’un agent, ses appels modèles, ses outils, ses retries, ses coûts et ses évaluations. Ils répondent au manque de contexte laissé par un simple log de requête.</li>
+<li><strong>Utilité :</strong> utile pour exploiter un agent comme un système distribué : corréler <code>trace_id</code>, modèle, outil, permission, coût et résultat. Commencer avec OpenTelemetry et les backends déjà disponibles avant d’ajouter un middleware dédié.</li>
+<li><strong>Preuves de traction :</strong> topic GitHub <code>agent-observability</code> avec environ 360 dépôts, plusieurs projets mis à jour les 25–27/08, conventions GenAI OpenTelemetry et positionnement CloudWatch AWS. Outils similaires : OpenTelemetry + ELK/APM, CloudWatch Agent Observability, Langfuse ; le choix dépend de la rétention, de la confidentialité et de l’intégration.</li>
+<li><strong>Indicateur de tendance (29/08/2026) :</strong> N/A — pattern sans dépôt canonique unique ; signaux répartis entre OTel, fournisseurs et projets AgentOps.</li>
+</ul>
+<h3 id="pitch-detaille">Pitch détaillé</h3>
+<p>L’observabilité agentique ne consiste pas seulement à capturer le prompt et la réponse. Il faut reconstruire une exécution : modèle choisi, étapes, appels outils, décisions, erreurs, retries, tokens et coût. Le pattern est donc une extension de l’observabilité distribuée, avec des données sensibles et une cardinalité plus difficile à maîtriser.</p>
+<p>La trajectoire la plus réversible est d’instrumenter une chaîne avec OpenTelemetry, d’exporter vers ELK/APM ou CloudWatch, puis de mesurer ce qui manque réellement. Un outil spécialisé devient pertinent seulement si l’évaluation, la visualisation des runs ou la gestion des coûts dépassent les capacités existantes. Décision : <code>tester</code> sur un agent non critique.</p>
+<h2 id="ai-gateway"><a href="https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/">AI Gateway</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> une AI Gateway place une politique de contrôle entre les clients et les modèles ou fournisseurs. Elle regroupe routage, quotas, authentification, inspection, cache et guardrails au niveau plateforme.</li>
+<li><strong>Utilité :</strong> utile lorsque plusieurs applications réimplémentent les mêmes règles de fournisseur, de région, de budget ou de fallback. L’autorisation métier doit rester dans l’application.</li>
+<li><strong>Preuves de traction :</strong> groupe de travail AI Gateway Kubernetes, travaux CNCF autour de l’Inference Gateway et lien avec Gateway API. Outils similaires : Kong AI Gateway, Envoy AI Gateway, LiteLLM ; comparer intégration Kubernetes, sécurité, protocoles et charge opérationnelle.</li>
+<li><strong>Indicateur de tendance (29/08/2026) :</strong> N/A — pattern/WG sans compteur unique ; signal officiel Kubernetes/CNCF.</li>
+</ul>
+<h3 id="pitch-detaille">Pitch détaillé</h3>
+<p>Le sujet marque le déplacement de la gouvernance IA vers l’infrastructure. Une gateway peut imposer des quotas et une identité homogènes, mais elle devient aussi un composant critique du chemin de requête et un point de concentration des secrets et des logs.</p>
+<p>Il faut distinguer les APIs et contrôleurs encore mouvants des fonctionnalités stables. Un test réaliste doit utiliser deux backends simulés et mesurer auth, routage, timeout, failover, latence et contrôle des permissions. Décision : <code>surveiller</code>, puis <code>tester</code> lorsqu’un besoin multi-modèle ou multi-cloud est confirmé.</p>
+<h2 id="inference-cloud-native"><a href="https://www.cncf.io/blog/2026/03/24/welcome-llm-d-to-the-cncf-evolving-kubernetes-into-sota-ai-infrastructure/">Inférence cloud-native</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> l’inférence moderne sur Kubernetes traite le modèle comme un workload spécialisé avec GPU, scheduling, cache KV, routage et métriques TTFT/TPOT. Elle dépasse le simple Deployment d’un serveur de modèle.</li>
+<li><strong>Utilité :</strong> utile pour dimensionner un serving IA et arbitrer coût, débit, latence et placement matériel. Sans workload GPU réel, rester au stade de veille.</li>
+<li><strong>Preuves de traction :</strong> llm-d présenté comme CNCF Sandbox, intégrations KServe/vLLM et travaux autour de DRA, LWS, Kueue et Gateway API ; Kubernetes 1.37.0 publié le 26/08. Outils similaires : KServe, Ray Serve, vLLM ; la comparaison porte sur scheduling, GPU, autoscaling et exploitation.</li>
+<li><strong>Indicateur de tendance (29/08/2026) :</strong> llm-d ★4,3 k · forks 725 · push 29/08 ; vLLM ★90,4 k · forks 21,4 k · push 29/08.</li>
+</ul>
+<h3 id="pitch-detaille">Pitch détaillé</h3>
+<p>Le problème central est d’aligner demande utilisateur, capacité GPU et état du modèle. Le chemin comprend gateway ou scheduler, serveur de modèle, ressources GPU, éventuel cache et télémétrie spécialisée ; les métriques classiques CPU/RAM ne suffisent pas pour expliquer TTFT, tokens/s ou coût.</p>
+<p>La pertinence dépend entièrement du matériel, du modèle et du profil de charge. Il faut un test reproductible avec requêtes représentatives et comparaison à un Deployment classique. Décision : <code>surveiller</code> jusqu’à l’existence d’un workload d’inférence concret.</p>
+<h2 id="opentelemetry-genai"><a href="https://opentelemetry.io/blog/2026/genai-observability/">OpenTelemetry GenAI</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> OpenTelemetry formalise des attributs et événements pour instrumenter les appels modèles et outils. Il peut fournir une base commune à ELK, Elastic APM et CloudWatch.</li>
+<li><strong>Utilité :</strong> éviter de verrouiller l’observabilité dans un fournisseur et permettre la corrélation des traces. Outils similaires : OpenInference, Langfuse et instrumentation native des fournisseurs.</li>
+<li><strong>Preuves de traction :</strong> conventions GenAI et évolution du projet OpenTelemetry. Niveau <code>signal faible</code> pour les détails de stabilité et d’implémentation ; décisions de schéma à surveiller.</li>
+<li><strong>Indicateur de tendance (29/08/2026) :</strong> Collector OTel ★7,5 k · forks 2,2 k · push 28/08 ; proxy d’activité de l’écosystème, pas mesure du sous-standard.</li>
+</ul>
+<h2 id="kubernetes-1-37"><a href="https://kubernetes.io/releases/1.37/">Kubernetes 1.37</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> Kubernetes 1.37 est une release de plateforme qui peut modifier APIs, compatibilités et opérations de cluster. Son intérêt architectural dépend des add-ons et distributions réellement utilisés.</li>
+<li><strong>Utilité :</strong> vérifier les dépréciations, versions supportées et gains avant upgrade ; ne pas confondre release produit et tendance d’architecture.</li>
+<li><strong>Preuves de traction :</strong> release officielle 1.37.0 le 26/08 et patch 1.37.1 ciblé au 15/09. Outils similaires : distributions Kubernetes managées AWS/GCP et distributions on-prem ; comparaison limitée à support et compatibilité.</li>
+<li><strong>Indicateur de tendance (29/08/2026) :</strong> Kubernetes ★125,3 k · forks 43,9 k · issues 3,0 k · push 28/08.</li>
+</ul>
+<h2 id="sujets-ecartes">Sujets écartés</h2>
+<ul>
+<li>Frameworks d’agents sans documentation de déploiement ou d’exploitation.</li>
+<li>Benchmarks de modèles sans protocole reproductible ni charge représentative.</li>
+<li>Releases ELK/APM sans impact sécurité, compatibilité ou capacité.</li>
+</ul>
+<h2 id="sources-consultees">Sources consultées</h2>
+<ul>
+<li><a href="https://kubernetes.io/releases/1.37/">Kubernetes releases et AI Gateway WG</a>, <a href="https://www.cncf.io/blog/2026/03/24/welcome-llm-d-to-the-cncf-evolving-kubernetes-into-sota-ai-infrastructure/">CNCF llm-d</a>, <a href="https://www.cncf.io/blog/2026/03/26/the-platform-under-the-model-how-cloud-native-powers-ai-engineering-in-production/">CNCF Inference Gateway</a>.</li>
+<li><a href="https://opentelemetry.io/blog/2026/genai-observability/">OpenTelemetry GenAI</a>, <a href="https://aws.amazon.com/blogs/mt/this-month-in-aws-observability-july-2026/">AWS CloudWatch observability</a>, <a href="https://github.com/topics/agent-observability">GitHub Agent Observability</a>.</li>
+<li>Sources de discussion non exploitables dans cette exécution : Hacker News RSS.</li>
+</ul></article>
+  </main>
+  <footer class="footer">Veille locale · générée le 05/09/2026</footer>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

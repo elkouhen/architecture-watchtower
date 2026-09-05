@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CARTE SERVICE — [ELASTICSEARCH](https://www.elastic.co/elasticsearch) · Architecture Watchtower</title>
+  <meta name="description" content="Veille Cloud, DevOps, architecture applicative et IA.">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
+    <nav><a href="../../index.html">Rapports</a><a href="../../catalogue.html">Catalogue</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+  </header>
+  <main class="shell">
+    <article><div class="eyebrow">2026-08-27 · carte</div><h1 id="carte-service-elasticsearch">CARTE SERVICE — <a href="https://www.elastic.co/elasticsearch">ELASTICSEARCH</a></h1>
+<p>Date : 2026-08-27. Type : <code>service</code>. Version de référence documentée : Elastic Stack <code>9.5.2</code>. Version réellement déployée : <code>à qualifier</code>.</p>
+<h2 id="1-resume-decisionnel">1. RÉSUMÉ DÉCISIONNEL</h2>
+<p>Elasticsearch est un moteur distribué de recherche et d’analytique pour documents, logs, événements, observabilité et recherche hybride/vectorielle. Pour ta stack, il se place dans ELK et peut compléter CloudWatch ; il ne remplace pas une base transactionnelle. Décision : <code>évaluer</code> la version et le mode de déploiement avant upgrade.</p>
+<p><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★77,9 k · forks 26,1 k · dernier push 29/08. Visibilité/activité, pas preuve de maturité.</p>
+<h2 id="2-position-dans-le-systeme">2. POSITION DANS LE SYSTÈME</h2>
+<pre><code>applications / agents / Kubernetes
+        │ logs, événements, traces, documents
+        ▼
+Logstash / Elastic Agent / APM / OpenTelemetry
+        ▼
+Elasticsearch ──► Kibana, alertes, recherche, IA
+        │
+        └──── snapshots ───► repository externe</code></pre>
+<p>Producteurs : applications, Logstash, Elastic Agent, APM et OpenTelemetry. Consommateurs : Kibana, APIs de recherche, alertes, sécurité et applications IA. Les données de référence restent dans le système métier lorsqu’une réindexation est possible.</p>
+<h2 id="3-modele-mental">3. MODÈLE MENTAL</h2>
+<p>À l’écriture, un pipeline parse/enrichit, le mapping indexe les champs et le document va vers un shard primaire ; segments, translog et replicas contribuent à la durabilité. À la lecture, le nœud coordinateur interroge les shards concernés, fusionne les résultats et renvoie hits, scores et agrégations. Un replica et un snapshot ne répondent pas au même besoin : le premier aide la disponibilité, le second la reprise.</p>
+<h2 id="4-deploiement">4. DÉPLOIEMENT</h2>
+<p><strong>Local :</strong> Docker, un nœud, données non sensibles, sécurité adaptée au laboratoire.</p>
+<p><strong>Production réaliste :</strong> ECK sur Kubernetes si l’équipe veut opérer l’instance dans ses clusters ; Hosted/Serverless si la réduction de charge d’exploitation est prioritaire. Le choix dépend de la capacité à gérer TLS, stockage, upgrades, snapshots, réseau et coûts.</p>
+<p>Pour un cluster distribué : séparer progressivement master, data, ingest et coordinating ; placer les replicas dans un autre domaine de panne ; tester la perte d’un nœud et la restauration d’un snapshot. Les détails de tiers hot/warm/cold/frozen ne sont pertinents que si la rétention le justifie.</p>
+<h2 id="5-donnees-et-cycle-de-vie">5. DONNÉES ET CYCLE DE VIE</h2>
+<p>Mappings et templates doivent être versionnés. Utiliser data streams/rollover et ILM si les logs ont une rétention définie. Définir âge, taille, performance, coût et critère de suppression pour chaque tier. Les snapshots doivent être stockés hors cluster et restaurés périodiquement.</p>
+<h2 id="6-exploitation-et-dimensionnement">6. EXPLOITATION ET DIMENSIONNEMENT</h2>
+<div class="table-wrap"><table><thead><tr><th>Charge</th><th>Ressource</th><th>Métrique</th></tr></thead><tbody><tr><td>ingestion, parsing, merges</td><td>CPU + I/O</td><td>débit, CPU, merge time, rejets bulk</td></tr><tr><td>recherches concurrentes</td><td>CPU + shards</td><td>p95/p99, search queue, fan-out</td></tr><tr><td>agrégations et mappings</td><td>RAM/heap</td><td>heap pressure, GC, breakers</td></tr><tr><td>index chaud</td><td>filesystem cache + SSD</td><td>latence disque, IOPS, cache</td></tr><tr><td>rétention/replicas</td><td>disque</td><td>volume, watermarks, merges</td></tr></tbody></table></div>
+<p>Calcul initial : <code>volume primaire × replicas × durée</code>, puis overhead d’indexation, merges, snapshots et marge avant watermark. Le heap JVM ne doit généralement pas dépasser 50 % de la RAM du nœud ; le reste sert notamment au filesystem cache. La capacité doit être validée avec les débits et requêtes réels, pas déduite d’une taille universelle.</p>
+<h2 id="7-securite">7. SÉCURITÉ</h2>
+<p>RBAC, comptes de service distincts, TLS, clés à privilèges minimaux, réseau privé, audit si requis et filtrage des données sensibles APM/IA. Qualifier la responsabilité selon self-managed, ECK, Hosted ou Serverless.</p>
+<h2 id="8-choix-et-limites">8. CHOIX ET LIMITES</h2>
+<p>À utiliser pour recherche plein texte/hybride, logs, événements, observabilité et RAG mesuré. À éviter comme source unique pour transactions ACID, relations complexes ou données impossibles à réindexer/exporter. Comparer OpenSearch, base relationnelle ou object storage uniquement si le workload rend le choix réel.</p>
+<h2 id="9-evolutions">9. ÉVOLUTIONS</h2>
+<ul>
+<li>Elastic Stack <code>9.5.2</code> est la version actuelle documentée : https://www.elastic.co/docs/release-notes ;</li>
+<li>Logstash <code>9.5.2</code> possède des notes de version dédiées : https://www.elastic.co/docs/release-notes/logstash ;</li>
+<li>un incident Elastic Cloud APM Serverless a été résolu le 26 août : https://status.elastic.co/.</li>
+</ul>
+<p>Impact : inventorier les versions, les endpoints APM et les repositories avant toute mise à niveau. Exposition de la stack : <code>inconnue</code>.</p>
+<h2 id="10-laboratoire-45-a-60-minutes">10. LABORATOIRE — 45 À 60 MINUTES</h2>
+<ol>
+<li>Démarrer Elasticsearch/Kibana <code>9.5.2</code> localement avec des données non sensibles.</li>
+<li>Créer un index <code>products</code> avec mapping explicite et dix documents.</li>
+<li>Exécuter recherche plein texte, filtre et agrégation.</li>
+<li>Créer un alias de lecture et vérifier le découplage du nom physique.</li>
+<li>Injecter un événement Logstash ou un document APM simulé et vérifier sa recherche.</li>
+<li>Observer index, shards et métriques de base.</li>
+</ol>
+<p>Succès : mapping, alias, flux d’ingestion et distinction cluster sain/sauvegarde sont démontrés ; deux différences local/production sont documentées.</p>
+<h2 id="11-incertitudes-et-sources">11. INCERTITUDES ET SOURCES</h2>
+<p>Inconnus : version déployée, topologie, mode, régions, volumes, débit, rétention, SLO/RPO/RTO, coûts, données sensibles et owner. Sources consultées :</p>
+<ul>
+<li>https://www.elastic.co/docs/release-notes ;</li>
+<li>https://www.elastic.co/docs/release-notes/logstash ;</li>
+<li>https://www.elastic.co/docs/deploy-manage/distributed-architecture ;</li>
+<li>https://www.elastic.co/docs/deploy-manage/tools/snapshot-and-restore ;</li>
+<li>https://www.elastic.co/docs/reference/elasticsearch/jvm-settings ;</li>
+<li>https://www.elastic.co/docs/deploy-manage/production-guidance/optimize-performance/size-shards.</li>
+</ul>
+<p>Références vérifiées le 27 août 2026. Publication locale après validation du fichier.</p></article>
+  </main>
+  <footer class="footer">Veille locale · générée le 05/09/2026</footer>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

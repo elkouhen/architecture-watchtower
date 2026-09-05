@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CARTE SERVICE — [AGENT SANDBOX](https://github.com/kubernetes-sigs/agent-sandbox) · Architecture Watchtower</title>
+  <meta name="description" content="Veille Cloud, DevOps, architecture applicative et IA.">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
+    <nav><a href="../../index.html">Rapports</a><a href="../../catalogue.html">Catalogue</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+  </header>
+  <main class="shell">
+    <article><div class="eyebrow">2026-08-28 · carte</div><h1 id="carte-service-agent-sandbox">CARTE SERVICE — <a href="https://github.com/kubernetes-sigs/agent-sandbox">AGENT SANDBOX</a></h1>
+<p><strong>Régénération :</strong> 28 août 2026, avec pitch rapide obligatoire pour le service.</p>
+<p><strong>Perspective :</strong> carte rédigée du point de vue d’un architecte DevOps/Cloud qui doit décider où placer le service, comment l’opérer et quand ne pas le retenir.</p>
+<p>Date : 2026-08-28. Type : <code>outil Kubernetes / contrôleur</code>. Version observée : <code>v0.5.6</code> dans la release officielle. Version réellement déployée dans la stack de Mehdi : <code>à qualifier</code>.</p>
+<h2 id="1-resume-decisionnel">1. RÉSUMÉ DÉCISIONNEL</h2>
+<p><strong>Pitch rapide :</strong> Agent Sandbox fournit une ressource Kubernetes pour exécuter un agent dans un environnement persistant et identifiable, avec un cycle de vie géré par contrôleur. Il s’adresse aux équipes plateforme qui veulent isoler les sessions d’agents ou de code généré sans recomposer manuellement Pod, Service et stockage.</p>
+<p>Agent Sandbox est un contrôleur Kubernetes pour des workloads singleton, persistants et isolés, adaptés aux runtimes d’agents et à l’exécution de code non fiable. Le potentiel est élevé pour la plateforme IA, mais le produit reste émergent. Décision proposée : <code>tester</code> localement, sans usage critique ni secrets. Principal compromis : simplicité de cycle de vie contre nouvelle CRD, surface d’isolation et dépendance à un projet jeune.</p>
+<p><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★3,7 k · forks 471 · dernier push 28/08. Visibilité/activité, pas preuve de maturité.</p>
+<h2 id="2-position-dans-le-systeme">2. POSITION DANS LE SYSTÈME</h2>
+<p>Producteur : orchestrateur d’agent ou plateforme interne. Contrôleur : Agent Sandbox dans Kubernetes. Entrées : ressource <code>Sandbox</code>, image de runtime, ServiceAccount, PVC et politiques réseau. Sorties : Pod singleton avec identité réseau stable, état persistant et événements Kubernetes. Compléments : registry, secrets manager, OTel Collector/Elastic APM, NetworkPolicy, admission policy et stockage objet pour artefacts.</p>
+<h2 id="3-modele-mental">3. MODÈLE MENTAL</h2>
+<p>Un <code>Sandbox</code> décrit un pod durable possédant un nom et une identité stables. Le contrôleur réconcilie cette ressource, crée ou maintient le pod et permet de gérer un cycle de vie de session. Le pattern cible les environnements de développement, notebooks, agents exécutant du code et services singleton.</p>
+<p>Chemin : demande de session → validation admission/RBAC → création du Sandbox → Pod + stockage → appels outils contrôlés → traces/événements → hibernation ou suppression.</p>
+<p>Erreurs principales : image absente, PVC non provisionné, permissions excessives, réseau sortant non contrôlé, contrôleur indisponible, API CRD incompatible ou nettoyage incomplet.</p>
+<h2 id="4-architecture-de-deploiement">4. ARCHITECTURE DE DÉPLOIEMENT</h2>
+<p><strong>Local reproductible :</strong> Kind, namespace dédié, contrôleur et CRD depuis une release figée, une image de test non privilégiée, PVC local et NetworkPolicy restrictive. Les manifests officiels sont documentés ici : https://github.com/kubernetes-sigs/agent-sandbox#installation.</p>
+<p><strong>Production réaliste :</strong> EKS ou GKE avec version Kubernetes et CRD supportées, contrôleur installé via manifests/Helm selon la documentation publiée, namespace séparé, ServiceAccount minimal, Pod Security Admission, NetworkPolicy deny-by-default, quotas, registry privée, stockage chiffré et observabilité. Terraform doit gérer le cluster et les dépendances ; les manifests de l’application doivent rester versionnés séparément.</p>
+<p><strong>Chemins de panne :</strong> si le contrôleur tombe, ne pas supposer que les sessions sont recréées correctement ; si le PVC reste attaché, bloquer le nettoyage ; si le runtime est compromis, couper l’egress et révoquer l’identité ; si la CRD change, suspendre le rollout et revenir à la release précédente validée.</p>
+<h2 id="5-donnees-et-cycle-de-vie">5. DONNÉES ET CYCLE DE VIE</h2>
+<p>Le service ne définit pas le modèle métier de l’agent. L’état peut résider dans un PVC ou dans un stockage externe. Décider explicitement : taille, classe, chiffrement, rétention, snapshots et suppression avec la session. Les artefacts de sortie doivent être exportés vers un stockage contrôlé, pas conservés indéfiniment dans le Sandbox.</p>
+<h2 id="6-exploitation-et-dimensionnement">6. EXPLOITATION ET DIMENSIONNEMENT</h2>
+<p>SLO proposé pour un laboratoire : création de session réussie ≥ 99 % et nettoyage terminé ≤ 2 minutes. Pour la production, les valeurs restent <code>à qualifier</code>.</p>
+<div class="table-wrap"><table><thead><tr><th>Charge</th><th>Ressource</th><th>Métrique</th></tr></thead><tbody><tr><td>1–10 sessions simultanées</td><td>CPU contrôleur 0,1–0,5 vCPU</td><td>reconcile latency, erreurs</td></tr><tr><td>runtime agent</td><td>0,5–2 vCPU et 512 MiB–2 GiB par session</td><td>CPU, RSS, OOMKill</td></tr><tr><td>état session</td><td>PVC 1–10 GiB par session</td><td>remplissage, IOPS, erreurs</td></tr><tr><td>appels outils</td><td>réseau egress borné</td><td>octets, DNS, refus, latence</td></tr></tbody></table></div>
+<p>Alertes : contrôleur non prêt, erreurs de reconciliation, Sandbox bloqués, PVC saturés, OOMKill, egress refusé anormal, durée de session excessive et ressources orphelines. Upgrade : tester CRD et manifests dans Kind, sauvegarder les définitions, appliquer avec fenêtre de retour. Rollback : restaurer la release précédente et vérifier conversion/compatibilité des CRD ; ne jamais supprimer une CRD de production sans plan de migration.</p>
+<h2 id="7-securite-et-responsabilites">7. SÉCURITÉ ET RESPONSABILITÉS</h2>
+<p>L’équipe doit fournir une image minimale, un ServiceAccount sans privilèges, des secrets injectés au dernier moment ou absents, un egress allowlisté, des quotas et une politique d’admission. Le fournisseur Cloud reste responsable du control plane managé ; l’équipe reste responsable du contrôleur, des images, du runtime, des données, des règles réseau et de l’audit. L’isolation fonctionnelle du CRD ne remplace pas une défense en profondeur (Pod Security, sandbox runtime, seccomp/AppArmor/gVisor selon besoin).</p>
+<h2 id="8-choix-et-limites">8. CHOIX ET LIMITES</h2>
+<p>Le gain principal est une abstraction Kubernetes pour les sessions singleton persistantes. Alternatives : StatefulSet + Service + PVC pour un besoin simple ; job isolé ou microVM pour une isolation plus forte ; service managé de sandbox si la charge opérationnelle Kubernetes est trop élevée. Comparaison détaillée à reporter tant que le cas d’usage et le niveau d’isolement requis sont inconnus.</p>
+<h2 id="9-quand-lutiliser-leviter">9. QUAND L’UTILISER / L’ÉVITER</h2>
+<p>À utiliser pour des sessions longues, identifiables et persistantes, notamment des agents qui doivent conserver un workspace. À éviter pour un simple traitement stateless, un contrôle critique de production tant que l’API est émergente, ou un code hostile nécessitant une isolation matérielle non démontrée.</p>
+<h2 id="10-evolutions-depuis-la-derniere-carte">10. ÉVOLUTIONS DEPUIS LA DERNIÈRE CARTE</h2>
+<p>Première carte du service dans ce dépôt. Fait nouveau : documentation officielle et releases actives observées ; impact : le sujet franchit le seuil minimal pour un laboratoire, mais pas pour une adoption.</p>
+<h2 id="11-laboratoire-guide-45-a-60-minutes">11. LABORATOIRE GUIDÉ — 45 À 60 MINUTES</h2>
+<p><strong>Owner :</strong> plateforme Kubernetes. <strong>Prérequis :</strong> Docker, Kind, kubectl, accès réseau et une image alpine non privilégiée.</p>
+<ol>
+<li>Créer un cluster Kind et un namespace de test.</li>
+<li>Installer une release Agent Sandbox explicitement choisie depuis les manifests officiels.</li>
+<li>Créer un <code>Sandbox</code> avec un PVC temporaire, un ServiceAccount dédié et une NetworkPolicy restrictive.</li>
+<li>Écrire un fichier dans le workspace, redémarrer/reconcilier la session et vérifier la persistance.</li>
+<li>Tenter une résolution DNS/connexion sortante non autorisée et vérifier le refus.</li>
+<li>Supprimer le Sandbox, attendre la fin du contrôleur et vérifier Pods, PVC et événements orphelins.</li>
+</ol>
+<p><strong>Observations :</strong> temps de création, état du CRD, identité du Pod, persistance, refus réseau et temps de nettoyage. <strong>Critère de réussite :</strong> session créée, état conservé, egress non autorisé refusé et nettoyage complet en moins de deux minutes. <strong>Nettoyage :</strong> supprimer le namespace puis le cluster Kind. Ne pas utiliser cette procédure telle quelle en production.</p>
+<h2 id="12-incertitudes-et-sources">12. INCERTITUDES ET SOURCES</h2>
+<p>Inconnus : version réellement disponible/supportée, runtime d’isolation, exposition de la stack, SLO, coût, topologie Kubernetes, stockage et propriétaire opérationnel. Sources primaires :</p>
+<ul>
+<li>dépôt : https://github.com/kubernetes-sigs/agent-sandbox</li>
+<li>releases : https://github.com/kubernetes-sigs/agent-sandbox/releases</li>
+<li>documentation : https://agent-sandbox.sigs.k8s.io/docs/</li>
+<li>installation : https://agent-sandbox.sigs.k8s.io/docs/getting_started/install_prerequisites/</li>
+<li>article Kubernetes : https://kubernetes.io/blog/2026/03/20/running-agents-on-kubernetes-with-agent-sandbox/</li>
+</ul></article>
+  </main>
+  <footer class="footer">Veille locale · générée le 05/09/2026</footer>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

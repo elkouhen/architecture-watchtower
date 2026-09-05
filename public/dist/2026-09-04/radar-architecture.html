@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radar architecture — 4 septembre 2026 · Architecture Watchtower</title>
+  <meta name="description" content="Veille Cloud, DevOps, architecture applicative et IA.">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
+    <nav><a href="../../index.html">Rapports</a><a href="../../catalogue.html">Catalogue</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+  </header>
+  <main class="shell">
+    <article><div class="eyebrow">2026-09-04 · radar</div><h1 id="radar-architecture-4-septembre-2026">Radar architecture — 4 septembre 2026</h1>
+<p>Fenêtre de collecte : 48 h (ASAP), 7 jours (nouveautés) et 30 jours (tendances lentes). Déduplication locale appliquée sur 90 jours. Les environnements réels restent <code>exposition inconnue</code> tant que l’inventaire n’est pas confirmé.</p>
+<h2 id="vue-densemble">Vue d’ensemble</h2>
+<div class="table-wrap"><table><thead><tr><th>Outil</th><th>Type</th><th>Pitch rapide</th></tr></thead><tbody><tr><td><a href="https://cloud.google.com/release-notes">API Gateway model routing hostname</a></td><td>Nouveau hors OSS · service</td><td>Les nouvelles passerelles de routage GCP peuvent recevoir un hostname <code>gateway.dev</code> différent.</td></tr><tr><td><a href="https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/">AWS Config</a></td><td>Nouveau hors OSS · service</td><td>60 types de ressources supplémentaires élargissent l’inventaire et les contrôles de conformité.</td></tr><tr><td><a href="https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/">Amazon Bedrock Web Search</a></td><td>Nouveau hors OSS · service IA</td><td>La recherche web côté Bedrock devient disponible en GovCloud US-West.</td></tr><tr><td><a href="https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/">Amazon S3 PrivateLink FIPS</a></td><td>Nouveau hors OSS · sécurité</td><td>S3 peut être joint par PrivateLink avec des endpoints validés FIPS 140-3.</td></tr><tr><td><a href="https://github.com/aws/CICD-for-SageMakerUnifiedStudio">CICD-for-SageMakerUnifiedStudio</a></td><td>Nouveau projet OSS · outil CI/CD</td><td>Un CLI open source promeut notebooks, manifests et workloads data/IA entre environnements.</td></tr></tbody></table></div>
+<h2 id="api-gateway-hostname-des-passerelles-de-routage"><a href="https://cloud.google.com/release-notes">API Gateway — hostname des passerelles de routage</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> La note Google Cloud du 03/09 indique qu’une nouvelle passerelle utilisant le model routing peut recevoir un hostname par défaut <code>GATEWAY_ID-PROJECT_NUMBER.REGION.gateway.dev</code> au lieu de <code>run.app</code>. Le hostname effectif doit être lu depuis <code>defaultHostname</code> ; l’exposition est inconnue.</li>
+<li><strong>Utilité :</strong> Vérifier les allowlists DNS, certificats, tests synthétiques, règles WAF et URLs codées en dur dans Terraform ou les clients. Le critère de succès est zéro dépendance applicative au hostname implicite après lecture de la propriété publiée.</li>
+<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> changement documenté dans les release notes primaires le 03/09/2026. <strong>Analyse :</strong> un changement d’URL par défaut peut casser l’intégration même sans changement d’API. <strong>Décision :</strong> qualifier avant toute nouvelle création de gateway. Notes : impact 4/5, urgence 4/5, pertinence stack 4/5, confiance 5/5.</li>
+<li><strong>Outils similaires :</strong> Cloud Run <code>run.app</code> (service distinct), API Gateway sans model routing (hostname historique), DNS géré avec domaine personnalisé (découple le client du défaut fournisseur).</li>
+</ul>
+<h2 id="aws-config-couverture-de-60-nouveaux-types"><a href="https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/">AWS Config — couverture de 60 nouveaux types</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> AWS annonce le 02/09 l’ajout de 60 types de ressources, dont des ressources Bedrock, EC2 et Organizations, utilisables pour l’enregistrement, les règles et les agrégateurs Config.</li>
+<li><strong>Utilité :</strong> Étendre l’inventaire de conformité Cloud et détecter des ressources IA ou réseau jusque-là absentes des contrôles. Vérifier le coût d’enregistrement et le périmètre régional avant activation ; succès = couverture mesurée des types prioritaires et absence de dérive de coût non expliquée.</li>
+<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> annonce primaire AWS datée du 02/09/2026. <strong>Analyse :</strong> l’extension améliore la gouvernance mais ne prouve pas qu’un compte enregistre automatiquement chaque type ni que les règles existantes les couvrent. <strong>Décision :</strong> qualifier sur un compte de test. Notes : impact 4/5, urgence 3/5, pertinence stack 4/5, confiance 5/5.</li>
+<li><strong>Outils similaires :</strong> AWS Security Hub (agrégation de contrôles), CloudFormation resource drift (périmètre différent), OPA/Conftest (contrôles de code et manifests).</li>
+</ul>
+<h2 id="bedrock-web-search-ancrage-en-govcloud"><a href="https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/">Bedrock Web Search — ancrage en GovCloud</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> AWS documente le 02/09 la disponibilité de Web Search dans AWS GovCloud (US-West), avec contrôle IAM et données de requête conservées dans la frontière AWS par défaut.</li>
+<li><strong>Utilité :</strong> Étudier un RAG web pour des workloads soumis à des contraintes de résidence ou de conformité, sans déduire que la solution convient aux données sensibles. Mesurer citations correctes, latence, coût et fuite de données sur un corpus synthétique ; prévoir un mode sans recherche si l’outil est indisponible.</li>
+<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> disponibilité annoncée pour GovCloud US-West et modèles supportés dans la note primaire AWS. <strong>Analyse :</strong> la région réduit une contrainte de déploiement, mais la recherche web introduit une dépendance externe et une nouvelle surface de filtrage. <strong>Décision :</strong> qualifier avec sécurité et conformité. Notes : impact 4/5, urgence 3/5, pertinence stack 3/5, confiance 5/5.</li>
+<li><strong>Outils similaires :</strong> recherche interne/RAG sur S3 (maîtrise des données), Vertex AI grounding (gouvernance GCP), outil web auto-hébergé (contrôle supérieur, charge d’exploitation accrue).</li>
+</ul>
+<h2 id="s3-privatelink-pour-endpoints-fips"><a href="https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/">S3 — PrivateLink pour endpoints FIPS</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> Depuis le 03/09, S3 supporte des endpoints PrivateLink validés FIPS 140-3 dans plusieurs régions commerciales et GovCloud, sans coût additionnel annoncé pour cette capacité.</li>
+<li><strong>Utilité :</strong> Simplifier une architecture où des workloads réglementés doivent atteindre S3 sans sortie réseau publique et avec des modules cryptographiques validés. Vérifier les régions réellement utilisées, le routage DNS privé, les politiques endpoint et la compatibilité des clients ; succès = flux S3 conformes et tests de restauration réussis.</li>
+<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> annonce primaire AWS du 03/09/2026 listant les régions initiales. <strong>Analyse :</strong> ce changement peut supprimer une exception réseau, mais FIPS ne remplace pas le chiffrement, IAM ou la journalisation. <strong>Décision :</strong> qualifier pour les workloads concernés, exposition inconnue.</li>
+<li><strong>Outils similaires :</strong> S3 Gateway Endpoint (coût et chemin réseau différents), AWS PrivateLink standard (non-FIPS), stockage objet on-premises avec liaison privée (contrôle supérieur, exploitation différente).</li>
+</ul>
+<h2 id="sagemaker-unified-studio-promotion-ci-cd"><a href="https://github.com/aws/CICD-for-SageMakerUnifiedStudio">SageMaker Unified Studio — promotion CI/CD</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> Le dépôt open source AWS documente un CLI qui sépare le contenu défini par les équipes data du workflow CI/CD, avec promotion de notebooks, bundles, workflows et applications GenAI entre projets.</li>
+<li><strong>Utilité :</strong> Piste pour standardiser les promotions data/ML/Bedrock sans multiplier les appels AWS dans chaque pipeline. Tester en dev puis test avec dry-run, IAM minimal, artefacts versionnés et rollback ; succès = promotion reproductible d’un notebook et d’un workflow sans identifiants codés en dur.</li>
+<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> annonce AWS du 02/09 et dépôt officiel public consulté le 04/09 ; le dépôt indique une licence open source et des commandes <code>bundle</code>, <code>deploy</code>, <code>test</code> et <code>destroy</code>. <strong>Analyse :</strong> l’abstraction réduit le couplage CI/CD mais ajoute une couche à suivre avec les API SageMaker/Glue/Airflow. <strong>Décision :</strong> tester hors production. Notes : impact 4/5, urgence 2/5, pertinence stack 4/5, confiance 5/5.</li>
+<li><strong>Outils similaires :</strong> GitHub Actions natives AWS (plus explicites), Terraform (infrastructure plutôt que promotion de contenu), MLflow/Kubeflow (cycle ML et plateforme différents).</li>
+</ul>
+<h2 id="pitch-detaille">Pitch détaillé</h2>
+<p>Le changement de hostname des passerelles GCP est le sujet le plus immédiatement opérationnel : il touche la résolution d’adresse, les certificats et les contrôles réseau au moment de la création. Il ne faut pas remplacer une URL existante en production sur la seule base de cette note ; il faut d’abord lire <code>defaultHostname</code> et tester les clients.</p>
+<p>AWS Config et S3 PrivateLink FIPS renforcent deux capacités de plateforme complémentaires : savoir ce qui existe et contrôler comment les workloads atteignent les données. Leur intérêt dépend fortement des régions, comptes et exigences de conformité de Mehdi, encore à qualifier.</p>
+<p>Bedrock Web Search GovCloud élargit le périmètre des agents ancrés par recherche web. Le test doit intégrer provenance, filtrage, coût, latence, permissions et repli déterministe ; la disponibilité régionale ne suffit pas à établir l’acceptabilité des données.</p>
+<p>Le CLI SageMaker Unified Studio mérite un laboratoire parce qu’il propose une frontière claire entre manifeste applicatif et politique de promotion. Sa maturité réelle, sa surface IAM et sa compatibilité avec la stack GitHub/GitLab restent à mesurer.</p>
+<h2 id="sujets-ecartes">Sujets écartés</h2>
+<ul>
+<li>Aucun second projet OSS nouveau n’a été retenu avec une preuve primaire indépendante et une utilité architecturale suffisante dans la fenêtre. <strong>Exception quota OSS :</strong> un seul projet OSS sur cinq sujets ; les quatre changements AWS/GCP sont des évolutions fournisseurs datées et directement actionnables, et aucun dépôt faible n’a été ajouté pour atteindre artificiellement le quota.</li>
+<li>Les nouveautés Cloud Run Agent Identity et Claude Fable 5.1 ont été contrôlées mais non répétées : aucun changement substantiel confirmé depuis le radar du 03/09.</li>
+<li>Les signaux OSS à échéance du 05/09 restent suivis dans <code>state/signals.yaml</code> et seront traités à leur date ; aucune échéance active n’était atteinte au 04/09.</li>
+</ul>
+<h2 id="sources-consultees">Sources consultées</h2>
+<ul>
+<li><strong>AWS —</strong> <a href="https://aws.amazon.com/new/">What&#39;s New</a>, <a href="https://aws.amazon.com/security/security-bulletins/">bulletins sécurité</a>, <a href="https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html">cycle de vie EKS</a>, <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-ug-doc-history.html">historique Bedrock</a>, contrôle du 04/09 ; borne de reprise : dernier succès local du 03/09, rattrapage du 03/09 au 04/09 dans la limite de 30 jours ; <strong>signal retenu</strong> pour Config, Bedrock Web Search et S3 PrivateLink FIPS.</li>
+<li><strong>GCP —</strong> <a href="https://cloud.google.com/release-notes">release notes globales</a>, <a href="https://cloud.google.com/run/docs/release-notes">Cloud Run</a>, <a href="https://cloud.google.com/kubernetes-engine/docs/release-notes">GKE release notes</a>, <a href="https://cloud.google.com/kubernetes-engine/security-bulletins">bulletins GKE</a>, <a href="https://cloud.google.com/terms/deprecation">dépréciations</a> et <a href="https://cloud.google.com/vertex-ai/docs/core-release-notes">Vertex AI</a>, contrôle du 04/09 ; borne de reprise : dernier succès local du 03/09, rattrapage 03/09–04/09 ; <strong>signal retenu</strong> pour le hostname model routing, <strong>aucun changement retenu</strong> pour sécurité, lifecycle et quotas hors éléments signalés.</li>
+<li><strong>IA —</strong> <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-ug-doc-history.html">historique Bedrock</a>, <a href="https://cloud.google.com/vertex-ai/docs/core-release-notes">Vertex AI</a>, <a href="https://developers.openai.com/api/docs/changelog">OpenAI changelog</a>, <a href="https://developers.openai.com/api/docs/deprecations">OpenAI dépréciations</a> et <a href="https://platform.claude.com/docs/en/release-notes/overview">Claude release notes</a>, contrôle du 04/09 ; borne de reprise : dernier succès local du 03/09, rattrapage 03/09–04/09 ; <strong>signal retenu</strong> pour Bedrock Web Search, <strong>aucun changement retenu</strong> pour OpenAI, Vertex AI et Anthropic.</li>
+<li><strong>OSS —</strong> <a href="https://github.com/aws/CICD-for-SageMakerUnifiedStudio">CICD-for-SageMakerUnifiedStudio</a>, dépôt officiel consulté le 04/09 ; <strong>signal retenu</strong>. GitHub Trending/Trendshift n’ont pas fourni de second projet qualifié.</li>
+</ul>
+<h2 id="sources-en-echec">Sources en échec</h2>
+<ul>
+<li>Aucune source primaire bloquante. Les métriques de disponibilité régionale et l’exposition de la stack restent à qualifier dans les comptes et clusters réels.</li>
+</ul></article>
+  </main>
+  <footer class="footer">Veille locale · générée le 05/09/2026</footer>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>
