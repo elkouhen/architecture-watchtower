@@ -40,7 +40,7 @@ Explique les sujets avec des mots simples mais précis. Relie toujours le sujet 
 - **Lien projet :** le nom du projet dans le titre et dans la colonne `Outil` doit être un lien Markdown direct vers l’URL canonique du dépôt, de la documentation ou du site officiel. Ne pas cacher le lien uniquement dans les sources.
 - **Pitch rapide :** en une ou deux phrases, explique ce que fait le sujet, le problème résolu et pour quel type d’équipe ou de workload il est utile.
 - **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier.
-- **Preuves de traction :** indique les signaux observés, leurs dates et leurs sources. Lorsque disponible, ajoute un bloc court `Indicateurs de tendance` avec étoiles et forks GitHub, évolution observée, date de mesure, activité/release récente, rang GitHub Trending ou Trendshift, et période/métadonnées Google Trends. Distingue explicitement `Fait`, `Analyse` et `Inférence`. Marque `signal faible` lorsqu’une seule preuve de découverte existe.
+- **Contexte :** distingue explicitement `Fait`, `Analyse` et `Inférence` dans le pitch ou l’utilité lorsque cela aide la compréhension. Les sources détaillées restent regroupées dans `Sources consultées`.
 - **Outils similaires :** liste au maximum trois outils ou approches comparables, avec une différence utile pour la décision. Écris `pas d’équivalent direct` si la comparaison serait artificielle.
 
 ## Pitch détaillé conditionnel
@@ -83,7 +83,7 @@ Le rapport doit rester court et lisible en moins de quinze minutes :
 
 1. une **vue d’ensemble**, utilisée comme table des matières, avec une ligne par sujet et uniquement les colonnes : `Outil`, `Type`, `Pitch rapide` et `Lien vers la section` ; le nom dans `Outil` est un lien direct vers le projet et `Lien vers la section` pointe vers la fiche du sujet ou son `Pitch détaillé` lorsqu’il existe ;
 2. les fiches de huit à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas suffisamment de sujets lisibles dans la fenêtre des trois derniers mois ;
-3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité`, `Preuves de traction` et `Outils similaires` ;
+3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité` et `Outils similaires` ;
 4. les `Pitchs détaillés` conditionnels, au maximum trois ;
 5. une courte liste de sujets non retenus avec leur motif ;
 6. les sources consultées et les sources en échec, avec la preuve de couverture AWS, GCP et IA et la borne de rattrapage utilisée.
@@ -94,7 +94,7 @@ Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances
 
 ## Contrôle qualité et publication
 
-Avant la sortie, vérifie que chaque sujet possède un type, un nom lié à une URL canonique, un pitch, une utilité, une preuve datée et un niveau de preuve. Vérifie les faits importants dans une source primaire. Vérifie également la couverture AWS/GCP/IA, le quota de 33 % de nouveaux projets open source ou son exception motivée, l'absence d'échéance dépassée sans justification, l'unicité des identifiants et la validité des fichiers YAML. Note les sources en échec et les corrections dans `state/feedback.yaml`. Mets à jour `state/signals.yaml` pour les nouveaux signaux avec identifiant stable, notes multidimensionnelles, confiance, statut, décision, propriétaire, échéance et livrable associé. Exécute `scripts/validate_watchtower.rb` ; un échec interdit la validation et le commit du livrable.
+Avant la sortie, vérifie que chaque sujet possède un type, un nom lié à une URL canonique, un pitch et une utilité. Vérifie les faits importants dans une source primaire. Vérifie également la couverture AWS/GCP/IA, le quota de 33 % de nouveaux projets open source ou son exception motivée, l'absence d'échéance dépassée sans justification, l'unicité des identifiants et la validité des fichiers YAML. Note les sources en échec et les corrections dans `state/feedback.yaml`. Mets à jour `state/signals.yaml` pour les nouveaux signaux avec identifiant stable, notes multidimensionnelles, confiance, statut, décision, propriétaire, échéance et livrable associé. Exécute `scripts/validate_watchtower.rb` ; un échec interdit la validation et le commit du livrable.
 
 Écris `dist/AAAA-MM-JJ/radar-architecture.md` sans écraser une autre date. Le fichier doit être non vide et contenir les sources consultées. Après validation, committe localement le livrable. Ne l’envoie par aucun connecteur externe.
 

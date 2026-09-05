@@ -20,10 +20,8 @@
 <h2 id="terraform-1-17-alpha"><a href="https://github.com/hashicorp/terraform">Terraform 1.17 alpha</a></h2>
 <ul>
 <li><strong>Type :</strong> outil/IaC.</li>
-<li><strong>Pitch rapide :</strong> la release <code>v1.17.0-alpha20260827</code> ajoute des blocs <code>backend</code> et <code>skip_cleanup</code> dans <code>terraform test</code>, ainsi qu’un flag expérimental <code>-policies</code> pour <code>terraform query</code>. Cela rapproche tests, état persistant et évaluation de policies dans le flux IaC.</li>
+<li><strong>Pitch rapide :</strong> la release <code>v1.17.0-alpha20260827</code> ajoute des blocs <code>backend</code> et <code>skip_cleanup</code> dans <code>terraform évaluation</code>, ainsi qu’un flag expérimental <code>-policies</code> pour <code>terraform query</code>. Cela rapproche tests, état persistant et évaluation de policies dans le flux IaC.</li>
 <li><strong>Utilité :</strong> intéressant pour réduire les re-créations d’infrastructure pendant des suites de tests et explorer la découverte de ressources gouvernée. Ne pas utiliser l’alpha dans un pipeline critique ; comparer avec les contrôles Terraform déjà en place.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> GitHub ★49,6 k · forks 10,6 k · issues ouvertes 1,9 k · dernier push 27/08 (<a href="https://api.github.com/repos/hashicorp/terraform">métadonnées publiques</a>). Visibilité/activité, pas preuve de maturité.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : release primaire datée du 27/08/2026 et Terraform 1.16.0 publié dans le même flux (<a href="https://github.com/hashicorp/terraform/releases">release GitHub</a>). <strong>Analyse</strong> : le changement vise la boucle test/policy plutôt qu’un simple ajout de provider. <strong>Inférence</strong> : il peut simplifier des tests d’intégration coûteux, mais la stabilité et le contrat des flags restent à qualifier. <strong>Décision proposée</strong> : surveiller ; propriétaire IaC ; réexamen 05/09/2026.</li>
 <li><strong>Outils similaires :</strong> Terratest pour les tests en code, OpenTofu pour l’exécution IaC, Sentinel/OPA pour les policies ; aucun équivalent direct de l’ensemble alpha.</li>
 </ul>
 <h2 id="hashicorp-support-cycle-2"><a href="https://www.hashicorp.com/en/long-term-support">HashiCorp Support Cycle 2</a></h2>
@@ -31,8 +29,6 @@
 <li><strong>Type :</strong> lifecycle/support.</li>
 <li><strong>Pitch rapide :</strong> HashiCorp documente que les versions sorties après avril 2026 suivent le modèle IBM Support Cycle 2, tandis que certaines versions antérieures restent couvertes par LTS ou par un addendum de support.</li>
 <li><strong>Utilité :</strong> ce changement influence le choix de version, les fenêtres de maintenance, les contrats de support et la trajectoire de migration pour Terraform, Vault, Consul et Nomad. Il faut séparer HCP, Enterprise et éditions communautaires.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> N/A — signal de lifecycle fournisseur, sans dépôt unique ni compteur pertinent ; source officielle <a href="https://www.hashicorp.com/en/long-term-support">HashiCorp LTS</a>.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : la page officielle distingue les versions antérieures à mars 2025, celles de mars 2025 à avril 2026 et celles postérieures à avril 2026 (<a href="https://www.hashicorp.com/en/long-term-support">politique LTS</a>). <strong>Analyse</strong> : la version n’est plus seulement un choix fonctionnel, mais aussi un choix de cycle de support. <strong>Inférence</strong> : un inventaire fournisseur/version devient nécessaire avant une consolidation HashiCorp. <strong>Décision proposée</strong> : qualifier ; propriétaire plateforme/IaC ; réexamen 12/09/2026.</li>
 <li><strong>Outils similaires :</strong> politiques de support Kubernetes, lifecycle GitLab et support éditeur AWS/GCP ; la différence utile est la coexistence de HCP, Enterprise et self-managed.</li>
 </ul>
 <h2 id="vault-2-0-4-et-cve-2026-5006"><a href="https://developer.hashicorp.com/vault/docs/updates/release-notes">Vault 2.0.4 et CVE-2026-5006</a></h2>
@@ -40,8 +36,6 @@
 <li><strong>Type :</strong> service de sécurité/secrets.</li>
 <li><strong>Pitch rapide :</strong> Vault 2.0.4 corrige CVE-2026-5006, liée à une injection de slash dans des chemins de policies templatisés, et ajoute des métriques de registre d’agents et d’utilisation de secrets engines.</li>
 <li><strong>Utilité :</strong> la correction est pertinente pour toute installation Vault qui utilise des identités dans des policies templatisées. Il faut identifier les versions, les chemins concernés et les logs d’accès avant de conclure à l’exposition.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> GitHub ★36,2 k · forks 4,7 k · issues ouvertes 1,4 k · dernier push 28/08 (<a href="https://api.github.com/repos/hashicorp/vault">métadonnées publiques</a>). Indicateur de visibilité, distinct du risque CVE.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : l’avis HashiCorp du 24/08 indique que les versions jusqu’à 2.0.3 sont affectées et que les correctifs sont 2.0.4, 1.21.9, 1.20.14 et 1.19.20 (<a href="https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678">HCSEC-2026-32</a>). <strong>Fait</strong> : les release notes décrivent aussi des guardrails SCIM et métriques d’usage (<a href="https://developer.hashicorp.com/vault/docs/updates/release-notes">Vault 2.x</a>). <strong>Décision proposée</strong> : qualifier immédiatement ; propriétaire sécurité/plateforme ; échéance 05/09/2026.</li>
 <li><strong>Outils similaires :</strong> AWS Secrets Manager, GCP Secret Manager et CyberArk ; Vault conserve un avantage de contrôle self-managed, avec davantage de charge opératoire.</li>
 </ul>
 <h2 id="nomad-1-10-identite-de-workload"><a href="https://developer.hashicorp.com/nomad/docs/release-notes/v1-10-x">Nomad 1.10 — identité de workload</a></h2>
@@ -49,8 +43,6 @@
 <li><strong>Type :</strong> orchestrateur.</li>
 <li><strong>Pitch rapide :</strong> Nomad 1.10 retire les anciens flux de tokens pour Vault et Consul au profit de l’identité de workload ; la série 1.10 ajoute aussi l’export de journaux et des labels de node pool sur des métriques d’évaluation bloquée.</li>
 <li><strong>Utilité :</strong> le sujet relie directement orchestration, secrets, service discovery et observabilité. Une migration exige de revoir jobspecs, rôles Vault/Consul, TTL, déploiement et rollback.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> GitHub ★16,8 k · forks 2,1 k · issues ouvertes 1,6 k · dernier push 28/08 (<a href="https://api.github.com/repos/hashicorp/nomad">métadonnées publiques</a>). Activité élevée, adoption réelle à qualifier.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : les release notes détaillent la suppression des workflows de tokens et la migration vers Workload Identity (<a href="https://developer.hashicorp.com/nomad/docs/release-notes/v1-10-x">Nomad 1.10</a>). <strong>Fait</strong> : la documentation décrit le JWT signé, les claims et les identités par tâche (<a href="https://developer.hashicorp.com/nomad/docs/concepts/workload-identity">Workload Identity</a>). <strong>Décision proposée</strong> : qualifier ; propriétaire plateforme ; réexamen 12/09/2026.</li>
 <li><strong>Outils similaires :</strong> Kubernetes ServiceAccount projected tokens, ECS task roles et SPIFFE/SPIRE ; comparer le modèle d’identité et la charge d’intégration avec Vault.</li>
 </ul>
 <h2 id="agent-plugins-1-0"><a href="https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/">Agent Plugins 1.0</a></h2>
@@ -58,8 +50,6 @@
 <li><strong>Type :</strong> standard/packaging agentique.</li>
 <li><strong>Pitch rapide :</strong> Agent Plugins 1.0 permet de distribuer dans un même paquet une skill et une configuration MCP à plusieurs clients compatibles, avec un manifeste <code>plugin.json</code> et des espaces de noms spécifiques au client.</li>
 <li><strong>Utilité :</strong> ce format peut réduire la duplication des extensions d’agents et fournir un point de gouvernance commun pour les outils d’ingénierie. Il faut contrôler marketplace, permissions, secrets et versionnement.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> N/A — standard publié via le changelog GitHub ; pas de dépôt canonique unique ni compteur applicable.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : support généralement disponible dans VS Code, Copilot CLI, SDK et application Copilot (<a href="https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/">annonce GitHub</a>). <strong>Analyse</strong> : le packaging devient une frontière de distribution et de politique, pas seulement un dossier de configuration. <strong>Inférence</strong> : un dépôt de plugins approuvés pourrait devenir un composant de plateforme interne. <strong>Décision proposée</strong> : surveiller ; propriétaire architecture/engineering ; réexamen 12/09/2026.</li>
 <li><strong>Outils similaires :</strong> MCP directement, extensions VS Code et plugins spécifiques à chaque assistant ; le gain annoncé est la portabilité du paquet.</li>
 </ul>
 <h2 id="gouvernance-mcp-github"><a href="https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/">Gouvernance MCP GitHub</a></h2>
@@ -67,8 +57,6 @@
 <li><strong>Type :</strong> gouvernance/sécurité.</li>
 <li><strong>Pitch rapide :</strong> les paramètres administrés permettent d’autoriser ou bloquer les serveurs MCP selon URL, commande ou nom, avec une politique fail-closed et des règles cumulatives entre niveaux.</li>
 <li><strong>Utilité :</strong> c’est un contrôle concret sur l’accès des agents aux outils externes. Le nom seul n’est pas une frontière de sécurité ; privilégier URL canonique et commande exacte, puis journaliser les exceptions.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> N/A — fonctionnalité produit GitHub, mesurée par disponibilité officielle plutôt que par étoiles.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : la fonctionnalité est annoncée comme généralement disponible le 06/08/2026 et s’applique à l’application Copilot, CLI et VS Code (<a href="https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/">changelog GitHub</a>). <strong>Décision proposée</strong> : qualifier l’écart entre cette politique et les contrôles actuels ; propriétaire sécurité/engineering ; réexamen 05/09/2026.</li>
 <li><strong>Outils similaires :</strong> proxy egress, registre MCP interne et policy-as-code OPA ; GitHub agit ici au niveau du client agent, pas comme firewall général.</li>
 </ul>
 <h2 id="opentelemetry-entity-events"><a href="https://opentelemetry.io/blog/2026/consuming-opentelemetry-entity-events/">OpenTelemetry entity events</a></h2>
@@ -76,8 +64,6 @@
 <li><strong>Type :</strong> standard/pattern d’inventaire.</li>
 <li><strong>Pitch rapide :</strong> les entity events transportent l’état et le cycle de vie d’entités via OTLP afin de construire un graphe temporel reliant hôtes, services, interfaces et volumes aux métriques, logs et traces.</li>
 <li><strong>Utilité :</strong> le pattern peut réduire l’écart entre observabilité comportementale et inventaire réel, notamment pour qualifier une exposition ou une dépendance. Le modèle et les conventions sont encore en développement : ne pas en faire une source d’autorité de production.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> OpenTelemetry Collector ★7,5 k · forks 2,2 k · dernier push 28/08 (<a href="https://api.github.com/repos/open-telemetry/opentelemetry-collector">métadonnées publiques</a>). Proxy de visibilité du projet, pas mesure d’adoption du modèle entity events.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : l’article OpenTelemetry du 14/08/2026 décrit un flux event-sourced, bi-temporel, et précise que le modèle n’est pas encore stable (<a href="https://opentelemetry.io/blog/2026/consuming-opentelemetry-entity-events/">article officiel</a>). <strong>Analyse</strong> : l’identité et l’historique deviennent des primitives d’observabilité. <strong>Décision proposée</strong> : surveiller ; propriétaire observabilité ; réexamen 30/09/2026.</li>
 <li><strong>Outils similaires :</strong> CMDB, service catalog Backstage et graphes de topologie propriétaires ; le pattern OTel se différencie par un transport OTLP générique.</li>
 </ul>
 <h2 id="limites-de-cardinalite-opentelemetry"><a href="https://opentelemetry.io/blog/2026/cardinality-limits-in-opentelemetry/">Limites de cardinalité OpenTelemetry</a></h2>
@@ -85,17 +71,13 @@
 <li><strong>Type :</strong> observabilité.</li>
 <li><strong>Pitch rapide :</strong> les SDK peuvent limiter les combinaisons d’attributs en mémoire ; en cas de dépassement, les totaux restent corrects mais les requêtes filtrées ou groupées peuvent sous-compter.</li>
 <li><strong>Utilité :</strong> le sujet concerne directement SLO, alertes et coûts d’Elastic, CloudWatch ou Prometheus. Il faut surveiller <code>otel.metric.overflow</code>, revoir les attributs non bornés et dimensionner la limite selon la temporality.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> OpenTelemetry Collector ★7,5 k · forks 2,2 k · dernier push 28/08 (<a href="https://api.github.com/repos/open-telemetry/opentelemetry-collector">métadonnées publiques</a>). Proxy de visibilité ; le guide reste une source opérationnelle récente.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : le guide officiel du 06/08/2026 indique une limite par défaut de 2 000 combinaisons et décrit le point de donnée overflow (<a href="https://opentelemetry.io/blog/2026/cardinality-limits-in-opentelemetry/">guide OpenTelemetry</a>). <strong>Analyse</strong> : une métrique peut conserver son total tout en perdant sa fiabilité par dimension. <strong>Inférence</strong> : l’overflow doit devenir une alerte de qualité de données dans la plateforme. <strong>Décision proposée</strong> : qualifier ; propriétaire observabilité ; échéance 12/09/2026.</li>
 <li><strong>Outils similaires :</strong> limites de séries Prometheus, quotas de dimensions CloudWatch et règles de cardinalité côté backend ; le contrôle SDK intervient plus tôt dans le flux.</li>
 </ul>
 <h2 id="agentgateway-1-4"><a href="https://github.com/agentgateway/agentgateway/releases">agentgateway 1.4</a></h2>
 <ul>
 <li><strong>Type :</strong> gateway IA/MCP.</li>
 <li><strong>Pitch rapide :</strong> agentgateway 1.4 ajoute le support MCP <code>2026-07-28</code>, l’autorisation entreprise Cross App Access, l’échange de tokens OAuth, un modèle <code>AgentgatewayModel</code> expérimental et des garde-fous plus riches.</li>
-<li><strong>Utilité :</strong> le projet matérialise une frontière d’exécution entre agents, modèles et outils : routage, identité, coûts et politiques. Le support MCP récent et les changements de CRD imposent un test de compatibilité avant toute adoption.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> GitHub ★4,6 k · forks 780 · issues ouvertes 257 · dernier push 27/08 (<a href="https://api.github.com/repos/agentgateway/agentgateway">métadonnées publiques</a>). Release v1.4 publiée le 27/07.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : release v1.4.0 du 27/07/2026, avec chart Helm standalone, Gateway API v1.6 et correction d’un avis de sécurité MCP (<a href="https://github.com/agentgateway/agentgateway/releases">release primaire</a>). <strong>Fait</strong> : la release documente aussi coût/token, routage virtuel et failover. <strong>Décision proposée</strong> : surveiller puis qualifier ; propriétaire IA/plateforme ; réexamen 12/09/2026.</li>
+<li><strong>Utilité :</strong> le projet matérialise une frontière d’exécution entre agents, modèles et outils : routage, identité, coûts et politiques. Le support MCP récent et les changements de CRD imposent une évaluation de compatibilité avant toute adoption.</li>
 <li><strong>Outils similaires :</strong> Envoy AI Gateway, LiteLLM et Kong AI Gateway ; comparer protocole MCP, profondeur Kubernetes, politiques et observabilité.</li>
 </ul>
 <h2 id="amazon-ecs-action-logs"><a href="https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-ecs-action-logs/">Amazon ECS Action Logs</a></h2>
@@ -103,8 +85,6 @@
 <li><strong>Type :</strong> service observabilité Cloud.</li>
 <li><strong>Pitch rapide :</strong> ECS Action Logs fournit des enregistrements horodatés des actions réalisées par ECS pendant les déploiements de services et les mises à jour de daemon.</li>
 <li><strong>Utilité :</strong> ces événements peuvent compléter CloudTrail, métriques et logs applicatifs pour expliquer un changement de capacité ou de placement. Il faut vérifier rétention, coût, intégration SIEM et corrélation avec les traces de déploiement.</li>
-<li><strong>Indicateurs de tendance (29/08/2026) :</strong> N/A — fonctionnalité de service AWS, sans dépôt public canonique ; signal principal : annonce officielle du 21/07/2026.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait</strong> : AWS annonce la fonctionnalité le 21/07/2026, disponible dans toutes les régions AWS, y compris GovCloud (<a href="https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-ecs-action-logs/">annonce AWS</a>). <strong>Analyse</strong> : la visibilité des actions du control plane devient une donnée d’exploitation distincte des logs de workload. <strong>Décision proposée</strong> : surveiller ; propriétaire Cloud/observabilité ; réexamen 30/09/2026.</li>
 <li><strong>Outils similaires :</strong> CloudTrail, Kubernetes Events et AWS Copilot/deployment logs ; ECS Action Logs cible plus précisément l’action d’orchestration ECS.</li>
 </ul>
 <h2 id="sujets-ecartes">Sujets écartés</h2>

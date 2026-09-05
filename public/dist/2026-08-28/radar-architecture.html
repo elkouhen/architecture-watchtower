@@ -20,87 +20,76 @@
 <h2 id="archify"><a href="https://github.com/tt-a1i/archify">Archify</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> Archify transforme une description de système ou un codebase en représentation structurée puis en diagramme interactif autonome. Il sert à accélérer compréhension et revue, pas à remplacer la décision d’architecture.</li>
-<li><strong>Utilité :</strong> produire une première carte des composants, flux et dépendances lors d’un onboarding ou d’une analyse d’impact. Le signal justifiant un test est la divergence persistante entre documentation et système réel.</li>
-<li><strong>Preuves de traction :</strong> Trendshift daily rang 2 le 28/08 ; dépôt primaire actif avec IR JSON typée, validation/rendu Node.js et sorties HTML/SVG. Outils similaires : Structurizr, Mermaid et Backstage TechDocs ; Archify se différencie par la génération interactive dérivée du code.</li>
+<li><strong>Utilité :</strong> produire une première carte des composants, flux et dépendances lors d’un onboarding ou d’une analyse d’impact. Le signal justifiant une évaluation est la divergence persistante entre documentation et système réel.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★28,5 k · forks 1,8 k · push 28/08.</li>
 </ul>
 <h3 id="pitch-detaille">Pitch détaillé</h3>
 <p>Archify appartient au mouvement de documentation dérivée du code : l’outil produit un artefact relisible et révisable à partir d’éléments techniques plutôt qu’un diagramme entièrement maintenu à la main. Cela peut réduire la divergence documentaire, surtout lors des revues et de l’onboarding.</p>
-<p>Sa valeur dépend toutefois de la fidélité de l’extraction et de la validation humaine. Un usage raisonnable est un job local ou CI qui publie un rendu versionné, avec repli manuel ; il ne faut pas en faire la source d’autorité unique. Décision : <code>tester</code> sur un dépôt non sensible.</p>
+<p>Sa valeur dépend toutefois de la fidélité de l’extraction et de la validation humaine. Un usage raisonnable est un job local ou CI qui publie un rendu versionné, avec repli manuel ; il ne faut pas en faire la source d’autorité unique.</p>
 <h2 id="workweave-router"><a href="https://github.com/workweave/router">WorkWeave/router</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> routeur de modèles pour systèmes agentiques, présenté comme un endpoint unique capable de choisir un modèle selon la requête. Le sujet touche directement coût, latence et résilience des plateformes IA.</li>
 <li><strong>Utilité :</strong> surveiller le pattern inference gateway/policy engine lorsque plusieurs modèles coexistent. Les métriques annoncées et le chemin de déploiement restent à qualifier.</li>
-<li><strong>Preuves de traction :</strong> Trendshift daily rang 10 le 28/08 ; signal unique, donc <code>signal faible</code>. Outils similaires : LiteLLM, OpenRouter et Portkey ; comparer fournisseur, politiques, données et observabilité.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★2,5 k · forks 72 · push 29/08.</li>
 </ul>
 <h2 id="wemm-embedding"><a href="https://github.com/Tencent/WeMM-Embedding">WeMM-Embedding</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> famille d’embeddings multimodaux Tencent pour compréhension et recherche de contenus texte, image ou autres modalités. Elle peut compléter un RAG de documents riches.</li>
 <li><strong>Utilité :</strong> surveiller les architectures de retrieval multimodal et leurs coûts GPU. Licence, qualité sur données métier et stratégie de réindexation restent à qualifier.</li>
-<li><strong>Preuves de traction :</strong> Trendshift daily rang 23 le 28/08 et dépôt primaire identifié. Outils similaires : CLIP, BGE-M3 et modèles d’embeddings managés ; comparaison à faire sur rappel, coût et réversibilité.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★856 · forks 51 · push 28/08.</li>
 </ul>
 <h2 id="tailcat"><a href="https://github.com/tailscale/tailcat">Tailcat</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> outil proche de netcat mais transporté sur le data plane Tailscale sans dépendre du control plane. Il vise le diagnostic de connectivité dans des réseaux maillés.</li>
 <li><strong>Utilité :</strong> utile potentiellement pour isoler rapidement un problème de chemin réseau dans un environnement distribué. Sécurité, packaging et support doivent être vérifiés avant usage opérationnel.</li>
-<li><strong>Preuves de traction :</strong> Trendshift daily rang 13 le 28/08. Outils similaires : netcat, curl et Tailscale ping ; Tailcat se distingue par le chemin de transport.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★3,0 k · forks 81 · push 29/08.</li>
 </ul>
 <h2 id="orca"><a href="https://github.com/stablyai/orca">Orca</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> environnement pour exécuter et coordonner une flotte d’agents en parallèle. Il cible le cycle de vie d’agents de code plutôt qu’une simple conversation.</li>
 <li><strong>Utilité :</strong> surveiller les patterns de fleet management, supervision et isolation des agents. Le modèle de permissions et le déploiement restent à qualifier.</li>
-<li><strong>Preuves de traction :</strong> Trendshift daily rang 17 le 28/08 et dépôt primaire identifié. Outils similaires : OpenHands, Coder et Agent Sandbox ; périmètres différents.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★56,4 k · forks 3,8 k · push 29/08.</li>
 </ul>
 <h2 id="praxist"><a href="https://github.com/sapientinc/PRAXIST">PRAXIST</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> système de recherche autonome qui coordonne des pairs, des évaluations et des preuves durables. Il peut inspirer des pipelines d’expérimentation reproductibles.</li>
 <li><strong>Utilité :</strong> surveiller les boucles de recherche agentique avec critères mesurables. Licence, sécurité et coût opérationnel restent à qualifier.</li>
-<li><strong>Preuves de traction :</strong> Trendshift daily rang 5 le 28/08 et dépôt primaire public. Outils similaires : MLflow, LangSmith et AutoGPT ; aucun équivalent direct complet.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★2,1 k · forks 247 · push 28/08.</li>
 </ul>
 <h2 id="openagentpack"><a href="https://github.com/modelstudioai/OpenAgentPack">OpenAgentPack</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> control plane déclaratif pour décrire, déployer et gouverner des agents cloud. Il rapproche les agents des pratiques IaC et du versionnement de plateforme.</li>
 <li><strong>Utilité :</strong> intéressant lorsque les agents deviennent des workloads récurrents à gérer par une équipe plateforme. Maturité et sécurité des outils restent à confirmer.</li>
-<li><strong>Preuves de traction :</strong> signal local et présence Trendshift ; dépôt primaire disponible. Outils similaires : Terraform, Kubernetes Operators et Agent Sandbox ; modèle de ressources à comparer.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★23 · forks 0 · push 27/08.</li>
 </ul>
 <h2 id="agent-sandbox"><a href="https://github.com/kubernetes-sigs/agent-sandbox">Agent Sandbox</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> CRD et contrôleur Kubernetes pour gérer des environnements isolés et persistants d’agents. Il apporte un chemin explicite pour cycle de vie, outils et observabilité.</li>
 <li><strong>Utilité :</strong> étudier l’isolation et l’état durable d’agents qui exécutent commandes ou manipulent des fichiers. Version pré-1.0 et intégration runtime à qualifier.</li>
-<li><strong>Preuves de traction :</strong> release primaire v0.5.6 le 20/08, avec warm pool, suspend/resume et métriques Prometheus. Outils similaires : Kubernetes Jobs, gVisor et Kata Containers ; périmètres complémentaires.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★3,7 k · forks 471 · push 28/08.</li>
 </ul>
 <h2 id="busbar"><a href="https://github.com/GetBusbar/busbar">Busbar</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> Busbar est une gateway IA self-hosted qui centralise routage multi-modèles, failover, budgets, credentials et preuves d’exécution. Elle se place entre applications/agents et fournisseurs de modèles ou outils.</li>
 <li><strong>Utilité :</strong> candidat prioritaire pour le pattern AI execution gateway et la gouvernance du chemin synchrone. Il faut mesurer latence, couverture fournisseurs et risque de panne centralisée.</li>
-<li><strong>Preuves de traction :</strong> featured Trendshift le 28/08 ; dépôt primaire documentant binaire Rust, Helm, Prometheus/OTLP, mTLS et circuit breakers. Outils similaires : LiteLLM, Kong AI Gateway et Envoy AI Gateway.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★116 · forks 5 · push 29/08.</li>
 </ul>
 <h3 id="pitch-detaille">Pitch détaillé</h3>
 <p>Busbar veut devenir une frontière d’exécution gouvernée : les secrets et politiques restent côté plateforme, tandis que les applications conservent leurs SDK et changent principalement de base URL. Le pattern est séduisant pour homogénéiser budgets, quotas, routage et preuves d’exécution.</p>
-<p>Le compromis est la centralisation : une panne ou une mauvaise politique affecte tout le trafic IA. Un test avec deux fournisseurs et des requêtes synthétiques doit mesurer surcharge, failover, coûts, traces et comportement streaming. Décision : <code>tester</code> en environnement non productif.</p>
+<p>Le compromis est la centralisation : une panne ou une mauvaise politique affecte tout le trafic IA. une évaluation avec deux fournisseurs et des requêtes synthétiques doit mesurer surcharge, failover, coûts, traces et comportement streaming.</p>
 <h2 id="openconnector"><a href="https://github.com/oomol-lab/open-connector">OpenConnector</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> OpenConnector connecte les agents aux SaaS avec OAuth, scopes, politiques, logs, MCP, HTTP et OpenAPI, en gardant les credentials derrière le runtime. Il propose des chemins Docker, Kubernetes, Cloudflare et Fly.io.</li>
 <li><strong>Utilité :</strong> étudier la séparation entre agent et accès aux outils externes, notamment identité, permissions et contrats d’actions. Une qualification sécurité est obligatoire avant toute donnée réelle.</li>
-<li><strong>Preuves de traction :</strong> featured Trendshift le 28/08 ; dépôt primaire avec Helm, PostgreSQL, migrations explicites et 5,4 k stars/461 forks observés. Outils similaires : Composio, Pipedream et n8n ; comparer contrôle des secrets, catalogue et réversibilité.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★5,4 k · forks 461 · push 29/08.</li>
 </ul>
 <h3 id="pitch-detaille">Pitch détaillé</h3>
 <p>OpenConnector déplace la complexité des intégrations SaaS hors de l’agent : celui-ci choisit une action et une connexion, tandis que le runtime gère OAuth, scopes, exécution et journalisation. C’est un pattern intéressant pour des agents qui doivent agir dans les outils déjà utilisés par les équipes.</p>
-<p>La surface de risque est importante : credentials, refresh tokens, exécuteurs et permissions doivent être isolés et auditables. Le bon premier pas est un déploiement local ou Kubernetes avec un seul fournisseur et une action en lecture seule. Décision : <code>tester</code> sur données non sensibles.</p>
+<p>La surface de risque est importante : credentials, refresh tokens, exécuteurs et permissions doivent être isolés et auditables. Le bon premier pas est un déploiement local ou Kubernetes avec un seul fournisseur et une action en lecture seule.</p>
 <h2 id="go-modern-guidelines"><a href="https://github.com/JetBrains/go-modern-guidelines">go-modern-guidelines</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> dépôt JetBrains de consignes destinées aux agents qui écrivent du Go moderne. Il transforme des conventions d’ingénierie en contexte versionné.</li>
 <li><strong>Utilité :</strong> surveiller le pattern <code>engineering policy as agent context</code> pour réduire les corrections répétitives. Les règles doivent compléter lint, tests et revue humaine.</li>
-<li><strong>Preuves de traction :</strong> Trendshift daily rang 15 et GitHub Trending Go #1 signalé le 27/08 ; dépôt public Apache-2.0. Outils similaires : golangci-lint, règles de repository et fichiers AGENTS.md.</li>
 <li><strong>Indicateur de tendance (29/08/2026) :</strong> GitHub ★2,7 k · forks 79 · push 19/08.</li>
 </ul>
 <h2 id="sujets-ecartes">Sujets écartés</h2>

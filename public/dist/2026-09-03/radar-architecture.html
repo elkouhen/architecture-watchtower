@@ -22,49 +22,42 @@
 <ul>
 <li><strong>Pitch rapide :</strong> Le 01/09, Cloud Run permet d’utiliser les fonctionnalités Agent Platform avec des identités d’agents gérées par Google et l’enregistrement automatique dans Agent Registry (Preview). L’exposition réelle est inconnue.</li>
 <li><strong>Utilité :</strong> À qualifier pour un service MCP ou agent déployé sur Cloud Run : comparer IAM explicite, identité système, rotation et journalisation avant tout basculement. Prévoir un chemin de repli avec compte de service dédié tant que le registre reste en Preview.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> note de version primaire datée du 01/09/2026 ; <strong>Analyse :</strong> réduit le code d’authentification mais ajoute une dépendance à un registre Preview ; <strong>Inférence :</strong> intéressant pour standardiser l’identité inter-agents, à tester hors production. Notes : impact 5/5, urgence 3/5, pertinence stack 4/5, confiance 5/5.</li>
 <li><strong>Outils similaires :</strong> Workload Identity Federation (contrôle IAM plus explicite), Agentgateway (routage MCP), Cloud Run IAM/IAP (protection d’entrée).</li>
 </ul>
 <h2 id="gke-multi-cloud-correctif-dautorisation"><a href="https://cloud.google.com/kubernetes-engine/security-bulletins">GKE Multi-Cloud — correctif d’autorisation</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> Le bulletin GCP-2026-058 du 02/09 décrit une vérification de permission projet manquante dans les APIs GKE Multi-Cloud ; Google indique que les clusters sont corrigés et qu’aucune action client n’est requise.</li>
 <li><strong>Utilité :</strong> Vérifier si l’organisation utilise des APIs Multi-Cloud ou des comptes ayant des rôles larges. Conserver la preuve du correctif fournisseur et revoir les permissions de service ; l’exposition locale reste inconnue.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> bulletin de sécurité primaire daté du 02/09/2026, statut « patched/no action » ; <strong>Analyse :</strong> risque d’autorisation côté plan de contrôle plutôt que runtime ; <strong>Décision :</strong> qualifier l’usage et documenter l’absence d’impact, sans rotation d’urgence par défaut. Notes : impact 4/5, urgence 5/5, pertinence 3/5, confiance 5/5.</li>
 <li><strong>Outils similaires :</strong> GKE standard (surface Multi-Cloud absente), AWS EKS Anywhere (contrôles distincts), Policy Controller (contrôles de conformité complémentaires).</li>
 </ul>
 <h2 id="claude-fable-5-1-contexte-et-taches-longues"><a href="https://platform.claude.com/docs/en/release-notes/overview">Claude Fable 5.1 — contexte et tâches longues</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> Les notes Anthropic du 01/09 annoncent Claude Fable 5.1, avec contexte 1M tokens, sortie maximale 128k et adaptive thinking, destiné aux tâches agentiques longues.</li>
 <li><strong>Utilité :</strong> Revoir la découpe des tâches et le budget de contexte dans les workflows RAG/agents. Mesurer coût, latence, taux d’erreur et qualité sur un jeu d’évaluation ; garder un modèle de repli et une validation humaine pour les actions.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> annonce primaire et tarification documentée dans les release notes ; <strong>Analyse :</strong> le contexte plus large peut déplacer le coût vers l’inférence et l’observabilité ; <strong>Inférence :</strong> potentiel architectural réel seulement si les évaluations montrent moins de hand-offs. Notes : impact 4/5, urgence 3/5, pertinence 3/5, confiance 5/5.</li>
 <li><strong>Outils similaires :</strong> modèles OpenAI à long contexte (API distincte), Gemini via Vertex AI (gouvernance GCP), routage LiteLLM (abstraction/fallback).</li>
 </ul>
 <h2 id="deepseek-harness-harness-dagents-par-plugins"><a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness — harness d’agents par plugins</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> Le dépôt public DeepSeek Harness décrit un harness open source MIT où les capacités sont des plugins ; il est explicitement en developer preview avec changements incompatibles possibles.</li>
-<li><strong>Utilité :</strong> Étudier le découplage entre boucle d’agent, plugins et UI locale pour un environnement de test. Isoler les plugins, limiter les permissions et ne pas l’exposer en production sans politique de repli.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> README et licence MIT du dépôt officiel consultés le 03/09 ; <strong>Fait :</strong> visibilité élevée sur GitHub Trending (découverte, 02/09) ; <strong>Analyse :</strong> la popularité ne prouve ni sécurité ni maturité ; <strong>Décision :</strong> laboratoire sandbox. Notes : impact 4/5, urgence 2/5, pertinence 4/5, confiance 4/5 — <code>signal faible</code>.</li>
+<li><strong>Utilité :</strong> Étudier le découplage entre boucle d’agent, plugins et UI locale pour un environnement de évaluation. Isoler les plugins, limiter les permissions et ne pas l’exposer en production sans politique de repli.</li>
 <li><strong>Outils similaires :</strong> LangGraph (graphe explicite), OpenAI Agents SDK (SDK fournisseur), CrewAI (orchestration multi-agents).</li>
 </ul>
 <h2 id="omniroute-gateway-multi-fournisseurs"><a href="https://github.com/diegosouzapw/OmniRoute">OmniRoute — gateway multi-fournisseurs</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> OmniRoute est un projet MIT qui expose un endpoint vers de nombreux fournisseurs/modèles, avec fallback tenant compte des quotas et intégrations MCP/A2A.</li>
-<li><strong>Utilité :</strong> Tester comme couche de routage devant des workloads non critiques afin de séparer choix de modèle, quotas et application. Exiger chiffrement, gestion des secrets, traces par fournisseur et plafond de coût avant essai.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> dépôt officiel public, branche v3.8.51 et licence MIT visibles le 03/09 ; <strong>Fait :</strong> GitTrend le classe parmi les projets d’infrastructure IA en croissance le 02/09 (découverte) ; <strong>Analyse :</strong> grand nombre de fournisseurs accroît la surface de conformité ; <strong>Décision :</strong> qualifier sur trafic synthétique. Notes : impact 4/5, urgence 2/5, pertinence 4/5, confiance 4/5 — <code>signal faible</code>.</li>
+<li><strong>Utilité :</strong> évaluer comme couche de routage devant des workloads non critiques afin de séparer choix de modèle, quotas et application. Exiger chiffrement, gestion des secrets, traces par fournisseur et plafond de coût avant essai.</li>
 <li><strong>Outils similaires :</strong> LiteLLM (proxy/routage mature), Envoy AI Gateway (intégration réseau), Portkey (gouvernance managée).</li>
 </ul>
 <h2 id="arcbox-isolation-dagents-compatible-oci"><a href="https://github.com/arcboxlabs/arcbox">Arcbox — isolation d’agents compatible OCI</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> Arcbox propose en Rust des machines isolées (kernel, filesystem, réseau) compatibles OCI pour exécuter des agents, avec un démarrage annoncé inférieur à 100 ms.</li>
-<li><strong>Utilité :</strong> Piste pour exécuter du code généré ou des outils d’agents avec une frontière plus forte qu’un simple conteneur. Vérifier le modèle de menace, l’isolation réelle, le runtime hôte et la collecte de logs avant test.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> README du dépôt officiel et licence open source consultés le 03/09 ; <strong>Fait :</strong> projet listé dans la page GitTrend du 02/09 ; <strong>Analyse :</strong> le gain de démarrage est une affirmation à reproduire ; <strong>Décision :</strong> test isolé uniquement. Notes : impact 5/5, urgence 2/5, pertinence 4/5, confiance 4/5 — <code>signal faible</code>.</li>
+<li><strong>Utilité :</strong> Piste pour exécuter du code généré ou des outils d’agents avec une frontière plus forte qu’un simple conteneur. Vérifier le modèle de menace, l’isolation réelle, le runtime hôte et la collecte de logs avant évaluation.</li>
 <li><strong>Outils similaires :</strong> Firecracker (micro-VM éprouvée), Kata Containers (isolation Kubernetes), Cloud Run sandbox (service managé Preview).</li>
 </ul>
 <h2 id="llmrouter-routage-de-modeles"><a href="https://github.com/ulab-uiuc/LLMRouter">LLMRouter — routage de modèles</a></h2>
 <ul>
 <li><strong>Pitch rapide :</strong> LLMRouter est une bibliothèque open source de l’UIUC pour décider quel modèle appeler, afin d’externaliser le routage de la logique applicative.</li>
 <li><strong>Utilité :</strong> À surveiller pour des politiques coût/latence/qualité mesurées. Demander une licence et une release stable avant intégration ; instrumenter chaque décision de route et conserver un fallback déterministe.</li>
-<li><strong>Preuves de traction :</strong> <strong>Fait :</strong> dépôt et documentation officiels consultés le 03/09 ; <strong>Fait :</strong> présence dans le classement GitTrend du 02/09 ; <strong>Analyse :</strong> une bibliothèque de routage ne remplace pas l’évaluation ni la gouvernance ; <strong>Décision :</strong> surveiller. Notes : impact 3/5, urgence 2/5, pertinence 4/5, confiance 4/5 — <code>signal faible</code>.</li>
 <li><strong>Outils similaires :</strong> LiteLLM Router (proxy), vLLM (serving, pas décision multi-modèles), RouteLLM (routage orienté qualité/coût).</li>
 </ul>
 <h2 id="sujets-ecartes">Sujets écartés</h2>
