@@ -4,6 +4,7 @@
 require "cgi"
 require "date"
 require "fileutils"
+require "yaml"
 
 ROOT = File.expand_path("..", __dir__)
 OUTPUT = File.join(ROOT, "public")
@@ -174,10 +175,10 @@ css = <<~CSS
   .shell { margin:0 auto; max-width:1180px; padding:58px 24px 80px; } .hero { display:grid; gap:28px; grid-template-columns:1.35fr .65fr; margin-bottom:44px; } .eyebrow { color:var(--accent); font-size:.78rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; } h1,h2,h3 { letter-spacing:-.035em; line-height:1.15; } h1 { font-size:clamp(2.5rem,6vw,5.6rem); margin:12px 0 18px; max-width:850px; } h2 { font-size:2rem; margin-top:48px; } h3 { font-size:1.2rem; } .hero p { color:var(--muted); font-size:1.15rem; max-width:680px; } .signal-card { align-self:end; background:linear-gradient(145deg,var(--accent),#728ef2); border-radius:24px; box-shadow:var(--shadow); color:white; padding:28px; } .signal-card strong { display:block; font-size:2.7rem; letter-spacing:-.06em; } .signal-card span { opacity:.85; }
   .ai-notice { background:var(--accent-soft); border:1px solid color-mix(in srgb,var(--accent) 32%,var(--line)); border-radius:12px; color:var(--muted); font-size:.86rem; margin-bottom:26px; padding:10px 14px; } .ai-notice span { color:var(--accent); font-weight:800; margin-right:6px; } .ai-notice a { font-weight:700; text-decoration:none; }
   .toolbar { align-items:center; display:flex; flex-wrap:wrap; gap:12px; margin:24px 0; } input,select { background:var(--surface); border:1px solid var(--line); border-radius:10px; color:var(--ink); font:inherit; padding:11px 13px; } input { flex:1; min-width:240px; } .filters { display:flex; gap:8px; } .filter { background:var(--surface); border:1px solid var(--line); border-radius:999px; color:var(--muted); cursor:pointer; padding:8px 13px; } .filter.active { background:var(--accent-soft); border-color:var(--accent); color:var(--accent); }
-  .report-grid { display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); } .report-card { background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; min-height:172px; padding:18px; transition:transform .18s ease,border-color .18s ease; } .report-card:hover { border-color:var(--accent); transform:translateY(-3px); } .report-card[hidden] { display:none; } .card-meta { color:var(--muted); font-size:.82rem; } .report-card h3 { margin:7px 0; } .report-card p { color:var(--muted); margin:0 0 12px; } .card-link { font-weight:700; margin-top:auto; text-decoration:none; } .pill { background:var(--accent-soft); border-radius:999px; color:var(--accent); display:inline-block; font-size:.76rem; font-weight:700; padding:4px 9px; }
+  .report-grid { display:grid; gap:14px; grid-template-columns:repeat(2,minmax(0,1fr)); } .report-card { background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; min-height:172px; padding:18px; transition:transform .18s ease,border-color .18s ease; } .report-card:hover { border-color:var(--accent); transform:translateY(-3px); } .report-card[hidden] { display:none; } .card-meta { color:var(--muted); font-size:.82rem; } .report-card h3 { margin:7px 0; } .report-card p { color:var(--muted); margin:0 0 12px; } .card-link { font-weight:700; margin-top:auto; text-decoration:none; } .pill { background:var(--accent-soft); border-radius:999px; color:var(--accent); display:inline-block; font-size:.76rem; font-weight:700; padding:4px 9px; } .novelties { margin:48px 0 56px; } .novelties > header { align-items:end; display:flex; justify-content:space-between; gap:20px; margin-bottom:18px; } .novelties h2 { margin:0; } .novelties-intro { color:var(--muted); margin:0; max-width:650px; } .novelty-grid { display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr)); } .novelty-card { background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:18px; } .novelty-card h3 { margin:10px 0 8px; } .novelty-card p { color:var(--muted); margin:7px 0; } .novelty-card .label { color:var(--accent); font-size:.75rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; } .novelty-card .novelty-link { display:inline-block; font-weight:700; margin-top:8px; text-decoration:none; }
   article { background:var(--surface); border:1px solid var(--line); border-radius:22px; box-shadow:var(--shadow); padding:clamp(24px,5vw,58px); } article h1 { font-size:clamp(2rem,4vw,4rem); } article h2 { border-top:1px solid var(--line); padding-top:34px; } article h3 { margin-top:30px; } article p,article ul,article ol { max-width:850px; } article p { background:var(--surface); color:var(--ink); } article li { margin:7px 0; } article p code,article li code,article td code,article th code { background:var(--accent-soft); color:var(--ink); border-radius:5px; padding:2px 5px; } article pre { background:#101827 !important; border-radius:12px; color:#dbeafe !important; font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; overflow:auto; padding:18px; white-space:pre-wrap; overflow-wrap:anywhere; tab-size:2; } article pre code { background:transparent !important; color:#dbeafe !important; display:block; border-radius:0; padding:0; white-space:inherit; } .table-wrap { overflow-x:auto; } table { border-collapse:collapse; margin:20px 0; min-width:700px; width:100%; } th,td { border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top; } th { background:var(--accent-soft); color:var(--ink); }
   .footer { color:var(--muted); font-size:.85rem; margin:0 auto; max-width:1180px; padding:0 24px 34px; } .empty { color:var(--muted); padding:35px 0; } .catalogue { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:24px; }
-  @media (max-width:760px) { .topbar { padding:15px 18px; } nav a { display:none; } .shell { padding:38px 16px 60px; } .hero { grid-template-columns:1fr; } h1 { font-size:3.1rem; } .report-grid { grid-template-columns:1fr; } .signal-card { align-self:auto; } article { padding:22px 17px; } }
+  @media (max-width:760px) { .topbar { padding:15px 18px; } nav a { display:none; } .shell { padding:38px 16px 60px; } .hero { grid-template-columns:1fr; } h1 { font-size:3.1rem; } .report-grid,.novelty-grid { grid-template-columns:1fr; } .novelties > header { align-items:start; flex-direction:column; } .signal-card { align-self:auto; } article { padding:22px 17px; } }
 CSS
 File.write(File.join(OUTPUT, "assets/site.css"), css)
 
@@ -240,11 +241,37 @@ cards = metadata.map do |item|
   HTML
 end.join
 
+signals_path = File.join(ROOT, "state", "signals.yaml")
+signals = if File.file?(signals_path)
+  YAML.safe_load(File.read(signals_path), permitted_classes: [Date], aliases: true).fetch("signals", [])
+else
+  []
+end
+signal_status_labels = { "new" => "Nouveau", "open" => "Mis à jour", "closed" => "Historique", "deferred" => "Différé", "discarded" => "Écarté" }
+novelty_cards = signals.sort_by { |signal| signal["last_seen"].to_s }.reverse.first(12).map do |signal|
+  report = Array(signal["deliverables"]).find { |path| path.end_with?(".md") }
+  next unless report
+  href = report.sub(/\.md\z/, ".html")
+  <<~HTML
+    <article class="novelty-card">
+      <div class="label">#{esc(signal_status_labels.fetch(signal["status"], signal["status"].to_s))} · #{esc(signal["last_seen"].to_s)}</div>
+      <h3>#{esc(signal["product_version"].to_s)}</h3>
+      <p><strong>Pourquoi c’est intéressant :</strong> #{esc(signal["subject"].to_s)}</p>
+      <p><strong>Contexte :</strong> #{esc(signal["environment"].to_s)}</p>
+      <a class="novelty-link" href="#{href}">Lire l’analyse →</a>
+    </article>
+  HTML
+end.compact.join
+
 counts = metadata.group_by { |item| item[:kind] }.transform_values(&:length)
 index_body = <<~HTML
   <section class="hero">
-    <div><div class="eyebrow">Veille Cloud · DevOps · Architecture · IA</div><h1>Comprendre ce qui change avant de décider.</h1><p>Un index vivant des radars, cartes de services et revues mensuelles générés localement.</p></div>
+    <div><div class="eyebrow">Veille Cloud · DevOps · Architecture · IA</div><h1>Comprendre ce qui change dans vos architectures.</h1><p>Un index vivant des radars, cartes de services et revues mensuelles générés localement.</p></div>
     <div class="signal-card"><strong>#{metadata.length}</strong><span>rapports disponibles</span><hr><strong>#{counts["mensuel"] || 0}</strong><span>revue mensuelle</span></div>
+  </section>
+  <section class="novelties">
+    <header><div><div class="eyebrow">Les nouveautés expliquées</div><h2>Ce qui change</h2></div><p class="novelties-intro">Des fiches courtes pour comprendre le sujet, son intérêt architectural et son contexte avant d’ouvrir l’analyse complète.</p></header>
+    <div class="novelty-grid">#{novelty_cards}</div>
   </section>
   <section>
     <div class="toolbar"><input id="report-search" type="search" placeholder="Rechercher un rapport, une technologie…" aria-label="Rechercher un rapport"><div class="filters"><button class="filter active" data-kind="all">Tous</button><button class="filter" data-kind="radar">Radars</button><button class="filter" data-kind="carte">Cartes</button><button class="filter" data-kind="mensuel">Revues</button></div></div>
