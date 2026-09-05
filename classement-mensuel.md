@@ -21,7 +21,7 @@ Le classement principal est ordonné par intérêt pour les nouveautés et les c
 
 ## Méthode de classement
 
-Conserver les dimensions séparées et afficher leurs valeurs. Le classement principal privilégie la nouveauté et l’intérêt architectural :
+Conserver les dimensions séparées dans les sources de décision, mais ne pas les afficher dans le tableau principal. Le classement principal privilégie la nouveauté et l’intérêt architectural :
 
 - `nouveaute_interet` : 30 % ;
 - `impact_architectural` : 25 % ;
@@ -33,7 +33,7 @@ Conserver les dimensions séparées et afficher leurs valeurs. Le classement pri
 
 `nouveaute_interet`, `impact_architectural`, `pertinence_stack`, `confiance_evidence` et `urgence` viennent de `state/signals.yaml` lorsqu’elles existent ; si elles manquent, les laisser à `inconnu`. `maturite_exploitation` est évaluée à partir de la documentation, du chemin de déploiement, de la maintenance, de la sécurité et de la réversibilité ; si elle est inconnue, l’indiquer explicitement.
 
-Le score pondéré sert à ordonner les nouveautés, mais ne remplace pas le jugement d’architecte. Afficher également une classe qualitative : `priorité nouveauté`, `à qualifier`, `veille`, `signal faible`, `hors classement principal` ou `à écarter`. Un sujet avec une urgence élevée mais une nouveauté faible reste hors du classement principal ; expliquer ce cas. Calculer et afficher un indicateur de tendance séparé (`forte`, `émergente`, `stable`, `faible`) avec les occurrences et les éléments convergents qui le justifient.
+Le score pondéré sert à ordonner les nouveautés, mais ne remplace pas le jugement d’architecte. Afficher également une classe qualitative : `priorité nouveauté`, `à qualifier`, `veille`, `signal faible`, `hors classement principal` ou `à écarter`. Un sujet avec une urgence élevée mais une nouveauté faible reste hors du classement principal ; expliquer ce cas. Calculer un indicateur de tendance séparé (`forte`, `émergente`, `stable`, `faible`) avec les occurrences et les éléments convergents qui le justifient. Le lecteur doit comprendre en une phrase pourquoi chaque élément est intéressant.
 
 La popularité GitHub, Trendshift ou Google Trends ne peut jamais constituer seule un critère de classement élevé. Les faits importants doivent être confirmés par une source primaire.
 
@@ -42,7 +42,7 @@ La popularité GitHub, Trendshift ou Google Trends ne peut jamais constituer seu
 Le rapport doit contenir :
 
 1. `## Période et méthode` : période, nombre d’éléments, sources locales utilisées et formule de classement ;
-2. `## Classement complet` : toutes les nouveautés retenues, dans l’ordre, avec les colonnes `Rang`, `Technologie`, `Nature`, `Évolution du mois`, `Nouveauté`, `Impact`, `Pertinence stack`, `Confiance`, `Urgence`, `Maturité`, `Score`, `Tendance`, `Classe`, `Lien vers la preuve` ;
+2. `## Classement complet` : toutes les nouveautés retenues, dans l’ordre, avec uniquement les colonnes `Rang`, `Technologie`, `Pitch rapide — pourquoi c’est intéressant`, `Tendance`, `Classe`, `Lien vers la preuve` ;
 3. `## Tendances du mois` : trois à sept tendances transverses, leur preuve par occurrences ou technologies convergentes, leur portée architecturale et les limites de l’inférence ;
 4. `## Lecture architecturale` : les cinq premières nouveautés, en expliquant le changement architectural ou opérationnel et la raison du rang ;
 5. `## Par thème` : Cloud AWS, Cloud GCP, Kubernetes, observabilité/ELK, HashiCorp/IaC, sécurité, IA/agents et OSS/platform engineering, uniquement lorsque le thème contient au moins un élément ;
