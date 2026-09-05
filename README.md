@@ -6,11 +6,16 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 
 - [Catalogue canonique des éléments étudiés](docs/catalogue.md)
 - [Rapports et cartes par date](docs/rapports.md)
+- Prompts : [radar](radar-architecture.md), [carte de service](carte-service.md), [classement mensuel](classement-mensuel.md)
+- [Contrats de validation, preuves et notation](docs/contrats-veille.md)
 
 ## Livrables
 
 - Radar quotidien : `dist/YYYY-MM-DD/radar-architecture.md`
 - Classement mensuel : `dist/YYYY-MM-DD/classement-mensuel-AAAA-MM.md`
+- [Classement d’août 2026](dist/2026-09-05/classement-mensuel-2026-08.md)
+- [Radar du 5 septembre 2026](dist/2026-09-05/radar-architecture.md)
+- [Radar du 4 septembre 2026](dist/2026-09-04/radar-architecture.md)
 - Radar du 3 septembre 2026 : [`dist/2026-09-03/radar-architecture.md`](dist/2026-09-03/radar-architecture.md)
 - Radar du 2 septembre 2026 : [`dist/2026-09-02/radar-architecture.md`](dist/2026-09-02/radar-architecture.md)
 - Radar du 30 août 2026 : [`dist/2026-08-30/radar-architecture.md`](dist/2026-08-30/radar-architecture.md)
@@ -22,7 +27,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Validation locale : `ruby scripts/validate_watchtower.rb`
 - Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
 - PRD : [`PRD.md`](PRD.md)
-- Carte du jour : [Model Context Protocol (MCP)](dist/2026-08-29/carte-mcp.md)
+- Tests des contrats : `ruby scripts/test_report_contracts.rb`
 
 ## Principes
 

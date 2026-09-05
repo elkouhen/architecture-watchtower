@@ -4,6 +4,8 @@
 require "date"
 require "pathname"
 require "yaml"
+require "open3"
+require_relative "report_contracts"
 
 ROOT = Pathname.new(__dir__).join("..").expand_path
 TODAY = Date.today
@@ -97,6 +99,9 @@ def validate_signals
   decisions = %w[monitor qualify test adopt avoid]
   dimensions = %w[impact_architectural urgence pertinence_stack confiance]
   effective_from = date_value(data.dig("scoring_policy", "effective_from"), "scoring_policy.effective_from")
+  baseline, _stderr, baseline_status = Open3.capture3("git", "show", "HEAD:state/signals.yaml", chdir: ROOT.to_s)
+  baseline_data = baseline_status.success? ? YAML.safe_load(baseline, permitted_classes: [Date, Time], aliases: true) : {}
+  baseline_ids = (baseline_data || {}).fetch("signals", []).map { |signal| signal["id"] }
 
   error("state/signals.yaml: schema_version doit valoir 2") unless data["schema_version"] == 2
   duplicates(signals.map { |signal| signal["id"] }).each do |id|
@@ -112,6 +117,7 @@ def validate_signals
 
   signals.each do |signal|
     id = signal["id"] || "signal sans id"
+    error("#{id}: scoring_note requis pour un nouveau signal") if !baseline_ids.include?(id) && signal["scoring_note"].to_s.strip.empty?
     missing = required.reject { |field| signal.key?(field) }
     error("state/signals.yaml: #{id}, champs manquants: #{missing.join(', ')}") unless missing.empty?
     error("state/signals.yaml: #{id}, format d'identifiant invalide") unless id.match?(/\ASIG-\d{4}-\d{2}-\d{2}-\d{3}\z/)
@@ -126,7 +132,8 @@ def validate_signals
     if effective_from && first_seen && first_seen >= effective_from
       dimensions.each do |dimension|
         value = signal[dimension]
-        error("state/signals.yaml: #{id}, #{dimension} doit être noté de 1 à 5") unless value.is_a?(Integer) && value.between?(1, 5)
+        unknown_relevance = dimension == "pertinence_stack" && value == "inconnu" && !signal["scoring_note"].to_s.strip.empty?
+        error("state/signals.yaml: #{id}, #{dimension} doit être noté de 1 à 5 (pertinence inconnue justifiée admise)") unless unknown_relevance || (value.is_a?(Integer) && value.between?(1, 5))
       end
     end
 
@@ -169,11 +176,32 @@ end
 
 def validate_report(relative_path, source_data, sources)
   path = ROOT.join(relative_path).cleanpath
-  error("rapport hors du dépôt: #{relative_path}") unless path.to_s.start_with?(ROOT.to_s + File::SEPARATOR)
+  return error("rapport hors du dépôt: #{relative_path}") unless path.to_s.start_with?(ROOT.to_s + File::SEPARATOR)
   return error("rapport absent: #{relative_path}") unless path.file?
 
   text = path.read
   return error("rapport vide: #{relative_path}") if text.strip.empty?
+
+  previous, _stderr, status = Open3.capture3("git", "show", "HEAD:#{path.relative_path_from(ROOT)}", chdir: ROOT.to_s)
+  modern = text.include?("<!-- watchtower:2 -->")
+  if !modern && (!status.success? || previous.include?("<!-- watchtower:2 -->"))
+    error("#{relative_path}: marqueur watchtower:2 requis pour un nouveau rapport ou un rapport déjà migré")
+  end
+  if modern
+    validate_contract(text, path, ROOT)
+    return
+  end
+
+  warning("#{relative_path}: contrat historique ; exigences version 2 non appliquées")
+  if path.basename.to_s.start_with?("carte-")
+    validate_card(text, relative_path, modern: false)
+    return
+  elsif path.basename.to_s.start_with?("classement-mensuel-")
+    validate_monthly_sections(text, relative_path)
+    return
+  elsif path.basename.to_s != "radar-architecture.md"
+    return error("#{relative_path}: type de rapport inconnu")
+  end
 
   %w[Vue\ d’ensemble Sujets\ écartés Sources\ consultées Sources\ en\ échec].each do |section|
     error("#{relative_path}: section manquante #{section.tr('\\', '')}") unless text.match?(/^## #{section.tr('\\', '')}$/)
@@ -234,6 +262,7 @@ def validate_daily_freshness
   error("fraîcheur quotidienne: dernier radar #{latest}, attendu au plus tôt #{TODAY - 1}") if latest < TODAY - 1
 end
 
+if $PROGRAM_NAME == __FILE__
 report_index = ARGV.index("--report")
 report = report_index && ARGV[report_index + 1]
 error("--report exige un chemin") if report_index && report.nil?
@@ -242,7 +271,7 @@ source_data, sources = validate_sources
 validate_signals
 validate_local_links
 
-validated_reports = Dir.glob(ROOT.join("dist/*/radar-architecture.md").to_s).sort.select do |path|
+validated_reports = Dir.glob(ROOT.join("dist/*/*.md").to_s).sort.select do |path|
   date = Pathname.new(path).parent.basename.to_s
   date.match?(/\A\d{4}-\d{2}-\d{2}\z/) && Date.parse(date) >= REPORT_RULES_EFFECTIVE_FROM
 end.map do |path|
@@ -250,6 +279,7 @@ end.map do |path|
 end
 
 validated_reports.each { |path| validate_report(path, source_data, sources) }
+validate_monthly_editions(ROOT)
 validate_report(report, source_data, sources) if report && !validated_reports.include?(report)
 validate_daily_freshness if ARGV.include?("--daily")
 
@@ -263,3 +293,4 @@ end
 
 warn("Validation Architecture Watchtower échouée: #{ERRORS.length} erreur(s).")
 exit 1
+end

@@ -9,7 +9,7 @@ products:
     concepts_acquired: ["positionnement", "capacités", "flux", "modes de déploiement", "cycle de vie"]
     gaps: ["déploiement local", "modélisation de recherche", "dimensionnement", "snapshot/restore", "déploiement ECK"]
     lab_status: "not_requested"
-    lab_deliverable: "dist/2026-08-27/carte-elasticsearch.md"
+    study_deliverable: "dist/2026-08-27/carte-elasticsearch.md"
     next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-03
   - product: Agent Sandbox
@@ -20,7 +20,7 @@ products:
     concepts_acquired: ["positionnement", "CRD Sandbox", "workload singleton", "persistance", "isolation à qualifier"]
     gaps: ["déploiement Kind", "isolation runtime", "observabilité", "coût", "support API"]
     lab_status: "not_requested"
-    lab_deliverable: "dist/2026-08-28/carte-agent-sandbox.md"
+    study_deliverable: "dist/2026-08-28/carte-agent-sandbox.md"
     next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-12
   - product: Model Context Protocol (MCP)
@@ -31,7 +31,7 @@ products:
     concepts_acquired: ["outils/ressources/prompts", "cœur stateless", "Streamable HTTP", "extensions", "Tasks", "autorisation OAuth/CIMD", "dépréciations"]
     gaps: ["versions réellement négociées", "clients et SDK utilisés", "gateway", "IAM", "observabilité", "coût"]
     lab_status: "not_requested"
-    lab_deliverable: "dist/2026-08-29/carte-mcp.md"
+    study_deliverable: "dist/2026-08-29/carte-mcp.md"
     next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-12
   - product: GitLab Duo Agent Platform
@@ -42,7 +42,7 @@ products:
     concepts_acquired: ["flows", "CI/CD runner", "MCP", "tool approvals", "agentic CI/CD"]
     gaps: ["édition GitLab réelle", "coût/credits", "modèle d’identité", "runners", "exposition MCP", "observabilité"]
     lab_status: "not_requested"
-    lab_deliverable: "dist/2026-09-05/carte-gitlab-duo-agent-platform.md"
+    study_deliverable: "dist/2026-09-05/carte-gitlab-duo-agent-platform.md"
     next_step: "Décider ultérieurement si une validation pratique est utile"
     next_review: 2026-09-19
 
@@ -55,6 +55,7 @@ products:
 #   concepts_acquired: []
 #   gaps: ["déploiement ECK", "dimensionnement"]
 #   lab_status: "not_requested|not_started|completed|failed"
-#   lab_deliverable: "dist/AAAA-MM-JJ/carte-elasticsearch.md"
+#   study_deliverable: "dist/AAAA-MM-JJ/carte-elasticsearch.md"
+#   lab_deliverable: null # lien seulement après une exécution réelle
 #   next_step: "Déployer un cluster local et tester snapshot/restore"
 #   next_review: 2026-09-03

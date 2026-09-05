@@ -34,13 +34,13 @@ Explique les sujets avec des mots simples mais précis. Relie toujours le sujet 
 
 ## Format obligatoire pour chaque sujet
 
-### [Nom du projet, service ou pattern](URL canonique) — Type : `outil|service|pattern|standard|plateforme|modèle|bibliothèque`
+Dans le rapport, utiliser un titre de niveau 2 : `## [Nom du projet, service ou pattern](URL canonique)`.
 
-- **Type :** classe l’élément avant toute description : `outil`, `service`, `pattern`, `standard`, `plateforme`, `modèle`, `bibliothèque` ou une combinaison courte si nécessaire.
+- La colonne **Type** utilise exactement `<nature> · <nouveauté>`, par exemple `outil · Nouveau projet OSS`. Nature : `outil`, `service`, `pattern`, `standard`, `plateforme`, `modèle` ou `bibliothèque`. Nouveauté : `Nouveau projet OSS`, `Nouveau hors OSS` ou `Mise à jour`. Ne pas ajouter un quatrième champ à la fiche.
 - **Lien projet :** le nom du projet dans le titre et dans la colonne `Outil` doit être un lien Markdown direct vers l’URL canonique du dépôt, de la documentation ou du site officiel. Ne pas cacher le lien uniquement dans les sources.
 - **Pitch rapide :** en une ou deux phrases, explique ce que fait le sujet, le problème résolu et pour quel type d’équipe ou de workload il est utile.
 - **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier.
-- **Contexte :** distingue explicitement `Fait`, `Analyse` et `Inférence` dans le pitch ou l’utilité lorsque cela aide la compréhension. Les sources détaillées restent regroupées dans `Sources consultées`.
+- Dans **Pitch rapide**, distinguer le `Fait` documenté de l’`Analyse` et de l’`Inférence`. Dans **Utilité**, intégrer la maturité (`à qualifier`, `expérimental`, `documenté`, `exploitation démontrée`), le niveau de découverte (`signal faible` ou `traction étayée`), l’exposition et, si utile, une `Décision` descriptive. Les références de preuve pointent vers `Sources consultées` ; aucune section supplémentaire de preuves n’est nécessaire.
 - **Outils similaires :** liste au maximum trois outils ou approches comparables, avec une différence utile pour la décision. Écris `pas d’équivalent direct` si la comparaison serait artificielle.
 
 ## Pitch détaillé conditionnel
@@ -59,21 +59,23 @@ En trois à six paragraphes courts, explique :
 
 Ne répète pas les trois champs obligatoires et ne fournis pas ici un plan complet de production. Les détails de déploiement et d’exploitation appartiennent à `carte-service.md` lorsqu’une carte est déclenchée ; aucun laboratoire ou POC ne doit être planifié sans demande explicite de l'utilisateur.
 
-Pour l’IA, préciser le modèle ou fournisseur, les données, le middleware, la latence, le coût, l’évaluation, l’observabilité, les permissions, la validation humaine et le mécanisme de repli. Pour Kubernetes ou un middleware, préciser installation, mise à jour et retrait.
+Pour l’IA, résumer les contraintes décisives de données, fournisseur, middleware, latence, coût, évaluation, observabilité, permissions, validation humaine et repli ; marquer les inconnues sans inventer de valeurs. Pour Kubernetes ou un middleware, résumer les implications d’installation, de mise à jour et de retrait. Les procédures détaillées appartiennent à la carte.
 
 ## Sélection
 
-Remonte jusqu’à vingt candidats pendant la recherche, puis présente **idéalement une dizaine de sujets** dans le radar lorsque dix sujets suffisamment lisibles sont disponibles. Utilise d’abord les signaux des dernières 48 heures, puis complète avec les nouveautés des sept derniers jours et les émergences des trente derniers jours. Un seul signal crédible suffit pour faire apparaître un sujet dans le radar, mais un sujet ne peut être décrit comme `émergent` ou `traction` qu’avec une deuxième preuve indépendante et une source primaire suffisante. La maturité doit rester distincte de la popularité.
+Explore normalement jusqu’à vingt candidats et présente idéalement une dizaine de sujets suffisamment qualifiés. Applique l’ordre de priorité ci-dessous ; à priorité comparable, privilégie les dernières 48 heures, puis sept jours et trente jours. Un seul signal crédible suffit pour une découverte ; `traction étayée` exige une deuxième preuve indépendante et une source primaire suffisante. La maturité reste distincte de la popularité.
 
 Le radar doit contenir **au moins 33 % de nouveaux projets open source** : dépôts ou projets sous licence open source qui n'ont jamais été présentés dans les rapports ou signaux des 90 derniers jours. Arrondis le minimum à l'entier supérieur : trois projets pour huit ou neuf sujets, quatre pour dix sujets. Vérifie la licence dans une source primaire ; un service propriétaire, une fonctionnalité fournisseur, un simple renommage, un fork sans différenciation ou une nouvelle version d'un projet déjà suivi ne compte pas dans ce quota.
 
 Le quota open source guide la découverte mais ne bloque jamais une information plus urgente. Une vulnérabilité, un incident, une dépréciation, un changement incompatible, une échéance de support ou une évolution AWS, GCP ou IA à fort impact doit être retenu selon sa priorité, même si cela empêche d'atteindre 33 %. Si suffisamment de nouveaux projets open source qualifiés ne sont pas disponibles, réduis le nombre total de sujets ou documente l'écart dans `Sujets écartés` ; n'ajoute aucun sujet faible uniquement pour atteindre le quota. Les mises à jour de produits déjà suivis ne sont plus plafonnées. La vue d'ensemble doit indiquer `Nouveau projet OSS`, `Nouveau hors OSS` ou `Mise à jour`, afin que l'équilibre soit vérifiable.
 
-Le radar peut contenir jusqu’à dix sujets. Ne répète jamais un sujet uniquement pour atteindre la cible : si la déduplication stricte laisse moins de dix sujets nouveaux, présente le nombre réellement trouvé et la raison du manque. Les sujets supplémentaires peuvent être `signal faible`, mais doivent avoir une URL canonique, un pitch, une utilité et une preuve datée.
+La cible est au plus dix sujets, sauf dépassement critique motivé. Ne répète jamais un sujet pour atteindre cette cible : si le corpus qualifié est insuffisant, présente le nombre réellement trouvé et la raison du manque. Tout `signal faible` possède une URL canonique, un pitch, une utilité et une preuve datée.
 
-Déduplique d'abord par URL canonique et par sujet uniquement dans `state/signals.yaml` et les rapports des **trois derniers mois (90 jours)**, avant toute sélection. Les signaux et rapports plus anciens ne bloquent pas la réapparition d'un sujet. Dans cette fenêtre de trois mois, un sujet déjà présenté ne peut réapparaître que si une évolution substantielle est vérifiée : nouvelle release structurante, changement de licence, incident ou vulnérabilité, changement d'architecture, nouvelle intégration, adoption documentée, échéance ou décision modifiée. Un simple changement de rang, de stars, de mentions Trendshift ou de volume de recherche ne suffit pas. En cas d'évolution substantielle, indique `Mise à jour` et explique précisément ce qui a changé ; sinon exclue le sujet du rapport. Retire un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte de service est produite séparément uniquement si le sujet atteint le seuil prévu dans `carte-service.md`. Un sujet peut rester au stade `surveiller`, `qualifier` ou `écarter` sans proposition de POC.
+Déduplique par URL canonique et sujet dans les signaux, la progression, les décisions et les rapports locaux des 90 derniers jours. Les observations plus anciennes ne bloquent pas une réapparition. Dans cette fenêtre, un sujet ne réapparaît que pour une évolution substantielle vérifiée : release structurante, licence, sécurité, architecture, intégration, adoption documentée, échéance ou décision modifiée. Un changement de rang ou de popularité ne suffit pas. Indiquer `Mise à jour` et le changement précis ; sinon exclure. Retirer un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte est produite séparément sur demande explicite selon `carte-service.md`. Un sujet peut rester `surveiller`, `qualifier` ou `écarter` sans POC.
 
-Classe les candidats avec quatre notes séparées de 1 à 5 : `impact_architectural`, `urgence`, `pertinence_stack` et `confiance`. N'emploie pas une somme opaque : une urgence à 5 ou un impact à 5 peut justifier la sélection à lui seul, tandis qu'une faible confiance doit rester visible. Conserve ces notes dans `state/signals.yaml`; le rapport peut les résumer dans `Preuves de traction` lorsque cela aide la décision.
+Classe les candidats avec quatre notes séparées de 1 à 5 : `impact_architectural`, `urgence`, `pertinence_stack` et `confiance`. Utilise les repères de `docs/contrats-veille.md`. La pertinence mesure le rapport aux intérêts déclarés, pas une exposition supposée ; si les intérêts ne permettent pas de noter, utiliser `inconnu` avec justification. N’utilise pas de somme pondérée pour le radar. Conserve notes et justification dans `state/signals.yaml` ; les éléments utiles au lecteur restent dans `Utilité`.
+
+Ordre de sélection et de présentation : risques et échéances critiques, changements architecturaux structurants, puis découverte. La fraîcheur départage des sujets de priorité comparable. Une note d’urgence ou d’impact à 5 justifie un examen prioritaire, pas une affirmation non vérifiée. Les limites de vingt candidats et dix sujets ne doivent jamais masquer une alerte critique : si nécessaire, les dépasser et écrire `Dépassement critique : <nombre et motif>` dans `Sujets écartés`. Pour une dérogation OSS, écrire `Exception quota OSS : <motif>` dans cette même section.
 
 Avant de sélectionner de nouveaux sujets, examine tous les signaux `new` ou `open` dont `due_date` est atteinte. Mets chacun à jour en `closed`, `deferred`, `discarded` ou laisse-le `open` avec une nouvelle échéance, un motif explicite et une date `last_reviewed`. Une échéance dépassée sans justification rend le contrôle qualité invalide.
 
@@ -82,7 +84,7 @@ Avant de sélectionner de nouveaux sujets, examine tous les signaux `new` ou `op
 Le rapport doit rester court et lisible en moins de quinze minutes :
 
 1. une **vue d’ensemble**, utilisée comme table des matières, avec une ligne par sujet et uniquement les colonnes : `Outil`, `Type`, `Pitch rapide` et `Lien vers la section` ; le nom dans `Outil` est un lien direct vers le projet et `Lien vers la section` pointe vers la fiche du sujet ou son `Pitch détaillé` lorsqu’il existe ;
-2. les fiches de huit à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas suffisamment de sujets lisibles dans la fenêtre des trois derniers mois ;
+2. les fiches classées selon l’ordre de priorité défini ci-dessus, idéalement huit à dix, moins si le corpus qualifié est insuffisant, davantage uniquement pour préserver les alertes critiques ;
 3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité` et `Outils similaires` ;
 4. les `Pitchs détaillés` conditionnels, au maximum trois ;
 5. une courte liste de sujets non retenus avec leur motif ;
@@ -93,6 +95,10 @@ La vue d’ensemble doit rester très scannable : une ligne par outil ou éléme
 Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire`, `POC` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
 
 ## Contrôle qualité et publication
+
+Appliquer également `docs/contrats-veille.md` : contrat de rapport version 2, preuves datées, indépendance des observations et journal de couverture archivé dans le rapport. Si le rattrapage dépasse trente jours, indiquer précisément la période non couverte ; une tentative ou une page partiellement lue ne vaut pas couverture complète. Ne pas avancer `last_success` au-delà de l’intervalle entièrement parcouru.
+
+Les sections finales sont exactement `## Sujets écartés`, `## Sources consultées` et `## Sources en échec`. La première section est `## Vue d’ensemble`. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` après mise à jour des index et avant le commit.
 
 Avant la sortie, vérifie que chaque sujet possède un type, un nom lié à une URL canonique, un pitch et une utilité. Vérifie les faits importants dans une source primaire. Vérifie également la couverture AWS/GCP/IA, le quota de 33 % de nouveaux projets open source ou son exception motivée, l'absence d'échéance dépassée sans justification, l'unicité des identifiants et la validité des fichiers YAML. Note les sources en échec et les corrections dans `state/feedback.yaml`. Mets à jour `state/signals.yaml` pour les nouveaux signaux avec identifiant stable, notes multidimensionnelles, confiance, statut, décision, propriétaire, échéance et livrable associé. Exécute `scripts/validate_watchtower.rb` ; un échec interdit la validation et le commit du livrable.
 
