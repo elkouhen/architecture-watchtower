@@ -19,7 +19,7 @@
 ## [Archify](https://github.com/tt-a1i/archify)
 
 - **Pitch rapide :** Archify transforme une description de système ou un codebase en représentation structurée puis en diagramme interactif autonome. Il sert à accélérer compréhension et revue, pas à remplacer la décision d’architecture.
-- **Utilité :** produire une première carte des composants, flux et dépendances lors d’un onboarding ou d’une analyse d’impact. Le signal justifiant un test est la divergence persistante entre documentation et système réel.
+- **Utilité :** produire une première carte des composants, flux et dépendances lors d’un onboarding ou d’une analyse d’impact. Le signal justifiant une évaluation est la divergence persistante entre documentation et système réel.
 - **Preuves de traction :** Trendshift daily rang 2 le 28/08 ; dépôt primaire actif avec IR JSON typée, validation/rendu Node.js et sorties HTML/SVG. Outils similaires : Structurizr, Mermaid et Backstage TechDocs ; Archify se différencie par la génération interactive dérivée du code.
 - **Indicateur de tendance (29/08/2026) :** GitHub ★28,5 k · forks 1,8 k · push 28/08.
 
@@ -27,7 +27,7 @@
 
 Archify appartient au mouvement de documentation dérivée du code : l’outil produit un artefact relisible et révisable à partir d’éléments techniques plutôt qu’un diagramme entièrement maintenu à la main. Cela peut réduire la divergence documentaire, surtout lors des revues et de l’onboarding.
 
-Sa valeur dépend toutefois de la fidélité de l’extraction et de la validation humaine. Un usage raisonnable est un job local ou CI qui publie un rendu versionné, avec repli manuel ; il ne faut pas en faire la source d’autorité unique. Décision : `tester` sur un dépôt non sensible.
+Sa valeur dépend toutefois de la fidélité de l’extraction et de la validation humaine. Un usage raisonnable est un job local ou CI qui publie un rendu versionné, avec repli manuel ; il ne faut pas en faire la source d’autorité unique.
 
 ## [WorkWeave/router](https://github.com/workweave/router)
 
@@ -89,7 +89,7 @@ Sa valeur dépend toutefois de la fidélité de l’extraction et de la validati
 
 Busbar veut devenir une frontière d’exécution gouvernée : les secrets et politiques restent côté plateforme, tandis que les applications conservent leurs SDK et changent principalement de base URL. Le pattern est séduisant pour homogénéiser budgets, quotas, routage et preuves d’exécution.
 
-Le compromis est la centralisation : une panne ou une mauvaise politique affecte tout le trafic IA. Un test avec deux fournisseurs et des requêtes synthétiques doit mesurer surcharge, failover, coûts, traces et comportement streaming. Décision : `tester` en environnement non productif.
+Le compromis est la centralisation : une panne ou une mauvaise politique affecte tout le trafic IA. une évaluation avec deux fournisseurs et des requêtes synthétiques doit mesurer surcharge, failover, coûts, traces et comportement streaming.
 
 ## [OpenConnector](https://github.com/oomol-lab/open-connector)
 
@@ -102,7 +102,7 @@ Le compromis est la centralisation : une panne ou une mauvaise politique affecte
 
 OpenConnector déplace la complexité des intégrations SaaS hors de l’agent : celui-ci choisit une action et une connexion, tandis que le runtime gère OAuth, scopes, exécution et journalisation. C’est un pattern intéressant pour des agents qui doivent agir dans les outils déjà utilisés par les équipes.
 
-La surface de risque est importante : credentials, refresh tokens, exécuteurs et permissions doivent être isolés et auditables. Le bon premier pas est un déploiement local ou Kubernetes avec un seul fournisseur et une action en lecture seule. Décision : `tester` sur données non sensibles.
+La surface de risque est importante : credentials, refresh tokens, exécuteurs et permissions doivent être isolés et auditables. Le bon premier pas est un déploiement local ou Kubernetes avec un seul fournisseur et une action en lecture seule.
 
 ## [go-modern-guidelines](https://github.com/JetBrains/go-modern-guidelines)
 

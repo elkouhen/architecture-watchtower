@@ -16,46 +16,46 @@ Fenêtre de collecte : 48 h (ASAP), 7 jours (nouveautés) et 30 jours (tendances
 
 - **Pitch rapide :** La note Google Cloud du 03/09 indique qu’une nouvelle passerelle utilisant le model routing peut recevoir un hostname par défaut `GATEWAY_ID-PROJECT_NUMBER.REGION.gateway.dev` au lieu de `run.app`. Le hostname effectif doit être lu depuis `defaultHostname` ; l’exposition est inconnue.
 - **Utilité :** Vérifier les allowlists DNS, certificats, tests synthétiques, règles WAF et URLs codées en dur dans Terraform ou les clients. Le critère de succès est zéro dépendance applicative au hostname implicite après lecture de la propriété publiée.
-- **Preuves de traction :** **Fait :** changement documenté dans les release notes primaires le 03/09/2026. **Analyse :** un changement d’URL par défaut peut casser l’intégration même sans changement d’API. **Décision :** qualifier avant toute nouvelle création de gateway. Notes : impact 4/5, urgence 4/5, pertinence stack 4/5, confiance 5/5.
+- **Preuves de traction :** **Fait :** changement documenté dans les release notes primaires le 03/09/2026. **Analyse :** un changement d’URL par défaut peut casser l’intégration même sans changement d’API. ** Notes : impact 4/5, urgence 4/5, pertinence stack 4/5, confiance 5/5.
 - **Outils similaires :** Cloud Run `run.app` (service distinct), API Gateway sans model routing (hostname historique), DNS géré avec domaine personnalisé (découple le client du défaut fournisseur).
 
 ## [AWS Config — couverture de 60 nouveaux types](https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/)
 
 - **Pitch rapide :** AWS annonce le 02/09 l’ajout de 60 types de ressources, dont des ressources Bedrock, EC2 et Organizations, utilisables pour l’enregistrement, les règles et les agrégateurs Config.
 - **Utilité :** Étendre l’inventaire de conformité Cloud et détecter des ressources IA ou réseau jusque-là absentes des contrôles. Vérifier le coût d’enregistrement et le périmètre régional avant activation ; succès = couverture mesurée des types prioritaires et absence de dérive de coût non expliquée.
-- **Preuves de traction :** **Fait :** annonce primaire AWS datée du 02/09/2026. **Analyse :** l’extension améliore la gouvernance mais ne prouve pas qu’un compte enregistre automatiquement chaque type ni que les règles existantes les couvrent. **Décision :** qualifier sur un compte de test. Notes : impact 4/5, urgence 3/5, pertinence stack 4/5, confiance 5/5.
+- **Preuves de traction :** **Fait :** annonce primaire AWS datée du 02/09/2026. **Analyse :** l’extension améliore la gouvernance mais ne prouve pas qu’un compte enregistre automatiquement chaque type ni que les règles existantes les couvrent. ** Notes : impact 4/5, urgence 3/5, pertinence stack 4/5, confiance 5/5.
 - **Outils similaires :** AWS Security Hub (agrégation de contrôles), CloudFormation resource drift (périmètre différent), OPA/Conftest (contrôles de code et manifests).
 
 ## [Bedrock Web Search — ancrage en GovCloud](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/)
 
 - **Pitch rapide :** AWS documente le 02/09 la disponibilité de Web Search dans AWS GovCloud (US-West), avec contrôle IAM et données de requête conservées dans la frontière AWS par défaut.
 - **Utilité :** Étudier un RAG web pour des workloads soumis à des contraintes de résidence ou de conformité, sans déduire que la solution convient aux données sensibles. Mesurer citations correctes, latence, coût et fuite de données sur un corpus synthétique ; prévoir un mode sans recherche si l’outil est indisponible.
-- **Preuves de traction :** **Fait :** disponibilité annoncée pour GovCloud US-West et modèles supportés dans la note primaire AWS. **Analyse :** la région réduit une contrainte de déploiement, mais la recherche web introduit une dépendance externe et une nouvelle surface de filtrage. **Décision :** qualifier avec sécurité et conformité. Notes : impact 4/5, urgence 3/5, pertinence stack 3/5, confiance 5/5.
+- **Preuves de traction :** **Fait :** disponibilité annoncée pour GovCloud US-West et modèles supportés dans la note primaire AWS. **Analyse :** la région réduit une contrainte de déploiement, mais la recherche web introduit une dépendance externe et une nouvelle surface de filtrage. ** Notes : impact 4/5, urgence 3/5, pertinence stack 3/5, confiance 5/5.
 - **Outils similaires :** recherche interne/RAG sur S3 (maîtrise des données), Vertex AI grounding (gouvernance GCP), outil web auto-hébergé (contrôle supérieur, charge d’exploitation accrue).
 
 ## [S3 — PrivateLink pour endpoints FIPS](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/)
 
 - **Pitch rapide :** Depuis le 03/09, S3 supporte des endpoints PrivateLink validés FIPS 140-3 dans plusieurs régions commerciales et GovCloud, sans coût additionnel annoncé pour cette capacité.
 - **Utilité :** Simplifier une architecture où des workloads réglementés doivent atteindre S3 sans sortie réseau publique et avec des modules cryptographiques validés. Vérifier les régions réellement utilisées, le routage DNS privé, les politiques endpoint et la compatibilité des clients ; succès = flux S3 conformes et tests de restauration réussis.
-- **Preuves de traction :** **Fait :** annonce primaire AWS du 03/09/2026 listant les régions initiales. **Analyse :** ce changement peut supprimer une exception réseau, mais FIPS ne remplace pas le chiffrement, IAM ou la journalisation. **Décision :** qualifier pour les workloads concernés, exposition inconnue.
+- **Preuves de traction :** **Fait :** annonce primaire AWS du 03/09/2026 listant les régions initiales. **Analyse :** ce changement peut supprimer une exception réseau, mais FIPS ne remplace pas le chiffrement, IAM ou la journalisation. **
 - **Outils similaires :** S3 Gateway Endpoint (coût et chemin réseau différents), AWS PrivateLink standard (non-FIPS), stockage objet on-premises avec liaison privée (contrôle supérieur, exploitation différente).
 
 ## [SageMaker Unified Studio — promotion CI/CD](https://github.com/aws/CICD-for-SageMakerUnifiedStudio)
 
 - **Pitch rapide :** Le dépôt open source AWS documente un CLI qui sépare le contenu défini par les équipes data du workflow CI/CD, avec promotion de notebooks, bundles, workflows et applications GenAI entre projets.
-- **Utilité :** Piste pour standardiser les promotions data/ML/Bedrock sans multiplier les appels AWS dans chaque pipeline. Tester en dev puis test avec dry-run, IAM minimal, artefacts versionnés et rollback ; succès = promotion reproductible d’un notebook et d’un workflow sans identifiants codés en dur.
-- **Preuves de traction :** **Fait :** annonce AWS du 02/09 et dépôt officiel public consulté le 04/09 ; le dépôt indique une licence open source et des commandes `bundle`, `deploy`, `test` et `destroy`. **Analyse :** l’abstraction réduit le couplage CI/CD mais ajoute une couche à suivre avec les API SageMaker/Glue/Airflow. **Décision :** tester hors production. Notes : impact 4/5, urgence 2/5, pertinence stack 4/5, confiance 5/5.
+- **Utilité :** Piste pour standardiser les promotions data/ML/Bedrock sans multiplier les appels AWS dans chaque pipeline. évaluer en dev puis évaluation avec dry-run, IAM minimal, artefacts versionnés et rollback ; succès = promotion reproductible d’un notebook et d’un workflow sans identifiants codés en dur.
+- **Preuves de traction :** **Fait :** annonce AWS du 02/09 et dépôt officiel public consulté le 04/09 ; le dépôt indique une licence open source et des commandes `bundle`, `deploy`, `évaluation` et `destroy`. **Analyse :** l’abstraction réduit le couplage CI/CD mais ajoute une couche à suivre avec les API SageMaker/Glue/Airflow. ** Notes : impact 4/5, urgence 2/5, pertinence stack 4/5, confiance 5/5.
 - **Outils similaires :** GitHub Actions natives AWS (plus explicites), Terraform (infrastructure plutôt que promotion de contenu), MLflow/Kubeflow (cycle ML et plateforme différents).
 
 ## Pitch détaillé
 
-Le changement de hostname des passerelles GCP est le sujet le plus immédiatement opérationnel : il touche la résolution d’adresse, les certificats et les contrôles réseau au moment de la création. Il ne faut pas remplacer une URL existante en production sur la seule base de cette note ; il faut d’abord lire `defaultHostname` et tester les clients.
+Le changement de hostname des passerelles GCP est le sujet le plus immédiatement opérationnel : il touche la résolution d’adresse, les certificats et les contrôles réseau au moment de la création. Il ne faut pas remplacer une URL existante en production sur la seule base de cette note ; il faut d’abord lire `defaultHostname` et évaluer les clients.
 
 AWS Config et S3 PrivateLink FIPS renforcent deux capacités de plateforme complémentaires : savoir ce qui existe et contrôler comment les workloads atteignent les données. Leur intérêt dépend fortement des régions, comptes et exigences de conformité de Mehdi, encore à qualifier.
 
-Bedrock Web Search GovCloud élargit le périmètre des agents ancrés par recherche web. Le test doit intégrer provenance, filtrage, coût, latence, permissions et repli déterministe ; la disponibilité régionale ne suffit pas à établir l’acceptabilité des données.
+Bedrock Web Search GovCloud élargit le périmètre des agents ancrés par recherche web. Le évaluation doit intégrer provenance, filtrage, coût, latence, permissions et repli déterministe ; la disponibilité régionale ne suffit pas à établir l’acceptabilité des données.
 
-Le CLI SageMaker Unified Studio mérite un laboratoire parce qu’il propose une frontière claire entre manifeste applicatif et politique de promotion. Sa maturité réelle, sa surface IAM et sa compatibilité avec la stack GitHub/GitLab restent à mesurer.
+Le CLI SageMaker Unified Studio mérite une évaluation parce qu’il propose une frontière claire entre manifeste applicatif et politique de promotion. Sa maturité réelle, sa surface IAM et sa compatibilité avec la stack GitHub/GitLab restent à mesurer.
 
 ## Sujets écartés
 

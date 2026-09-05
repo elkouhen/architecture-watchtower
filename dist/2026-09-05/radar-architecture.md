@@ -1,6 +1,6 @@
 # Radar architecture — 5 septembre 2026
 
-Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements récents et 90 jours pour la déduplication locale. Les environnements réels restent `exposition inconnue` tant que l’inventaire n’est pas confirmé. Ce radar sert à découvrir et qualifier des sujets ; il ne planifie pas de POC ni de laboratoire.
+Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements récents et 90 jours pour la déduplication locale. Les environnements réels restent `exposition inconnue` tant que l’inventaire n’est pas confirmé. Ce radar sert à expliquer des sujets ; il ne planifie pas d’expérimentation.
 
 ## Vue d’ensemble
 
@@ -17,7 +17,6 @@ Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements r
 
 - **Pitch rapide :** **Fait :** l’annonce AWS du 04/09/2026 décrit une capacité serverless d’AWS MCP Server qui analyse Lambda et des services connectés — API Gateway, EventBridge, S3, DynamoDB, SNS, SQS et Step Functions — en rapprochant une baseline de 7 jours, les erreurs récurrentes, la configuration et la chronologie des changements. La capacité est annoncée sans coût additionnel, avec exécution du serveur MCP en `us-east-1` et `eu-frankfurt`.
 - **Utilité architecturale :** cela rapproche diagnostic applicatif et contexte d’infrastructure dans une interface d’agent, mais ajoute une voie d’accès outillée aux données opérationnelles. **Analyse :** la frontière IAM, le périmètre des journaux consultables et la résidence des données doivent être traités comme une surface d’administration.
-- **Décision :** `qualify`, propriétaire `plateforme/observabilité`, réexamen `2026-09-19`. Critère de qualification : matrice claire des permissions, régions, services lus et données exposées ; sans cette matrice, ne pas l’introduire dans un chemin critique.
 - **Preuves :** source primaire AWS, confiance 5/5 ; impact 4/5, urgence 3/5, pertinence stack 4/5. **Inférence :** l’intérêt est supérieur pour les équipes qui opèrent déjà Lambda et disposent d’un contrôle centralisé des outils d’agents.
 - **Outils similaires :** AWS Systems Manager et CloudWatch pour l’exploitation explicite ; MCP auto-hébergé avec allowlist pour un contrôle différent du périmètre ; plateformes APM pour la corrélation métriques-traces.
 
@@ -25,7 +24,6 @@ Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements r
 
 - **Pitch rapide :** **Fait :** AWS annonce le 04/09/2026 la possibilité pour le propriétaire d’une AMI de déclarer les types d’instances compatibles ou interdits ; EC2 bloque alors le lancement sur un type non permis. La capacité est annoncée dans toutes les régions, sans coût additionnel.
 - **Utilité architecturale :** ce garde-fou déplace une partie de la compatibilité OS, drivers et architecture CPU dans le contrat de l’image. **Analyse :** il peut réduire les erreurs de capacité ou d’architecture, mais une déclaration incomplète peut bloquer un autoscaling légitime ou donner un faux sentiment de compatibilité.
-- **Décision :** `qualify`, propriétaire `plateforme/IaC`, réexamen `2026-09-19`. Critère de qualification : chaque famille d’AMI possède une matrice version–architecture–driver–type d’instance traçable et les chemins de remplacement sont documentés.
 - **Preuves :** source primaire AWS, confiance 5/5 ; impact 4/5, urgence 3/5, pertinence stack 4/5. **Inférence :** la valeur est forte dans une plateforme multi-architecture ou lorsque les images sont consommées par plusieurs équipes.
 - **Outils similaires :** contraintes Terraform/Autoscaling, Image Builder et politiques AWS Organizations ; ces mécanismes restent nécessaires pour traiter le cycle de vie et l’autorisation, pas seulement la compatibilité.
 
@@ -33,7 +31,6 @@ Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements r
 
 - **Pitch rapide :** **Fait :** l’annonce AWS du 04/09/2026 documente la rotation des identifiants de connecteurs SFTP via AWS Secrets Manager, avec utilisation ordonnée des versions de secret pour éviter l’interruption des transferts.
 - **Utilité architecturale :** la rotation devient une propriété du flux de connexion plutôt qu’une opération manuelle de remplacement. **Analyse :** le bénéfice dépend de la discipline sur les versions de secret, les droits IAM, le calendrier de rotation et la capacité du partenaire distant à accepter l’identifiant suivant.
-- **Décision :** `qualify`, propriétaire `sécurité/intégration`, réexamen `2026-09-19`. Critère de qualification : procédure de rotation réversible, preuve de continuité du transfert et journal d’audit reliant secret, connecteur et partenaire.
 - **Preuves :** source primaire AWS, confiance 5/5 ; impact 4/5, urgence 4/5, pertinence stack 3/5. **Inférence :** la fonction réduit un risque opérationnel surtout lorsque les connecteurs sont nombreux et gérés par plusieurs équipes.
 - **Outils similaires :** rotation native Secrets Manager, Vault avec moteur de secrets et rotation côté partenaire ; ils ne suppriment pas la nécessité de coordonner le changement distant.
 
@@ -41,7 +38,6 @@ Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements r
 
 - **Pitch rapide :** **Fait :** AWS annonce le 04/09/2026 le support des instances Amazon EC2 G6e par SageMaker Batch Transform pour les traitements d’inférence par lots. Les caractéristiques exactes, régions et tarifs doivent être lus dans la documentation de service associée avant toute comparaison.
 - **Utilité architecturale :** cette extension ajoute une option de capacité GPU aux traitements différés. **Analyse :** elle peut modifier le compromis coût–débit–durée, mais ne démontre ni disponibilité dans une région donnée ni avantage économique pour une charge réelle.
-- **Décision :** `monitor`, propriétaire `IA/plateforme`, réexamen `2026-09-26`. Critère de qualification : disponibilité régionale et coût total comparés à la capacité actuellement utilisée, avec une estimation fondée sur le volume réel et la fenêtre de traitement.
 - **Preuves :** source primaire AWS, confiance 4/5 ; impact 3/5, urgence 2/5, pertinence stack 3/5. **Inférence :** le sujet est pertinent pour une plateforme qui sépare clairement inférence synchrone et batch, moins pour une chaîne temps réel.
 - **Outils similaires :** SageMaker Processing, jobs Kubernetes avec vLLM ou Triton, et instances GPU EC2 gérées directement ; le choix dépend du niveau de contrôle voulu sur le runtime.
 
@@ -49,7 +45,6 @@ Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements r
 
 - **Pitch rapide :** **Fait :** le dépôt Apache-2.0 de Volcano présente Kthena comme une plateforme Kubernetes-native pour servir des LLM, avec séparation entre workload controller et router, support de vLLM/SGLang/Triton, autoscaling, mises à jour progressives et routage Gateway API optionnel. Le dépôt et sa page de releases ont été consultés le 05/09/2026.
 - **Utilité architecturale :** le découplage des plans permet de traiter séparément placement, capacité et décision de routage, notamment pour le préremplissage–décodage. **Analyse :** cela augmente aussi le nombre de contrats entre contrôleur, routeur, runtime de modèle et observabilité ; la maturité opérationnelle reste à qualifier.
-- **Décision :** `monitor`, propriétaire `IA/plateforme Kubernetes`, réexamen `2026-09-19`. Critère de qualification : architecture de déploiement, compatibilité avec les politiques Gateway API, métriques de routage et stratégie de repli documentées pour une version donnée.
 - **Preuves :** source primaire GitHub du projet, licence Apache-2.0 et activité observées le 05/09/2026, confiance 4/5 ; impact 4/5, urgence 2/5, pertinence stack 4/5. **Inférence :** Kthena est surtout intéressant si la plateforme doit partager un plan de routage entre plusieurs runtimes GPU.
 - **Outils similaires :** llm-d, KServe, vLLM seul et gateways IA dédiées ; ils diffèrent par le degré de séparation entre orchestration et routage.
 
@@ -57,7 +52,6 @@ Fenêtre de collecte : 48 h pour les nouveautés, 7 jours pour les changements r
 
 - **Pitch rapide :** **Fait :** le dépôt Apache-2.0 Forge se présente comme un runtime open source pour Anthropic Agent Skills, déployable sur Kubernetes ou on-premises, y compris en environnement air-gapped. Le README documente notamment egress allowlists, secrets chiffrés, audit NDJSON, MCP, fallback et intégration OpenTelemetry ; le dépôt a été consulté le 05/09/2026.
 - **Utilité architecturale :** Forge propose une frontière d’exécution entre skill déclaratif, outils autorisés et environnement d’exécution. **Analyse :** les contrôles annoncés sont prometteurs pour limiter l’egress et tracer les actions, mais la confiance dépend de la chaîne de build, du modèle de menace et de la fréquence des correctifs.
-- **Décision :** `monitor`, propriétaire `plateforme/sécurité IA`, réexamen `2026-09-19`. Critère de qualification : inventaire des contrôles réellement implémentés par version, provenance des images, compatibilité MCP et capacité à exporter un audit exploitable.
 - **Preuves :** source primaire GitHub du projet, licence Apache-2.0 et documentation d’exploitation consultées le 05/09/2026, confiance 4/5 ; impact 4/5, urgence 2/5, pertinence stack 3/5. **Inférence :** le projet mérite d’être surveillé si l’architecture vise des agents portables entre Kubernetes, on-premises et environnements isolés.
 - **Outils similaires :** Agent Sandbox, runtimes de skills propriétaires et exécution de jobs Kubernetes avec politiques réseau ; le niveau de garantie et la surface MCP ne sont pas équivalents.
 

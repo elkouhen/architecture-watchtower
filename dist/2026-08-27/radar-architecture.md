@@ -21,7 +21,7 @@
 
 L’observabilité agentique ne consiste pas seulement à capturer le prompt et la réponse. Il faut reconstruire une exécution : modèle choisi, étapes, appels outils, décisions, erreurs, retries, tokens et coût. Le pattern est donc une extension de l’observabilité distribuée, avec des données sensibles et une cardinalité plus difficile à maîtriser.
 
-La trajectoire la plus réversible est d’instrumenter une chaîne avec OpenTelemetry, d’exporter vers ELK/APM ou CloudWatch, puis de mesurer ce qui manque réellement. Un outil spécialisé devient pertinent seulement si l’évaluation, la visualisation des runs ou la gestion des coûts dépassent les capacités existantes. Décision : `tester` sur un agent non critique.
+La trajectoire la plus réversible est d’instrumenter une chaîne avec OpenTelemetry, d’exporter vers ELK/APM ou CloudWatch, puis de mesurer ce qui manque réellement. Un outil spécialisé devient pertinent seulement si l’évaluation, la visualisation des runs ou la gestion des coûts dépassent les capacités existantes.
 
 ## [AI Gateway](https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/)
 
@@ -34,7 +34,7 @@ La trajectoire la plus réversible est d’instrumenter une chaîne avec OpenTel
 
 Le sujet marque le déplacement de la gouvernance IA vers l’infrastructure. Une gateway peut imposer des quotas et une identité homogènes, mais elle devient aussi un composant critique du chemin de requête et un point de concentration des secrets et des logs.
 
-Il faut distinguer les APIs et contrôleurs encore mouvants des fonctionnalités stables. Un test réaliste doit utiliser deux backends simulés et mesurer auth, routage, timeout, failover, latence et contrôle des permissions. Décision : `surveiller`, puis `tester` lorsqu’un besoin multi-modèle ou multi-cloud est confirmé.
+Il faut distinguer les APIs et contrôleurs encore mouvants des fonctionnalités stables. une évaluation réaliste doit utiliser deux backends simulés et mesurer auth, routage, timeout, failover, latence et contrôle des permissions.
 
 ## [Inférence cloud-native](https://www.cncf.io/blog/2026/03/24/welcome-llm-d-to-the-cncf-evolving-kubernetes-into-sota-ai-infrastructure/)
 
@@ -47,7 +47,7 @@ Il faut distinguer les APIs et contrôleurs encore mouvants des fonctionnalités
 
 Le problème central est d’aligner demande utilisateur, capacité GPU et état du modèle. Le chemin comprend gateway ou scheduler, serveur de modèle, ressources GPU, éventuel cache et télémétrie spécialisée ; les métriques classiques CPU/RAM ne suffisent pas pour expliquer TTFT, tokens/s ou coût.
 
-La pertinence dépend entièrement du matériel, du modèle et du profil de charge. Il faut un test reproductible avec requêtes représentatives et comparaison à un Deployment classique. Décision : `surveiller` jusqu’à l’existence d’un workload d’inférence concret.
+La pertinence dépend entièrement du matériel, du modèle et du profil de charge. Il faut une évaluation reproductible avec requêtes représentatives et comparaison à un Deployment classique.
 
 ## [OpenTelemetry GenAI](https://opentelemetry.io/blog/2026/genai-observability/)
 

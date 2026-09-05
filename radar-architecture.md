@@ -55,7 +55,7 @@ En trois à six paragraphes courts, explique :
 - le problème concret auquel il répond et le type d’équipe qui peut en tirer parti ;
 - son fonctionnement général et sa place dans une architecture, sans détailler tous les composants ;
 - ses bénéfices réels, ses limites, ses dépendances et le principal risque à surveiller ;
-- pourquoi il mérite ou non un test maintenant, avec une décision proposée : `surveiller`, `tester` ou `écarter`.
+- pourquoi il mérite ou non une attention maintenant, sans appel à décision ni plan d'expérimentation.
 
 Ne répète pas les trois champs obligatoires et ne fournis pas ici un plan complet de production. Les détails de déploiement et d’exploitation appartiennent à `carte-service.md` lorsqu’une carte est déclenchée ; aucun laboratoire ou POC ne doit être planifié sans demande explicite de Mehdi.
 
@@ -85,7 +85,7 @@ Le rapport doit rester court et lisible en moins de quinze minutes :
 2. les fiches de huit à dix sujets classés par fraîcheur et intérêt architectural, ou moins si la déduplication stricte ne laisse pas suffisamment de sujets lisibles dans la fenêtre des trois derniers mois ;
 3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité`, `Preuves de traction` et `Outils similaires` ;
 4. les `Pitchs détaillés` conditionnels, au maximum trois ;
-5. une courte liste de sujets écartés avec leur motif ;
+5. une courte liste de sujets non retenus avec leur motif ;
 6. les sources consultées et les sources en échec, avec la preuve de couverture AWS, GCP et IA et la borne de rattrapage utilisée.
 
 La vue d’ensemble doit rester très scannable : une ligne par outil ou élément revu, nom lié à l’URL canonique, type explicite, pitch court et lien Markdown vers la section correspondante. Les preuves de traction et le niveau de maturité restent dans la fiche, jamais dans ce tableau.
