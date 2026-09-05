@@ -841,7 +841,7 @@ signals:
     owner: "sécurité/engineering"
     due_date: 2026-09-26
     last_reviewed: 2026-09-05
-    review_note: "La capacité d’allowlist MCP reste pertinente, mais l’usage GitHub de Mehdi est inconnu ; qualification reportée sans POC planifié."
+    review_note: "La capacité d’allowlist MCP reste pertinente, mais l’usage GitHub de l'utilisateur est inconnu ; qualification reportée sans POC planifié."
     deliverables:
       - dist/2026-08-29/radar-architecture.md
     publication: "local_commit"

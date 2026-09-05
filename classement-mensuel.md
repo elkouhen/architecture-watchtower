@@ -4,7 +4,7 @@ Produis une fois par mois un classement rétrospectif des technologies, services
 
 ## Objectif
 
-Ce rapport ne remplace pas le radar quotidien et ne déclenche aucun POC, laboratoire ou recommandation d’adoption. Il aide Mehdi à prendre du recul : quelles technologies ont réellement compté ce mois-ci, lesquelles méritent une carte ou une qualification ultérieure, lesquelles sont restées de simples signaux de découverte.
+Ce rapport ne remplace pas le radar quotidien et ne déclenche aucun POC, laboratoire ou recommandation d’adoption. Il aide l'utilisateur à prendre du recul : quelles technologies ont réellement compté ce mois-ci, lesquelles méritent une carte ou une qualification ultérieure, lesquelles sont restées de simples signaux de découverte.
 
 Le classement principal est ordonné par intérêt pour les nouveautés et les changements architecturaux, pas par urgence opérationnelle. Un simple correctif CVE, un bulletin sans changement de produit ou une action de maintenance déjà connue ne doit pas remonter dans le classement principal ; il est résumé dans `Sujets non classés` ou `Sujets écartés`, sauf s’il introduit une rupture d’architecture ou une décision de plateforme nouvelle. Le rapport doit faire ressortir les tendances transverses observées dans plusieurs technologies ou rapports.
 
@@ -50,7 +50,7 @@ Le rapport doit contenir :
 7. `## Sujets non classés` : CVE simples, maintenance, sujets sans preuve suffisante, doublons ou simples mentions, avec motif ;
 8. `## Sources et limites` : rapports locaux, registres, sources primaires importantes, lacunes, exposition réelle inconnue et éventuelles sources en échec.
 
-La section `Lecture architecturale` ne doit pas devenir un plan d’action ou un laboratoire. Utiliser `à surveiller`, `à qualifier`, `carte pertinente` ou `à écarter` comme décisions descriptives ; ne pas attribuer de POC ou d’échéance sans demande explicite de Mehdi.
+La section `Lecture architecturale` ne doit pas devenir un plan d’action ou un laboratoire. Utiliser `à surveiller`, `à qualifier`, `carte pertinente` ou `à écarter` comme décisions descriptives ; ne pas attribuer de POC ou d’échéance sans demande explicite de l'utilisateur.
 
 ## Règles de qualité
 

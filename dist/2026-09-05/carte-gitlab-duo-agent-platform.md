@@ -1,6 +1,6 @@
 # CARTE SERVICE — [GitLab Duo Agent Platform](https://docs.gitlab.com/user/duo_agent_platform/)
 
-Date : 2026-09-05. Type : `plateforme CI/CD agentique`. Version de référence documentée : GitLab Duo Agent Platform GA depuis GitLab 18.8 ; GitLab 19.2 ajoute notamment Duo CLI GA et les custom flows GA. Version réellement utilisée dans la stack de Mehdi : `à qualifier`.
+Date : 2026-09-05. Type : `plateforme CI/CD agentique`. Version de référence documentée : GitLab Duo Agent Platform GA depuis GitLab 18.8 ; GitLab 19.2 ajoute notamment Duo CLI GA et les custom flows GA. Version réellement utilisée dans la stack de l'utilisateur : `à qualifier`.
 
 ## 1. TYPE, LIEN ET PITCH RAPIDE
 

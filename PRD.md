@@ -2,7 +2,7 @@
 
 **Statut :** proposition initiale  
 **Date :** 29 août 2026  
-**Propriétaire :** Mehdi — architecture Cloud/DevOps
+**Propriétaire :** Contexte d'architecture Cloud/DevOps
 
 ## 1. Résumé
 
@@ -48,7 +48,7 @@ Le produit doit permettre de répondre rapidement à quatre questions :
 
 ## 5. Utilisateur cible
 
-### Mehdi, architecte Cloud/DevOps
+### l'utilisateur, architecte Cloud/DevOps
 
 Il utilise la veille pour maintenir son expertise, préparer des choix d’architecture et identifier des sujets à qualifier dans AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Terraform et l’écosystème HashiCorp.
 

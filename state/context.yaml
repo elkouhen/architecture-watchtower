@@ -1,4 +1,4 @@
-# Contexte d’architecture de Mehdi — référence pour rendre la veille actionnable.
+# Contexte d’architecture de l'utilisateur — référence pour rendre la veille actionnable.
 # Les champs inconnus doivent rester explicitement à qualifier dans les rapports.
 profile:
   role: "architecte Cloud/DevOps"

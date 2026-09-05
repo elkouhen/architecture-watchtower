@@ -2,7 +2,7 @@
 
 ## Vue d’ensemble
 
-Déduplication appliquée sur `state/signals.yaml` et les rapports des 90 derniers jours. Six sujets sont retenus : **trois nouveautés** et **trois mises à jour**. L’exposition réelle de la stack de Mehdi reste `à qualifier`.
+Déduplication appliquée sur `state/signals.yaml` et les rapports des 90 derniers jours. Six sujets sont retenus : **trois nouveautés** et **trois mises à jour**. L’exposition réelle de la stack de l'utilisateur reste `à qualifier`.
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|

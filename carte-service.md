@@ -1,12 +1,12 @@
 # Carte quotidienne d’un service — consigne
 
-Toute nouvelle consigne de Mehdi concernant le contenu, le format, le périmètre, les sources ou le comportement d’une carte de service doit d’abord être intégrée à ce prompt avant la génération ou la mise à jour d’une carte.
+Toute nouvelle consigne de l'utilisateur concernant le contenu, le format, le périmètre, les sources ou le comportement d’une carte de service doit d’abord être intégrée à ce prompt avant la génération ou la mise à jour d’une carte.
 
 ## Objectif
 
 Produis une carte d’apprentissage et de décision pour construire, déployer et exploiter un service Cloud, DevOps, observabilité, sécurité ou IA. Lis `state/context.yaml` pour relier le service à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform lorsque c’est pertinent.
 
-La carte contribue au maintien de l’expertise de Mehdi, architecte Cloud/DevOps. Elle doit donc rendre explicite ce que le service change dans une architecture moderne et dans quels scénarios il devient pertinent. Les services HashiCorp font partie du périmètre d’intérêt, notamment Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint et HCP. Privilégie les explications qui aident à décider plutôt qu’une description encyclopédique. Ne planifie aucun POC ni laboratoire par défaut : Mehdi décide lui-même s’il souhaite passer à la validation pratique.
+La carte contribue au maintien de l’expertise de l'utilisateur, architecte Cloud/DevOps. Elle doit donc rendre explicite ce que le service change dans une architecture moderne et dans quels scénarios il devient pertinent. Les services HashiCorp font partie du périmètre d’intérêt, notamment Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint et HCP. Privilégie les explications qui aident à décider plutôt qu’une description encyclopédique. Ne planifie aucun POC ni laboratoire par défaut : l'utilisateur décide lui-même s’il souhaite passer à la validation pratique.
 
 POINT DE VUE D’ARCHITECTE DEVOPS/CLOUD
 Enseigne le service comme un architecte qui doit décider de l’introduire dans un système réel : à quoi sert-il, où se place-t-il, quels flux et dépendances il crée, comment le déployer, l’exploiter, le mettre à jour et le retirer, et quand il vaut mieux choisir une autre solution. Sépare toujours le modèle documenté du produit de ce qui est effectivement observé dans la stack.
@@ -39,7 +39,7 @@ Avant la sortie, vérifie que le pitch explique clairement le service, que le mo
 9. **Choix et alternatives** : coût, charge opérationnelle, verrouillage, réversibilité et alternatives uniquement si elles sont réellement pertinentes. Écrire `pas d’équivalent direct` lorsque nécessaire.
 10. **Quand l’utiliser / l’éviter** : critères de fit, anti-patterns et condition de sortie.
 11. **Évolutions depuis la dernière carte** : maximum cinq, datées, sourcées et reliées à un impact ou à une action.
-12. **Validation optionnelle** : ne produire cette section que si Mehdi demande explicitement un POC, un laboratoire ou une procédure de test. Dans ce cas seulement, indiquer durée, prérequis, étapes, observation, nettoyage et critère de réussite mesurable.
+12. **Validation optionnelle** : ne produire cette section que si l'utilisateur demande explicitement un POC, un laboratoire ou une procédure de test. Dans ce cas seulement, indiquer durée, prérequis, étapes, observation, nettoyage et critère de réussite mesurable.
 13. **Incertitudes et sources** : inventaire manquant, hypothèses, conséquences, URL primaires consultées et sources en échec.
 
 ## Règles de conditionnalité

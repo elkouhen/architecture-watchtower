@@ -46,7 +46,7 @@ Fenêtre de collecte : 48 h (ASAP), 7 jours (nouveautés) et 30 jours (tendances
 
 Le changement de hostname des passerelles GCP est le sujet le plus immédiatement opérationnel : il touche la résolution d’adresse, les certificats et les contrôles réseau au moment de la création. Il ne faut pas remplacer une URL existante en production sur la seule base de cette note ; il faut d’abord lire `defaultHostname` et évaluer les clients.
 
-AWS Config et S3 PrivateLink FIPS renforcent deux capacités de plateforme complémentaires : savoir ce qui existe et contrôler comment les workloads atteignent les données. Leur intérêt dépend fortement des régions, comptes et exigences de conformité de Mehdi, encore à qualifier.
+AWS Config et S3 PrivateLink FIPS renforcent deux capacités de plateforme complémentaires : savoir ce qui existe et contrôler comment les workloads atteignent les données. Leur intérêt dépend fortement des régions, comptes et exigences de conformité de l'utilisateur, encore à qualifier.
 
 Bedrock Web Search GovCloud élargit le périmètre des agents ancrés par recherche web. Le évaluation doit intégrer provenance, filtrage, coût, latence, permissions et repli déterministe ; la disponibilité régionale ne suffit pas à établir l’acceptabilité des données.
 

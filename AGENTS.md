@@ -2,7 +2,7 @@
 
 ## Objet du dépôt
 
-Ce dépôt contient désormais deux démarches actives en français pour Mehdi :
+Ce dépôt contient désormais deux démarches actives en français pour l'utilisateur :
 
 - `radar-architecture.md` : radar Cloud, DevOps, architecture applicative et IA ;
 - `carte-service.md` : carte détaillée d’un service ciblé.
@@ -21,7 +21,7 @@ L’index transversal `docs/catalogue.md` classe par thème les outils et patter
 
 ## Clarté des demandes
 
-Ne pas démarrer une tâche lorsque la demande, son périmètre ou le résultat attendu ne semble pas suffisamment clair. Dans ce cas, s’arrêter avant toute modification ou recherche et poser à Mehdi les questions nécessaires pour préciser l’objectif, les fichiers concernés, les contraintes et le niveau de résultat attendu. Ne reprendre l’exécution qu’après clarification.
+Ne pas démarrer une tâche lorsque la demande, son périmètre ou le résultat attendu ne semble pas suffisamment clair. Dans ce cas, s’arrêter avant toute modification ou recherche et poser à l'utilisateur les questions nécessaires pour préciser l’objectif, les fichiers concernés, les contraintes et le niveau de résultat attendu. Ne reprendre l’exécution qu’après clarification.
 
 ## Exécution d’une veille
 

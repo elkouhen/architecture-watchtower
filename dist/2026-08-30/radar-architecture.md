@@ -16,7 +16,7 @@ Déduplication appliquée sur `state/signals.yaml` et les rapports des 90 dernie
 
 - **Type :** plateforme IA/ML.
 - **Pitch rapide :** Kubeflow regroupe sur Kubernetes le traitement de données, les environnements interactifs, l’entraînement distribué, le fine-tuning, l’inférence et le serving. La graduation CNCF du 17/08/2026 en fait un candidat de plateforme à qualifier, pas une preuve que toute sa distribution convient à la production.
-- **Utilité :** il peut fournir une surface commune entre data scientists, ML engineers et équipe plateforme, notamment pour rendre reproductibles les workloads GPU et les déploiements hybrides. La stack réelle de Mehdi est **exposition inconnue** ; qualifier d’abord les sous-projets retenus, les CRD, les besoins GPU, les coûts opératoires et le chemin de retrait.
+- **Utilité :** il peut fournir une surface commune entre data scientists, ML engineers et équipe plateforme, notamment pour rendre reproductibles les workloads GPU et les déploiements hybrides. La stack réelle de l'utilisateur est **exposition inconnue** ; qualifier d’abord les sous-projets retenus, les CRD, les besoins GPU, les coûts opératoires et le chemin de retrait.
 - **Outils similaires :** [KServe](https://kserve.github.io/website/), plus ciblé serving ; [Ray](https://www.ray.io/), plus ciblé calcul distribué ; [MLflow](https://mlflow.org/), plus ciblé suivi et cycle de vie des modèles.
 
 ### Pitch détaillé

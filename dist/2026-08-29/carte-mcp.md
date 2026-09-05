@@ -1,6 +1,6 @@
 # CARTE SERVICE — [Model Context Protocol (MCP)](https://modelcontextprotocol.io/specification/2026-07-28)
 
-Date : 2026-08-29. Type : `standard / protocole`. Version de référence : `2026-07-28`. Version réellement utilisée dans la stack de Mehdi : `à qualifier`.
+Date : 2026-08-29. Type : `standard / protocole`. Version de référence : `2026-07-28`. Version réellement utilisée dans la stack de l'utilisateur : `à qualifier`.
 
 ## 1. RÉSUMÉ DÉCISIONNEL
 

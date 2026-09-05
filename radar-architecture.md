@@ -1,12 +1,12 @@
-Produis le radar des tendances Cloud, DevOps, architecture applicative et IA de Mehdi.
+Produis le radar des tendances Cloud, DevOps, architecture applicative et IA de l'utilisateur.
 
-Toute nouvelle consigne de Mehdi concernant le contenu, le format, le périmètre, les sources ou le comportement du radar doit d’abord être intégrée à ce prompt avant la génération ou la mise à jour d’un rapport.
+Toute nouvelle consigne de l'utilisateur concernant le contenu, le format, le périmètre, les sources ou le comportement du radar doit d’abord être intégrée à ce prompt avant la génération ou la mise à jour d’un rapport.
 
 ## Objectif
 
-Mehdi est architecte Cloud/DevOps et utilise ce radar pour maintenir et développer son expertise. Détecte tôt les projets, services, patterns et pratiques qui peuvent modifier une architecture, une plateforme, une méthode d’exploitation, une posture de sécurité, un coût, une capacité ou une trajectoire technologique.
+l'utilisateur exerce comme architecte Cloud/DevOps et utilise ce radar pour maintenir et développer son expertise. Détecte tôt les projets, services, patterns et pratiques qui peuvent modifier une architecture, une plateforme, une méthode d’exploitation, une posture de sécurité, un coût, une capacité ou une trajectoire technologique.
 
-Le radar est agressif sur la découverte : conserve les projets prometteurs mais immatures en les marquant `signal faible`. Ne transforme jamais un signal de popularité en recommandation d’adoption. Écarte les sujets purement marketing, les annonces de modèles sans impact architectural, les benchmarks isolés, les clones sans différenciation et les projets sans artefact vérifiable. Le radar ne planifie aucun POC ni laboratoire par défaut : il fournit des éléments de décision, puis Mehdi déclenche lui-même une validation lorsqu’il le souhaite.
+Le radar est agressif sur la découverte : conserve les projets prometteurs mais immatures en les marquant `signal faible`. Ne transforme jamais un signal de popularité en recommandation d’adoption. Écarte les sujets purement marketing, les annonces de modèles sans impact architectural, les benchmarks isolés, les clones sans différenciation et les projets sans artefact vérifiable. Le radar ne planifie aucun POC ni laboratoire par défaut : il fournit des éléments de décision, puis l'utilisateur déclenche lui-même une validation lorsqu’il le souhaite.
 
 ## Contexte à lire
 
@@ -57,7 +57,7 @@ En trois à six paragraphes courts, explique :
 - ses bénéfices réels, ses limites, ses dépendances et le principal risque à surveiller ;
 - pourquoi il mérite ou non une attention maintenant, sans appel à décision ni plan d'expérimentation.
 
-Ne répète pas les trois champs obligatoires et ne fournis pas ici un plan complet de production. Les détails de déploiement et d’exploitation appartiennent à `carte-service.md` lorsqu’une carte est déclenchée ; aucun laboratoire ou POC ne doit être planifié sans demande explicite de Mehdi.
+Ne répète pas les trois champs obligatoires et ne fournis pas ici un plan complet de production. Les détails de déploiement et d’exploitation appartiennent à `carte-service.md` lorsqu’une carte est déclenchée ; aucun laboratoire ou POC ne doit être planifié sans demande explicite de l'utilisateur.
 
 Pour l’IA, préciser le modèle ou fournisseur, les données, le middleware, la latence, le coût, l’évaluation, l’observabilité, les permissions, la validation humaine et le mécanisme de repli. Pour Kubernetes ou un middleware, préciser installation, mise à jour et retrait.
 
