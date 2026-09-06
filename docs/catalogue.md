@@ -6,6 +6,9 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [GKE / Kubernetes 1.37 rootless](https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/) | plateforme | à qualifier | [06/09](../dist/2026-09-06/radar-architecture.md#gke--kubernetes-137-rootless) | beta · 04/09 |
+| [GCP-2026-060](https://cloud.google.com/support/bulletins) | sécurité HPC | à qualifier | [06/09](../dist/2026-09-06/radar-architecture.md#gcp-2026-060--slurm-cluster-director) | High · 04/09 |
+| [Xolis](https://github.com/gnawux/xolis) | isolation agents OSS | signal faible | [06/09](../dist/2026-09-06/radar-architecture.md#xolis--sandbox-dagents-kubernetes-kata-et-pvm) | démo Kata/PVM · 06/09 |
 | [AWS MCP Server — capacité serverless](https://aws.amazon.com/about-aws/whats-new/2026/09/aws-mcp-server-serverless/) | service agents | à qualifier | [05/09](../dist/2026-09-05/radar-architecture.md#aws-mcp-server--capacité-serverless) | serverless · 04/09 |
 | [Amazon EC2 compatible instance types](https://aws.amazon.com/about-aws/whats-new/2026/09/ec2-images-supported-instances/) | plateforme | à qualifier | [05/09](../dist/2026-09-05/radar-architecture.md#amazon-ec2--types-dinstances-compatibles-déclarés-dans-les-ami) | compatibilité AMI · 04/09 |
 | [AWS Transfer Family SFTP credential rotation](https://aws.amazon.com/about-aws/whats-new/2026/09/transfer-family-sftp-credential-rotation/) | sécurité/intégration | à qualifier | [05/09](../dist/2026-09-05/radar-architecture.md#aws-transfer-family--rotation-des-identifiants-sftp) | rotation · 04/09 |

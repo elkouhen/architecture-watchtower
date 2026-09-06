@@ -1,6 +1,18 @@
 # Feedback de qualité des rapports.
 # Une entrée peut être ajoutée après chaque rapport ou lors de la revue mensuelle.
 feedback:
+  - date: 2026-09-06
+    report: radar-architecture
+    item: "Premier radar au contrat v2"
+    factual_accuracy: 2
+    source_quality: 2
+    architectural_value: 2
+    pitch_clarity: 2
+    action_quality: 2
+    noise: 0
+    outcome: "pending"
+    correction: "Contrat de couverture structuré, trois sujets qualifiés et quota OSS respecté ; réexaminer la qualité du signal faible Xolis au prochain cycle."
+    recheck_date: 2026-09-13
   - date: 2026-09-03
     report: radar-architecture
     item: "Collecte AWS/GCP/IA et quota OSS"

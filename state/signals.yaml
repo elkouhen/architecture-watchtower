@@ -334,7 +334,7 @@ signals:
     product_version: "Kubernetes 1.37"
     environment: "unknown"
     first_seen: 2026-08-27
-    last_seen: 2026-09-02
+    last_seen: 2026-09-06
     legacy_score: 8
     confidence: "high"
     status: "new"
@@ -344,11 +344,54 @@ signals:
     deliverables:
       - dist/2026-08-27/radar-architecture.md
       - dist/2026-09-02/radar-architecture.md
+      - dist/2026-09-06/radar-architecture.md
     history:
       - date: 2026-08-27
         change: "Release 1.37.0 observée."
       - date: 2026-09-02
         change: "Mise à jour substantielle : Storage Version Migration GA et RangeStream beta."
+      - date: 2026-09-06
+        change: "Mise à jour substantielle : KubeletInUserNamespace passe beta dans Kubernetes 1.37."
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-06-001
+    canonical_url: https://cloud.google.com/support/bulletins
+    subject: "GCP-2026-060 signale un risque High dans sbcast de Slurm pour Cluster Director"
+    product_version: "GCP-2026-060 / CVE-2026-65107 (2026-09-04)"
+    environment: "unknown"
+    first_seen: 2026-09-06
+    last_seen: 2026-09-06
+    impact_architectural: 3
+    urgence: 3
+    pertinence_stack: 3
+    confiance: 5
+    scoring_note: "Bulletin primaire précis ; exposition Cluster Director/Slurm inconnue."
+    status: "new"
+    decision: "qualify"
+    owner: "plateforme HPC/sécurité"
+    due_date: 2026-09-20
+    classification: "nouveau_hors_oss"
+    deliverables: [dist/2026-09-06/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-06-002
+    canonical_url: https://github.com/gnawux/xolis
+    subject: "Xolis compose Agent Sandbox, Kata runtime-rs et PVM pour isoler des agents sur EKS"
+    product_version: "tags kubecon-japan-2026 / demo-with-pvm (observés 2026-09-06)"
+    environment: "unknown"
+    first_seen: 2026-09-06
+    last_seen: 2026-09-06
+    impact_architectural: 3
+    urgence: 1
+    pertinence_stack: 4
+    confiance: 3
+    scoring_note: "Dépôt et démonstration Kata primaire ; auteur documente explicitement les lacunes HA, réseau et production."
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme Kubernetes/IA"
+    due_date: 2026-09-27
+    classification: "nouveau_projet_oss"
+    deliverables: [dist/2026-09-06/radar-architecture.md]
     publication: "local_commit"
     discard_reason: null
   - id: SIG-2026-08-27-002
@@ -975,7 +1018,9 @@ signals:
     status: "open"
     decision: "qualify"
     owner: "observabilité"
-    due_date: 2026-09-06
+    due_date: 2026-09-20
+    last_reviewed: 2026-09-06
+    review_note: "Inventaire Elastic Cloud Serverless et APIs internes toujours inconnu ; maintenir ouvert avec une nouvelle échéance, sans conclure à l’exposition."
     deliverables: [dist/2026-08-30/radar-architecture.md]
     publication: "local_commit"
     discard_reason: null
