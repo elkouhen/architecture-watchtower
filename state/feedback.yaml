@@ -11,7 +11,7 @@ feedback:
     action_quality: 2
     noise: 0
     outcome: "pending"
-    correction: "Contrat de couverture structuré, trois sujets qualifiés et quota OSS respecté ; réexaminer la qualité du signal faible Xolis au prochain cycle."
+    correction: "Contrat de couverture structuré, cinq sujets qualifiés et quota OSS respecté ; réexaminer la qualité du signal faible Xolis au prochain cycle."
     recheck_date: 2026-09-13
   - date: 2026-09-03
     report: radar-architecture

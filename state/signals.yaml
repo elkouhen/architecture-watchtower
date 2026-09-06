@@ -394,6 +394,46 @@ signals:
     deliverables: [dist/2026-09-06/radar-architecture.md]
     publication: "local_commit"
     discard_reason: null
+  - id: SIG-2026-09-06-003
+    canonical_url: https://developer.hashicorp.com/vault/docs/updates/release-notes
+    subject: "Vault 2.1 fait sortir de beta le support des workflows agentiques"
+    product_version: "Vault 2.1 (2026-09-01)"
+    environment: "unknown"
+    first_seen: 2026-09-06
+    last_seen: 2026-09-06
+    impact_architectural: 4
+    urgence: 2
+    pertinence_stack: 5
+    confiance: 5
+    scoring_note: "Release notes HashiCorp précises ; édition Vault et exposition agents inconnues."
+    status: "new"
+    decision: "qualify"
+    owner: "sécurité/plateforme"
+    due_date: 2026-09-20
+    classification: "mise_a_jour"
+    deliverables: [dist/2026-09-06/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
+  - id: SIG-2026-09-06-004
+    canonical_url: https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/
+    subject: "Kata Containers 4.0 stabilise runtime-rs et le VMM Dragonball"
+    product_version: "Kata Containers 4.0 (2026-07-21, observé 2026-09-06)"
+    environment: "unknown"
+    first_seen: 2026-09-06
+    last_seen: 2026-09-06
+    impact_architectural: 4
+    urgence: 1
+    pertinence_stack: 4
+    confiance: 4
+    scoring_note: "Source primaire Kata et composant OSS ; compatibilité de distribution à qualifier."
+    status: "new"
+    decision: "monitor"
+    owner: "plateforme Kubernetes/IA"
+    due_date: 2026-09-27
+    classification: "nouveau_projet_oss"
+    deliverables: [dist/2026-09-06/radar-architecture.md]
+    publication: "local_commit"
+    discard_reason: null
   - id: SIG-2026-08-27-002
     canonical_url: https://status.elastic.co/
     subject: "Incident endpoint APM Serverless résolu"

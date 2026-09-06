@@ -69,7 +69,7 @@ Le radar doit contenir **au moins 33 % de nouveaux projets open source** : dép�
 
 Le quota open source guide la découverte mais ne bloque jamais une information plus urgente. Une vulnérabilité, un incident, une dépréciation, un changement incompatible, une échéance de support ou une évolution AWS, GCP ou IA à fort impact doit être retenu selon sa priorité, même si cela empêche d'atteindre 33 %. Si suffisamment de nouveaux projets open source qualifiés ne sont pas disponibles, réduis le nombre total de sujets ou documente l'écart dans `Sujets écartés` ; n'ajoute aucun sujet faible uniquement pour atteindre le quota. Les mises à jour de produits déjà suivis ne sont plus plafonnées. La vue d'ensemble doit indiquer `Nouveau projet OSS`, `Nouveau hors OSS` ou `Mise à jour`, afin que l'équilibre soit vérifiable.
 
-La cible est au plus dix sujets, sauf dépassement critique motivé. Ne répète jamais un sujet pour atteindre cette cible : si le corpus qualifié est insuffisant, présente le nombre réellement trouvé et la raison du manque. Tout `signal faible` possède une URL canonique, un pitch, une utilité et une preuve datée.
+Le radar contient au minimum cinq et au plus dix sujets, sauf dépassement critique motivé. Ne répète jamais un sujet pour atteindre cette cible : compléter, si nécessaire, par un signal faible explicitement qualifié et prouvé, sans le présenter comme une recommandation. Tout `signal faible` possède une URL canonique, un pitch, une utilité et une preuve datée.
 
 Déduplique par URL canonique et sujet dans les signaux, la progression, les décisions et les rapports locaux des 90 derniers jours. Les observations plus anciennes ne bloquent pas une réapparition. Dans cette fenêtre, un sujet ne réapparaît que pour une évolution substantielle vérifiée : release structurante, licence, sécurité, architecture, intégration, adoption documentée, échéance ou décision modifiée. Un changement de rang ou de popularité ne suffit pas. Indiquer `Mise à jour` et le changement précis ; sinon exclure. Retirer un sujet immobile pendant deux cycles, sauf risque, échéance ou action active. Une carte est produite séparément sur demande explicite selon `carte-service.md`. Un sujet peut rester `surveiller`, `qualifier` ou `écarter` sans POC.
 
@@ -84,7 +84,7 @@ Avant de sélectionner de nouveaux sujets, examine tous les signaux `new` ou `op
 Le rapport doit rester court et lisible en moins de quinze minutes :
 
 1. une **vue d’ensemble**, utilisée comme table des matières, avec une ligne par sujet et uniquement les colonnes : `Outil`, `Type`, `Pitch rapide` et `Lien vers la section` ; le nom dans `Outil` est un lien direct vers le projet et `Lien vers la section` pointe vers la fiche du sujet ou son `Pitch détaillé` lorsqu’il existe ;
-2. les fiches classées selon l’ordre de priorité défini ci-dessus, idéalement huit à dix, moins si le corpus qualifié est insuffisant, davantage uniquement pour préserver les alertes critiques ;
+2. les fiches classées selon l’ordre de priorité défini ci-dessus, de cinq à dix, davantage uniquement pour préserver les alertes critiques ;
 3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité` et `Outils similaires` ;
 4. les `Pitchs détaillés` conditionnels, au maximum trois ;
 5. une courte liste de sujets non retenus avec leur motif ;

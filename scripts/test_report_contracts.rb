@@ -49,18 +49,27 @@ class ReportContractsTest < Minitest::Test
   end
 
   def radar(entries)
+    rows = %w[A B C D E].map.with_index do |name, index|
+      kind = index < 2 ? "outil · Nouveau projet OSS" : "service · Nouveau hors OSS"
+      "| [#{name}](https://example.org/#{name.downcase}) | #{kind} | Intégration | [fiche](##{name.downcase}) |"
+    end.join("\n")
+    topics = %w[A B C D E].map do |name|
+      <<~TOPIC
+        ## [#{name}](https://example.org/#{name.downcase})
+
+        - **Pitch rapide :** Fait documenté.
+        - **Utilité :** Intégration documentée.
+        - **Outils similaires :** pas d’équivalent direct.
+      TOPIC
+    end.join("\n")
     <<~MD
       ## Vue d’ensemble
 
       | Outil | Type | Pitch rapide | Lien vers la section |
       |---|---|---|---|
-      | [A](https://example.org/a) | outil · Nouveau projet OSS | Intégration | [fiche](#a) |
+      #{rows}
 
-      ## [A](https://example.org/a)
-
-      - **Pitch rapide :** Fait documenté.
-      - **Utilité :** Intégration documentée.
-      - **Outils similaires :** pas d’équivalent direct.
+      #{topics}
 
       ## Sujets écartés
 

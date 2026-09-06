@@ -51,7 +51,7 @@ Pour le classement mensuel, appliquer `classement-mensuel.md` une seule fois par
 - Dans le radar et les évolutions des cartes, ne pas répéter un sujet déjà signalé, sauf changement substantiel de statut, risque, échéance ou recommandation ; l’indiquer alors comme `Mise à jour`. Le classement mensuel récapitule les observations de sa période sans les présenter comme de nouvelles annonces.
 - Retirer du radar les sujets sans évolution pendant deux cycles, sauf risque, échéance ou action active.
 - Les fonctions Preview, beta ou en disponibilité limitée ne doivent pas porter seules un contrôle de production critique ; prévoir une solution de repli.
-- Le radar vise au moins 33 % de nouveaux projets open source, arrondis à l’entier supérieur. Ce quota ne doit jamais masquer une vulnérabilité, un incident, une dépréciation, un changement incompatible ou une évolution AWS/GCP/IA à fort impact ; les mises à jour de produits connus ne sont pas plafonnées.
+- Le radar contient au minimum cinq et au plus dix sujets, sauf dépassement critique motivé. Il vise au moins 33 % de nouveaux projets open source, arrondis à l’entier supérieur. Ce quota ne doit jamais masquer une vulnérabilité, un incident, une dépréciation, un changement incompatible ou une évolution AWS/GCP/IA à fort impact ; les mises à jour de produits connus ne sont pas plafonnées.
 
 ## Publication locale
 

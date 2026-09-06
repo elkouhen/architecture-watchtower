@@ -93,6 +93,7 @@ def validate_radar_contract(text, label, date)
   error("#{label}: colonnes du radar invalides") unless rows.shift == ["Outil", "Type", "Pitch rapide", "Lien vers la section"]
   topics = text.scan(/^## (\[[^\n]+)(.*?)(?=^## |\z)/m)
   error("#{label}: nombre de lignes différent des fiches") unless rows.length == topics.length
+  error("#{label}: minimum de cinq sujets requis") if rows.length < 5
   topics.each do |title, body|
     error("#{label}: titre sans URL canonique") unless title.match?(%r{\]\(https?://[^)]+\)})
     ["Pitch rapide", "Utilité", "Outils similaires"].each do |field|

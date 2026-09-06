@@ -7,6 +7,8 @@
 |---|---|---|---|
 | [GKE / Kubernetes 1.37 rootless](https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/) | plateforme · Mise à jour | Le kubelet et les composants de nœud peuvent fonctionner dans un espace de noms utilisateur non-root. | [fiche](#gke--kubernetes-137-rootless) |
 | [GCP-2026-060](https://cloud.google.com/support/bulletins) | service · Nouveau hors OSS | Bulletin High sur `sbcast` de Slurm pour Cluster Director. | [fiche](#gcp-2026-060--slurm-cluster-director) |
+| [Vault 2.1](https://developer.hashicorp.com/vault/docs/updates/release-notes) | service · Mise à jour | Le support natif des workflows agentiques sort de beta en GA. | [fiche](#vault-21--support-natif-des-workflows-agents) |
+| [Kata Containers 4.0](https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/) | plateforme · Nouveau projet OSS | runtime-rs et Dragonball forment un runtime de sandbox à processus unique. | [fiche](#kata-containers-40--runtime-rs-et-dragonball) |
 | [Xolis](https://github.com/gnawux/xolis) | outil · Nouveau projet OSS | Démonstrateur de sandbox d’agents Kubernetes sur Kata 4.0 et PVM. | [fiche](#xolis--sandbox-dagents-kubernetes-kata-et-pvm) |
 
 ## [GKE / Kubernetes 1.37 rootless](https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/)
@@ -21,6 +23,18 @@
 - **Utilité :** Vérifier l’usage de Cluster Director, Slurm et des images concernées ; l’exposition réelle est inconnue. Maturité : correctif fournisseur documenté. **Décision :** qualifier l’inventaire avant toute action ; ne pas déduire une exposition depuis le seul bulletin.
 - **Outils similaires :** Slurm auto-administré (responsabilité de patch distincte), GKE batch (plan de contrôle différent), AWS Parallel Computing Service (service distinct).
 
+## [Vault 2.1 — support natif des workflows agents](https://developer.hashicorp.com/vault/docs/updates/release-notes)
+
+- **Pitch rapide :** **Fait :** Vault 2.1, publié le 01/09, fait sortir de beta le support Enterprise de sécurisation des workflows agentiques. **Analyse :** le sujet est la gestion des identités, secrets et droits des outils d’agents, non le choix d’un modèle.
+- **Utilité :** À qualifier face à l’édition Vault et aux flux d’identité réellement utilisés. Maturité : GA fournisseur, mais intégration stack inconnue. **Décision :** suivre comme mise à jour HashiCorp ; toute adoption doit conserver des permissions minimales, audit et révocation.
+- **Outils similaires :** SPIFFE/SPIRE (identité workload), cloud IAM (identité fournisseur), Boundary (accès humain ou applicatif distinct).
+
+## [Kata Containers 4.0 — runtime-rs et Dragonball](https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/)
+
+- **Pitch rapide :** **Fait :** Kata 4.0 a publié le 21/07 l’intégration stable de runtime-rs et du VMM Dragonball ; le démonstrateur Xolis l’emploie avec Agent Sandbox. **Analyse :** la réduction des processus de runtime peut simplifier l’opération des micro-VM, sans supprimer les exigences de réseau, stockage et haute disponibilité.
+- **Utilité :** Maturité : composant OSS documenté avec déploiements producteurs mentionnés, mais compatibilité Kubernetes/runtimes à qualifier par distribution. Exposition : inconnue. **Décision :** référence d’isolation à comparer à gVisor et Firecracker pour les workloads sensibles.
+- **Outils similaires :** gVisor (isolation par sandbox), Firecracker (micro-VM), QEMU/Kata historique (architecture de runtime différente).
+
 ## [Xolis — sandbox d’agents Kubernetes, Kata et PVM](https://github.com/gnawux/xolis)
 
 - **Pitch rapide :** **Fait :** Xolis est un démonstrateur OSS utilisant l’Agent Sandbox CRD, Kata runtime-rs et PVM sur EKS ; son auteur le décrit comme une référence à rendre plus production-ready. **Inférence :** il rend visible une composition possible pour isoler l’exécution d’agents sans dépendre d’un service propriétaire.
@@ -30,7 +44,7 @@
 ## Sujets écartés
 
 - AWS : les voies release, sécurité, lifecycle et régions/quotas ont été contrôlées ; aucun changement additionnel suffisamment distinct des signaux des 90 derniers jours n’est retenu.
-- Vault 2.1 et la disponibilité AWS de Claude Fable 5.1 : changements documentés mais ils prolongent des sujets déjà présents sans évolution indépendante suffisante pour une nouvelle fiche.
+- La disponibilité AWS de Claude Fable 5.1 prolonge un sujet déjà présent sans évolution indépendante suffisante pour une nouvelle fiche.
 - Les autres projets OSS découverts ne disposaient pas simultanément d’une licence, d’une preuve de maintenance et d’un chemin d’exploitation suffisamment qualifié.
 
 ## Sources consultées
@@ -38,6 +52,7 @@
 - [Kubernetes rootless beta](https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/) — publié le 04/09, consulté le 06/09 ; Kubernetes 1.37, compatibilité et limites de sécurité.
 - [Bulletins GCP](https://cloud.google.com/support/bulletins) — publié le 04/09, consulté le 06/09 ; GCP-2026-060 et périmètre Cluster Director/Slurm.
 - [Kata Containers : Xolis](https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/) et [dépôt Xolis](https://github.com/gnawux/xolis) — observés le 06/09 ; démonstrateur OSS et limites de production déclarées.
+- [Vault 2.1](https://developer.hashicorp.com/vault/docs/updates/release-notes) — publié le 01/09, consulté le 06/09 ; GA des workflows agentiques.
 
 ```watchtower-couverture
 coverage:
