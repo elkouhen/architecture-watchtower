@@ -42,7 +42,7 @@ class ReportContractsTest < Minitest::Test
 
   def coverage
     %w[AWS GCP IA].product(%w[releases_features security lifecycle_deprecations availability_quotas_costs]).map do |domain, lane|
-      { "domain" => domain, "lane" => lane, "source" => "https://example.org/releases",
+      { "domain" => domain, "lane" => lane, "sources" => ["#{domain.downcase}-#{lane}"], "scope" => "Périmètre de test.",
         "checked_at" => "2026-09-05T12:00:00+02:00", "from" => "2026-09-04", "through" => "2026-09-05",
         "result" => "aucun changement retenu", "complete" => true, "note" => "Parcouru." }
     end
@@ -59,7 +59,6 @@ class ReportContractsTest < Minitest::Test
 
         - **Pitch rapide :** Fait documenté.
         - **Utilité :** Intégration documentée.
-        - **Outils similaires :** pas d’équivalent direct.
       TOPIC
     end.join("\n")
     <<~MD

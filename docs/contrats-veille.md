@@ -34,7 +34,8 @@ Dans `Sources consultées`, inclure un bloc YAML `watchtower-couverture`. Il arc
 coverage:
   - domain: AWS
     lane: releases_features
-    source: https://aws.amazon.com/about-aws/whats-new/
+    sources: [aws-whats-new]
+    scope: "Annonces de services AWS ; disponibilité fournisseur, pas exposition locale."
     checked_at: "2026-09-05T10:00:00+02:00"
     from: "2026-09-04"
     through: "2026-09-05"
@@ -43,7 +44,7 @@ coverage:
     note: "Intervalle entièrement parcouru."
 ```
 
-Domaines : `AWS`, `GCP`, `IA`. Voies : `releases_features`, `security`, `lifecycle_deprecations`, `availability_quotas_costs`. Résultats : `signal retenu`, `aucun changement retenu`, `échec`. Si une voie reste partiellement ou totalement inaccessible, `complete: false`, motif et période manquante obligatoires ; le rapport porte `Couverture incomplète` et peut être publié avec cette limite explicite. Aucune absence de changement ne peut être déduite d’un échec. Dans le registre, `last_attempt` avance à chaque tentative ; `last_success` uniquement après collecte complète. Une interruption de plus de trente jours laisse une lacune explicitement datée.
+Domaines : `AWS`, `GCP`, `IA`. Voies : `releases_features`, `security`, `lifecycle_deprecations`, `availability_quotas_costs`. `sources` référence les identifiants effectivement consultés dans `state/sources.yaml` et `scope` explicite le produit ou le périmètre couvert ; une source hors périmètre ne couvre pas une voie. Résultats : `signal retenu`, `aucun changement retenu`, `échec`. Une annonce upstream ne démontre ni la disponibilité dans un service managé ni dans une région : documenter cette distinction dans `scope` ou dans la preuve du sujet. Si une voie reste partiellement ou totalement inaccessible, `complete: false`, motif et période manquante obligatoires ; le rapport porte `Couverture incomplète` et peut être publié avec cette limite explicite. Aucune absence de changement ne peut être déduite d’un échec. Dans le registre, `last_attempt` avance à chaque tentative ; `last_success` uniquement après collecte complète. Une interruption de plus de trente jours laisse une lacune explicitement datée.
 
 ## Registre du classement mensuel
 

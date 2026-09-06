@@ -30,7 +30,7 @@ Trendshift mesure un momentum de dépôts. Google Trends mesure un intérêt de 
 
 ## Point de vue d’architecte
 
-Explique les sujets avec des mots simples mais précis. Relie toujours le sujet à un problème concret d’architecture ou d’exploitation. Quand l’information est inconnue, écris `à qualifier` ou `exposition inconnue`; n’invente jamais la présence du produit dans la stack.
+Explique les sujets avec des mots simples mais précis. Relie toujours le sujet à un problème concret d’architecture ou d’exploitation. Une fiche ne conserve que ce qui éclaire une décision : fait vérifié, impact, limite ou précondition, et preuve primaire. Quand l’information est inconnue, écris `à qualifier` ou `exposition inconnue`; n’invente jamais la présence du produit dans la stack. Déclare l’exposition inconnue une fois au niveau du rapport lorsqu’elle est commune à tous les sujets ; ne la répète dans une fiche que si elle est propre au sujet ou si une vérification a été menée.
 
 ## Format obligatoire pour chaque sujet
 
@@ -39,13 +39,13 @@ Dans le rapport, utiliser un titre de niveau 2 : `## [Nom du projet, service ou 
 - La colonne **Type** utilise exactement `<nature> · <nouveauté>`, par exemple `outil · Nouveau projet OSS`. Nature : `outil`, `service`, `pattern`, `standard`, `plateforme`, `modèle` ou `bibliothèque`. Nouveauté : `Nouveau projet OSS`, `Nouveau hors OSS` ou `Mise à jour`. Ne pas ajouter un quatrième champ à la fiche.
 - **Lien projet :** le nom du projet dans le titre et dans la colonne `Outil` doit être un lien Markdown direct vers l’URL canonique du dépôt, de la documentation ou du site officiel. Ne pas cacher le lien uniquement dans les sources.
 - **Pitch rapide :** en une ou deux phrases, explique ce que fait le sujet, le problème résolu et pour quel type d’équipe ou de workload il est utile.
-- **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier.
+- **Utilité :** explique sa place concrète dans une architecture, le changement qu’il peut apporter et le scénario qui justifierait de l’étudier. N’ajoute une `Décision` descriptive que si elle indique un arbitrage, un risque, une échéance ou une suite distincte de l’utilité.
 - Dans **Pitch rapide**, distinguer le `Fait` documenté de l’`Analyse` et de l’`Inférence`. Dans **Utilité**, intégrer la maturité (`à qualifier`, `expérimental`, `documenté`, `exploitation démontrée`), le niveau de découverte (`signal faible` ou `traction étayée`), l’exposition et, si utile, une `Décision` descriptive. Les références de preuve pointent vers `Sources consultées` ; aucune section supplémentaire de preuves n’est nécessaire.
-- **Outils similaires :** liste au maximum trois outils ou approches comparables, avec une différence utile pour la décision. Écris `pas d’équivalent direct` si la comparaison serait artificielle.
+- **Repères de comparaison (conditionnel) :** ajoute au maximum trois outils ou approches seulement si cette comparaison distingue des alternatives réellement substituables ou une frontière technique utile à la décision. Omettre ce champ si la comparaison serait artificielle, notamment pour un bulletin de sécurité ou une disponibilité fournisseur.
 
 ## Pitch détaillé conditionnel
 
-Ajoute cette partie uniquement pour les sujets les plus intéressants du radar — au maximum trois — ou lorsqu’une seconde preuve indépendante confirme un potentiel élevé. Ne la produis pas pour remplir le rapport. Il s’agit d’un pitch plus développé pour comprendre rapidement pourquoi le sujet compte, pas d’une fiche complète de déploiement.
+Ajoute cette partie uniquement pour les sujets les plus intéressants du radar — au maximum trois — lorsqu’ils ont une conséquence transverse ou lorsqu’une seconde preuve indépendante confirme un potentiel élevé. Ne la produis pas pour remplir le rapport ni pour répéter les fiches. Il s’agit d’un pitch plus développé pour comprendre rapidement pourquoi le sujet compte, pas d’une fiche complète de déploiement.
 
 ### Pitch détaillé
 
@@ -63,7 +63,7 @@ Pour l’IA, résumer les contraintes décisives de données, fournisseur, middl
 
 ## Sélection
 
-Explore normalement jusqu’à vingt candidats et présente idéalement une dizaine de sujets suffisamment qualifiés. Applique l’ordre de priorité ci-dessous ; à priorité comparable, privilégie les dernières 48 heures, puis sept jours et trente jours. Un seul signal crédible suffit pour une découverte ; `traction étayée` exige une deuxième preuve indépendante et une source primaire suffisante. La maturité reste distincte de la popularité.
+Explore normalement jusqu’à vingt candidats et présente cinq à huit sujets suffisamment qualifiés ; aller jusqu’à dix seulement si chaque sujet ajoute une décision distincte. Applique l’ordre de priorité ci-dessous ; à priorité comparable, privilégie les dernières 48 heures, puis sept jours et trente jours. Un seul signal crédible suffit pour une découverte ; `traction étayée` exige une deuxième preuve indépendante et une source primaire suffisante. La maturité reste distincte de la popularité.
 
 Le radar doit contenir **au moins 33 % de nouveaux projets open source** : dépôts ou projets sous licence open source qui n'ont jamais été présentés dans les rapports ou signaux des 90 derniers jours. Arrondis le minimum à l'entier supérieur : trois projets pour huit ou neuf sujets, quatre pour dix sujets. Vérifie la licence dans une source primaire ; un service propriétaire, une fonctionnalité fournisseur, un simple renommage, un fork sans différenciation ou une nouvelle version d'un projet déjà suivi ne compte pas dans ce quota.
 
@@ -85,20 +85,20 @@ Le rapport doit rester court et lisible en moins de quinze minutes :
 
 1. une **vue d’ensemble**, utilisée comme table des matières, avec une ligne par sujet et uniquement les colonnes : `Outil`, `Type`, `Pitch rapide` et `Lien vers la section` ; le nom dans `Outil` est un lien direct vers le projet et `Lien vers la section` pointe vers la fiche du sujet ou son `Pitch détaillé` lorsqu’il existe ;
 2. les fiches classées selon l’ordre de priorité défini ci-dessus, de cinq à dix, davantage uniquement pour préserver les alertes critiques ;
-3. pour chaque sujet, uniquement `Pitch rapide`, `Utilité` et `Outils similaires` ;
+3. pour chaque sujet, `Pitch rapide`, `Utilité` et, seulement lorsqu’il est utile, `Repères de comparaison` ;
 4. les `Pitchs détaillés` conditionnels, au maximum trois ;
 5. une courte liste de sujets non retenus avec leur motif ;
 6. les sources consultées et les sources en échec, avec la preuve de couverture AWS, GCP et IA et la borne de rattrapage utilisée.
 
 La vue d’ensemble doit rester très scannable : une ligne par outil ou élément revu, nom lié à l’URL canonique, type explicite, pitch court et lien Markdown vers la section correspondante. Les preuves de traction et le niveau de maturité restent dans la fiche, jamais dans ce tableau.
 
-Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire`, `POC` ou `Échéances`. Leur contenu doit être intégré dans les trois champs obligatoires ou dans le `Pitch détaillé` lorsqu’il est justifié.
+Ne crée pas de sections séparées `Les trois tendances à retenir`, `Tendances détaillées`, `Signaux à surveiller`, `Laboratoire`, `POC` ou `Échéances`. Leur contenu doit être intégré dans les champs de fiche ou dans le `Pitch détaillé` lorsqu’il est justifié.
 
 ## Contrôle qualité et publication
 
-Appliquer également `docs/contrats-veille.md` : contrat de rapport version 2, preuves datées, indépendance des observations et journal de couverture archivé dans le rapport. Si le rattrapage dépasse trente jours, indiquer précisément la période non couverte ; une tentative ou une page partiellement lue ne vaut pas couverture complète. Ne pas avancer `last_success` au-delà de l’intervalle entièrement parcouru.
+Appliquer également `docs/contrats-veille.md` : contrat de rapport version 2, preuves datées, indépendance des observations et journal de couverture archivé dans le rapport. Une annonce upstream ne prouve pas sa disponibilité dans un service managé : distinguer explicitement upstream, service fournisseur et disponibilité régionale. Si le rattrapage dépasse trente jours, indiquer précisément la période non couverte ; une tentative ou une page partiellement lue ne vaut pas couverture complète. Ne pas avancer `last_success` au-delà de l’intervalle entièrement parcouru.
 
-Les sections finales sont exactement `## Sujets écartés`, `## Sources consultées` et `## Sources en échec`. La première section est `## Vue d’ensemble`. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` après mise à jour des index et avant le commit.
+Les sections finales sont exactement `## Sujets écartés`, `## Sources consultées` et `## Sources en échec`. `Sujets écartés` ne conserve que les exclusions qui expliquent une absence notable, une exception OSS ou une limite de couverture ; les statuts internes du registre n’y figurent pas. `Sources en échec` ne contient que les collectes ou URLs en échec, leur période manquante et leur conséquence ; une exposition de stack inconnue n’est pas un échec de source. La première section est `## Vue d’ensemble`. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` après mise à jour des index et avant le commit.
 
 Avant la sortie, vérifie que chaque sujet possède un type, un nom lié à une URL canonique, un pitch et une utilité. Vérifie les faits importants dans une source primaire. Vérifie également la couverture AWS/GCP/IA, le quota de 33 % de nouveaux projets open source ou son exception motivée, l'absence d'échéance dépassée sans justification, l'unicité des identifiants et la validité des fichiers YAML. Note les sources en échec et les corrections dans `state/feedback.yaml`. Mets à jour `state/signals.yaml` pour les nouveaux signaux avec identifiant stable, notes multidimensionnelles, confiance, statut, décision, propriétaire, échéance et livrable associé. Exécute `scripts/validate_watchtower.rb` ; un échec interdit la validation et le commit du livrable.
 

@@ -96,7 +96,7 @@ def validate_radar_contract(text, label, date)
   error("#{label}: minimum de cinq sujets requis") if rows.length < 5
   topics.each do |title, body|
     error("#{label}: titre sans URL canonique") unless title.match?(%r{\]\(https?://[^)]+\)})
-    ["Pitch rapide", "Utilité", "Outils similaires"].each do |field|
+    ["Pitch rapide", "Utilité"].each do |field|
       error("#{label}: #{title}, champ #{field} absent") unless body.match?(/\*\*#{field}\s*:\*\*\s*\S/)
     end
   end
@@ -122,7 +122,9 @@ def validate_radar_contract(text, label, date)
     finish = date_value(entry["through"], label)
     checked = date_value(entry["checked_at"], label)
     error("#{label}: dates de collecte incohérentes") if start && finish && checked && (start > finish || finish > checked || (date && checked != date))
-    error("#{label}: source ou résultat de collecte invalide") unless http_url?(entry["source"]) && ["signal retenu", "aucun changement retenu", "échec"].include?(entry["result"])
+    source_ids = entry["sources"]
+    valid_sources = source_ids.is_a?(Array) && !source_ids.empty? && source_ids.all? { |id| id.is_a?(String) && !id.strip.empty? }
+    error("#{label}: sources, périmètre ou résultat de collecte invalide") unless valid_sources && !entry["scope"].to_s.strip.empty? && ["signal retenu", "aucun changement retenu", "échec"].include?(entry["result"])
     error("#{label}: complete doit être booléen") unless [true, false].include?(entry["complete"])
     if entry["complete"] == false || entry["result"] == "échec"
       error("#{label}: couverture incomplète non déclarée") unless text.include?("Couverture incomplète") && !entry["note"].to_s.strip.empty? && entry["complete"] == false
