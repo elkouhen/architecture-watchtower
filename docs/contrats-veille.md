@@ -85,3 +85,16 @@ Le tableau principal et `items` ont exactement le même ordre, les mêmes URL ca
 ## Portée du contrôle
 
 Le validateur distingue radar, carte et classement : sections et contenu non vide, URL déclarées, dates, registres structurés, calcul et ordre mensuels, unicité des éditions. Les liens locaux sans fragment sont vérifiés ; la validité des ancres et la qualité des sources restent à relire. La pertinence, l’exhaustivité du corpus, l’indépendance réelle des preuves, les faits techniques et les justifications exigent une revue éditoriale ; un contrôle automatique réussi ne les certifie pas.
+
+## Exécution économe
+
+L’objectif est de préserver les preuves et les contrôles utiles tout en évitant de relire ou de rechercher ce qui n’a pas changé. Appliquer ces règles à tout nouveau livrable.
+
+1. Commencer par les données locales structurées : signaux actifs ou arrivés à échéance, dernières dates de succès des sources, livrables du périmètre temporel et entrées canoniques du catalogue. Utiliser une recherche ciblée par identifiant, URL canonique, statut et date avant d’ouvrir un document complet. Ne relire intégralement un ancien rapport que si un candidat porte la même URL canonique ou une évolution substantielle.
+2. Traiter une source comme un flux à delta : reprendre à `last_success`, lire l’intervalle manquant et s’arrêter après l’élément le plus récent déjà consigné. Ne pas refaire une recherche générale ni consulter les sources secondaires lorsqu’aucun changement primaire n’est détecté. Une source en échec reste toutefois consignée et ne permet jamais de conclure à l’absence de changement.
+3. Pour chaque voie de couverture obligatoire, consulter d’abord une unique source primaire canonique adaptée. N’ouvrir une source de secours que si la première échoue, est hors périmètre ou signale un changement à qualifier. La couverture reste obligatoire ; seule l’exploration redondante est supprimée.
+4. Qualifier un candidat avec une preuve primaire précise et datée. Une seconde preuve indépendante n’est requise que pour conclure à une traction étayée, étayer une tendance transversale ou produire un pitch détaillé. Les sources de découverte ne déclenchent pas à elles seules une recherche approfondie.
+5. Ne conserver dans le contexte de rédaction que le fait, la date, l’URL canonique, l’impact, les inconnues, la décision existante et les notes nécessaires. Préférer les liens vers les preuves à leur reformulation. Ne pas recopier les notes de version, les descriptions produit ou l’historique inchangé.
+6. Arrêter l’investigation d’un sujet dès qu’il est clairement hors périmètre, dupliqué, non vérifiable ou sans changement substantiel. Enregistrer alors un motif court dans le lieu prévu par le livrable, sans poursuivre la collecte par curiosité.
+
+Ces économies ne réduisent ni les exigences de preuve, ni les échéances actives, ni les sections et registres imposés par le présent contrat.

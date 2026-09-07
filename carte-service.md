@@ -20,11 +20,11 @@ Avant la sortie, vérifie que le pitch explique clairement le service, que le mo
 
 ## Entrées et déduplication
 
-1. Lire cette consigne et `state/context.yaml`.
-2. Consulter `state/signals.yaml`, `state/learning.yaml` et `docs/contrats-veille.md`.
-3. Rechercher les cartes et rapports locaux des 30 derniers jours.
+1. Lire cette consigne, `state/context.yaml` et le protocole `Exécution économe` de `docs/contrats-veille.md`.
+2. Consulter `state/signals.yaml` et `state/learning.yaml` par identifiant et URL canonique du service ; ouvrir le détail seulement s’il est lié au service demandé.
+3. Rechercher par nom et URL canonique les cartes et rapports locaux des 30 derniers jours ; n’ouvrir intégralement que la dernière carte du même service ou un rapport portant une évolution substantielle.
 4. Produire la carte pédagogique demandée même sans nouveauté. Dans `Évolutions depuis la dernière carte`, écrire `première carte` ou `aucune évolution vérifiée`, avec lien vers la précédente et date de contrôle. Ne pas substituer un heartbeat à la carte.
-5. Prioriser documentation, release notes, avis de sécurité, lifecycle, dépôts et matrices de compatibilité officielles.
+5. Prioriser documentation, release notes, avis de sécurité, lifecycle, dépôts et matrices de compatibilité officielles. Commencer par trois sources primaires complémentaires : présentation/usage, déploiement/intégration et exploitation/sécurité. N’en ajouter une quatrième ou cinquième que pour une lacune décisionnelle précise ; ne faire aucune recherche large de contexte non liée au service.
 
 ## Format obligatoire
 
@@ -60,4 +60,4 @@ Utiliser comme titres de niveau 2 les intitulés du format obligatoire, sans num
 
 Mettre à jour l’entrée canonique de `docs/catalogue.md`, ajouter le livrable à `docs/rapports.md` et conserver `README.md` comme navigation vers les livrables récents. Mettre à jour `state/learning.yaml` : concepts abordés, lacunes, date et lien dans `study_deliverable`. Une carte produite ne prouve pas que l’utilisateur maîtrise son contenu ; conserver le niveau acquis sauf preuve ou retour explicite. `pratique` exige une exécution vérifiée, `transmissible` une capacité démontrée. Réserver `lab_deliverable` à un laboratoire réellement exécuté ; conserver `lab_status: not_requested` sans demande de test. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` avant le commit.
 
-Réponds en français, de manière concrète et lisible en moins de trente minutes.
+Réponds en français, de manière concrète et lisible en moins de trente minutes. Viser une carte dense plutôt qu’encyclopédique : référencer les détails stables, ne développer que les choix, limites et conditions qui modifient une décision.

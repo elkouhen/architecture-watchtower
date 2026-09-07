@@ -12,14 +12,14 @@ Le classement principal est ordonné par intérêt pour les nouveautés et les c
 
 ## Entrées et période
 
-1. Lire `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml`, les radars et les cartes du mois écoulé.
+1. Lire `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml`, les radars et les cartes du mois écoulé, selon le protocole `Exécution économe` de `docs/contrats-veille.md`. Construire d’abord le corpus depuis les noms, URL canoniques, identifiants et liens des livrables datés du mois ; ouvrir seulement les passages relatifs à chaque technologie retenue.
 2. Définir explicitement la période calendaire couverte, du premier au dernier jour du mois précédent.
 3. Dédupliquer par identifiant de technologie stable et URL canonique ; regrouper versions et fonctionnalités du même produit. Une extension n’a sa propre ligne que si elle a un cycle de vie ou un déploiement autonome documenté ; justifier l’exception. Un pattern transversal est synthétisé dans les tendances et ne double pas les produits classés, sauf s’il est lui-même le sujet d’une analyse distincte.
 4. Inclure les éléments étudiés dans un radar, une carte ou un signal local pendant la période.
 5. Ne pas ajouter une technologie uniquement pour atteindre un nombre de lignes.
 6. Distinguer `nouveau`, `mise à jour`, `incident/sécurité`, `lifecycle`, `standard/pattern` et `signal faible`.
 7. Marquer les simples correctifs CVE et actions de maintenance comme `hors classement principal`, avec leur motif ; ne les remonter que si le changement modifie réellement un contrat, une architecture, une surface d’exploitation ou une capacité de plateforme.
-8. Reconstituer uniquement les faits connus pendant la période à partir des rapports datés, de l’historique des signaux et, si nécessaire, de Git. Un état actuel ou `last_seen` ne prouve pas l’état à la clôture. Si cet état est introuvable, marquer `inconnu`. Isoler les corrections découvertes après clôture dans `Sources et limites`, avec leur date ; elles ne modifient pas silencieusement le rang historique. Une source consultée après clôture peut confirmer un fait de la période, mais pas y introduire un événement ultérieur.
+8. Reconstituer uniquement les faits connus pendant la période à partir des rapports datés, de l’historique des signaux et, si nécessaire, de Git. Le classement est local-first : ne relancer aucune recherche externe sauf si une preuve primaire déjà référencée est inaccessible ou insuffisante pour départager un fait matériel. Un état actuel ou `last_seen` ne prouve pas l’état à la clôture. Si cet état est introuvable, marquer `inconnu`. Isoler les corrections découvertes après clôture dans `Sources et limites`, avec leur date ; elles ne modifient pas silencieusement le rang historique. Une source consultée après clôture peut confirmer un fait de la période, mais pas y introduire un événement ultérieur.
 9. Distinguer découverte pendant le mois et annonce publiée pendant le mois. Inventorier les jours réellement couverts et les lacunes par thème, notamment AWS/GCP/IA ; absence de sujet retenu ne signifie pas absence d’actualité.
 10. Décompter les preuves indépendantes selon `docs/contrats-veille.md`. La répétition d’une annonce dans un radar et une carte compte une seule fois. Un mouvement d’écosystème requiert plusieurs technologies et des événements distincts, pas plusieurs articles reprenant le même communiqué.
 
@@ -69,7 +69,7 @@ La section `Lecture architecturale` ne doit pas devenir un plan d’action ou un
 - Les tendances sont séparées du classement et respectent les seuils de preuves ci-dessus.
 - Le rapport ne réécrit pas l’historique des signaux et ne crée pas de nouveau signal uniquement pour le classement.
 - Mettre à jour `docs/rapports.md`, la navigation récente de `README.md` et `docs/catalogue.md` uniquement pour les éléments analysés. Ne pas modifier les cartes ni attribuer un niveau d’apprentissage à partir de cette rétrospective.
-- Le rapport doit rester lisible en moins de vingt minutes.
+- Le rapport doit rester lisible en moins de vingt minutes. Réutiliser les preuves locales par lien et synthétiser les faits au lieu de répéter les fiches quotidiennes ; une investigation approfondie est réservée aux doublons, aux preuves contradictoires et aux tendances candidates.
 
 ## Sortie et publication
 

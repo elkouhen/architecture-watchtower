@@ -10,7 +10,7 @@ Le radar est agressif sur la découverte : conserve les projets prometteurs mais
 
 ## Contexte à lire
 
-Lis `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml` et les rapports précédents sous `dist/`. Les priorités sont Kubernetes, ELK/Elasticsearch, Elastic APM, Logstash, l’écosystème HashiCorp (Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint et HCP), observabilité, OpenTelemetry, platform engineering, sécurité, IA appliquée aux architectures, agents, RAG, inference gateways, model routing et gouvernance.
+Lis `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml` et les rapports précédents sous `dist/`, selon le protocole `Exécution économe` de `docs/contrats-veille.md`. Commence par une recherche locale ciblée : signaux `new`/`open`, échéances, URL canoniques et rapports des 90 derniers jours. N’ouvre intégralement une entrée ou un rapport que pour traiter une échéance ou vérifier un doublon ou une évolution substantielle. Les priorités sont Kubernetes, ELK/Elasticsearch, Elastic APM, Logstash, l’écosystème HashiCorp (Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint et HCP), observabilité, OpenTelemetry, platform engineering, sécurité, IA appliquée aux architectures, agents, RAG, inference gateways, model routing et gouvernance.
 
 ## Sources et fenêtres
 
@@ -20,7 +20,7 @@ Utilise :
 - les sept derniers jours pour les nouveautés et accélérations ;
 - les trente derniers jours pour les tendances qui démarrent lentement.
 
-À chaque exécution, contrôle obligatoirement les trois domaines `AWS`, `GCP` et `IA`, même lorsqu'aucun sujet n'est finalement retenu. Pour chacun, vérifie au minimum les voies `releases et fonctionnalités`, `sécurité`, `lifecycle et dépréciations` et `régions, quotas ou coûts` dans les sources primaires applicables. Consigne dans `Sources consultées` la source, l'heure ou la date du contrôle, la borne de reprise utilisée et le résultat `signal retenu`, `aucun changement retenu` ou `échec`. Un domaine non contrôlé rend le radar incomplet et doit être déclaré comme tel.
+À chaque exécution, contrôle obligatoirement les trois domaines `AWS`, `GCP` et `IA`, même lorsqu'aucun sujet n'est finalement retenu. Pour chacun, vérifie au minimum les voies `releases et fonctionnalités`, `sécurité`, `lifecycle et dépréciations` et `régions, quotas ou coûts` dans les sources primaires applicables. Pour chaque voie, commence par une seule source canonique et sa borne `last_success`; ne consulte un fallback qu’en cas d’échec, de périmètre insuffisant ou de changement à qualifier. Consigne dans `Sources consultées` la source, l'heure ou la date du contrôle, la borne de reprise utilisée et le résultat `signal retenu`, `aucun changement retenu` ou `échec`. Un domaine non contrôlé rend le radar incomplet et doit être déclaré comme tel.
 
 Utilise `state/sources.yaml` comme journal de collecte. Pour chaque source tentée, renseigne `last_attempt`, puis `last_success` en cas de succès, `last_item_seen` avec la date ou l'identifiant du dernier élément observé et `status` avec `not_checked`, `ok`, `degraded` ou `failed`. La borne de reprise d'une collecte est le dernier `last_success` fiable, et non la seule date du jour : après une interruption, parcours tout l'intervalle manquant dans la limite de trente jours et signale explicitement le rattrapage.
 
@@ -63,7 +63,7 @@ Pour l’IA, résumer les contraintes décisives de données, fournisseur, middl
 
 ## Sélection
 
-Explore normalement jusqu’à vingt candidats et présente cinq à huit sujets suffisamment qualifiés ; aller jusqu’à dix seulement si chaque sujet ajoute une décision distincte. Applique l’ordre de priorité ci-dessous ; à priorité comparable, privilégie les dernières 48 heures, puis sept jours et trente jours. Un seul signal crédible suffit pour une découverte ; `traction étayée` exige une deuxième preuve indépendante et une source primaire suffisante. La maturité reste distincte de la popularité.
+Explore normalement jusqu’à douze candidats et présente cinq à sept sujets suffisamment qualifiés ; aller jusqu’à dix seulement si chaque sujet ajoute une décision distincte ou pour préserver une alerte critique. Écarte immédiatement les doublons, sujets hors périmètre et annonces non vérifiables avec un motif bref. Applique l’ordre de priorité ci-dessous ; à priorité comparable, privilégie les dernières 48 heures, puis sept jours et trente jours. Un seul signal crédible suffit pour une découverte ; `traction étayée` exige une deuxième preuve indépendante et une source primaire suffisante. La maturité reste distincte de la popularité.
 
 Le radar doit contenir **au moins 33 % de nouveaux projets open source** : dépôts ou projets sous licence open source qui n'ont jamais été présentés dans les rapports ou signaux des 90 derniers jours. Arrondis le minimum à l'entier supérieur : trois projets pour huit ou neuf sujets, quatre pour dix sujets. Vérifie la licence dans une source primaire ; un service propriétaire, une fonctionnalité fournisseur, un simple renommage, un fork sans différenciation ou une nouvelle version d'un projet déjà suivi ne compte pas dans ce quota.
 
@@ -81,7 +81,9 @@ Avant de sélectionner de nouveaux sujets, examine tous les signaux `new` ou `op
 
 ## Sortie
 
-Le rapport doit rester court et lisible en moins de quinze minutes :
+Le rapport doit rester court et lisible en moins de quinze minutes. Pour limiter la rédaction, une fiche ne reformule pas les sources : maximum deux phrases pour `Pitch rapide`, un paragraphe concis pour `Utilité` et trois repères de comparaison au plus. Le pitch détaillé reste exceptionnel : ne le produire que si la deuxième preuve indépendante change réellement l’analyse.
+
+Le rapport contient :
 
 1. une **vue d’ensemble**, utilisée comme table des matières, avec une ligne par sujet et uniquement les colonnes : `Outil`, `Type`, `Pitch rapide` et `Lien vers la section` ; le nom dans `Outil` est un lien direct vers le projet et `Lien vers la section` pointe vers la fiche du sujet ou son `Pitch détaillé` lorsqu’il existe ;
 2. les fiches classées selon l’ordre de priorité défini ci-dessus, de cinq à dix, davantage uniquement pour préserver les alertes critiques ;
