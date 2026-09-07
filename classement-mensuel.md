@@ -75,4 +75,6 @@ La section `Lecture architecturale` ne doit pas devenir un plan d’action ou un
 
 Écrire le fichier dans `dist/AAAA-MM-DD/classement-mensuel-AAAA-MM.md`, sans écraser un autre livrable. Avant génération, rechercher ce mois dans tous les répertoires `dist/` : une seule édition par mois est autorisée. Si elle existe, fournir son lien ; une correction explicitement demandée modifie ce même fichier, avec historique Git et note de correction, sans créer de seconde édition. Par défaut couvrir le mois précédent ; un rattrapage explicitement demandé peut couvrir un mois antérieur clos. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` après mise à jour des index et avant le commit local.
 
+Juste après le marqueur `<!-- watchtower:2 -->`, afficher la ligne de consommation définie dans `docs/contrats-veille.md`. Utiliser le compteur runtime exact ou `non disponible` ; ne jamais fournir d’estimation.
+
 Réponds en français.

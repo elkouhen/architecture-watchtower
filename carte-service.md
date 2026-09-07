@@ -58,6 +58,8 @@ Avant la sortie, vérifie que le pitch explique clairement le service, que le mo
 
 Utiliser comme titres de niveau 2 les intitulés du format obligatoire, sans numéro. Ajouter le marqueur de contrat défini dans `docs/contrats-veille.md`. Dans `Incertitudes et sources`, identifier au moins trois URL primaires distinctes par `Source primaire : [titre](URL)` ; préciser les dates et les échecs. Leur qualité et leur pertinence restent à vérifier humainement.
 
+Juste après le marqueur `<!-- watchtower:2 -->`, afficher la ligne de consommation définie dans `docs/contrats-veille.md`. Utiliser le compteur runtime exact ou `non disponible` ; ne jamais fournir d’estimation.
+
 Mettre à jour l’entrée canonique de `docs/catalogue.md`, ajouter le livrable à `docs/rapports.md` et conserver `README.md` comme navigation vers les livrables récents. Mettre à jour `state/learning.yaml` : concepts abordés, lacunes, date et lien dans `study_deliverable`. Une carte produite ne prouve pas que l’utilisateur maîtrise son contenu ; conserver le niveau acquis sauf preuve ou retour explicite. `pratique` exige une exécution vérifiée, `transmissible` une capacité démontrée. Réserver `lab_deliverable` à un laboratoire réellement exécuté ; conserver `lab_status: not_requested` sans demande de test. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` avant le commit.
 
 Réponds en français, de manière concrète et lisible en moins de trente minutes. Viser une carte dense plutôt qu’encyclopédique : référencer les détails stables, ne développer que les choix, limites et conditions qui modifient une décision.

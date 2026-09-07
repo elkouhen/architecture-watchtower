@@ -102,3 +102,15 @@ Ces économies ne réduisent ni les exigences de preuve, ni les échéances acti
 ### Registres tabulaires compacts
 
 `state/signals.yaml` et `state/sources.yaml` peuvent utiliser `schema_version: 3` et `format: tabular-v1`. Dans ce format, `signal_fields` ou `source_fields` donne l’ordre des colonnes et chaque ligne de `signals` ou `sources` fournit exactement les valeurs correspondantes. Les données et les champs requis restent identiques ; seule leur représentation élimine la répétition des clés. Lire d’abord l’en-tête, puis sélectionner les colonnes et lignes utiles. Le validateur et la génération du site normalisent ce format avant contrôle.
+
+## Transparence de consommation
+
+Chaque nouveau rapport au contrat version 2 affiche, juste après `<!-- watchtower:2 -->`, cette ligne visible :
+
+> **Tokens utilisés :** `<entier>` — mesure runtime.
+
+L’entier est le total réellement fourni par le runtime pour la production du livrable, collecte incluse lorsqu’il est exposé. Ne jamais l’estimer ni le reconstituer à partir de la taille des fichiers. Si cette métrique n’est pas exposée, écrire :
+
+> **Tokens utilisés :** `non disponible` — compteur runtime non exposé.
+
+Cette absence est une limite de mesure, non une valeur nulle.

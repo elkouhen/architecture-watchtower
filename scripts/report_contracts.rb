@@ -63,10 +63,12 @@ def validate_monthly_editions(root)
   end
 end
 
-def validate_contract(text, path, root)
+def validate_contract(text, path, root, require_token_usage: true)
   label = path.to_s
   error("#{label}: répertoire de date ISO requis") unless path.parent.basename.to_s.match?(/\A\d{4}-\d{2}-\d{2}\z/)
   error("#{label}: marqueur requis immédiatement après le titre") unless text.match?(/\A# [^\n]+\n\s*<!-- watchtower:2 -->/)
+  usage_line = /^> \*\*Tokens utilisés :\*\* `(?:\d+|non disponible)` — (?:mesure runtime|compteur runtime non exposé)\.$/
+  error("#{label}: ligne de consommation de tokens absente ou invalide") if require_token_usage && !text.match?(usage_line)
   date = date_value(path.parent.basename.to_s, label)
   error("#{label}: date de production future") if date && date > TODAY
   text.scan(/\[[^\]]+\]\(([^)]+)\)/).flatten.each do |target|
