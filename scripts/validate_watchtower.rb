@@ -47,13 +47,35 @@ def duplicates(values)
   values.compact.group_by(&:itself).select { |_value, items| items.length > 1 }.keys
 end
 
+# Les registres v3 peuvent être stockés sous forme tabulaire pour ne pas
+# répéter les mêmes clés dans chaque entrée YAML. Le validateur travaille
+# toujours sur des hash normalisés.
+def registry_records(data, collection, fields_key, context)
+  records = data.fetch(collection, [])
+  return records unless data["format"] == "tabular-v1"
+
+  fields = data[fields_key]
+  unless fields.is_a?(Array) && fields.all? { |field| field.is_a?(String) }
+    error("#{context}: #{fields_key} requis pour le format tabulaire")
+    return []
+  end
+
+  records.map.with_index do |row, index|
+    unless row.is_a?(Array) && row.length == fields.length
+      error("#{context}: ligne tabulaire #{index + 1} invalide")
+      next {}
+    end
+    fields.zip(row).to_h
+  end
+end
+
 def validate_sources
   data = load_yaml("state/sources.yaml")
-  sources = data.fetch("sources", [])
+  sources = registry_records(data, "sources", "source_fields", "state/sources.yaml")
   required = %w[id name type url topics cadence reliability fallback last_attempt last_success last_item_seen status notes]
   statuses = %w[not_checked ok degraded failed]
 
-  error("state/sources.yaml: schema_version doit valoir 2") unless data["schema_version"] == 2
+  error("state/sources.yaml: schema_version doit valoir 2 ou 3") unless [2, 3].include?(data["schema_version"])
   duplicates(sources.map { |source| source["id"] }).each do |id|
     error("state/sources.yaml: identifiant de source dupliqué #{id}")
   end
@@ -93,7 +115,7 @@ end
 
 def validate_signals
   data = load_yaml("state/signals.yaml")
-  signals = data.fetch("signals", [])
+  signals = registry_records(data, "signals", "signal_fields", "state/signals.yaml")
   required = %w[id canonical_url subject product_version environment first_seen last_seen status decision owner due_date deliverables publication discard_reason]
   statuses = %w[new open closed deferred discarded]
   decisions = %w[monitor qualify test adopt avoid]
@@ -101,9 +123,9 @@ def validate_signals
   effective_from = date_value(data.dig("scoring_policy", "effective_from"), "scoring_policy.effective_from")
   baseline, _stderr, baseline_status = Open3.capture3("git", "show", "HEAD:state/signals.yaml", chdir: ROOT.to_s)
   baseline_data = baseline_status.success? ? YAML.safe_load(baseline, permitted_classes: [Date, Time], aliases: true) : {}
-  baseline_ids = (baseline_data || {}).fetch("signals", []).map { |signal| signal["id"] }
+  baseline_ids = registry_records(baseline_data || {}, "signals", "signal_fields", "HEAD:state/signals.yaml").map { |signal| signal["id"] }
 
-  error("state/signals.yaml: schema_version doit valoir 2") unless data["schema_version"] == 2
+  error("state/signals.yaml: schema_version doit valoir 2 ou 3") unless [2, 3].include?(data["schema_version"])
   duplicates(signals.map { |signal| signal["id"] }).each do |id|
     error("state/signals.yaml: identifiant de signal dupliqué #{id}")
   end

@@ -1,593 +1,105 @@
-# Registre local des sources de veille.
-# Les sources de découverte servent à trouver un sujet ; une source primaire doit confirmer les faits importants.
-schema_version: 2
-
-# Chaque radar doit contrôler toutes les voies ci-dessous. Les listes référencent
-# des identifiants du catalogue `sources`; une source peut couvrir plusieurs voies.
+schema_version: 3
+format: tabular-v1
 coverage_requirements:
   AWS:
-    releases_features: [aws-whats-new, aws-bedrock-history]
-    security: [aws-security-bulletins]
-    lifecycle_deprecations: [aws-eks-lifecycle, aws-bedrock-history]
-    availability_quotas_costs: [aws-whats-new, aws-bedrock-history]
+    releases_features:
+    - aws-whats-new
+    - aws-bedrock-history
+    security:
+    - aws-security-bulletins
+    lifecycle_deprecations:
+    - aws-eks-lifecycle
+    - aws-bedrock-history
+    availability_quotas_costs:
+    - aws-whats-new
+    - aws-bedrock-history
   GCP:
-    releases_features: [gcp-release-notes, gke-release-notes, vertex-ai-release-notes]
-    security: [gcp-security-bulletins, gke-security-bulletins]
-    lifecycle_deprecations: [gcp-deprecation-policy, gke-release-notes, vertex-ai-release-notes]
-    availability_quotas_costs: [gcp-release-notes, vertex-ai-release-notes]
+    releases_features:
+    - gcp-release-notes
+    - gke-release-notes
+    - vertex-ai-release-notes
+    security:
+    - gcp-security-bulletins
+    - gke-security-bulletins
+    lifecycle_deprecations:
+    - gcp-deprecation-policy
+    - gke-release-notes
+    - vertex-ai-release-notes
+    availability_quotas_costs:
+    - gcp-release-notes
+    - vertex-ai-release-notes
   IA:
-    releases_features: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
-    security: [aws-security-bulletins, gcp-security-bulletins]
-    lifecycle_deprecations: [aws-bedrock-history, vertex-ai-release-notes, openai-api-deprecations, anthropic-release-notes]
-    availability_quotas_costs: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
-
+    releases_features:
+    - aws-bedrock-history
+    - vertex-ai-release-notes
+    - openai-api-changelog
+    - anthropic-release-notes
+    security:
+    - aws-security-bulletins
+    - gcp-security-bulletins
+    lifecycle_deprecations:
+    - aws-bedrock-history
+    - vertex-ai-release-notes
+    - openai-api-deprecations
+    - anthropic-release-notes
+    availability_quotas_costs:
+    - aws-bedrock-history
+    - vertex-ai-release-notes
+    - openai-api-changelog
+    - anthropic-release-notes
+source_fields:
+- id
+- name
+- type
+- url
+- topics
+- cadence
+- reliability
+- fallback
+- last_attempt
+- last_success
+- last_item_seen
+- status
+- notes
 sources:
-  - id: kubernetes-official
-    name: Kubernetes releases, blog and documentation
-    type: primary
-    url: https://kubernetes.io/
-    topics: [kubernetes, gateway-api, ai-infrastructure]
-    cadence: daily
-    reliability: high
-    fallback: https://github.com/kubernetes/kubernetes/releases
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Confirmer versions, dépréciations, APIs et calendriers."
-  - id: elastic-official
-    name: Elastic release notes, advisories and status
-    type: primary
-    url: https://www.elastic.co/docs/release-notes
-    topics: [elasticsearch, elastic-apm, logstash, observability]
-    cadence: daily
-    reliability: high
-    fallback: https://status.elastic.co/
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Séparer release documentée, incident fournisseur et exposition locale."
-  - id: opentelemetry-official
-    name: OpenTelemetry specifications and repositories
-    type: primary
-    url: https://opentelemetry.io/docs/
-    topics: [opentelemetry, genai-observability, traces, entity-events, metrics]
-    cadence: weekly
-    reliability: high
-    fallback: https://github.com/open-telemetry
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Vérifier le niveau de stabilité des conventions et leur implémentation."
-  - id: github-releases
-    name: GitHub repositories and releases
-    type: primary_and_discovery
-    url: https://github.com/explore
-    topics: [open-source, ai-agents, cloud, devops]
-    cadence: daily
-    reliability: medium
-    fallback: https://github.com/trending
-    last_attempt: 2026-08-28
-    last_success: 2026-08-28
-    last_item_seen: unknown
-    status: ok
-    notes: "La release est primaire pour le projet ; la popularité reste un signal de découverte."
-  - id: mcp-specification
-    name: Model Context Protocol specification and changelog
-    type: primary
-    url: https://modelcontextprotocol.io/specification/2026-07-28
-    topics: [mcp, ai-agents, protocols, security, interoperability]
-    cadence: per_release
-    reliability: high
-    fallback: https://github.com/modelcontextprotocol/modelcontextprotocol/releases
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Vérifier la version stable, le changelog, les extensions, les dépréciations et la compatibilité des SDK."
-  - id: github-repository-metadata
-    name: GitHub repository metadata and activity
-    type: primary_and_discovery
-    url: https://docs.github.com/en/rest/repos/repos#get-a-repository
-    topics: [open-source, cloud, devops, ai-agents, trend-indicators]
-    cadence: daily
-    reliability: medium
-    fallback: https://github.com/explore
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Mesurer étoiles, forks, issues, commits et dernière release avec une date de mesure. Ces métriques indiquent une visibilité ou activité, jamais la maturité, sécurité ou adoption."
-  - id: github-trending
-    name: GitHub Trending and topic pages
-    type: discovery
-    url: https://github.com/trending
-    topics: [open-source, ai-agents, cloud, devops]
-    cadence: daily
-    reliability: low
-    fallback: https://github.com/explore
-    last_attempt: 2026-08-28
-    last_success: 2026-08-28
-    last_item_seen: unknown
-    status: ok
-    notes: "Ne jamais utiliser seul pour conclure à la maturité, sécurité ou adoption."
-  - id: trendshift
-    name: Trendshift live trending GitHub repositories
-    type: discovery
-    url: https://trendshift.io/
-    topics: [open-source, ai-agents, cloud, devops, ai-infrastructure]
-    cadence: daily
-    reliability: low
-    fallback: https://trendshift.io/
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Utiliser pour la fraîcheur et l’accélération ; confirmer chaque projet dans son dépôt primaire. Filtrer les dépôts suspects, vides ou sans utilité architecturale."
-  - id: google-trends
-    name: Google Trends
-    type: discovery
-    url: https://trends.google.com/trends/
-    topics: [cloud, devops, kubernetes, observability, ai, ai-agents]
-    cadence: weekly
-    reliability: low
-    fallback: https://trends.google.com/trends/
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Mesurer l’intérêt de recherche et les requêtes associées pour détecter un momentum émergent. Ne jamais utiliser seul pour prouver traction, qualité, maturité, sécurité ou adoption ; désambiguïser les termes et confirmer dans des sources primaires."
-
-  - id: kubernetes-security
-    name: Kubernetes security advisories and CVE feed
-    type: primary
-    url: https://kubernetes.io/docs/reference/issues-security/official-cve-feed/
-    topics: [kubernetes, security, vulnerabilities]
-    cadence: daily
-    reliability: high
-    fallback: https://github.com/kubernetes/kubernetes/security/advisories
-    last_attempt: null
-    last_success: null
-    last_item_seen: null
-    status: not_checked
-    notes: "Confirmer CVE, versions affectées, correctif et conditions d’exposition. Une alerte ne prouve pas que la stack est exposée."
-
-  - id: kubernetes-lifecycle
-    name: Kubernetes release calendar and version skew policy
-    type: primary
-    url: https://kubernetes.io/releases/version-skew-policy/
-    topics: [kubernetes, lifecycle, compatibility]
-    cadence: weekly
-    reliability: high
-    fallback: https://kubernetes.io/releases/
-    last_attempt: null
-    last_success: null
-    last_item_seen: null
-    status: not_checked
-    notes: "Qualifier support, fenêtres d’upgrade, compatibilité control plane/nodes et dépréciations avant toute recommandation."
-
-  - id: elastic-security
-    name: Elastic security advisories
-    type: primary
-    url: https://www.elastic.co/community/security
-    topics: [elasticsearch, elastic-apm, logstash, security, vulnerabilities]
-    cadence: weekly
-    reliability: high
-    fallback: https://www.elastic.co/support/security
-    last_attempt: null
-    last_success: null
-    last_item_seen: null
-    status: not_checked
-    notes: "Relier l’avis à la version et au mode Elastic concerné ; distinguer correctif disponible, exposition locale et incident fournisseur."
-
-  - id: elastic-lifecycle
-    name: Elastic product lifecycle and end-of-life
-    type: primary
-    url: https://www.elastic.co/support/eol
-    topics: [elasticsearch, elastic-apm, logstash, lifecycle, compatibility]
-    cadence: monthly
-    reliability: high
-    fallback: https://www.elastic.co/support/matrix
-    last_attempt: null
-    last_success: null
-    last_item_seen: null
-    status: not_checked
-    notes: "Détecter les échéances de support et les migrations à planifier ; conserver la version réellement déployée comme inconnue tant qu’elle n’est pas inventoriée."
-
-  - id: opentelemetry-releases
-    name: OpenTelemetry releases and stability status
-    type: primary
-    url: https://github.com/open-telemetry/opentelemetry-collector-releases
-    topics: [opentelemetry, collector, observability, compatibility]
-    cadence: weekly
-    reliability: high
-    fallback: https://opentelemetry.io/docs/collector/
-    last_attempt: null
-    last_success: null
-    last_item_seen: null
-    status: not_checked
-    notes: "Vérifier version, statut stable/beta/experimental, compatibilité des composants et procédure d’upgrade."
-
-  - id: cncf-landscape
-    name: CNCF landscape and technical blog
-    type: discovery
-    url: https://landscape.cncf.io/
-    topics: [kubernetes, cloud-native, observability, platform-engineering, ai-infrastructure]
-    cadence: weekly
-    reliability: medium
-    fallback: https://www.cncf.io/blog/
-    last_attempt: null
-    last_success: null
-    last_item_seen: null
-    status: not_checked
-    notes: "Découvrir des catégories et projets ; confirmer ensuite dans les dépôts, releases, documentations et avis de sécurité officiels."
-
-  - id: aws-whats-new
-    name: AWS What's New and service release notes
-    type: primary
-    url: https://aws.amazon.com/new/
-    topics: [aws, cloud, kubernetes, observability, ai-infrastructure]
-    cadence: daily
-    reliability: high
-    fallback: https://docs.aws.amazon.com/whats-new/
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-aws-check
-    status: ok
-    notes: "Suivre les changements de service, régions, limites et intégrations ; une annonce ne suffit pas à conclure au fit ou à la disponibilité dans les comptes utilisés."
-
-  - id: aws-security-bulletins
-    name: AWS security bulletins
-    type: primary
-    url: https://aws.amazon.com/security/security-bulletins/
-    topics: [aws, security, vulnerabilities]
-    cadence: weekly
-    reliability: high
-    fallback: https://aws.amazon.com/security/
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-aws-security-check
-    status: ok
-    notes: "Qualifier services, régions et mesures correctives ; compléter par l’inventaire des comptes et workloads concernés."
-
-  - id: aws-eks-lifecycle
-    name: Amazon EKS Kubernetes version lifecycle
-    type: primary
-    url: https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html
-    topics: [aws, eks, kubernetes, lifecycle, compatibility, costs]
-    cadence: weekly
-    reliability: high
-    fallback: https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-eks-lifecycle-check
-    status: ok
-    notes: "Suivre support standard et étendu, versions disponibles, dates de fin de support et coût du support étendu."
-
-  - id: aws-bedrock-history
-    name: Amazon Bedrock user guide document history
-    type: primary
-    url: https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-ug-doc-history.html
-    topics: [aws, bedrock, ai, models, agents, regions, quotas, lifecycle]
-    cadence: daily
-    reliability: high
-    fallback: https://aws.amazon.com/bedrock/whats-new/
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-bedrock-history-check
-    status: ok
-    notes: "Vérifier modèles, APIs, régions, quotas, permissions, statuts legacy et changements qui modifient l’architecture d’inférence."
-
-  - id: gcp-release-notes
-    name: Google Cloud release notes
-    type: primary
-    url: https://cloud.google.com/release-notes
-    topics: [gcp, cloud, kubernetes, observability, ai-infrastructure]
-    cadence: daily
-    reliability: high
-    fallback: https://cloud.google.com/feeds/cloud-release-notes.xml
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-gcp-release-check
-    status: ok
-    notes: "Filtrer par produit et région, puis vérifier disponibilité, quotas, breaking changes et documentation de migration."
-
-  - id: gcp-security-bulletins
-    name: Google Cloud security bulletins
-    type: primary
-    url: https://cloud.google.com/support/bulletins
-    topics: [gcp, security, vulnerabilities, vertex-ai, iam]
-    cadence: daily
-    reliability: high
-    fallback: https://cloud.google.com/security
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-gcp-security-check
-    status: ok
-    notes: "Qualifier produit, version ou SDK, correctif fournisseur et exposition réelle avant de recommander une action."
-
-  - id: gcp-deprecation-policy
-    name: Google Cloud deprecation policy
-    type: primary
-    url: https://cloud.google.com/terms/deprecation
-    topics: [gcp, lifecycle, deprecations, compatibility]
-    cadence: monthly
-    reliability: high
-    fallback: https://cloud.google.com/release-notes
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-gcp-lifecycle-check
-    status: ok
-    notes: "Compléter la politique générale avec les avis et calendriers propres à chaque produit."
-
-  - id: gke-release-notes
-    name: Google Kubernetes Engine release notes
-    type: primary
-    url: https://cloud.google.com/kubernetes-engine/docs/release-notes
-    topics: [gcp, gke, kubernetes, releases, lifecycle, regions]
-    cadence: daily
-    reliability: high
-    fallback: https://cloud.google.com/kubernetes-engine/docs/release-notes-new-features
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-gke-rootless-beta
-    status: ok
-    notes: "Suivre canaux, versions, auto-upgrades, fonctionnalités, correctifs, problèmes connus et dépréciations."
-
-  - id: gke-security-bulletins
-    name: Google Kubernetes Engine security bulletins
-    type: primary
-    url: https://cloud.google.com/kubernetes-engine/security-bulletins
-    topics: [gcp, gke, kubernetes, security, vulnerabilities]
-    cadence: daily
-    reliability: high
-    fallback: https://cloud.google.com/kubernetes-engine/docs/resources/security-patching
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-gcp-2026-060
-    status: ok
-    notes: "Relier chaque bulletin aux versions, images de nœuds, canaux et configurations réellement utilisés."
-
-  - id: vertex-ai-release-notes
-    name: Vertex AI release notes
-    type: primary
-    url: https://cloud.google.com/vertex-ai/docs/core-release-notes
-    topics: [gcp, vertex-ai, ai, models, agents, regions, quotas, lifecycle]
-    cadence: daily
-    reliability: high
-    fallback: https://cloud.google.com/release-notes?product=Vertex%20AI
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-vertex-check
-    status: ok
-    notes: "Vérifier modèles, APIs, régions, quotas, sécurité, statuts Preview/GA et dépréciations."
-
-  - id: openai-api-changelog
-    name: OpenAI API changelog
-    type: primary
-    url: https://developers.openai.com/api/docs/changelog
-    topics: [ai, openai, models, agents, apis, quotas]
-    cadence: daily
-    reliability: high
-    fallback: https://developers.openai.com/api/docs/models
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-openai-changelog-check
-    status: ok
-    notes: "Suivre modèles, APIs, outils, capacités et changements d’exploitation ; vérifier séparément coût et disponibilité."
-
-  - id: openai-api-deprecations
-    name: OpenAI API deprecations
-    type: primary
-    url: https://developers.openai.com/api/docs/deprecations
-    topics: [ai, openai, models, apis, lifecycle, deprecations]
-    cadence: weekly
-    reliability: high
-    fallback: https://developers.openai.com/api/docs/changelog
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-openai-deprecation-check
-    status: ok
-    notes: "Relever date d’annonce, date d’arrêt, remplacement et effort de migration."
-
-  - id: anthropic-release-notes
-    name: Claude Platform release notes
-    type: primary
-    url: https://platform.claude.com/docs/en/release-notes/overview
-    topics: [ai, anthropic, claude, models, agents, apis, lifecycle]
-    cadence: daily
-    reliability: high
-    fallback: https://platform.claude.com/docs/en/home
-    last_attempt: 2026-09-06
-    last_success: 2026-09-06
-    last_item_seen: 2026-09-06-anthropic-release-check
-    status: ok
-    notes: "Suivre modèles, APIs, limites, disponibilité, dépréciations et changements de comportement documentés."
-
-  - id: github-actions-changelog
-    name: GitHub Changelog — Actions and platform
-    type: primary
-    url: https://github.blog/changelog/label/actions/
-    topics: [github-actions, ci-cd, security, platform-engineering, copilot, mcp, agents]
-    cadence: weekly
-    reliability: high
-    fallback: https://github.com/actions/runner/releases
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Suivre runners, permissions, OIDC, artifacts, cache et changements de comportement ; distinguer fonctionnalité annoncée et disponibilité dans l’organisation."
-
-  - id: gcp-iam-release-notes
-    name: Google Cloud IAM and workload identity release notes
-    type: primary
-    url: https://docs.cloud.google.com/iam/docs/release-notes
-    topics: [gcp, iam, workload-identity, agents, security]
-    cadence: weekly
-    reliability: high
-    fallback: https://docs.cloud.google.com/iam/docs/workload-identity-federation
-    last_attempt: 2026-09-05
-    last_success: 2026-09-05
-    last_item_seen: 2026-09-05-workload-identity-check
-    status: ok
-    notes: "Suivre identités de workloads et d’agents, fédération multicloud, contraintes d’organisation et évolutions de permissions."
-
-  - id: apigee-api-hub-release-notes
-    name: Apigee API hub release notes
-    type: primary
-    url: https://docs.cloud.google.com/apigee/docs/apihub/release-notes
-    topics: [gcp, apigee, api-management, mcp, agents, governance]
-    cadence: weekly
-    reliability: high
-    fallback: https://cloud.google.com/apigee
-    last_attempt: 2026-09-05
-    last_success: 2026-09-05
-    last_item_seen: 2026-09-05-apigee-api-hub-check
-    status: ok
-    notes: "Qualifier API catalog, MCP proxies, Agent Registry, policies, preview/GA et disponibilité des fonctionnalités Apigee."
-
-  - id: airflow-release-notes
-    name: Apache Airflow release notes
-    type: primary
-    url: https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html
-    topics: [airflow, data-platform, orchestration, kubernetes, event-driven]
-    cadence: weekly
-    reliability: high
-    fallback: https://airflow.apache.org/announcements/
-    last_attempt: 2026-09-05
-    last_success: 2026-09-05
-    last_item_seen: 2026-09-05-airflow-release-check
-    status: ok
-    notes: "Suivre architecture, scheduler, assets, multi-team, executors, providers, compatibilité et migrations de version."
-
-  - id: ping-identity-releases
-    name: Ping Identity and Advanced Identity Cloud release notes
-    type: primary
-    url: https://docs.pingidentity.com/pingone/release_notes/
-    topics: [identity, forgerock, ping, agents, mcp, governance]
-    cadence: weekly
-    reliability: high
-    fallback: https://docs.pingidentity.com/pingoneaic/home.html
-    last_attempt: 2026-09-05
-    last_success: 2026-09-05
-    last_item_seen: 2026-09-05-ping-agent-identity-check
-    status: ok
-    notes: "Suivre identité des agents, gouvernance, MCP, audit, compatibilité et renommage ForgeRock vers Ping."
-
-  - id: helm-official
-    name: Helm official releases and lifecycle
-    type: primary
-    url: https://helm.sh/blog/
-    topics: [helm, kubernetes, packaging, oci, lifecycle]
-    cadence: weekly
-    reliability: high
-    fallback: https://docs.helm.sh/helm/
-    last_attempt: 2026-09-05
-    last_success: 2026-09-05
-    last_item_seen: 2026-09-05-helm-lifecycle-check
-    status: ok
-    notes: "Suivre Helm 4, fin de vie Helm 3, format OCI, compatibilité des charts et migrations."
-
-  - id: gitlab-releases
-    name: GitLab release posts and runner releases
-    type: primary
-    url: https://about.gitlab.com/releases/categories/releases/
-    topics: [gitlab, ci-cd, platform-engineering, security]
-    cadence: weekly
-    reliability: high
-    fallback: https://gitlab.com/gitlab-org/gitlab-runner/-/releases
-    last_attempt: 2026-09-05
-    last_success: 2026-09-05
-    last_item_seen: 2026-09-05-gitlab-duo-agent-platform-card
-    status: ok
-    notes: "Vérifier édition, tier, version self-managed ou SaaS, dépréciations et compatibilité des runners avant de retenir un signal."
-
-  - id: terraform-releases
-    name: Terraform and provider releases
-    type: primary
-    url: https://github.com/hashicorp/terraform/releases
-    topics: [terraform, infrastructure-as-code, aws, gcp, kubernetes]
-    cadence: weekly
-    reliability: high
-    fallback: https://registry.terraform.io/browse/providers
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Suivre séparément le binaire Terraform et les providers ; vérifier changelog, contraintes de version, migrations d’état et breaking changes."
-
-  - id: hashicorp-products
-    name: HashiCorp product documentation and releases
-    type: primary
-    url: https://developer.hashicorp.com/
-    topics: [hashicorp, terraform, vault, consul, nomad, boundary, packer, vagrant, waypoint, hcp]
-    cadence: weekly
-    reliability: high
-    fallback: https://github.com/hashicorp
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Source pivot pour découvrir les produits et leurs documentations ; confirmer chaque évolution dans la page de release ou le dépôt officiel du produit concerné."
-
-  - id: hashicorp-releases
-    name: HashiCorp product changelogs and releases
-    type: primary
-    url: https://developer.hashicorp.com/terraform/cloud-docs/release-notes
-    topics: [hashicorp, terraform, vault, consul, nomad, boundary, packer, vagrant, waypoint, hcp, lifecycle]
-    cadence: weekly
-    reliability: high
-    fallback: https://github.com/hashicorp
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Suivre les changelogs par produit ; relever version, breaking changes, dépréciations, compatibilité et impact sur installation, upgrade ou retrait."
-
-  - id: hashicorp-security
-    name: HashiCorp security advisories
-    type: primary
-    url: https://www.hashicorp.com/en/trust/security
-    topics: [hashicorp, security, vulnerabilities, terraform, vault, consul, nomad, boundary]
-    cadence: weekly
-    reliability: high
-    fallback: https://github.com/hashicorp
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Qualifier produit, versions affectées, vecteur, correctif et exposition ; compléter par les advisories GitHub du dépôt concerné."
-
-  - id: hashicorp-lifecycle
-    name: HashiCorp product lifecycle and support policy
-    type: primary
-    url: https://www.hashicorp.com/en/official-releases
-    topics: [hashicorp, lifecycle, compatibility, terraform, vault, consul, nomad]
-    cadence: monthly
-    reliability: high
-    fallback: https://developer.hashicorp.com/
-    last_attempt: 2026-08-29
-    last_success: 2026-08-29
-    last_item_seen: unknown
-    status: ok
-    notes: "Surveiller fin de support, canaux de release, éditions et conditions de migration ; ne pas confondre HCP, self-managed et open source."
-
-  - id: ossf-scorecard
-    name: OpenSSF Scorecard
-    type: assessment
-    url: https://scorecard.dev/
-    topics: [open-source, security, supply-chain]
-    cadence: monthly
-    reliability: medium
-    fallback: https://github.com/ossf/scorecard
-    last_attempt: null
-    last_success: null
-    last_item_seen: null
-    status: not_checked
-    notes: "Utiliser comme indice de risque de chaîne d’approvisionnement, jamais comme preuve suffisante de sécurité, qualité ou maintenabilité."
-
-# Ajouter une entrée lorsqu’une source est utile, morte, déplacée ou trompeuse.
-# Champs attendus : id, name, type, url, topics, cadence, reliability, fallback,
-# last_attempt, last_success, last_item_seen, status et notes.
+  - ["kubernetes-official", "Kubernetes releases, blog and documentation", "primary", "https://kubernetes.io/", ["kubernetes","gateway-api","ai-infrastructure"], "daily", "high", "https://github.com/kubernetes/kubernetes/releases", "2026-08-29", "2026-08-29", "unknown", "ok", "Confirmer versions, dépréciations, APIs et calendriers."]
+  - ["elastic-official", "Elastic release notes, advisories and status", "primary", "https://www.elastic.co/docs/release-notes", ["elasticsearch","elastic-apm","logstash","observability"], "daily", "high", "https://status.elastic.co/", "2026-08-29", "2026-08-29", "unknown", "ok", "Séparer release documentée, incident fournisseur et exposition locale."]
+  - ["opentelemetry-official", "OpenTelemetry specifications and repositories", "primary", "https://opentelemetry.io/docs/", ["opentelemetry","genai-observability","traces","entity-events","metrics"], "weekly", "high", "https://github.com/open-telemetry", "2026-08-29", "2026-08-29", "unknown", "ok", "Vérifier le niveau de stabilité des conventions et leur implémentation."]
+  - ["github-releases", "GitHub repositories and releases", "primary_and_discovery", "https://github.com/explore", ["open-source","ai-agents","cloud","devops"], "daily", "medium", "https://github.com/trending", "2026-08-28", "2026-08-28", "unknown", "ok", "La release est primaire pour le projet ; la popularité reste un signal de découverte."]
+  - ["mcp-specification", "Model Context Protocol specification and changelog", "primary", "https://modelcontextprotocol.io/specification/2026-07-28", ["mcp","ai-agents","protocols","security","interoperability"], "per_release", "high", "https://github.com/modelcontextprotocol/modelcontextprotocol/releases", "2026-08-29", "2026-08-29", "unknown", "ok", "Vérifier la version stable, le changelog, les extensions, les dépréciations et la compatibilité des SDK."]
+  - ["github-repository-metadata", "GitHub repository metadata and activity", "primary_and_discovery", "https://docs.github.com/en/rest/repos/repos#get-a-repository", ["open-source","cloud","devops","ai-agents","trend-indicators"], "daily", "medium", "https://github.com/explore", "2026-08-29", "2026-08-29", "unknown", "ok", "Mesurer étoiles, forks, issues, commits et dernière release avec une date de mesure. Ces métriques indiquent une visibilité ou activité, jamais la maturité, sécurité ou adoption."]
+  - ["github-trending", "GitHub Trending and topic pages", "discovery", "https://github.com/trending", ["open-source","ai-agents","cloud","devops"], "daily", "low", "https://github.com/explore", "2026-08-28", "2026-08-28", "unknown", "ok", "Ne jamais utiliser seul pour conclure à la maturité, sécurité ou adoption."]
+  - ["trendshift", "Trendshift live trending GitHub repositories", "discovery", "https://trendshift.io/", ["open-source","ai-agents","cloud","devops","ai-infrastructure"], "daily", "low", "https://trendshift.io/", "2026-08-29", "2026-08-29", "unknown", "ok", "Utiliser pour la fraîcheur et l’accélération ; confirmer chaque projet dans son dépôt primaire. Filtrer les dépôts suspects, vides ou sans utilité architecturale."]
+  - ["google-trends", "Google Trends", "discovery", "https://trends.google.com/trends/", ["cloud","devops","kubernetes","observability","ai","ai-agents"], "weekly", "low", "https://trends.google.com/trends/", "2026-08-29", "2026-08-29", "unknown", "ok", "Mesurer l’intérêt de recherche et les requêtes associées pour détecter un momentum émergent. Ne jamais utiliser seul pour prouver traction, qualité, maturité, sécurité ou adoption ; désambiguïser les termes et confirmer dans des sources primaires."]
+  - ["kubernetes-security", "Kubernetes security advisories and CVE feed", "primary", "https://kubernetes.io/docs/reference/issues-security/official-cve-feed/", ["kubernetes","security","vulnerabilities"], "daily", "high", "https://github.com/kubernetes/kubernetes/security/advisories", null, null, null, "not_checked", "Confirmer CVE, versions affectées, correctif et conditions d’exposition. Une alerte ne prouve pas que la stack est exposée."]
+  - ["kubernetes-lifecycle", "Kubernetes release calendar and version skew policy", "primary", "https://kubernetes.io/releases/version-skew-policy/", ["kubernetes","lifecycle","compatibility"], "weekly", "high", "https://kubernetes.io/releases/", null, null, null, "not_checked", "Qualifier support, fenêtres d’upgrade, compatibilité control plane/nodes et dépréciations avant toute recommandation."]
+  - ["elastic-security", "Elastic security advisories", "primary", "https://www.elastic.co/community/security", ["elasticsearch","elastic-apm","logstash","security","vulnerabilities"], "weekly", "high", "https://www.elastic.co/support/security", null, null, null, "not_checked", "Relier l’avis à la version et au mode Elastic concerné ; distinguer correctif disponible, exposition locale et incident fournisseur."]
+  - ["elastic-lifecycle", "Elastic product lifecycle and end-of-life", "primary", "https://www.elastic.co/support/eol", ["elasticsearch","elastic-apm","logstash","lifecycle","compatibility"], "monthly", "high", "https://www.elastic.co/support/matrix", null, null, null, "not_checked", "Détecter les échéances de support et les migrations à planifier ; conserver la version réellement déployée comme inconnue tant qu’elle n’est pas inventoriée."]
+  - ["opentelemetry-releases", "OpenTelemetry releases and stability status", "primary", "https://github.com/open-telemetry/opentelemetry-collector-releases", ["opentelemetry","collector","observability","compatibility"], "weekly", "high", "https://opentelemetry.io/docs/collector/", null, null, null, "not_checked", "Vérifier version, statut stable/beta/experimental, compatibilité des composants et procédure d’upgrade."]
+  - ["cncf-landscape", "CNCF landscape and technical blog", "discovery", "https://landscape.cncf.io/", ["kubernetes","cloud-native","observability","platform-engineering","ai-infrastructure"], "weekly", "medium", "https://www.cncf.io/blog/", null, null, null, "not_checked", "Découvrir des catégories et projets ; confirmer ensuite dans les dépôts, releases, documentations et avis de sécurité officiels."]
+  - ["aws-whats-new", "AWS What's New and service release notes", "primary", "https://aws.amazon.com/new/", ["aws","cloud","kubernetes","observability","ai-infrastructure"], "daily", "high", "https://docs.aws.amazon.com/whats-new/", "2026-09-06", "2026-09-06", "2026-09-06-aws-check", "ok", "Suivre les changements de service, régions, limites et intégrations ; une annonce ne suffit pas à conclure au fit ou à la disponibilité dans les comptes utilisés."]
+  - ["aws-security-bulletins", "AWS security bulletins", "primary", "https://aws.amazon.com/security/security-bulletins/", ["aws","security","vulnerabilities"], "weekly", "high", "https://aws.amazon.com/security/", "2026-09-06", "2026-09-06", "2026-09-06-aws-security-check", "ok", "Qualifier services, régions et mesures correctives ; compléter par l’inventaire des comptes et workloads concernés."]
+  - ["aws-eks-lifecycle", "Amazon EKS Kubernetes version lifecycle", "primary", "https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html", ["aws","eks","kubernetes","lifecycle","compatibility","costs"], "weekly", "high", "https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html", "2026-09-06", "2026-09-06", "2026-09-06-eks-lifecycle-check", "ok", "Suivre support standard et étendu, versions disponibles, dates de fin de support et coût du support étendu."]
+  - ["aws-bedrock-history", "Amazon Bedrock user guide document history", "primary", "https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-ug-doc-history.html", ["aws","bedrock","ai","models","agents","regions","quotas","lifecycle"], "daily", "high", "https://aws.amazon.com/bedrock/whats-new/", "2026-09-06", "2026-09-06", "2026-09-06-bedrock-history-check", "ok", "Vérifier modèles, APIs, régions, quotas, permissions, statuts legacy et changements qui modifient l’architecture d’inférence."]
+  - ["gcp-release-notes", "Google Cloud release notes", "primary", "https://cloud.google.com/release-notes", ["gcp","cloud","kubernetes","observability","ai-infrastructure"], "daily", "high", "https://cloud.google.com/feeds/cloud-release-notes.xml", "2026-09-06", "2026-09-06", "2026-09-06-gcp-release-check", "ok", "Filtrer par produit et région, puis vérifier disponibilité, quotas, breaking changes et documentation de migration."]
+  - ["gcp-security-bulletins", "Google Cloud security bulletins", "primary", "https://cloud.google.com/support/bulletins", ["gcp","security","vulnerabilities","vertex-ai","iam"], "daily", "high", "https://cloud.google.com/security", "2026-09-06", "2026-09-06", "2026-09-06-gcp-security-check", "ok", "Qualifier produit, version ou SDK, correctif fournisseur et exposition réelle avant de recommander une action."]
+  - ["gcp-deprecation-policy", "Google Cloud deprecation policy", "primary", "https://cloud.google.com/terms/deprecation", ["gcp","lifecycle","deprecations","compatibility"], "monthly", "high", "https://cloud.google.com/release-notes", "2026-09-06", "2026-09-06", "2026-09-06-gcp-lifecycle-check", "ok", "Compléter la politique générale avec les avis et calendriers propres à chaque produit."]
+  - ["gke-release-notes", "Google Kubernetes Engine release notes", "primary", "https://cloud.google.com/kubernetes-engine/docs/release-notes", ["gcp","gke","kubernetes","releases","lifecycle","regions"], "daily", "high", "https://cloud.google.com/kubernetes-engine/docs/release-notes-new-features", "2026-09-06", "2026-09-06", "2026-09-06-gke-rootless-beta", "ok", "Suivre canaux, versions, auto-upgrades, fonctionnalités, correctifs, problèmes connus et dépréciations."]
+  - ["gke-security-bulletins", "Google Kubernetes Engine security bulletins", "primary", "https://cloud.google.com/kubernetes-engine/security-bulletins", ["gcp","gke","kubernetes","security","vulnerabilities"], "daily", "high", "https://cloud.google.com/kubernetes-engine/docs/resources/security-patching", "2026-09-06", "2026-09-06", "2026-09-06-gcp-2026-060", "ok", "Relier chaque bulletin aux versions, images de nœuds, canaux et configurations réellement utilisés."]
+  - ["vertex-ai-release-notes", "Vertex AI release notes", "primary", "https://cloud.google.com/vertex-ai/docs/core-release-notes", ["gcp","vertex-ai","ai","models","agents","regions","quotas","lifecycle"], "daily", "high", "https://cloud.google.com/release-notes?product=Vertex%20AI", "2026-09-06", "2026-09-06", "2026-09-06-vertex-check", "ok", "Vérifier modèles, APIs, régions, quotas, sécurité, statuts Preview/GA et dépréciations."]
+  - ["openai-api-changelog", "OpenAI API changelog", "primary", "https://developers.openai.com/api/docs/changelog", ["ai","openai","models","agents","apis","quotas"], "daily", "high", "https://developers.openai.com/api/docs/models", "2026-09-06", "2026-09-06", "2026-09-06-openai-changelog-check", "ok", "Suivre modèles, APIs, outils, capacités et changements d’exploitation ; vérifier séparément coût et disponibilité."]
+  - ["openai-api-deprecations", "OpenAI API deprecations", "primary", "https://developers.openai.com/api/docs/deprecations", ["ai","openai","models","apis","lifecycle","deprecations"], "weekly", "high", "https://developers.openai.com/api/docs/changelog", "2026-09-06", "2026-09-06", "2026-09-06-openai-deprecation-check", "ok", "Relever date d’annonce, date d’arrêt, remplacement et effort de migration."]
+  - ["anthropic-release-notes", "Claude Platform release notes", "primary", "https://platform.claude.com/docs/en/release-notes/overview", ["ai","anthropic","claude","models","agents","apis","lifecycle"], "daily", "high", "https://platform.claude.com/docs/en/home", "2026-09-06", "2026-09-06", "2026-09-06-anthropic-release-check", "ok", "Suivre modèles, APIs, limites, disponibilité, dépréciations et changements de comportement documentés."]
+  - ["github-actions-changelog", "GitHub Changelog — Actions and platform", "primary", "https://github.blog/changelog/label/actions/", ["github-actions","ci-cd","security","platform-engineering","copilot","mcp","agents"], "weekly", "high", "https://github.com/actions/runner/releases", "2026-08-29", "2026-08-29", "unknown", "ok", "Suivre runners, permissions, OIDC, artifacts, cache et changements de comportement ; distinguer fonctionnalité annoncée et disponibilité dans l’organisation."]
+  - ["gcp-iam-release-notes", "Google Cloud IAM and workload identity release notes", "primary", "https://docs.cloud.google.com/iam/docs/release-notes", ["gcp","iam","workload-identity","agents","security"], "weekly", "high", "https://docs.cloud.google.com/iam/docs/workload-identity-federation", "2026-09-05", "2026-09-05", "2026-09-05-workload-identity-check", "ok", "Suivre identités de workloads et d’agents, fédération multicloud, contraintes d’organisation et évolutions de permissions."]
+  - ["apigee-api-hub-release-notes", "Apigee API hub release notes", "primary", "https://docs.cloud.google.com/apigee/docs/apihub/release-notes", ["gcp","apigee","api-management","mcp","agents","governance"], "weekly", "high", "https://cloud.google.com/apigee", "2026-09-05", "2026-09-05", "2026-09-05-apigee-api-hub-check", "ok", "Qualifier API catalog, MCP proxies, Agent Registry, policies, preview/GA et disponibilité des fonctionnalités Apigee."]
+  - ["airflow-release-notes", "Apache Airflow release notes", "primary", "https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html", ["airflow","data-platform","orchestration","kubernetes","event-driven"], "weekly", "high", "https://airflow.apache.org/announcements/", "2026-09-05", "2026-09-05", "2026-09-05-airflow-release-check", "ok", "Suivre architecture, scheduler, assets, multi-team, executors, providers, compatibilité et migrations de version."]
+  - ["ping-identity-releases", "Ping Identity and Advanced Identity Cloud release notes", "primary", "https://docs.pingidentity.com/pingone/release_notes/", ["identity","forgerock","ping","agents","mcp","governance"], "weekly", "high", "https://docs.pingidentity.com/pingoneaic/home.html", "2026-09-05", "2026-09-05", "2026-09-05-ping-agent-identity-check", "ok", "Suivre identité des agents, gouvernance, MCP, audit, compatibilité et renommage ForgeRock vers Ping."]
+  - ["helm-official", "Helm official releases and lifecycle", "primary", "https://helm.sh/blog/", ["helm","kubernetes","packaging","oci","lifecycle"], "weekly", "high", "https://docs.helm.sh/helm/", "2026-09-05", "2026-09-05", "2026-09-05-helm-lifecycle-check", "ok", "Suivre Helm 4, fin de vie Helm 3, format OCI, compatibilité des charts et migrations."]
+  - ["gitlab-releases", "GitLab release posts and runner releases", "primary", "https://about.gitlab.com/releases/categories/releases/", ["gitlab","ci-cd","platform-engineering","security"], "weekly", "high", "https://gitlab.com/gitlab-org/gitlab-runner/-/releases", "2026-09-05", "2026-09-05", "2026-09-05-gitlab-duo-agent-platform-card", "ok", "Vérifier édition, tier, version self-managed ou SaaS, dépréciations et compatibilité des runners avant de retenir un signal."]
+  - ["terraform-releases", "Terraform and provider releases", "primary", "https://github.com/hashicorp/terraform/releases", ["terraform","infrastructure-as-code","aws","gcp","kubernetes"], "weekly", "high", "https://registry.terraform.io/browse/providers", "2026-08-29", "2026-08-29", "unknown", "ok", "Suivre séparément le binaire Terraform et les providers ; vérifier changelog, contraintes de version, migrations d’état et breaking changes."]
+  - ["hashicorp-products", "HashiCorp product documentation and releases", "primary", "https://developer.hashicorp.com/", ["hashicorp","terraform","vault","consul","nomad","boundary","packer","vagrant","waypoint","hcp"], "weekly", "high", "https://github.com/hashicorp", "2026-08-29", "2026-08-29", "unknown", "ok", "Source pivot pour découvrir les produits et leurs documentations ; confirmer chaque évolution dans la page de release ou le dépôt officiel du produit concerné."]
+  - ["hashicorp-releases", "HashiCorp product changelogs and releases", "primary", "https://developer.hashicorp.com/terraform/cloud-docs/release-notes", ["hashicorp","terraform","vault","consul","nomad","boundary","packer","vagrant","waypoint","hcp","lifecycle"], "weekly", "high", "https://github.com/hashicorp", "2026-08-29", "2026-08-29", "unknown", "ok", "Suivre les changelogs par produit ; relever version, breaking changes, dépréciations, compatibilité et impact sur installation, upgrade ou retrait."]
+  - ["hashicorp-security", "HashiCorp security advisories", "primary", "https://www.hashicorp.com/en/trust/security", ["hashicorp","security","vulnerabilities","terraform","vault","consul","nomad","boundary"], "weekly", "high", "https://github.com/hashicorp", "2026-08-29", "2026-08-29", "unknown", "ok", "Qualifier produit, versions affectées, vecteur, correctif et exposition ; compléter par les advisories GitHub du dépôt concerné."]
+  - ["hashicorp-lifecycle", "HashiCorp product lifecycle and support policy", "primary", "https://www.hashicorp.com/en/official-releases", ["hashicorp","lifecycle","compatibility","terraform","vault","consul","nomad"], "monthly", "high", "https://developer.hashicorp.com/", "2026-08-29", "2026-08-29", "unknown", "ok", "Surveiller fin de support, canaux de release, éditions et conditions de migration ; ne pas confondre HCP, self-managed et open source."]
+  - ["ossf-scorecard", "OpenSSF Scorecard", "assessment", "https://scorecard.dev/", ["open-source","security","supply-chain"], "monthly", "medium", "https://github.com/ossf/scorecard", null, null, null, "not_checked", "Utiliser comme indice de risque de chaîne d’approvisionnement, jamais comme preuve suffisante de sécurité, qualité ou maintenabilité."]

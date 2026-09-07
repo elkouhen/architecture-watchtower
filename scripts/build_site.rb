@@ -243,7 +243,12 @@ end.join
 
 signals_path = File.join(ROOT, "state", "signals.yaml")
 signals = if File.file?(signals_path)
-  YAML.safe_load(File.read(signals_path), permitted_classes: [Date], aliases: true).fetch("signals", [])
+  signals_data = YAML.safe_load(File.read(signals_path), permitted_classes: [Date], aliases: true)
+  if signals_data["format"] == "tabular-v1"
+    Array(signals_data["signals"]).map { |row| Array(signals_data["signal_fields"]).zip(row).to_h }
+  else
+    signals_data.fetch("signals", [])
+  end
 else
   []
 end

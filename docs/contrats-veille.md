@@ -98,3 +98,7 @@ L’objectif est de préserver les preuves et les contrôles utiles tout en évi
 6. Arrêter l’investigation d’un sujet dès qu’il est clairement hors périmètre, dupliqué, non vérifiable ou sans changement substantiel. Enregistrer alors un motif court dans le lieu prévu par le livrable, sans poursuivre la collecte par curiosité.
 
 Ces économies ne réduisent ni les exigences de preuve, ni les échéances actives, ni les sections et registres imposés par le présent contrat.
+
+### Registres tabulaires compacts
+
+`state/signals.yaml` et `state/sources.yaml` peuvent utiliser `schema_version: 3` et `format: tabular-v1`. Dans ce format, `signal_fields` ou `source_fields` donne l’ordre des colonnes et chaque ligne de `signals` ou `sources` fournit exactement les valeurs correspondantes. Les données et les champs requis restent identiques ; seule leur représentation élimine la répétition des clés. Lire d’abord l’en-tête, puis sélectionner les colonnes et lignes utiles. Le validateur et la génération du site normalisent ce format avant contrôle.
