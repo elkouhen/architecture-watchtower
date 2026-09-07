@@ -63,12 +63,33 @@ def validate_monthly_editions(root)
   end
 end
 
+def validate_token_usage(text, label, required: true)
+  unavailable = /^> \*\*Tokens utilisés :\*\* `non disponible` — compteur runtime non exposé\.$/
+  simple = /^> \*\*Tokens utilisés :\*\* `(\d+)` — mesure runtime\.$/
+  detailed = /^> \*\*Tokens utilisés :\*\* `(\d+)` total — entrée `(\d+)`, cache `(\d+)`, sortie `(\d+)`, raisonnement `(\d+)` — mesure runtime Codex\.$/
+  lines = text.lines.map(&:chomp).select { |line| line.start_with?("> **Tokens utilisés :**") }
+
+  if required && lines.length != 1
+    error("#{label}: une unique ligne de consommation de tokens est requise")
+    return
+  end
+  return if lines.empty?
+  return if lines.first.match?(unavailable) || lines.first.match?(simple)
+
+  match = lines.first.match(detailed)
+  return error("#{label}: ligne de consommation de tokens absente ou invalide") unless match
+
+  total, input, cached, output, reasoning = match.captures.map(&:to_i)
+  error("#{label}: total de tokens incohérent") unless total == input + output
+  error("#{label}: tokens en cache supérieurs aux tokens d’entrée") if cached > input
+  error("#{label}: tokens de raisonnement supérieurs aux tokens de sortie") if reasoning > output
+end
+
 def validate_contract(text, path, root, require_token_usage: true)
   label = path.to_s
   error("#{label}: répertoire de date ISO requis") unless path.parent.basename.to_s.match?(/\A\d{4}-\d{2}-\d{2}\z/)
   error("#{label}: marqueur requis immédiatement après le titre") unless text.match?(/\A# [^\n]+\n\s*<!-- watchtower:2 -->/)
-  usage_line = /^> \*\*Tokens utilisés :\*\* `(?:\d+|non disponible)` — (?:mesure runtime|compteur runtime non exposé)\.$/
-  error("#{label}: ligne de consommation de tokens absente ou invalide") if require_token_usage && !text.match?(usage_line)
+  validate_token_usage(text, label, required: require_token_usage)
   date = date_value(path.parent.basename.to_s, label)
   error("#{label}: date de production future") if date && date > TODAY
   text.scan(/\[[^\]]+\]\(([^)]+)\)/).flatten.each do |target|

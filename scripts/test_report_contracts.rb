@@ -93,6 +93,15 @@ class ReportContractsTest < Minitest::Test
     assert ERRORS.any? { |message| message.include?("Exploitation") }
   end
 
+  def test_detailed_token_usage_is_consistent
+    valid = "> **Tokens utilisés :** `150` total — entrée `120`, cache `80`, sortie `30`, raisonnement `10` — mesure runtime Codex.\n"
+    validate_token_usage(valid, "test")
+    assert_empty ERRORS
+
+    validate_token_usage(valid.sub("`150` total", "`151` total"), "test")
+    assert ERRORS.any? { |message| message.include?("total de tokens incohérent") }
+  end
+
   def test_card_needs_three_distinct_declared_primary_sources
     validate_card(card.gsub("https://example.org/3", "https://example.org/2"), "test")
     assert ERRORS.any? { |message| message.include?("trois URL") }

@@ -210,7 +210,7 @@ def validate_report(relative_path, source_data, sources)
     error("#{relative_path}: marqueur watchtower:2 requis pour un nouveau rapport ou un rapport déjà migré")
   end
   if modern
-    previous_usage = previous.match?(/^> \*\*Tokens utilisés :\*\* `(?:\d+|non disponible)` — (?:mesure runtime|compteur runtime non exposé)\.$/)
+    previous_usage = previous.lines.any? { |line| line.start_with?("> **Tokens utilisés :**") }
     validate_contract(text, path, ROOT, require_token_usage: !status.success? || previous_usage)
     return
   end

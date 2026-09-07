@@ -114,3 +114,13 @@ L’entier est le total réellement fourni par le runtime pour la production du 
 > **Tokens utilisés :** `non disponible` — compteur runtime non exposé.
 
 Cette absence est une limite de mesure, non une valeur nulle.
+
+### Instrumentation des radars
+
+Lorsqu’un radar est lancé par `scripts/run_radar.rb`, l’agent écrit d’abord la variante `non disponible` et ne crée pas de commit. Après la fin du tour Codex, l’orchestrateur récupère la consommation cumulative du tour, remplace cette ligne par :
+
+> **Tokens utilisés :** `<total>` total — entrée `<input>`, cache `<cached>`, sortie `<output>`, raisonnement `<reasoning>` — mesure runtime Codex.
+
+Toutes les valeurs sont des entiers fournis par le runtime. `cache` est inclus dans `entrée` et `raisonnement` est inclus dans `sortie` : ne pas les additionner une seconde fois. Le total doit être égal à `entrée + sortie`. Utiliser la consommation du tour (`turn_token_usage`), jamais celle de tout le thread, afin de ne pas attribuer au radar des échanges antérieurs. L’orchestrateur injecte les métriques, relance la validation, puis crée le commit local ; un échec d’extraction interdit le commit instrumenté.
+
+Le format `non disponible` reste autorisé uniquement lorsque le radar n’est pas lancé par cet orchestrateur ou lorsque le runtime ne fournit réellement aucun compteur exploitable. Ne jamais déduire les tokens de la taille du rapport.

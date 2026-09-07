@@ -17,5 +17,9 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
+      - name: Tester les contrats et l’instrumentation
+        run: |
+          ruby scripts/test_report_contracts.rb
+          ruby scripts/test_report_token_usage.rb
       - name: Valider les registres et les index
         run: ruby scripts/validate_watchtower.rb --daily
