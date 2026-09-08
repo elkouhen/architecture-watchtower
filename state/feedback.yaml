@@ -1,6 +1,18 @@
 # Feedback de qualité des rapports.
 # Une entrée peut être ajoutée après chaque rapport ou lors de la revue mensuelle.
 feedback:
+  - date: 2026-09-08
+    report: radar-architecture
+    item: "Collecte orchestrée et couverture AWS dégradée"
+    factual_accuracy: 2
+    source_quality: 2
+    architectural_value: 2
+    pitch_clarity: 2
+    action_quality: 2
+    noise: 0
+    outcome: "pending"
+    correction: "Les quatre voies AWS restent explicitement incomplètes après un fallback unique; GCP et IA sont closes, et les deux découvertes OSS ont été qualifiées par licence, déploiement et limites."
+    recheck_date: 2026-09-09
   - date: 2026-09-07
     report: radar-architecture
     item: "Régénération corrective du radar orchestré"
