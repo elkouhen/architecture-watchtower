@@ -1,6 +1,18 @@
 # Feedback de qualité des rapports.
 # Une entrée peut être ajoutée après chaque rapport ou lors de la revue mensuelle.
 feedback:
+  - date: 2026-09-07
+    report: radar-architecture
+    item: "Régénération corrective du radar orchestré"
+    factual_accuracy: 2
+    source_quality: 2
+    architectural_value: 2
+    pitch_clarity: 2
+    action_quality: 2
+    noise: 0
+    outcome: "pending"
+    correction: "Dates et URL canoniques Gemini corrigées; bulletins EFS CSI et PostgreSQL MCP remontés; sources OpenAI relues; échec AWS What’s New déclaré au lieu d’inférer une couverture complète."
+    recheck_date: 2026-09-11
   - date: 2026-09-06
     report: radar-architecture
     item: "Revue de densité décisionnelle"

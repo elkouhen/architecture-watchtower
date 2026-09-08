@@ -6,9 +6,10 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
-| [AWS Agent Registry](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-get-started.html) | gouvernance agents | à qualifier | [07/09](../dist/2026-09-07/radar-architecture.md#aws-agent-registry) | migration · 17/09 |
-| [Gemini Enterprise Workflow Builder](https://docs.cloud.google.com/gemini/enterprise/docs/projects) | plateforme agents | à qualifier | [07/09](../dist/2026-09-07/radar-architecture.md#gemini-enterprise-workflow-builder) | GA · 06/09 |
-| [Google SecOps case playbooks](https://docs.cloud.google.com/chronicle/docs/soar/respond/working-with-playbooks/case-playbooks) | réponse à incident | à surveiller | [07/09](../dist/2026-09-07/radar-architecture.md#google-secops-case-playbooks) | Preview · 06/09 |
+| [Amazon EFS CSI Driver](https://aws.amazon.com/security/security-bulletins/2026-099-aws/) | stockage Kubernetes/sécurité | à qualifier | [07/09](../dist/2026-09-07/radar-architecture.md#amazon-efs-csi-driver) | correctif 3.4.1 · 04/09 |
+| [awslabs postgres-mcp-server](https://aws.amazon.com/security/security-bulletins/2026-101-aws/) | MCP/sécurité données | à qualifier | [07/09](../dist/2026-09-07/radar-architecture.md#awslabs-postgres-mcp-server) | correctif 1.1.7 · 04/09 |
+| [AWS Agent Registry](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-faq.html) | gouvernance agents | à qualifier | [07/09](../dist/2026-09-07/radar-architecture.md#aws-agent-registry) | migration incompatible · 17/09 |
+| [Gemini Enterprise Workflow Builder](https://docs.cloud.google.com/gemini/enterprise/docs/release-notes) | plateforme agents | à qualifier | [07/09](../dist/2026-09-07/radar-architecture.md#gemini-enterprise-workflow-builder) | GA · 03/09 |
 | [Setec](https://github.com/zeroroot-ai/setec) | isolation Kubernetes OSS | signal faible | [07/09](../dist/2026-09-07/radar-architecture.md#setec) | Apache-2.0 · 06/09 |
 | [OpenHands software-agent-sdk](https://github.com/openhands/software-agent-sdk) | bibliothèque agents OSS | signal faible | [07/09](../dist/2026-09-07/radar-architecture.md#openhands-software-agent-sdk) | MIT · 06/09 |
 | [GKE / Kubernetes 1.37 rootless](https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/) | plateforme | à qualifier | [06/09](../dist/2026-09-06/radar-architecture.md#gke--kubernetes-137-rootless) | beta · 04/09 |
