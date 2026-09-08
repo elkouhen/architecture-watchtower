@@ -30,8 +30,12 @@ Le radar exige les quatre premières dimensions. `pertinence_stack: inconnu` est
 Dans `Sources consultées`, inclure un bloc YAML `watchtower-couverture`. Il archive les douze couples domaine/voie, indépendamment de l’état ultérieur du journal de collecte. Une entrée comporte :
 
 ```yaml
-# Gabarit d’une entrée ; répéter pour les 12 couples.
+algorithm: scan-filter-verify-publish
+control_sources: [aws-whats-new, aws-security-bulletins]
+discovery_sources: [github-trending]
+qualification_sources: [projet-canonique]
 coverage:
+  # Gabarit d’une entrée ; répéter pour les 12 couples.
   - domain: AWS
     lane: releases_features
     sources: [aws-whats-new]
@@ -43,6 +47,8 @@ coverage:
     complete: true
     note: "Intervalle entièrement parcouru."
 ```
+
+Pour un radar produit à partir du 8 septembre 2026, `algorithm` vaut exactement `scan-filter-verify-publish`. Les trois listes classent les sources réellement consultées par rôle ; elles peuvent être vides sauf `control_sources`. Une source utilisée dans une entrée de couverture figure dans `control_sources`. `discovery_sources` contient au plus deux identifiants distincts. Un même identifiant peut avoir plusieurs rôles lorsqu’une collecte sert aussi à qualifier un candidat.
 
 Domaines : `AWS`, `GCP`, `IA`. Voies : `releases_features`, `security`, `lifecycle_deprecations`, `availability_quotas_costs`. `sources` référence les identifiants effectivement consultés dans `state/sources.yaml` et `scope` explicite le produit ou le périmètre couvert ; une source hors périmètre ne couvre pas une voie. Résultats : `signal retenu`, `aucun changement retenu`, `échec`. Une annonce upstream ne démontre ni la disponibilité dans un service managé ni dans une région : documenter cette distinction dans `scope` ou dans la preuve du sujet. Si une voie reste partiellement ou totalement inaccessible, `complete: false`, motif et période manquante obligatoires ; le rapport porte `Couverture incomplète` et peut être publié avec cette limite explicite. Aucune absence de changement ne peut être déduite d’un échec. Dans le registre, `last_attempt` avance à chaque tentative ; `last_success` uniquement après collecte complète. Une interruption de plus de trente jours laisse une lacune explicitement datée.
 
@@ -86,18 +92,45 @@ Le tableau principal et `items` ont exactement le même ordre, les mêmes URL ca
 
 Le validateur distingue radar, carte et classement : sections et contenu non vide, URL déclarées, dates, registres structurés, calcul et ordre mensuels, unicité des éditions. Les liens locaux sans fragment sont vérifiés ; la validité des ancres et la qualité des sources restent à relire. La pertinence, l’exhaustivité du corpus, l’indépendance réelle des preuves, les faits techniques et les justifications exigent une revue éditoriale ; un contrôle automatique réussi ne les certifie pas.
 
+## Algorithme Scanner → Filtrer → Vérifier → Publier
+
+Cet algorithme s’applique à chaque nouveau radar. Les cartes et classements mensuels conservent leurs propres méthodes.
+
+### 1. Scanner
+
+1. Commencer par les données locales structurées : signaux actifs ou arrivés à échéance, dernières dates de succès des sources, livrables des 90 derniers jours et entrées canoniques du catalogue. Traiter les échéances avant toute nouvelle sélection.
+2. Construire un petit ensemble de sources primaires couvrant les douze couples AWS/GCP/IA et fonctionnalités/sécurité/lifecycle/disponibilité. Réutiliser une même collecte pour plusieurs couples lorsque son périmètre les couvre réellement. Viser six à huit sources de contrôle sans sacrifier la couverture obligatoire.
+3. Consulter au maximum deux flux de découverte open source. Leur résultat sert uniquement à proposer des candidats.
+4. Traiter chaque source comme un flux à delta : reprendre à `last_success`, lire l’intervalle manquant et arrêter la lecture après le dernier élément déjà consigné. Une même URL n’est ouverte qu’une fois par exécution.
+5. Si une source primaire échoue ou est hors périmètre, essayer un seul fallback. Si ce fallback échoue ou reste incomplet, conserver la précédente valeur de `last_success`, déclarer la période manquante et ne pas conclure à l’absence de changement.
+
+### 2. Filtrer
+
+Appliquer successivement trois conditions à chaque élément détecté :
+
+1. il décrit un changement nouveau ou substantiel par rapport aux 90 derniers jours ;
+2. il peut modifier une décision d’architecture, de sécurité, d’exploitation ou de coût ;
+3. il possède une preuve primaire précise et vérifiable.
+
+Arrêter l’investigation dès qu’une condition échoue. Un flux de découverte ne satisfait jamais seul la troisième condition. Enregistrer seulement les exclusions qui expliquent une absence notable, une exception ou une limite de couverture.
+
+### 3. Vérifier
+
+Pour chaque candidat ayant passé le filtre, vérifier dans une source primaire la date, la version ou édition, le statut, le périmètre, l’impact, les inconnues et, pour un projet open source, la licence. Une preuve primaire suffit par défaut. Ouvrir une deuxième preuve indépendante uniquement pour établir une traction, étayer une tendance transverse, résoudre une contradiction ou justifier un pitch détaillé.
+
+Noter ensuite `impact_architectural`, `urgence`, `pertinence_stack` et `confiance`. Une note d’impact ou d’urgence égale à 5 impose un examen prioritaire. Un candidat normal exige un impact d’au moins 3 et une confiance d’au moins 3. Un candidat avec un impact d’au moins 3 mais une confiance inférieure à 3 ne peut être conservé que comme `signal faible`. Les alertes critiques vérifiées restent prioritaires lorsque l’exposition locale est inconnue.
+
+### 4. Publier
+
+Conserver dans cet ordre : toutes les alertes critiques, les changements architecturaux les plus forts, puis les découvertes open source nécessaires au quota. Produire normalement cinq à sept sujets et appliquer le plafond, les exceptions critiques et le quota open source définis dans le prompt du radar.
+
+Dans `Sources consultées`, distinguer le rôle `contrôle`, `découverte` ou `qualification` de chaque source. Ne conserver dans le contexte de rédaction que le fait, la date, l’URL canonique, l’impact, les inconnues, la décision existante et les notes nécessaires. Préférer les liens vers les preuves à leur reformulation.
+
+Cette réduction du nombre de lectures ne diminue ni la couverture obligatoire, ni les exigences de preuve, ni le traitement des échéances actives.
+
 ## Exécution économe
 
-L’objectif est de préserver les preuves et les contrôles utiles tout en évitant de relire ou de rechercher ce qui n’a pas changé. Appliquer ces règles à tout nouveau livrable.
-
-1. Commencer par les données locales structurées : signaux actifs ou arrivés à échéance, dernières dates de succès des sources, livrables du périmètre temporel et entrées canoniques du catalogue. Utiliser une recherche ciblée par identifiant, URL canonique, statut et date avant d’ouvrir un document complet. Ne relire intégralement un ancien rapport que si un candidat porte la même URL canonique ou une évolution substantielle.
-2. Traiter une source comme un flux à delta : reprendre à `last_success`, lire l’intervalle manquant et s’arrêter après l’élément le plus récent déjà consigné. Ne pas refaire une recherche générale ni consulter les sources secondaires lorsqu’aucun changement primaire n’est détecté. Une source en échec reste toutefois consignée et ne permet jamais de conclure à l’absence de changement.
-3. Pour chaque voie de couverture obligatoire, consulter d’abord une unique source primaire canonique adaptée. N’ouvrir une source de secours que si la première échoue, est hors périmètre ou signale un changement à qualifier. La couverture reste obligatoire ; seule l’exploration redondante est supprimée.
-4. Qualifier un candidat avec une preuve primaire précise et datée. Une seconde preuve indépendante n’est requise que pour conclure à une traction étayée, étayer une tendance transversale ou produire un pitch détaillé. Les sources de découverte ne déclenchent pas à elles seules une recherche approfondie.
-5. Ne conserver dans le contexte de rédaction que le fait, la date, l’URL canonique, l’impact, les inconnues, la décision existante et les notes nécessaires. Préférer les liens vers les preuves à leur reformulation. Ne pas recopier les notes de version, les descriptions produit ou l’historique inchangé.
-6. Arrêter l’investigation d’un sujet dès qu’il est clairement hors périmètre, dupliqué, non vérifiable ou sans changement substantiel. Enregistrer alors un motif court dans le lieu prévu par le livrable, sans poursuivre la collecte par curiosité.
-
-Ces économies ne réduisent ni les exigences de preuve, ni les échéances actives, ni les sections et registres imposés par le présent contrat.
+Pour une carte ou un classement mensuel, commencer par les données locales structurées, ouvrir uniquement les passages liés au service ou à la période, traiter les sources comme des flux à delta et arrêter une investigation dès qu’elle est hors périmètre, dupliquée ou non vérifiable. Une source secondaire n’est ouverte que pour combler une lacune décisionnelle précise. Cette règle ne remplace pas l’algorithme du radar ci-dessus.
 
 ### Registres tabulaires compacts
 

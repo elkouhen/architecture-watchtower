@@ -48,7 +48,7 @@ class ReportContractsTest < Minitest::Test
     end
   end
 
-  def radar(entries)
+  def radar(entries, source_roles = {})
     rows = %w[A B C D E].map.with_index do |name, index|
       kind = index < 2 ? "outil · Nouveau projet OSS" : "service · Nouveau hors OSS"
       "| [#{name}](https://example.org/#{name.downcase}) | #{kind} | Intégration | [fiche](##{name.downcase}) |"
@@ -77,7 +77,12 @@ class ReportContractsTest < Minitest::Test
       ## Sources consultées
 
       ```watchtower-couverture
-      #{ { "coverage" => entries }.to_yaml }
+      #{ {
+        "algorithm" => "scan-filter-verify-publish",
+        "control_sources" => entries.flat_map { |entry| entry["sources"] }.uniq,
+        "discovery_sources" => [],
+        "qualification_sources" => []
+      }.merge(source_roles).merge("coverage" => entries).to_yaml }
       ```
 
       ## Sources en échec
@@ -163,6 +168,25 @@ class ReportContractsTest < Minitest::Test
   def test_radar_full_coverage
     validate_radar_contract(radar(coverage), "test", Date.new(2026, 9, 5))
     assert_empty ERRORS
+  end
+
+  def test_new_radar_declares_collection_algorithm_and_roles
+    current_coverage = coverage.map do |entry|
+      entry.merge("checked_at" => "2026-09-08T12:00:00+02:00", "through" => "2026-09-08")
+    end
+    validate_radar_contract(radar(current_coverage), "test", Date.new(2026, 9, 8))
+    assert_empty ERRORS
+
+    validate_radar_contract(radar(current_coverage, "discovery_sources" => %w[a b c]), "test", Date.new(2026, 9, 8))
+    assert ERRORS.any? { |message| message.include?("plus de deux sources de découverte") }
+  end
+
+  def test_coverage_sources_must_be_controls
+    current_coverage = coverage.map do |entry|
+      entry.merge("checked_at" => "2026-09-08T12:00:00+02:00", "through" => "2026-09-08")
+    end
+    validate_radar_contract(radar(current_coverage, "control_sources" => ["aws-releases_features"]), "test", Date.new(2026, 9, 8))
+    assert ERRORS.any? { |message| message.include?("absente de control_sources") }
   end
 
   def test_radar_missing_lane

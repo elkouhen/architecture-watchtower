@@ -4,6 +4,7 @@ CARD_SECTIONS = ["Type, lien et pitch rapide", "Résumé décisionnel", "Positio
 MONTHLY_SECTIONS = ["Période et méthode", "Classement complet", "Tendances du mois", "Lecture architecturale", "Par thème", "Mouvements du mois", "Sujets non classés", "Sources et limites"].freeze
 WEIGHTS = { "nouveaute_interet" => 30, "impact_architectural" => 25, "pertinence_stack" => 20, "confiance" => 15, "maturite_exploitation" => 10 }.freeze
 CLASSES = ["priorité nouveauté", "à qualifier", "veille", "signal faible", "à écarter"].freeze
+RADAR_ALGORITHM_EFFECTIVE_FROM = Date.new(2026, 9, 8)
 
 def sections_of(text)
   text.split(/^## /).drop(1).to_h do |part|
@@ -137,6 +138,21 @@ def validate_radar_contract(text, label, date)
   return unless data.is_a?(Hash)
   coverage = data["coverage"]
   return error("#{label}: coverage doit être une liste") unless coverage.is_a?(Array) && coverage.all? { |entry| entry.is_a?(Hash) }
+  if date && date >= RADAR_ALGORITHM_EFFECTIVE_FROM
+    error("#{label}: algorithme de collecte invalide") unless data["algorithm"] == "scan-filter-verify-publish"
+    roles = %w[control_sources discovery_sources qualification_sources]
+    roles.each do |role|
+      ids = data[role]
+      valid = ids.is_a?(Array) && ids.all? { |id| id.is_a?(String) && !id.strip.empty? } && ids.uniq.length == ids.length
+      error("#{label}: liste #{role} invalide") unless valid
+    end
+    controls = data["control_sources"]
+    error("#{label}: aucune source de contrôle") if controls.is_a?(Array) && controls.empty?
+    discoveries = data["discovery_sources"]
+    error("#{label}: plus de deux sources de découverte") if discoveries.is_a?(Array) && discoveries.length > 2
+    covered_ids = coverage.flat_map { |entry| Array(entry["sources"]) }.uniq
+    error("#{label}: source de couverture absente de control_sources") if controls.is_a?(Array) && (covered_ids - controls).any?
+  end
   expected = %w[AWS GCP IA].product(%w[releases_features security lifecycle_deprecations availability_quotas_costs])
   pairs = coverage.map { |entry| [entry["domain"], entry["lane"]] }
   error("#{label}: douze voies uniques requises") unless pairs.length == 12 && pairs.uniq.length == 12 && (expected - pairs).empty?
