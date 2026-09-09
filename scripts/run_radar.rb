@@ -9,6 +9,7 @@ require "rbconfig"
 require "tempfile"
 require "yaml"
 require_relative "prepare_radar_context"
+require_relative "radar_event_log"
 require_relative "report_token_usage"
 
 ROOT = Pathname.new(__dir__).join("..").expand_path
@@ -50,9 +51,12 @@ head_before, status = Open3.capture2("git", "rev-parse", "HEAD", chdir: ROOT.to_
 abort "Impossible de lire HEAD" unless status.success?
 head_before = head_before.strip
 
+live_log = WatchtowerRadarEventLog::Renderer.new
+live_log.phase("Préparation du contexte local")
 prepared_context = JSON.generate(WatchtowerRadarContext.build(root: ROOT, date: options[:date]))
 radar_prompt = ROOT.join("radar-architecture.md").read
 report_contract = ROOT.join("docs/contrats-veille.md").read
+live_log.phase("Contexte préparé — lancement Codex pour le radar #{options[:date].iso8601}")
 
 prompt = <<~PROMPT
   watchtower:orchestrated
@@ -91,7 +95,7 @@ Tempfile.create(["watchtower-codex-", ".jsonl"]) do |events|
     stderr_thread = Thread.new { stderr.each_line { |line| warn line } }
     stdout.each_line do |line|
       events.write(line)
-      $stdout.write(line)
+      live_log.consume(line)
     end
     stderr_thread.join
     child_status = wait_thread.value
@@ -112,6 +116,8 @@ Tempfile.create(["watchtower-codex-", ".jsonl"]) do |events|
     end
   end
 end
+
+live_log.phase("Métriques récupérées — #{WatchtowerTokenUsage.render(usage)}")
 
 head_after, status = Open3.capture2("git", "rev-parse", "HEAD", chdir: ROOT.to_s)
 abort "Impossible de relire HEAD" unless status.success?
@@ -140,8 +146,10 @@ end
 WatchtowerTokenUsage.inject(report, usage)
 
 relative_report = report.relative_path_from(ROOT).to_s
+live_log.phase("Validation démarrée — #{relative_report}")
 validated = system(RbConfig.ruby, ROOT.join("scripts/validate_watchtower.rb").to_s, "--report", relative_report, chdir: ROOT.to_s)
 abort "Validation du radar échouée" unless validated
+live_log.phase("Validation terminée")
 
 allowed = [
   relative_report,
@@ -160,9 +168,11 @@ abort "Changements hors périmètre: #{unexpected.join(', ')}" unless unexpected
 abort "Aucun changement à publier" if changed.empty?
 
 if options[:commit]
+  live_log.phase("Commit local démarré")
   system("git", "add", "--", *changed, chdir: ROOT.to_s) || abort("git add a échoué")
   message = "radar: publish #{options[:date].iso8601} architecture watch"
   system("git", "commit", "-m", message, chdir: ROOT.to_s) || abort("git commit a échoué")
+  live_log.phase("Commit local terminé")
 end
 
 puts "Radar instrumenté: #{relative_report}"

@@ -6,7 +6,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 
 - [Catalogue canonique des éléments étudiés](docs/catalogue.md)
 - [Rapports et cartes par date](docs/rapports.md)
-- Prompts : [carte de service](carte-service.md), [classement mensuel](classement-mensuel.md)
+- Prompts : [radar](radar-architecture.md), [carte de service](carte-service.md), [classement mensuel](classement-mensuel.md)
 - [Contrats de validation, preuves et notation](docs/contrats-veille.md)
 
 ## Livrables
@@ -30,7 +30,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)
 - Validation locale : `ruby scripts/validate_watchtower.rb`
 - Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
-- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; contexte local compact préparé automatiquement, injection des métriques avant validation et commit)
+- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; journal lisible affiché en continu, contexte local compact, métriques, validation et commit)
 - Régénération instrumentée du radar du jour : `ruby scripts/run_radar.rb --replace`
 - PRD : [`PRD.md`](PRD.md)
 - Tests : `ruby scripts/test_prepare_radar_context.rb`, `ruby scripts/test_report_contracts.rb` et `ruby scripts/test_report_token_usage.rb`
