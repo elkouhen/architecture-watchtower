@@ -6,7 +6,7 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
-| [GKE 2026-R37](https://cloud.google.com/kubernetes-engine/docs/release-notes) | plateforme Kubernetes | à qualifier | [08/09](../dist/2026-09-08/radar-architecture.md#gke-2026-r37) | canaux/auto-upgrade · 02/09 |
+| [GKE 2026-R38](https://cloud.google.com/kubernetes-engine/docs/release-notes) | plateforme Kubernetes | à qualifier | [09/09](../dist/2026-09-09/radar-architecture.md#gke-2026-r38) | canaux/auto-upgrade · 08/09 |
 | [Cloud SQL for PostgreSQL — changements en place](https://docs.cloud.google.com/sql/docs/postgres/upgrade-in-place) | base de données managée | à qualifier | [08/09](../dist/2026-09-08/radar-architecture.md#cloud-sql-for-postgresql) | GA · 04/09 |
 | [Gemini Code Assist — canal d’achat](https://docs.cloud.google.com/gemini/docs/codeassist/release-notes) | outillage développeur IA | à qualifier | [08/09](../dist/2026-09-08/radar-architecture.md#gemini-code-assist) | changement commercial · 04/09 |
 | [Firestore Security Rules simulator](https://docs.cloud.google.com/firestore/native/docs/security/get-started) | sécurité applicative | à surveiller | [08/09](../dist/2026-09-08/radar-architecture.md#firestore-security-rules-simulator) | GA · 04/09 |
