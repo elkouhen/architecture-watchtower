@@ -1,7 +1,7 @@
 # Radar architecture — 9 septembre 2026
 
 <!-- watchtower:2 -->
-> **Tokens utilisés :** `1085000` total — entrée `1072826` (dont cache `983552`, hors cache `89274`), sortie `12174`, raisonnement `1855` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
+> **Tokens utilisés :** `246011` total — entrée `244803` (dont cache `200448`, hors cache `44355`), sortie `1208`, raisonnement `461` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
 Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de maintenance GKE non inventoriés).
 
