@@ -1,7 +1,6 @@
 # Radar architecture — 9 septembre 2026
-
 <!-- watchtower:2 -->
-> **Tokens utilisés :** `447083` total — entrée `445118` (dont cache `385024`, hors cache `60094`), sortie `1965`, raisonnement `501` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
+> **Tokens utilisés :** `615589` total — entrée `611748` (dont cache `529152`, hors cache `82596`), sortie `3841`, raisonnement `1293` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
 Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de maintenance GKE non inventoriés).
 
@@ -13,12 +12,9 @@ Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de
 
 ## [GKE 2026-R38](https://cloud.google.com/kubernetes-engine/docs/release-notes)
 
-| Champ | Valeur |
-|---|---|
-| Type | plateforme · Mise à jour |
-| Pitch rapide | **Pitch rapide :** **Fait :** les notes GKE du 8 septembre publient R38 : elles ajoutent notamment `1.37.0-gke.3165000` au canal Rapid, retirent des builds antérieurs et changent les cibles générales d’auto-upgrade. **Analyse :** cette rotation modifie la trajectoire effective des clusters gérés, même sans changement de minor local. |
-| Utilité | **Utilité :** maturité : documenté ; niveau de découverte : traction étayée par les notes primaires. Les équipes GKE doivent comparer canaux, exclusions de maintenance et APIs dépréciées aux nouvelles cibles avant le 16 septembre ; propriétaire : plateforme Kubernetes ; critère de succès : inventaire des clusters et validation qu’aucune cible R38 ne franchit une contrainte connue. Disponibilité par zone progressive et exposition locale inconnue. Réf. : S1. |
-| Repères de comparaison | GKE R37 (déjà suivi) ; auto-upgrade contrôlé par exclusion de maintenance ; gestion manuelle des versions. |
+- **Pitch rapide :** **Fait :** les notes GKE du 8 septembre publient R38 : elles ajoutent notamment `1.37.0-gke.3165000` au canal Rapid, retirent des builds antérieurs et changent les cibles générales d’auto-upgrade. **Analyse :** cette rotation modifie la trajectoire effective des clusters gérés, même sans changement de version mineure local.
+- **Utilité :** Les équipes GKE doivent comparer canaux, versions, exclusions de maintenance, APIs dépréciées et nouvelles cibles avant le 16 septembre. Maturité : changement fournisseur documenté ; niveau : signal faible, faute d’exposition locale observée ; disponibilité zonale progressive et exposition locale `à qualifier`. **Décision :** qualification par `plateforme Kubernetes` avant le 16/09 ; succès = inventaire des clusters et validation qu’aucune cible R38 ne franchit une contrainte connue.
+- **Repères de comparaison :** GKE R37 déjà suivi ; auto-upgrade encadré par les exclusions de maintenance ; gestion manuelle des versions.
 
 ## Sujets écartés
 
@@ -28,7 +24,7 @@ Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de
 
 ## Sources consultées
 
-- S1 — `gke-release-notes` — contrôle et qualification — [GKE release notes](https://cloud.google.com/kubernetes-engine/docs/release-notes) — consultée le 2026-09-09 ; reprise 2026-09-08 ; R38, publié le 2026-09-08, ajoute/retire des builds et modifie les cibles d’auto-upgrade ; signal retenu.
+- S1 — `gke-release-notes` — contrôle et qualification — [GKE release notes](https://cloud.google.com/kubernetes-engine/docs/release-notes) — GKE 2026-R38, tous canaux de publication et déploiement progressif dans les zones Google Cloud ; publié le 2026-09-08 ; date d’effet exacte inconnue ; consulté le 2026-09-09 ; ajoute et retire des builds, modifie les cibles d’auto-upgrade et associe des images COS cumulatives ; signal retenu.
 - S2 — `gcp-release-notes` — contrôle — [Google Cloud release notes](https://cloud.google.com/release-notes) — consultée le 2026-09-09 ; reprise 2026-09-08 ; R38 et changements du 8 septembre parcourus ; signal retenu.
 - S3 — `gcp-security-bulletins` — contrôle — [Google Cloud security bulletins](https://cloud.google.com/support/bulletins) — consultée le 2026-09-09 ; reprise 2026-09-08 ; aucun changement retenu.
 - S4 — `gke-security-bulletins` — contrôle — [GKE security bulletins](https://cloud.google.com/kubernetes-engine/security-bulletins) — consultée le 2026-09-09 ; reprise 2026-09-06 ; aucun changement retenu.
