@@ -1,7 +1,7 @@
 # Radar architecture — 9 septembre 2026
 
 <!-- watchtower:2 -->
-> **Tokens utilisés :** `246011` total — entrée `244803` (dont cache `200448`, hors cache `44355`), sortie `1208`, raisonnement `461` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
+> **Tokens utilisés :** `447083` total — entrée `445118` (dont cache `385024`, hors cache `60094`), sortie `1965`, raisonnement `501` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
 Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de maintenance GKE non inventoriés).
 
@@ -41,11 +41,12 @@ Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de
 - S11 — `aws-security-bulletins` — contrôle — [AWS security bulletins RSS](https://aws.amazon.com/security/security-bulletins/rss/feed/) — consultée le 2026-09-09 ; reprise 2026-09-09 ; aucun changement retenu.
 - S12 — `aws-eks-lifecycle` — contrôle — [EKS Kubernetes lifecycle](https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html) — consultée le 2026-09-09 ; reprise 2026-09-08 ; aucun changement retenu.
 - S13 — `aws-bedrock-history` — contrôle — [Amazon Bedrock document history](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-ug-doc-history.html) — consultée le 2026-09-09 ; reprise 2026-09-07 ; couverture partielle, voir échecs.
+- S14 — `github-trending` — découverte — [GitHub Trending](https://github.com/trending?since=daily) — consultée le 2026-09-09 ; reprise 2026-08-28 ; aucun candidat de la page accessible n’a passé le filtre de qualification.
 
 ```watchtower-couverture
 algorithm: scan-filter-verify-publish
 control_sources: [aws-whats-new, aws-security-bulletins, aws-eks-lifecycle, aws-bedrock-history, gcp-release-notes, gcp-security-bulletins, gcp-deprecation-policy, gke-release-notes, gke-security-bulletins, vertex-ai-release-notes, openai-api-changelog, openai-api-deprecations, anthropic-release-notes]
-discovery_sources: []
+discovery_sources: [github-trending]
 qualification_sources: [gke-release-notes]
 coverage:
     - {domain: AWS, lane: releases_features, sources: [aws-whats-new, aws-bedrock-history], scope: "Annonces AWS et historique Bedrock ; disponibilité fournisseur, pas exposition locale.", checked_at: "2026-09-09T10:00:00+02:00", from: "2026-09-08", through: "2026-09-09", result: "aucun changement retenu", complete: false, note: "Historique Bedrock non clos du 07 au 09/09."}
