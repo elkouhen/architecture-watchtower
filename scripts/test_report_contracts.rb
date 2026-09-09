@@ -80,7 +80,7 @@ class ReportContractsTest < Minitest::Test
       #{ {
         "algorithm" => "scan-filter-verify-publish",
         "control_sources" => entries.flat_map { |entry| entry["sources"] }.uniq,
-        "discovery_sources" => [],
+        "discovery_sources" => ["github-trending"],
         "qualification_sources" => []
       }.merge(source_roles).merge("coverage" => entries).to_yaml }
       ```
@@ -189,6 +189,14 @@ class ReportContractsTest < Minitest::Test
 
     validate_radar_contract(radar(current_coverage, "discovery_sources" => %w[a b c]), "test", Date.new(2026, 9, 8))
     assert ERRORS.any? { |message| message.include?("plus de deux sources de découverte") }
+  end
+
+  def test_radar_requires_at_least_one_discovery_source
+    current_coverage = coverage.map do |entry|
+      entry.merge("checked_at" => "2026-09-08T12:00:00+02:00", "through" => "2026-09-08")
+    end
+    validate_radar_contract(radar(current_coverage, "discovery_sources" => []), "test", Date.new(2026, 9, 8))
+    assert ERRORS.any? { |message| message.include?("aucune source de découverte consultée") }
   end
 
   def test_coverage_sources_must_be_controls

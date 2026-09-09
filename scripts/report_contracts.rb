@@ -149,6 +149,7 @@ def validate_radar_contract(text, label, date)
     controls = data["control_sources"]
     error("#{label}: aucune source de contrôle") if controls.is_a?(Array) && controls.empty?
     discoveries = data["discovery_sources"]
+    error("#{label}: aucune source de découverte consultée") if discoveries.is_a?(Array) && discoveries.empty?
     error("#{label}: plus de deux sources de découverte") if discoveries.is_a?(Array) && discoveries.length > 2
     covered_ids = coverage.flat_map { |entry| Array(entry["sources"]) }.uniq
     error("#{label}: source de couverture absente de control_sources") if controls.is_a?(Array) && (covered_ids - controls).any?
