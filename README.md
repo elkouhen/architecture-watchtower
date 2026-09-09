@@ -6,7 +6,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 
 - [Catalogue canonique des éléments étudiés](docs/catalogue.md)
 - [Rapports et cartes par date](docs/rapports.md)
-- Prompts : [radar](radar-architecture.md), [carte de service](carte-service.md), [classement mensuel](classement-mensuel.md)
+- Prompts : [carte de service](carte-service.md), [classement mensuel](classement-mensuel.md)
 - [Contrats de validation, preuves et notation](docs/contrats-veille.md)
 
 ## Livrables
