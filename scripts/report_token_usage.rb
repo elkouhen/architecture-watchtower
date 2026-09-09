@@ -65,9 +65,11 @@ module WatchtowerTokenUsage
   end
 
   def render(usage)
-    "> **Tokens utilisés :** `#{usage.fetch(:total)}` total — entrée `#{usage.fetch(:input)}`, " \
-      "cache `#{usage.fetch(:cached)}`, sortie `#{usage.fetch(:output)}`, " \
-      "raisonnement `#{usage.fetch(:reasoning)}` — mesure runtime Codex."
+    billed_input = usage.fetch(:input) - usage.fetch(:cached)
+    "> **Tokens utilisés :** `#{usage.fetch(:total)}` total — entrée `#{usage.fetch(:input)}` " \
+      "(dont cache `#{usage.fetch(:cached)}`, hors cache `#{billed_input}`), " \
+      "sortie `#{usage.fetch(:output)}`, raisonnement `#{usage.fetch(:reasoning)}` — mesure runtime Codex. " \
+      "Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel."
   end
 
   def usage_from(event)

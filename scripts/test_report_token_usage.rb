@@ -101,7 +101,8 @@ class ReportTokenUsageTest < Minitest::Test
 
       WatchtowerTokenUsage.inject(report, WatchtowerTokenUsage.normalize(complete_usage))
 
-      assert_includes File.read(report), "`150` total — entrée `120`, cache `80`, sortie `30`, raisonnement `10`"
+      assert_includes File.read(report),
+        "`150` total — entrée `120` (dont cache `80`, hors cache `40`), sortie `30`, raisonnement `10`"
     end
   end
 end

@@ -1,6 +1,6 @@
 # Radar architecture — 8 septembre 2026
 <!-- watchtower:2 -->
-> **Tokens utilisés :** `5440297` total — entrée `5419055`, cache `5201024`, sortie `21242`, raisonnement `3565` — mesure runtime Codex.
+> **Tokens utilisés :** `5440297` total — entrée `5419055` (dont cache `5201024`, hors cache `218031`), sortie `21242`, raisonnement `3565` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
 L’exposition réelle des produits et versions dans la stack reste `inconnue` faute d’inventaire confirmé.
 

@@ -158,8 +158,10 @@ Cette absence est une limite de mesure, non une valeur nulle.
 
 Lorsqu’un radar est lancé par `scripts/run_radar.rb`, l’agent écrit d’abord la variante `non disponible` et ne crée pas de commit. Après la fin du tour Codex, l’orchestrateur récupère la consommation cumulative du tour, remplace cette ligne par :
 
-> **Tokens utilisés :** `<total>` total — entrée `<input>`, cache `<cached>`, sortie `<output>`, raisonnement `<reasoning>` — mesure runtime Codex.
+> **Tokens utilisés :** `<total>` total — entrée `<input>` (dont cache `<cached>`, hors cache `<billed_input>`), sortie `<output>`, raisonnement `<reasoning>` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
-Toutes les valeurs sont des entiers fournis par le runtime. `cache` est inclus dans `entrée` et `raisonnement` est inclus dans `sortie` : ne pas les additionner une seconde fois. Le total doit être égal à `entrée + sortie`. Utiliser la consommation du tour (`turn_token_usage`), jamais celle de tout le thread, afin de ne pas attribuer au radar des échanges antérieurs. L’orchestrateur injecte les métriques, relance la validation, puis crée le commit local ; un échec d’extraction interdit le commit instrumenté.
+Toutes les valeurs sont des entiers fournis par le runtime, sauf `<billed_input>` qui est dérivé localement (`entrée - cache`) pour isoler la part réellement coûteuse de l’entrée. `cache` est inclus dans `entrée` et `raisonnement` est inclus dans `sortie` : ne pas les additionner une seconde fois. Le total doit être égal à `entrée + sortie`. Utiliser la consommation du tour (`turn_token_usage`), jamais celle de tout le thread, afin de ne pas attribuer au radar des échanges antérieurs. L’orchestrateur injecte les métriques, relance la validation, puis crée le commit local ; un échec d’extraction interdit le commit instrumenté.
+
+Le total en tokens n’est pas un proxy fiable du coût : un total élevé dominé par le cache peut coûter bien moins qu’un total plus faible mais entièrement hors cache. Pour suivre le coût réel d’un radar dans le temps, comparer `hors cache` (et non `total`) d’une exécution à l’autre.
 
 Le format `non disponible` reste autorisé uniquement lorsque le radar n’est pas lancé par cet orchestrateur ou lorsque le runtime ne fournit réellement aucun compteur exploitable. Ne jamais déduire les tokens de la taille du rapport.
