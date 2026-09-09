@@ -132,6 +132,10 @@ Cette réduction du nombre de lectures ne diminue ni la couverture obligatoire, 
 
 Une exécution lancée par `scripts/run_radar.rb` reçoit le prompt, le présent contrat et une vue locale préparée dès son premier message. Elle reste normalement sous douze appels d’outil, dont huit appels web, utilise des résultats web courts par défaut, filtre avant qualification, verrouille les preuves avant rédaction et n’exécute qu’une validation locale. Un dépassement n’est admis que pour préserver une alerte critique et doit être signalé dans la réponse finale.
 
+### Garde-fou de publication par dépassement de budget
+
+`state/budget.yaml` définit une référence de consommation par exécution (`tokens_hors_cache`, cf. Transparence de consommation) et un seuil de dépassement toléré en pourcentage. Après la fin du tour Codex, `scripts/run_radar.rb` compare l’entrée hors cache réellement mesurée à `reference_value * (1 + overrun_threshold_pct/100)`. Au-delà de ce seuil, l’orchestrateur n’injecte pas de commit : il annule les modifications locales produites par le tour, affiche un avertissement explicite avec les valeurs mesurée et de référence, et le radar n’est pas publié. La consommation déjà dépensée pendant la génération n’est pas récupérable ; ce garde-fou protège uniquement la publication, pas le coût déjà engagé du tour en cours. Tant que `reference_value` reste une estimation provisoire (quota réel non communiqué), l’ajuster dès que le quota effectif est connu.
+
 Le contexte préparé est une projection, pas un nouveau registre : les fichiers sous `state/`, `dist/` et `docs/` restent les sources de vérité. Le script de préparation sélectionne les champs nécessaires, les signaux actifs ou observés dans les 90 jours, les sources requises pour la couverture, les sujets récents et les entrées canoniques. Il ne modifie aucun fichier.
 
 ## Exécution économe

@@ -7,6 +7,7 @@ require "optparse"
 require "pathname"
 require "rbconfig"
 require "tempfile"
+require "yaml"
 require_relative "prepare_radar_context"
 require_relative "report_token_usage"
 
@@ -116,6 +117,25 @@ head_after, status = Open3.capture2("git", "rev-parse", "HEAD", chdir: ROOT.to_s
 abort "Impossible de relire HEAD" unless status.success?
 abort "Codex a créé un commit malgré le mode orchestré; métriques non injectées" unless head_after.strip == head_before
 abort "Radar attendu absent: #{report.relative_path_from(ROOT)}" unless report.file?
+
+budget_path = ROOT.join("state/budget.yaml")
+if budget_path.file?
+  budget = (YAML.safe_load(budget_path.read, permitted_classes: [Date]) || {})["radar"] || {}
+  reference = budget["reference_value"]
+  overrun_pct = budget["overrun_threshold_pct"]
+  if reference && overrun_pct
+    billed_input = usage[:input] - usage[:cached]
+    threshold = (reference * (1 + overrun_pct / 100.0)).to_i
+    if billed_input > threshold
+      warn "ALERTE BUDGET: entrée hors cache #{billed_input} tokens > seuil #{threshold} " \
+        "(référence #{reference} + #{overrun_pct}%, state/budget.yaml)."
+      Open3.capture2("git", "checkout", "--", ".", chdir: ROOT.to_s)
+      Open3.capture2("git", "clean", "-fd", chdir: ROOT.to_s)
+      abort "Génération annulée : dépassement de budget (#{billed_input} > #{threshold} tokens hors cache). " \
+        "Aucune publication ; changements locaux annulés."
+    end
+  end
+end
 
 WatchtowerTokenUsage.inject(report, usage)
 

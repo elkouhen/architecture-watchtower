@@ -1,0 +1,11 @@
+# Budget de consommation par exécution orchestrée du radar.
+# Valeur non fournie par l'utilisateur (quota plateforme réel inconnu) : ce chiffre est une
+# référence provisoire dérivée de l'historique observé (dist/2026-09-08 : 218031 tokens hors
+# cache, avec 4 voies AWS en échec). À ajuster dès que le quota réel est connu.
+radar:
+  unit: tokens_hors_cache
+  period: per_run
+  reference_value: 250000
+  overrun_threshold_pct: 10
+  action_on_overrun: discard
+  note: "Seuil d'arrêt = reference_value * (1 + overrun_threshold_pct/100) = 275000. Au-delà, l'orchestrateur (scripts/run_radar.rb) annule la publication : pas de commit, changements locaux annulés, alerte affichée. La consommation déjà dépensée pour produire le tour n'est pas récupérable ; ce garde-fou protège la publication, pas la génération elle-même."
