@@ -48,12 +48,12 @@ class ReportContractsTest < Minitest::Test
     end
   end
 
-  def radar(entries, source_roles = {})
-    rows = %w[A B C D E].map.with_index do |name, index|
+  def radar(entries, source_roles = {}, subjects: %w[A B C D E])
+    rows = subjects.map.with_index do |name, index|
       kind = index < 2 ? "outil · Nouveau projet OSS" : "service · Nouveau hors OSS"
       "| [#{name}](https://example.org/#{name.downcase}) | #{kind} | Intégration | [fiche](##{name.downcase}) |"
     end.join("\n")
-    topics = %w[A B C D E].map do |name|
+    topics = subjects.map do |name|
       <<~TOPIC
         ## [#{name}](https://example.org/#{name.downcase})
 
@@ -167,6 +167,11 @@ class ReportContractsTest < Minitest::Test
 
   def test_radar_full_coverage
     validate_radar_contract(radar(coverage), "test", Date.new(2026, 9, 5))
+    assert_empty ERRORS
+  end
+
+  def test_quiet_radar_can_have_no_subject
+    validate_radar_contract(radar(coverage, {}, subjects: []), "test", Date.new(2026, 9, 5))
     assert_empty ERRORS
   end
 

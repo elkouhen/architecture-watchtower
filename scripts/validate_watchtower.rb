@@ -294,16 +294,19 @@ source_data, sources = validate_sources
 validate_signals
 validate_local_links
 
-validated_reports = Dir.glob(ROOT.join("dist/*/*.md").to_s).sort.select do |path|
-  date = Pathname.new(path).parent.basename.to_s
-  date.match?(/\A\d{4}-\d{2}-\d{2}\z/) && Date.parse(date) >= REPORT_RULES_EFFECTIVE_FROM
-end.map do |path|
-  Pathname.new(path).relative_path_from(ROOT).to_s
+validated_reports = if report
+  [report]
+else
+  Dir.glob(ROOT.join("dist/*/*.md").to_s).sort.select do |path|
+    date = Pathname.new(path).parent.basename.to_s
+    date.match?(/\A\d{4}-\d{2}-\d{2}\z/) && Date.parse(date) >= REPORT_RULES_EFFECTIVE_FROM
+  end.map do |path|
+    Pathname.new(path).relative_path_from(ROOT).to_s
+  end
 end
 
 validated_reports.each { |path| validate_report(path, source_data, sources) }
 validate_monthly_editions(ROOT)
-validate_report(report, source_data, sources) if report && !validated_reports.include?(report)
 validate_daily_freshness if ARGV.include?("--daily")
 
 WARNINGS.each { |message| warn("AVERTISSEMENT: #{message}") }

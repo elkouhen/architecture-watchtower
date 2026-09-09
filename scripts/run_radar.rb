@@ -7,6 +7,7 @@ require "optparse"
 require "pathname"
 require "rbconfig"
 require "tempfile"
+require_relative "prepare_radar_context"
 require_relative "report_token_usage"
 
 ROOT = Pathname.new(__dir__).join("..").expand_path
@@ -48,12 +49,33 @@ head_before, status = Open3.capture2("git", "rev-parse", "HEAD", chdir: ROOT.to_
 abort "Impossible de lire HEAD" unless status.success?
 head_before = head_before.strip
 
+prepared_context = JSON.generate(WatchtowerRadarContext.build(root: ROOT, date: options[:date]))
+radar_prompt = ROOT.join("radar-architecture.md").read
+report_contract = ROOT.join("docs/contrats-veille.md").read
+
 prompt = <<~PROMPT
   watchtower:orchestrated
   #{options[:replace] ? "Régénère explicitement et corrige" : "Exécute strictement"} le radar défini par radar-architecture.md pour le #{options[:date].iso8601}.
   Produis #{report.relative_path_from(ROOT)} et les mises à jour locales exigées par le prompt.
   Laisse la ligne de consommation sur la variante `non disponible` et ne crée aucun commit :
   l’orchestrateur injectera les métriques du tour terminé, validera puis commitera le résultat.
+
+  Le prompt radar, le contrat commun et le contexte local préparé sont déjà inclus ci-dessous.
+  Ne les relis pas sur disque. Utilise le contexte préparé pour les échéances, la déduplication,
+  les bornes des sources et l’historique local ; n’ouvre un fichier local que pour appliquer une
+  modification ciblée ou résoudre une incohérence précise.
+
+  <radar-prompt>
+  #{radar_prompt}
+  </radar-prompt>
+
+  <report-contract>
+  #{report_contract}
+  </report-contract>
+
+  <watchtower:prepared-context>
+  #{prepared_context}
+  </watchtower:prepared-context>
 PROMPT
 
 command = [options[:codex], "exec", "--json", "-C", ROOT.to_s]

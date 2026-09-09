@@ -98,7 +98,7 @@ Cet algorithme s’applique à chaque nouveau radar. Les cartes et classements m
 
 ### 1. Scanner
 
-1. Commencer par les données locales structurées : signaux actifs ou arrivés à échéance, dernières dates de succès des sources, livrables des 90 derniers jours et entrées canoniques du catalogue. Traiter les échéances avant toute nouvelle sélection.
+1. Commencer par les données locales structurées : signaux actifs ou arrivés à échéance, dernières dates de succès des sources, livrables des 90 derniers jours et entrées canoniques du catalogue. Traiter les échéances avant toute nouvelle sélection. En exécution orchestrée, `scripts/prepare_radar_context.rb` fournit cette vue compacte dans `watchtower:prepared-context` ; ne pas relire les fichiers qu’elle synthétise sauf incohérence précise.
 2. Construire un petit ensemble de sources primaires couvrant les douze couples AWS/GCP/IA et fonctionnalités/sécurité/lifecycle/disponibilité. Réutiliser une même collecte pour plusieurs couples lorsque son périmètre les couvre réellement. Viser six à huit sources de contrôle sans sacrifier la couverture obligatoire.
 3. Consulter au maximum deux flux de découverte open source. Leur résultat sert uniquement à proposer des candidats.
 4. Traiter chaque source comme un flux à delta : reprendre à `last_success`, lire l’intervalle manquant et arrêter la lecture après le dernier élément déjà consigné. Une même URL n’est ouverte qu’une fois par exécution.
@@ -122,11 +122,17 @@ Noter ensuite `impact_architectural`, `urgence`, `pertinence_stack` et `confianc
 
 ### 4. Publier
 
-Conserver dans cet ordre : toutes les alertes critiques, les changements architecturaux les plus forts, puis les découvertes open source nécessaires au quota. Produire normalement cinq à sept sujets et appliquer le plafond, les exceptions critiques et le quota open source définis dans le prompt du radar.
+Conserver dans cet ordre : toutes les alertes critiques, les changements architecturaux les plus forts, puis les découvertes open source utiles au quota. Produire normalement cinq à sept sujets lorsqu’ils passent le filtre, mais accepter un cycle calme de zéro à quatre sujets. Appliquer le plafond, les exceptions critiques et le quota open source définis dans le prompt du radar.
 
 Dans `Sources consultées`, distinguer le rôle `contrôle`, `découverte` ou `qualification` de chaque source. Ne conserver dans le contexte de rédaction que le fait, la date, l’URL canonique, l’impact, les inconnues, la décision existante et les notes nécessaires. Préférer les liens vers les preuves à leur reformulation.
 
 Cette réduction du nombre de lectures ne diminue ni la couverture obligatoire, ni les exigences de preuve, ni le traitement des échéances actives.
+
+### Budget de contexte orchestré
+
+Une exécution lancée par `scripts/run_radar.rb` reçoit le prompt, le présent contrat et une vue locale préparée dès son premier message. Elle reste normalement sous douze appels d’outil, dont huit appels web, utilise des résultats web courts par défaut, filtre avant qualification, verrouille les preuves avant rédaction et n’exécute qu’une validation locale. Un dépassement n’est admis que pour préserver une alerte critique et doit être signalé dans la réponse finale.
+
+Le contexte préparé est une projection, pas un nouveau registre : les fichiers sous `state/`, `dist/` et `docs/` restent les sources de vérité. Le script de préparation sélectionne les champs nécessaires, les signaux actifs ou observés dans les 90 jours, les sources requises pour la couverture, les sujets récents et les entrées canoniques. Il ne modifie aucun fichier.
 
 ## Exécution économe
 
