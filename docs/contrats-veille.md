@@ -104,6 +104,68 @@ Cet algorithme s’applique à chaque nouveau radar. Les cartes et classements m
 4. Traiter chaque source comme un flux à delta : reprendre à `last_success`, lire l’intervalle manquant et arrêter la lecture après le dernier élément déjà consigné. Une même URL n’est ouverte qu’une fois par exécution.
 5. Si une source primaire échoue ou est hors périmètre, essayer un seul fallback. Si ce fallback échoue ou reste incomplet, conserver la précédente valeur de `last_success`, déclarer la période manquante et ne pas conclure à l’absence de changement.
 
+### Manifest de qualification
+
+Chaque radar produit un registre d’exécution `state/radar-runs/AAAA-MM-JJ.yaml`. Ce fichier n’est pas un second livrable : il constitue la preuve structurée utilisée pour calculer et valider le rapport. Il contient la date, les rôles des sources, les douze entrées de couverture, les échecs et tous les candidats détectés. Chaque candidat possède au minimum une `identity_key` stable, un nom, une URL canonique, une nature, une nouveauté, les trois résultats de filtre, son statut OSS, sa licence le cas échéant, sa récence, ses quatre notes, leur justification et une preuve primaire lorsqu’elle est déclarée disponible.
+
+```yaml
+schema_version: 1
+date: "2026-09-10"
+algorithm: scan-filter-verify-publish
+sources:
+  control: [aws-whats-new]
+  discovery: [github-trending]
+  qualification: [projet-canonique]
+coverage: [] # les douze entrées au format watchtower-couverture
+source_failures: []
+candidate_yield_note: Moins de douze éléments disponibles dans les deltas contrôlés.
+candidates:
+  - id: candidate-001
+    identity_key: produit:sujet-stable
+    name: Produit
+    canonical_url: https://example.org/release
+    nature: outil
+    novelty: Nouveau hors OSS
+    subject: Changement vérifié
+    product_version: "1.0"
+    environment: exposition inconnue
+    substantive_change: true
+    architectural_effect: true
+    primary_evidence: true
+    open_source: false
+    new_project: false
+    license: null
+    impact_architectural: 4
+    urgence: 3
+    pertinence_stack: 4
+    confiance: 5
+    recency: 48h
+    coverage_lanes: [GCP/releases_features]
+    signal_level: normal
+    scoring_note: Justification des quatre notes.
+    fact: Fait précis destiné au rapport.
+    analysis: Conséquence architecturale et limites.
+    unknowns: Exposition locale à qualifier.
+    maturity: État documenté du produit.
+    decision: qualify
+    owner: plateforme
+    due_date: "2026-09-24"
+    success_criterion: Inventaire concerné établi.
+    evidence:
+      - source_id: projet-canonique
+        url: https://example.org/release
+        primary: true
+        observed_at: "2026-09-10"
+        published_at: "2026-09-09"
+        effective_at: inconnue
+        fact: Version et périmètre vérifiés.
+selection: {} # réservé au script de sélection
+```
+
+L’URL n’est pas l’identité. Une même page de notes de version peut porter plusieurs sujets, tandis qu’un même sujet peut changer d’URL. Une identité déjà observée dans les 90 jours impose le type `Mise à jour` et un changement substantiel explicite. Le script `scripts/select_radar_candidates.rb` est seul responsable des champs `selection_status`, `rank`, `selection_reason` et du bloc `selection` ; l’agent ne les décide pas.
+
+Lors de la rédaction, chaque candidat sélectionné crée ou met à jour exactement un signal de même `identity_key`. Sa `classification` vaut respectivement `nouveau_projet_oss`, `nouveau_hors_oss` ou `mise_a_jour`. L’URL, les quatre notes, la décision, le propriétaire, l’échéance, `last_seen` et le lien vers le livrable doivent reprendre le candidat et la date du radar.
+
 ### 2. Filtrer
 
 Appliquer successivement trois conditions à chaque élément détecté :
@@ -118,11 +180,15 @@ Arrêter l’investigation dès qu’une condition échoue. Un flux de découver
 
 Pour chaque candidat ayant passé le filtre, vérifier dans une source primaire la date, la version ou édition, le statut, le périmètre, l’impact, les inconnues et, pour un projet open source, la licence. Une preuve primaire suffit par défaut. Ouvrir une deuxième preuve indépendante uniquement pour établir une traction, étayer une tendance transverse, résoudre une contradiction ou justifier un pitch détaillé.
 
-Noter ensuite `impact_architectural`, `urgence`, `pertinence_stack` et `confiance`. Une note d’impact ou d’urgence égale à 5 impose un examen prioritaire. Un candidat normal exige un impact d’au moins 3 et une confiance d’au moins 3. Un candidat avec un impact d’au moins 3 mais une confiance inférieure à 3 ne peut être conservé que comme `signal faible`. Les alertes critiques vérifiées restent prioritaires lorsque l’exposition locale est inconnue.
+Noter ensuite `impact_architectural`, `urgence`, `pertinence_stack` et `confiance`. Une note d’impact ou d’urgence égale à 5 rend obligatoire tout candidat par ailleurs éligible. Un candidat exige un impact d’au moins 3. Une confiance inférieure à 3 n’est admise que si `signal_level` vaut `signal faible`. Les alertes critiques vérifiées restent prioritaires lorsque l’exposition locale est inconnue.
 
 ### 4. Publier
 
-Conserver dans cet ordre : toutes les alertes critiques, les changements architecturaux les plus forts, puis les découvertes open source utiles au quota. Produire normalement cinq à sept sujets lorsqu’ils passent le filtre, mais accepter un cycle calme de zéro à quatre sujets. Appliquer le plafond, les exceptions critiques et le quota open source définis dans le prompt du radar.
+Le classement est déterministe et sans score agrégé. Trier les candidats éligibles par la clé suivante : obligatoire d’abord, urgence décroissante, impact architectural décroissant, pertinence stack décroissante (`inconnu` après les valeurs numériques), confiance décroissante, récence `48h`, `7d`, `30d`, `discovery`, puis `identity_key` alphabétique.
+
+Lorsque sept candidats ou moins sont éligibles, les conserver tous. Au-delà, retenir les sept premiers, sauf si plus de sept candidats obligatoires existent : les retenir jusqu’au plafond de dix ; si plus de dix candidats obligatoires existent, le dépassement critique est admis. Calculer ensuite le quota OSS. Pour le satisfaire, remplacer seulement les derniers candidats non obligatoires et non OSS par les meilleurs nouveaux projets OSS éligibles encore exclus. Ne jamais évincer un candidat obligatoire. Si le quota reste impossible, inscrire automatiquement une exception motivée dans le manifest et la reprendre dans `Sujets écartés`.
+
+Après sélection, le script recalcule le résultat des douze voies à partir des `coverage_lanes` des seuls candidats retenus. Une voie en échec reste en échec ; une autre voie vaut `signal retenu` seulement si au moins un sujet publié lui est relié, sinon `aucun changement retenu`.
 
 Dans `Sources consultées`, distinguer le rôle `contrôle`, `découverte` ou `qualification` de chaque source. Ne conserver dans le contexte de rédaction que le fait, la date, l’URL canonique, l’impact, les inconnues, la décision existante et les notes nécessaires. Préférer les liens vers les preuves à leur reformulation.
 
@@ -136,7 +202,11 @@ Une exécution lancée par `scripts/run_radar.rb` reçoit le prompt, le présent
 
 `state/budget.yaml` définit une référence de consommation par exécution (`tokens_hors_cache`, cf. Transparence de consommation) et un seuil de dépassement toléré en pourcentage. Après la fin du tour Codex, `scripts/run_radar.rb` compare l’entrée hors cache réellement mesurée à `reference_value * (1 + overrun_threshold_pct/100)`. Au-delà de ce seuil, l’orchestrateur n’injecte pas de commit : il annule les modifications locales produites par le tour, affiche un avertissement explicite avec les valeurs mesurée et de référence, et le radar n’est pas publié. La consommation déjà dépensée pendant la génération n’est pas récupérable ; ce garde-fou protège uniquement la publication, pas le coût déjà engagé du tour en cours. Tant que `reference_value` reste une estimation provisoire (quota réel non communiqué), l’ajuster dès que le quota effectif est connu.
 
-Le contexte préparé est une projection, pas un nouveau registre : les fichiers sous `state/`, `dist/` et `docs/` restent les sources de vérité. Le script de préparation sélectionne les champs nécessaires, les signaux actifs ou observés dans les 90 jours, les sources requises pour la couverture, les sujets récents et les entrées canoniques. Il ne modifie aucun fichier.
+Le contexte préparé est une projection, pas un nouveau registre : les fichiers sous `state/`, `dist/` et `docs/` restent les sources de vérité. Le script de préparation sélectionne les champs nécessaires, y compris l’identité, les notes, l’environnement, la justification, l’historique et la dernière revue des signaux actifs ou observés dans les 90 jours. Il inclut les sources requises pour la couverture, les sujets récents et les entrées canoniques. Il ne modifie aucun fichier.
+
+### Collecte automatisable
+
+`scripts/prepare_radar_context.rb` génère aussi un plan de collecte dédupliqué : une entrée par URL avec les identifiants de source, les voies couvertes, la borne `last_success` et le fallback. Les collecteurs structurés placés dans `scripts/radar_collectors/` peuvent alimenter le manifest à partir de RSS, Atom, JSON ou API. Une source sans collecteur reste qualifiée par l’agent. Dans tous les cas, le manifest et `state/sources.yaml` doivent conserver la tentative, le succès éventuel, le dernier élément vu et la période manquante.
 
 ## Exécution économe
 
@@ -160,11 +230,11 @@ Cette absence est une limite de mesure, non une valeur nulle.
 
 ### Instrumentation des radars
 
-Lorsqu’un radar est lancé par `scripts/run_radar.rb`, l’agent écrit d’abord la variante `non disponible` et ne crée pas de commit. Après la fin du tour Codex, l’orchestrateur récupère la consommation cumulative du tour, remplace cette ligne par :
+Lorsqu’un radar est lancé par `scripts/run_radar.rb`, la phase de rédaction écrit d’abord la variante `non disponible` et ne crée pas de commit. Après les tours de qualification et de rédaction, l’orchestrateur additionne leurs consommations puis remplace cette ligne par :
 
 > **Tokens utilisés :** `<total>` total — entrée `<input>` (dont cache `<cached>`, hors cache `<billed_input>`), sortie `<output>`, raisonnement `<reasoning>` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
-Toutes les valeurs sont des entiers fournis par le runtime, sauf `<billed_input>` qui est dérivé localement (`entrée - cache`) pour isoler la part réellement coûteuse de l’entrée. `cache` est inclus dans `entrée` et `raisonnement` est inclus dans `sortie` : ne pas les additionner une seconde fois. Le total doit être égal à `entrée + sortie`. Utiliser la consommation du tour (`turn_token_usage`), jamais celle de tout le thread, afin de ne pas attribuer au radar des échanges antérieurs. L’orchestrateur injecte les métriques, relance la validation, puis crée le commit local ; un échec d’extraction interdit le commit instrumenté.
+Toutes les valeurs sont des entiers fournis par le runtime, sauf `<billed_input>` qui est dérivé localement (`entrée - cache`) pour isoler la part réellement coûteuse de l’entrée. `cache` est inclus dans `entrée` et `raisonnement` est inclus dans `sortie` : ne pas les additionner une seconde fois. Le total doit être égal à `entrée + sortie`. Utiliser la consommation de chaque tour (`turn_token_usage`), jamais celle de tout le thread, puis additionner les deux tours afin de ne pas attribuer au radar des échanges antérieurs. L’orchestrateur injecte les métriques, relance la validation, puis crée le commit local ; un échec d’extraction interdit le commit instrumenté.
 
 Le total en tokens n’est pas un proxy fiable du coût : un total élevé dominé par le cache peut coûter bien moins qu’un total plus faible mais entièrement hors cache. Pour suivre le coût réel d’un radar dans le temps, comparer `hors cache` (et non `total`) d’une exécution à l’autre.
 

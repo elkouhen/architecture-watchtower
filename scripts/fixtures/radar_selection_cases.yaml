@@ -1,0 +1,14 @@
+cases:
+  - name: radar-2026-09-07
+    candidates:
+      - {id: efs-csi, impact_architectural: 5, urgence: 4, pertinence_stack: 5, confiance: 5}
+      - {id: agent-registry, impact_architectural: 5, urgence: 4, pertinence_stack: 4, confiance: 5}
+      - {id: postgres-mcp, impact_architectural: 5, urgence: 4, pertinence_stack: 4, confiance: 5}
+      - {id: gemini-enterprise, impact_architectural: 4, urgence: 2, pertinence_stack: 3, confiance: 5}
+      - {id: setec, impact_architectural: 4, urgence: 1, pertinence_stack: 4, confiance: 3, oss: true}
+      - {id: openhands-sdk, impact_architectural: 3, urgence: 1, pertinence_stack: 4, confiance: 3, oss: true}
+    expected: [efs-csi, agent-registry, postgres-mcp, gemini-enterprise, setec, openhands-sdk]
+  - name: radar-2026-09-09-cycle-calme
+    candidates:
+      - {id: gke-r38, impact_architectural: 4, urgence: 3, pertinence_stack: 5, confiance: 5}
+    expected: [gke-r38]

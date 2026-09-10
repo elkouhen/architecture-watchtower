@@ -6,6 +6,7 @@ require "pathname"
 require "yaml"
 require "open3"
 require_relative "report_contracts"
+require_relative "radar_selection"
 
 ROOT = Pathname.new(__dir__).join("..").expand_path
 TODAY = Date.today
@@ -116,7 +117,7 @@ end
 def validate_signals
   data = load_yaml("state/signals.yaml")
   signals = registry_records(data, "signals", "signal_fields", "state/signals.yaml")
-  required = %w[id canonical_url subject product_version environment first_seen last_seen status decision owner due_date deliverables publication discard_reason]
+  required = %w[id identity_key canonical_url subject product_version environment first_seen last_seen status decision owner due_date deliverables publication discard_reason]
   statuses = %w[new open closed deferred discarded]
   decisions = %w[monitor qualify test adopt avoid]
   dimensions = %w[impact_architectural urgence pertinence_stack confiance]
@@ -130,11 +131,8 @@ def validate_signals
     error("state/signals.yaml: identifiant de signal dupliqué #{id}")
   end
 
-  by_url = signals.group_by { |signal| signal["canonical_url"] }.select { |url, items| url && items.length > 1 }
-  by_url.each do |url, items|
-    next if items.all? { |item| item["allow_shared_canonical_url"] == true }
-
-    error("state/signals.yaml: URL canonique dupliquée sans justification #{url}")
+  duplicates(signals.map { |signal| signal["identity_key"] }).each do |identity|
+    error("state/signals.yaml: identity_key dupliquée #{identity}")
   end
 
   signals.each do |signal|
@@ -143,6 +141,7 @@ def validate_signals
     missing = required.reject { |field| signal.key?(field) }
     error("state/signals.yaml: #{id}, champs manquants: #{missing.join(', ')}") unless missing.empty?
     error("state/signals.yaml: #{id}, format d'identifiant invalide") unless id.match?(/\ASIG-\d{4}-\d{2}-\d{2}-\d{3}\z/)
+    error("state/signals.yaml: #{id}, identity_key absente") if signal["identity_key"].to_s.strip.empty?
     error("state/signals.yaml: #{id}, statut invalide #{signal['status'].inspect}") unless statuses.include?(signal["status"])
     error("state/signals.yaml: #{id}, décision invalide #{signal['decision'].inspect}") unless decisions.include?(signal["decision"])
 
@@ -176,6 +175,102 @@ def validate_signals
   signals
 end
 
+def validate_radar_manifest(path, text, sources, signals, root: ROOT)
+  report_date = date_value(path.parent.basename.to_s, path.to_s)
+  return unless report_date && report_date >= Date.new(2026, 9, 10)
+
+  manifest_path = root.join("state/radar-runs", "#{report_date.iso8601}.yaml")
+  return error("#{path}: manifest radar absent #{manifest_path.relative_path_from(root)}") unless manifest_path.file?
+
+  data = YAML.safe_load(manifest_path.read, permitted_classes: [Date, Time], aliases: false) || {}
+  WatchtowerRadarSelection.validate(data, date: report_date, selected: true).each do |message|
+    error("#{manifest_path.relative_path_from(root)}: #{message}")
+  end
+
+  known_source_ids = sources.map { |source| source["id"] }
+  declared_source_ids = data.fetch("sources", {}).values.flatten +
+    Array(data["coverage"]).flat_map { |entry| Array(entry["sources"]) } +
+    Array(data["candidates"]).flat_map { |candidate| Array(candidate["evidence"]).map { |proof| proof["source_id"] if proof.is_a?(Hash) } } +
+    Array(data["source_failures"]).map { |failure| failure["source_id"] if failure.is_a?(Hash) }
+  (declared_source_ids.compact.uniq - known_source_ids).each do |id|
+    error("#{manifest_path.relative_path_from(root)}: source inconnue #{id}")
+  end
+
+  source_by_id = sources.each_with_object({}) { |source, memo| memo[source["id"]] = source }
+  Array(data.dig("sources", "control")).each do |id|
+    attempt = source_by_id[id] && source_by_id[id]["last_attempt"]
+    attempt_date = attempt && date_value(attempt, "#{id}.last_attempt")
+    error("#{manifest_path.relative_path_from(root)}: aucune tentative datée pour #{id}") unless attempt_date && attempt_date >= report_date
+  end
+
+  selected = Array(data["candidates"]).select { |candidate| candidate["selection_status"] == "selected" }.sort_by { |candidate| candidate["rank"] }
+  overview = sections_of(text)["vue d’ensemble"]
+  rows = table_rows(overview)
+  rows.shift
+  actual = rows.map do |row|
+    [row[0].to_s[/\[([^\]]+)\]/, 1], row[0].to_s[/\]\((https?:\/\/[^)]+)\)/, 1], row[1]]
+  end
+  expected = selected.map { |candidate| [candidate["name"], candidate["canonical_url"], "#{candidate['nature']} · #{candidate['novelty']}"] }
+  error("#{path}: sélection publiée différente du manifest") unless actual == expected
+
+  selected.each do |candidate|
+    error("#{path}: fait qualifié absent du rapport pour #{candidate['id']}") unless text.include?(candidate["fact"])
+    Array(candidate["evidence"]).select { |proof| proof["primary"] == true }.each do |proof|
+      error("#{path}: preuve primaire absente du rapport pour #{candidate['id']}") unless text.include?(proof["url"])
+    end
+    signal = signals.find { |item| item["identity_key"] == candidate["identity_key"] }
+    if !signal
+      error("#{path}: signal absent pour #{candidate['identity_key']}")
+    elsif !Array(signal["deliverables"]).include?(path.relative_path_from(root).to_s)
+      error("#{path}: livrable absent du signal #{signal['id']}")
+    else
+      expected_classification = {
+        "Nouveau projet OSS" => "nouveau_projet_oss",
+        "Nouveau hors OSS" => "nouveau_hors_oss",
+        "Mise à jour" => "mise_a_jour"
+      }.fetch(candidate["novelty"])
+      error("#{path}: URL du signal #{signal['id']} différente du candidat") unless signal["canonical_url"] == candidate["canonical_url"]
+      error("#{path}: classe du signal #{signal['id']} différente du candidat") unless signal["classification"] == expected_classification
+      %w[impact_architectural urgence pertinence_stack confiance decision owner].each do |field|
+        error("#{path}: #{field} du signal #{signal['id']} différent du candidat") unless signal[field] == candidate[field]
+      end
+      error("#{path}: échéance du signal #{signal['id']} différente du candidat") unless signal["due_date"].to_s == candidate["due_date"].to_s
+      error("#{path}: last_seen du signal #{signal['id']} différent de la date du radar") unless signal["last_seen"].to_s == report_date.iso8601
+    end
+  end
+
+  rejected_new_identities = Array(data["candidates"]).select do |candidate|
+    candidate["selection_status"] != "selected" && candidate["novelty"] != "Mise à jour"
+  end.map { |candidate| candidate["identity_key"] }
+  signals.each do |signal|
+    if rejected_new_identities.include?(signal["identity_key"]) && signal["first_seen"].to_s == report_date.iso8601
+      error("#{path}: candidat rejeté ajouté au registre #{signal['id']}")
+    end
+  end
+
+  coverage_data = contract_yaml(sections_of(text)["sources consultées"].to_s, "watchtower-couverture", path.to_s)
+  if coverage_data
+    expected_coverage = {
+      "algorithm" => data["algorithm"],
+      "control_sources" => data.dig("sources", "control"),
+      "discovery_sources" => data.dig("sources", "discovery"),
+      "qualification_sources" => data.dig("sources", "qualification"),
+      "coverage" => data["coverage"]
+    }
+    error("#{path}: couverture publiée différente du manifest") unless coverage_data == expected_coverage
+  end
+  exception = data.dig("selection", "oss_exception")
+  error("#{path}: exception quota OSS du manifest absente") if exception && !text.include?("Exception quota OSS : #{exception}")
+  failure_section = sections_of(text)["sources en échec"].to_s
+  Array(data["source_failures"]).each do |failure|
+    unless failure_section.include?(failure["source_id"]) && failure_section.include?(failure["period"]) && failure_section.include?(failure["consequence"])
+      error("#{path}: échec de source #{failure['source_id']} différent du manifest")
+    end
+  end
+rescue Psych::Exception => e
+  error("#{manifest_path.relative_path_from(root)}: YAML invalide (#{e.message})")
+end
+
 def validate_local_links
   %w[README.md docs/catalogue.md docs/rapports.md].each do |relative_path|
     path = ROOT.join(relative_path)
@@ -196,7 +291,7 @@ def validate_local_links
   end
 end
 
-def validate_report(relative_path, source_data, sources)
+def validate_report(relative_path, source_data, sources, signals)
   path = ROOT.join(relative_path).cleanpath
   return error("rapport hors du dépôt: #{relative_path}") unless path.to_s.start_with?(ROOT.to_s + File::SEPARATOR)
   return error("rapport absent: #{relative_path}") unless path.file?
@@ -212,6 +307,7 @@ def validate_report(relative_path, source_data, sources)
   if modern
     previous_usage = previous.lines.any? { |line| line.start_with?("> **Tokens utilisés :**") }
     validate_contract(text, path, ROOT, require_token_usage: !status.success? || previous_usage)
+    validate_radar_manifest(path, text, sources, signals) if path.basename.to_s == "radar-architecture.md"
     return
   end
 
@@ -291,7 +387,7 @@ report = report_index && ARGV[report_index + 1]
 error("--report exige un chemin") if report_index && report.nil?
 
 source_data, sources = validate_sources
-validate_signals
+signals = validate_signals
 validate_local_links
 
 validated_reports = if report
@@ -305,7 +401,7 @@ else
   end
 end
 
-validated_reports.each { |path| validate_report(path, source_data, sources) }
+validated_reports.each { |path| validate_report(path, source_data, sources, signals) }
 validate_monthly_editions(ROOT)
 validate_daily_freshness if ARGV.include?("--daily")
 

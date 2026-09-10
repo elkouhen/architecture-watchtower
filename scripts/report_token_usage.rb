@@ -72,6 +72,11 @@ module WatchtowerTokenUsage
       "Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel."
   end
 
+  def sum(*usages)
+    keys = %i[input cached output reasoning total]
+    keys.to_h { |key| [key, usages.sum { |usage| usage.fetch(key) }] }
+  end
+
   def usage_from(event)
     case event["type"]
     when "turn.completed"

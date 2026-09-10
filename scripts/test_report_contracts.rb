@@ -226,4 +226,56 @@ class ReportContractsTest < Minitest::Test
     validate_radar_contract(radar(coverage).sub("coverage:", "coverage: ["), "test", Date.new(2026, 9, 5))
     assert ERRORS.any? { |message| message.include?("YAML") }
   end
+
+  def test_report_must_match_selected_manifest
+    Dir.mktmpdir("watchtower-manifest-test-") do |dir|
+      root = Pathname.new(dir)
+      report_path = root.join("dist/2026-09-10/radar-architecture.md")
+      manifest_path = root.join("state/radar-runs/2026-09-10.yaml")
+      FileUtils.mkdir_p(report_path.dirname)
+      FileUtils.mkdir_p(manifest_path.dirname)
+      current_coverage = coverage.map do |entry|
+        entry.merge("checked_at" => "2026-09-10T12:00:00+02:00", "through" => "2026-09-10")
+      end
+      candidate = {
+        "id" => "candidate-a", "identity_key" => "product:a", "name" => "A",
+        "canonical_url" => "https://example.org/a", "nature" => "outil", "novelty" => "Nouveau projet OSS",
+        "subject" => "Changement A", "product_version" => "1.0", "environment" => "exposition inconnue",
+        "substantive_change" => true, "architectural_effect" => true, "primary_evidence" => true,
+        "open_source" => true, "new_project" => true, "license" => "MIT",
+        "impact_architectural" => 3, "urgence" => 2, "pertinence_stack" => 3, "confiance" => 4,
+        "recency" => "48h", "coverage_lanes" => [], "signal_level" => "normal", "scoring_note" => "Notes justifiées.",
+        "fact" => "Fait documenté.", "analysis" => "Impact documenté.", "unknowns" => "Exposition inconnue.",
+        "maturity" => "Projet maintenu.", "decision" => "qualify", "owner" => "plateforme",
+        "due_date" => "2026-09-24", "success_criterion" => "Inventaire établi.",
+        "evidence" => [{ "source_id" => "source", "url" => "https://example.org/a", "primary" => true,
+          "observed_at" => "2026-09-10", "fact" => "Version vérifiée." }]
+      }
+      manifest = {
+        "schema_version" => 1, "date" => "2026-09-10", "algorithm" => "scan-filter-verify-publish",
+        "sources" => { "control" => current_coverage.flat_map { |entry| entry["sources"] }.uniq,
+          "discovery" => ["github-trending"], "qualification" => ["source"] },
+        "coverage" => current_coverage, "source_failures" => [],
+        "candidate_yield_note" => "Fixture de moins de douze candidats.", "candidates" => [candidate]
+      }
+      WatchtowerRadarSelection.select!(manifest)
+      File.write(manifest_path, YAML.dump(manifest))
+      report = radar(current_coverage, { "qualification_sources" => ["source"] }, subjects: ["A"])
+      File.write(report_path, report)
+      source_ids = manifest["sources"].values.flatten.uniq
+      sources = source_ids.map { |id| { "id" => id, "last_attempt" => "2026-09-10" } }
+      signals = [{ "id" => "SIG-2026-09-10-001", "identity_key" => "product:a",
+        "canonical_url" => "https://example.org/a", "classification" => "nouveau_projet_oss",
+        "impact_architectural" => 3, "urgence" => 2, "pertinence_stack" => 3, "confiance" => 4,
+        "decision" => "qualify", "owner" => "plateforme", "due_date" => "2026-09-24",
+        "first_seen" => "2026-09-10", "last_seen" => "2026-09-10",
+        "deliverables" => ["dist/2026-09-10/radar-architecture.md"] }]
+
+      validate_radar_manifest(report_path, report, sources, signals, root: root)
+      assert_empty ERRORS
+
+      validate_radar_manifest(report_path, report.sub("https://example.org/a", "https://example.org/other"), sources, signals, root: root)
+      assert ERRORS.any? { |message| message.include?("sélection publiée différente") }
+    end
+  end
 end

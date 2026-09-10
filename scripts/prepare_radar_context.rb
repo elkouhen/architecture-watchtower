@@ -11,12 +11,14 @@ module WatchtowerRadarContext
   class Error < StandardError; end
 
   DUE_SIGNAL_FIELDS = %w[
-    id canonical_url subject product_version environment first_seen last_seen
+    id identity_key canonical_url subject product_version environment first_seen last_seen
     impact_architectural urgence pertinence_stack confiance status decision owner
-    due_date classification last_reviewed review_note
+    due_date classification history scoring_note last_reviewed review_note
   ].freeze
   RECENT_SIGNAL_FIELDS = %w[
-    id canonical_url subject product_version first_seen last_seen status decision owner due_date classification
+    id identity_key canonical_url subject product_version environment first_seen last_seen
+    impact_architectural urgence pertinence_stack confiance status decision owner due_date
+    classification history scoring_note last_reviewed review_note
   ].freeze
   SOURCE_FIELDS = %w[
     id name type url fallback last_attempt last_success last_item_seen status notes
@@ -58,6 +60,36 @@ module WatchtowerRadarContext
     }
   end
 
+  def identity_key(record)
+    value = record["identity_key"].to_s.strip
+    value.empty? ? "legacy:#{record['id']}" : value
+  end
+
+  def collection_plan(sources, requirements, date)
+    lanes_by_source = Hash.new { |hash, key| hash[key] = [] }
+    requirements.each do |domain, lanes|
+      lanes.each do |lane, ids|
+        Array(ids).each { |id| lanes_by_source[id] << "#{domain}/#{lane}" }
+      end
+    end
+
+    sources.group_by { |source| source["url"] }.values.map do |same_url|
+      ids = same_url.map { |source| source["id"] }
+      roles = []
+      roles << "control" if ids.any? { |id| lanes_by_source.key?(id) }
+      roles << "discovery" if (ids & DISCOVERY_SOURCE_IDS).any?
+      {
+        "url" => same_url.first["url"],
+        "source_ids" => ids,
+        "roles" => roles,
+        "lanes" => ids.flat_map { |id| lanes_by_source[id] }.uniq.sort,
+        "from" => same_url.map { |source| iso(source["last_success"]) }.compact.min,
+        "through" => date.iso8601,
+        "fallbacks" => same_url.map { |source| source["fallback"] }.compact.uniq
+      }
+    end.sort_by { |entry| entry["url"].to_s }
+  end
+
   def report_entries(root, from, through)
     root.glob("dist/*/radar-architecture.md").sort.each_with_object([]) do |path, result|
       report_date = Date.iso8601(path.parent.basename.to_s)
@@ -97,6 +129,7 @@ module WatchtowerRadarContext
     rescue Date::Error
       true
     end
+    recent_signals.each { |signal| signal["identity_key"] = identity_key(signal) }
 
     due_signals = recent_signals.select do |signal|
       due = signal["due_date"] && Date.parse(signal["due_date"].to_s)
@@ -128,6 +161,7 @@ module WatchtowerRadarContext
       "coverage_requirements" => requirements,
       "control_source_ids" => control_ids,
       "sources" => compact_table(selected_sources, SOURCE_FIELDS),
+      "collection_plan" => collection_plan(selected_sources, requirements, date),
       "discovery_source_ids" => DISCOVERY_SOURCE_IDS,
       "recent_report_subjects" => compact_table(recent_report_subjects, %w[date name canonical_url]),
       "catalogue_only_entries" => compact_table(catalogue_only, %w[name canonical_url]),

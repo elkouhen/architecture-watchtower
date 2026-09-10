@@ -41,10 +41,14 @@ class PrepareRadarContextTest < Minitest::Test
 
       assert_equal "tabular-v1", context.dig("recent_signals", "format")
       assert_equal "recent", context.dig("recent_signals", "rows", 0, 0)
+      identity_index = context.dig("recent_signals", "fields").index("identity_key")
+      assert_equal "legacy:recent", context.dig("recent_signals", "rows", 0, identity_index)
       assert_equal ["recent"], context["due_signals"].map { |signal| signal["id"] }
       assert_equal "control", context.dig("sources", "rows", 0, 0)
       assert_equal "Recent", context.dig("recent_report_subjects", "rows", 0, 1)
       refute_includes JSON.generate(context), "https://example.org/unused"
+      assert_equal ["AWS/releases_features"], context.dig("collection_plan", 0, "lanes")
+      assert_equal "2026-09-08", context.dig("collection_plan", 0, "from")
     end
   end
 end

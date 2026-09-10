@@ -8,6 +8,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - [Rapports et cartes par date](docs/rapports.md)
 - Prompts : [radar](radar-architecture.md), [carte de service](carte-service.md), [classement mensuel](classement-mensuel.md)
 - [Contrats de validation, preuves et notation](docs/contrats-veille.md)
+- [Backlog de fiabilisation du radar](docs/backlog-radar.md)
 
 ## Livrables
 
@@ -27,14 +28,16 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - [Carte GitLab Duo Agent Platform](dist/2026-09-05/carte-gitlab-duo-agent-platform.md) · CI/CD agentique · découverte
 - Registre des signaux : [`state/signals.yaml`](state/signals.yaml)
 - Registre des sources : [`state/sources.yaml`](state/sources.yaml)
+- Manifests déterministes des radars : `state/radar-runs/YYYY-MM-DD.yaml`
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)
 - Validation locale : `ruby scripts/validate_watchtower.rb`
 - Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
-- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; journal lisible affiché en continu, contexte local compact, métriques, validation et commit)
+- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; qualification structurée, sélection Ruby, rédaction verrouillée, métriques cumulées, validation et commit)
 - Régénération instrumentée du radar du jour : `ruby scripts/run_radar.rb --replace`
+- Calcul manuel d’un manifest : `ruby scripts/select_radar_candidates.rb --manifest state/radar-runs/AAAA-MM-JJ.yaml`
+- Collecte d’un flux RSS/Atom enregistré : `ruby scripts/collect_radar_source.rb --source ID --update-registry`
 - PRD : [`PRD.md`](PRD.md)
-- Tests : `ruby scripts/test_prepare_radar_context.rb`, `ruby scripts/test_report_contracts.rb` et `ruby scripts/test_report_token_usage.rb`
-- Tests de l’instrumentation : `ruby scripts/test_report_token_usage.rb`
+- Tests du radar : `ruby scripts/test_prepare_radar_context.rb`, `ruby scripts/test_radar_selection.rb`, `ruby scripts/test_radar_feed_collector.rb`, `ruby scripts/test_radar_source_registry.rb`, `ruby scripts/test_report_contracts.rb` et `ruby scripts/test_report_token_usage.rb`
 
 ## Principes
 

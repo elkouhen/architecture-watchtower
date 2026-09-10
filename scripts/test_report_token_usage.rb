@@ -105,4 +105,14 @@ class ReportTokenUsageTest < Minitest::Test
         "`150` total — entrée `120` (dont cache `80`, hors cache `40`), sortie `30`, raisonnement `10`"
     end
   end
+
+  def test_sums_multiple_orchestrated_turns
+    first = WatchtowerTokenUsage.normalize(complete_usage)
+    second = WatchtowerTokenUsage.normalize(complete_usage.merge(
+      "input_tokens" => 50, "cached_input_tokens" => 20, "output_tokens" => 10,
+      "reasoning_output_tokens" => 4, "total_tokens" => 60
+    ))
+
+    assert_equal({ input: 170, cached: 100, output: 40, reasoning: 14, total: 210 }, WatchtowerTokenUsage.sum(first, second))
+  end
 end
