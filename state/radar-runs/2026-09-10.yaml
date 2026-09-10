@@ -1,0 +1,529 @@
+---
+schema_version: 1
+date: '2026-09-10'
+algorithm: scan-filter-verify-publish
+sources:
+  control:
+  - aws-whats-new
+  - aws-security-bulletins
+  - aws-eks-lifecycle
+  - aws-bedrock-history
+  - gcp-release-notes
+  - gcp-security-bulletins
+  - gcp-deprecation-policy
+  - gke-release-notes
+  - gke-security-bulletins
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - openai-api-deprecations
+  - anthropic-release-notes
+  discovery:
+  - github-trending
+  - trendshift
+  qualification:
+  - gcp-release-notes
+  - gcp-security-bulletins
+  - openai-api-changelog
+coverage:
+- domain: AWS
+  lane: releases_features
+  sources:
+  - aws-whats-new
+  - aws-bedrock-history
+  scope: Annonces AWS générales et historique Bedrock ; disponibilité fournisseur,
+    pas exposition locale.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: 'Flux What''s New non pris en charge, fallback trop ancien ; historique Bedrock
+    arrêté au 05/09 et fallback inaccessible. Périodes manquantes : What''s New 09–10/09,
+    Bedrock 07–10/09.'
+- domain: AWS
+  lane: security
+  sources:
+  - aws-security-bulletins
+  scope: Bulletins de sécurité AWS pour services et composants publiés par AWS ; exposition
+    locale inconnue.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Flux RSS non pris en charge et fallback daté d'une semaine ; période du 09
+    au 10/09 non close.
+- domain: AWS
+  lane: lifecycle_deprecations
+  sources:
+  - aws-eks-lifecycle
+  - aws-bedrock-history
+  scope: Versions, support standard/étendu et coûts EKS ; lifecycle et disponibilité
+    Bedrock.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Pages EKS et fallback capturés avec deux à trois semaines de retard ; Bedrock
+    reste incomplet du 07 au 10/09.
+- domain: AWS
+  lane: availability_quotas_costs
+  sources:
+  - aws-whats-new
+  - aws-bedrock-history
+  scope: Régions, quotas et coûts annoncés dans AWS What's New et l'historique Bedrock.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: 'Aucun des deux deltas n''a pu être clos : What''s New 09–10/09 et Bedrock
+    07–10/09.'
+- domain: GCP
+  lane: releases_features
+  sources:
+  - gcp-release-notes
+  - gke-release-notes
+  - vertex-ai-release-notes
+  scope: Notes générales GCP, versions/fonctionnalités GKE et mises à jour Vertex
+    AI ; déploiement local inconnu.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Le delta général GCP et Vertex AI est clos, mais la page GKE détaillée a expiré
+    et son fallback datait du 07/09 ; volet GKE du 09 au 10/09 incomplet.
+- domain: GCP
+  lane: security
+  sources:
+  - gcp-security-bulletins
+  - gke-security-bulletins
+  scope: Bulletins GCP et GKE ; le bulletin général GCP-2026-061 ne prouve pas une
+    configuration GKE locale avec CRIU.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: GCP-2026-061 est qualifié via le bulletin général ; la capture du bulletin
+    GKE ne le contenait pas encore et son fallback datait de deux semaines. Volet
+    GKE non clos.
+- domain: GCP
+  lane: lifecycle_deprecations
+  sources:
+  - gcp-deprecation-policy
+  - gke-release-notes
+  - vertex-ai-release-notes
+  scope: Politique de dépréciation GCP, lifecycle GKE et changements incompatibles
+    Vertex AI.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Politique GCP et Vertex AI contrôlées ; le delta lifecycle GKE du 09 au 10/09
+    reste inaccessible.
+- domain: GCP
+  lane: availability_quotas_costs
+  sources:
+  - gcp-release-notes
+  - vertex-ai-release-notes
+  scope: Disponibilités, régions, quotas et coûts annoncés par GCP et Vertex AI ;
+    exposition et contrats locaux inconnus.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-10'
+  result: aucun changement retenu
+  complete: true
+  note: Intervalle entièrement parcouru ; disponibilité régionale Gemini et autres
+    changements datés du 09/09 examinés.
+- domain: IA
+  lane: releases_features
+  sources:
+  - aws-bedrock-history
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - anthropic-release-notes
+  scope: Fonctionnalités de plateformes et modèles IA AWS, GCP, OpenAI et Anthropic
+    ; disponibilité locale inconnue.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du
+    07 au 10/09.
+- domain: IA
+  lane: security
+  sources:
+  - aws-security-bulletins
+  - gcp-security-bulletins
+  scope: Bulletins AWS et GCP susceptibles d'affecter runtimes, agents, connecteurs
+    ou données IA.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Bulletins GCP contrôlés ; flux et fallback AWS insuffisamment frais pour clore
+    le 09–10/09.
+- domain: IA
+  lane: lifecycle_deprecations
+  sources:
+  - aws-bedrock-history
+  - vertex-ai-release-notes
+  - openai-api-deprecations
+  - anthropic-release-notes
+  scope: Dépréciations et changements incompatibles des plateformes IA ; usages et
+    modèles locaux inconnus.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du
+    07 au 10/09.
+- domain: IA
+  lane: availability_quotas_costs
+  sources:
+  - aws-bedrock-history
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - anthropic-release-notes
+  scope: Disponibilité, régions, quotas et coûts des plateformes IA ; droits contractuels
+    et exposition locale inconnus.
+  checked_at: '2026-09-10T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-10'
+  result: échec
+  complete: false
+  note: Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du
+    07 au 10/09.
+source_failures:
+- source_id: aws-whats-new
+  period: 2026-09-09/2026-09-10
+  consequence: Flux RSS non pris en charge et fallback trop ancien ; AWS releases/features
+    et disponibilité restent incomplets.
+- source_id: aws-security-bulletins
+  period: 2026-09-09/2026-09-10
+  consequence: Flux RSS non pris en charge et fallback trop ancien ; sécurité AWS
+    et IA partiellement couverte.
+- source_id: aws-eks-lifecycle
+  period: 2026-09-09/2026-09-10
+  consequence: Captures primaire et fallback trop anciennes pour clore le delta lifecycle
+    EKS.
+- source_id: aws-bedrock-history
+  period: 2026-09-07/2026-09-10
+  consequence: Historique arrêté au 05/09 et fallback inaccessible ; voies AWS et
+    IA liées à Bedrock incomplètes.
+- source_id: gke-release-notes
+  period: 2026-09-09/2026-09-10
+  consequence: Page détaillée expirée et fallback daté du 07/09 ; releases et lifecycle
+    GKE incomplets.
+- source_id: gke-security-bulletins
+  period: 2026-09-09/2026-09-10
+  consequence: Capture sans GCP-2026-061 et fallback trop ancien ; le bulletin général
+    GCP qualifie le candidat mais ne clôt pas la source GKE.
+- source_id: github-trending
+  period: 2026-09-09/2026-09-10
+  consequence: La liste de dépôts n'était pas exposée par la page ni par Explore ;
+    découverte assurée uniquement par Trendshift.
+candidate_yield_note: 'Vingt pistes ont été examinées : douze changements des deltas
+  officiels et huit entrées représentatives de Trendshift. Cinq ont franchi les trois
+  filtres et sont consignées ci-dessous ; les quinze autres, dont tous les nouveaux
+  projets OSS, ont été arrêtées comme doublons récents, changements trop locaux ou
+  pistes applicatives avant qualification complète.'
+candidates:
+- id: gcp-2026-061-containerd-criu
+  identity_key: gcp:gke-security:gcp-2026-061-containerd-criu
+  name: GKE — restauration containerd avec CRIU
+  canonical_url: https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
+  nature: plateforme
+  novelty: Nouveau hors OSS
+  subject: GCP-2026-061 signale qu'un checkpoint CRIU non fiable peut contourner le
+    contexte de sécurité demandé lors d'une restauration containerd.
+  product_version: GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 48h
+  impact_architectural: 5
+  urgence: 4
+  pertinence_stack: 4
+  confiance: 5
+  signal_level: normal
+  scoring_note: 'Impact 5 : contournement de contrôles de sécurité jusqu''aux privilèges
+    root ; urgence 4 : bulletin récent à qualifier rapidement sans exploitation annoncée
+    ; pertinence 4 : Kubernetes et sécurité sont au cœur du radar, exposition locale
+    inconnue ; confiance 5 : bulletin primaire détaillé et conditions d''exposition
+    explicites.'
+  fact: Fait — GCP-2026-061 décrit un contournement du contexte de sécurité lors de
+    la restauration d'un checkpoint non fiable avec containerd et CRIU ; les clusters
+    GKE par défaut ne sont pas vulnérables.
+  analysis: Analyse — le risque concerne les plateformes qui ont explicitement ajouté
+    un mécanisme de checkpoint/restauration non fiable, pas un cluster GKE standard.
+  unknowns: Usage local de CRIU, provenance des checkpoints et versions effectivement
+    déployées à qualifier.
+  maturity: Bulletin fournisseur publié ; identifiant CVE encore en attente au moment
+    du contrôle.
+  decision: qualify
+  owner: sécurité/plateforme
+  due_date: '2026-09-17'
+  success_criterion: Inventaire confirmant l'absence de restauration CRIU non fiable,
+    ou versions/mesures correctives documentées pour chaque cluster concerné.
+  coverage_lanes:
+  - GCP/security
+  - IA/security
+  evidence:
+  - source_id: gcp-security-bulletins
+    primary: true
+    url: https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
+    published_at: '2026-09-09'
+    effective_at: inconnue
+    observed_at: '2026-09-10'
+    fact: Le bulletin décrit l'élévation de privilèges via checkpoint CRIU non fiable
+      et précise que GKE n'active pas cette capacité par défaut.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 1
+- id: apigee-semantic-cache-distance
+  identity_key: gcp:apigee:semantic-cache-distance-measures
+  name: Apigee SemanticCacheLookup
+  canonical_url: https://cloud.google.com/release-notes#September_09_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Apigee permet de choisir la mesure de distance du cache sémantique et change
+    le sens de comparaison du seuil selon cette mesure.
+  product_version: Apigee 1-18-0-apigee-4 et versions ultérieures
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 48h
+  impact_architectural: 4
+  urgence: 3
+  pertinence_stack: 4
+  confiance: 5
+  signal_level: normal
+  scoring_note: 'Impact 4 : la mesure et le seuil déterminent les réponses réutilisées
+    par une couche de cache IA ; urgence 3 : tout passage à une mesure non par défaut
+    exige un recalibrage ; pertinence 4 : gouvernance et exploitation des gateways
+    IA sont prioritaires ; confiance 5 : version et comportement documentés par les
+    notes officielles.'
+  fact: Fait — Apigee 1-18-0-apigee-4 ajoute plusieurs mesures de distance à SemanticCacheLookup
+    et impose de recalibrer le seuil lorsqu'une mesure non par défaut est choisie.
+  analysis: Analyse — cette flexibilité améliore l'adaptation au modèle d'embeddings
+    mais rend le seuil partie intégrante du contrat de qualité du cache.
+  unknowns: Présence d'Apigee SemanticCacheLookup et métriques de faux positifs dans
+    la stack à qualifier.
+  maturity: Fonctionnalité documentée dans une version Apigee en déploiement progressif.
+  decision: qualify
+  owner: plateforme IA/API
+  due_date: '2026-09-24'
+  success_criterion: Mesure de distance, seuil et jeu de validation inventoriés pour
+    chaque cache sémantique utilisé.
+  coverage_lanes:
+  - GCP/releases_features
+  - IA/releases_features
+  evidence:
+  - source_id: gcp-release-notes
+    primary: true
+    url: https://cloud.google.com/release-notes#September_09_2026
+    published_at: '2026-09-09'
+    effective_at: '2026-09-09'
+    observed_at: '2026-09-10'
+    fact: Les notes GCP documentent les nouvelles distances et le sens de comparaison
+      du seuil à partir d'Apigee 1-18-0-apigee-4.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 2
+- id: openai-prompt-cache-diagnostics
+  identity_key: openai:responses-api:prompt-cache-diagnostics
+  name: OpenAI Prompt Cache Diagnostics
+  canonical_url: https://developers.openai.com/api/docs/changelog
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: L'API Responses expose des diagnostics structurés pour expliquer les succès
+    et échecs du cache de prompts.
+  product_version: OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 7d
+  impact_architectural: 3
+  urgence: 2
+  pertinence_stack: 4
+  confiance: 5
+  signal_level: normal
+  scoring_note: 'Impact 3 : les diagnostics rendent observable un mécanisme de coût
+    et latence jusque-là opaque ; urgence 2 : aucune rupture ni échéance ; pertinence
+    4 : exploitation et coûts IA sont prioritaires ; confiance 5 : changelog et schéma
+    d''API officiels concordent.'
+  fact: Fait — Prompt Cache Diagnostics est disponible dans l'API Responses pour les
+    modèles GPT-5.6 et ultérieurs et retourne notamment la raison d'un cache miss.
+  analysis: Analyse — ces champs peuvent alimenter des SLO de cache et isoler les
+    changements de préfixe ou de modèle qui augmentent le coût hors cache.
+  unknowns: Modèles utilisés, politique de rétention et instrumentation locale à qualifier.
+  maturity: Capacité GA de l'API Responses, à intégrer comme télémétrie et non comme
+    contrôle de disponibilité.
+  decision: qualify
+  owner: plateforme IA/FinOps
+  due_date: '2026-10-01'
+  success_criterion: Tableau de bord distinguant hits, misses et raisons de miss sur
+    les principaux flux Responses.
+  coverage_lanes:
+  - IA/releases_features
+  - IA/availability_quotas_costs
+  evidence:
+  - source_id: openai-api-changelog
+    primary: true
+    url: https://developers.openai.com/api/docs/changelog
+    published_at: '2026-09-08'
+    effective_at: '2026-09-08'
+    observed_at: '2026-09-10'
+    fact: Le changelog annonce Prompt Cache Diagnostics en GA et le schéma Responses
+      expose les champs de diagnostic.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 5
+- id: cloud-sdk-minikube-deprecation
+  identity_key: gcp:cloud-sdk:minikube-component-removal-2027-01-31
+  name: Cloud SDK — composant Minikube
+  canonical_url: https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09
+  nature: outil
+  novelty: Nouveau hors OSS
+  subject: Google déprécie le composant Minikube empaqueté dans la CLI gcloud et annonce
+    son retrait après le 31 janvier 2027.
+  product_version: Google Cloud SDK 584.0.0
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 48h
+  impact_architectural: 3
+  urgence: 3
+  pertinence_stack: 4
+  confiance: 5
+  signal_level: normal
+  scoring_note: 'Impact 3 : les images de postes et CI qui installent Minikube via
+    gcloud doivent changer de chaîne d''installation ; urgence 3 : retrait daté au
+    31 janvier 2027 ; pertinence 4 : Kubernetes et outillage développeur sont centraux
+    ; confiance 5 : version, date et voie de migration sont documentées officiellement.'
+  fact: Fait — Cloud SDK 584.0.0 déprécie son composant Minikube et prévoit son retrait
+    après le 31 janvier 2027, sans supprimer les configurations et clusters existants.
+  analysis: Analyse — la dépendance à l'empaquetage gcloud doit être remplacée par
+    l'installation OSS standard dans les postes, images CI et scripts de bootstrap
+    concernés.
+  unknowns: Usage local de gcloud components install minikube à inventorier.
+  maturity: Dépréciation officielle avec date de retrait et solution de remplacement
+    documentée.
+  decision: qualify
+  owner: plateforme développeur
+  due_date: '2026-10-08'
+  success_criterion: Aucune image ou procédure maintenue ne dépend du composant Minikube
+    de gcloud.
+  coverage_lanes:
+  - GCP/lifecycle_deprecations
+  evidence:
+  - source_id: gcp-release-notes
+    primary: true
+    url: https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09
+    published_at: '2026-09-09'
+    effective_at: '2027-01-31'
+    observed_at: '2026-09-10'
+    fact: Les notes Cloud SDK 584.0.0 annoncent la dépréciation du composant Minikube
+      et son retrait après le 31 janvier 2027.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 3
+- id: agent-gateway-service-extensions
+  identity_key: gcp:agent-gateway:service-extensions-authorization
+  name: Agent Gateway avec Service Extensions
+  canonical_url: https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026
+  nature: plateforme
+  novelty: Nouveau hors OSS
+  subject: Agent Gateway peut déléguer les décisions d'autorisation du trafic agentique
+    à un service Google ou personnalisé via Service Extensions.
+  product_version: Google Cloud Agent Gateway et Service Extensions GA
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 30d
+  impact_architectural: 4
+  urgence: 2
+  pertinence_stack: 4
+  confiance: 5
+  signal_level: normal
+  scoring_note: 'Impact 4 : l''autorisation peut être externalisée au point de passage
+    du trafic agentique ; urgence 2 : GA sans migration imposée ; pertinence 4 : gouvernance
+    des agents et gateways est prioritaire ; confiance 5 : statut GA et périmètre
+    documentés par la source primaire.'
+  fact: Fait — Agent Gateway prend en charge Service Extensions en GA pour évaluer
+    les requêtes et déléguer l'autorisation du trafic agentique à des services Google
+    ou personnalisés.
+  analysis: Analyse — ce point d'extension permet de centraliser une politique d'autorisation,
+    mais son indisponibilité ne doit pas devenir un défaut d'ouverture implicite.
+  unknowns: Usage local d'Agent Gateway, modèle de décision et comportement de repli
+    à qualifier.
+  maturity: Intégration déclarée GA ; résilience et latence d'une extension personnalisée
+    restent propres à l'implémentation.
+  decision: monitor
+  owner: architecture IA/sécurité
+  due_date: '2026-10-01'
+  success_criterion: Décision documentée sur le point d'autorisation, le mode de repli
+    et les SLO si Agent Gateway est retenu.
+  coverage_lanes:
+  - GCP/releases_features
+  - IA/releases_features
+  - IA/security
+  evidence:
+  - source_id: gcp-release-notes
+    primary: true
+    url: https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026
+    published_at: '2026-08-31'
+    effective_at: '2026-08-31'
+    observed_at: '2026-09-10'
+    fact: Les notes Service Extensions annoncent l'intégration Agent Gateway en disponibilité
+      générale.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 4
+selection:
+  selected_ids:
+  - gcp-2026-061-containerd-criu
+  - apigee-semantic-cache-distance
+  - cloud-sdk-minikube-deprecation
+  - agent-gateway-service-extensions
+  - openai-prompt-cache-diagnostics
+  eligible_count: 5
+  selected_count: 5
+  mandatory_count: 1
+  oss_required: 2
+  oss_selected: 0
+  oss_exception: 0 nouveau(x) projet(s) OSS éligible(s) pour 2 requis ; aucune alerte
+    obligatoire n’a été évincée.
