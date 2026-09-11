@@ -242,6 +242,7 @@ candidates:
   canonical_url: https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
   nature: plateforme
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: GCP-2026-061 signale qu'un checkpoint CRIU non fiable peut contourner le
     contexte de sécurité demandé lors d'une restauration containerd.
   product_version: GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
@@ -299,6 +300,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_09_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Apigee permet de choisir la mesure de distance du cache sémantique et change
     le sens de comparaison du seuil selon cette mesure.
   product_version: Apigee 1-18-0-apigee-4 et versions ultérieures
@@ -354,6 +356,7 @@ candidates:
   canonical_url: https://developers.openai.com/api/docs/changelog
   nature: service
   novelty: Nouveau hors OSS
+  origin: OpenAI
   subject: L'API Responses expose des diagnostics structurés pour expliquer les succès
     et échecs du cache de prompts.
   product_version: OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
@@ -408,6 +411,7 @@ candidates:
   canonical_url: https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09
   nature: outil
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Google déprécie le composant Minikube empaqueté dans la CLI gcloud et annonce
     son retrait après le 31 janvier 2027.
   product_version: Google Cloud SDK 584.0.0
@@ -462,6 +466,7 @@ candidates:
   canonical_url: https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026
   nature: plateforme
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Agent Gateway peut déléguer les décisions d'autorisation du trafic agentique
     à un service Google ou personnalisé via Service Extensions.
   product_version: Google Cloud Agent Gateway et Service Extensions GA

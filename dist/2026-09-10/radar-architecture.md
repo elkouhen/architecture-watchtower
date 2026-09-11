@@ -8,11 +8,11 @@ Exposition locale commune : à qualifier. Couverture incomplète : plusieurs del
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) | plateforme · Nouveau hors OSS | Un checkpoint non fiable peut contourner le contexte de sécurité demandé. | [Fiche](#gke--restauration-containerd-avec-criu) |
-| [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026) | service · Nouveau hors OSS | Les distances deviennent configurables et imposent de recalibrer le seuil. | [Fiche](#apigee-semanticcachelookup) |
-| [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09) | outil · Nouveau hors OSS | Le composant Minikube de gcloud sera retiré après janvier 2027. | [Fiche](#cloud-sdk--composant-minikube) |
-| [Agent Gateway avec Service Extensions](https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026) | plateforme · Nouveau hors OSS | L’autorisation du trafic agentique peut être déléguée à une extension. | [Fiche](#agent-gateway-avec-service-extensions) |
-| [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog) | service · Nouveau hors OSS | L’API expose les raisons des succès et échecs du cache de prompts. | [Fiche](#openai-prompt-cache-diagnostics) |
+| [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) | plateforme · GCP | Un checkpoint non fiable peut contourner le contexte de sécurité demandé. | [Fiche](#gke--restauration-containerd-avec-criu) |
+| [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026) | service · GCP | Les distances deviennent configurables et imposent de recalibrer le seuil. | [Fiche](#apigee-semanticcachelookup) |
+| [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09) | outil · GCP | Le composant Minikube de gcloud sera retiré après janvier 2027. | [Fiche](#cloud-sdk--composant-minikube) |
+| [Agent Gateway avec Service Extensions](https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026) | plateforme · GCP | L’autorisation du trafic agentique peut être déléguée à une extension. | [Fiche](#agent-gateway-avec-service-extensions) |
+| [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog) | service · OpenAI | L’API expose les raisons des succès et échecs du cache de prompts. | [Fiche](#openai-prompt-cache-diagnostics) |
 
 ## [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061)
 

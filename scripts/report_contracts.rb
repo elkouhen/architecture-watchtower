@@ -42,6 +42,14 @@ def table_rows(body)
   end.reject { |row| row.all? { |cell| cell.match?(/\A:?-+:?\z/) } }
 end
 
+def radar_visible_label(candidate)
+  case candidate["novelty"]
+  when "Nouveau hors OSS" then candidate["origin"].to_s.strip
+  when "Nouveau projet OSS", "Mise à jour" then candidate["novelty"]
+  else ""
+  end
+end
+
 def validate_card(text, label, modern: true)
   sections = require_sections(text, CARD_SECTIONS, label)
   sources = sections["incertitudes et sources"].to_s
@@ -127,7 +135,10 @@ def validate_radar_contract(text, label, date)
     end
   end
   rows.each do |row|
-    error("#{label}: ligne radar invalide") unless row.length == 4 && row[0].match?(%r{\]\(https?://[^)]+\)}) && row[1].match?(/\A(outil|service|pattern|standard|plateforme|modèle|bibliothèque) · (Nouveau projet OSS|Nouveau hors OSS|Mise à jour)\z/) && row[3].match?(/\]\(#[^)]+\)/)
+    type = row[1].to_s.match(/\A(outil|service|pattern|standard|plateforme|modèle|bibliothèque) · (\S(?:.*\S)?)\z/)
+    visible_label = type && type[2]
+    valid_label = visible_label && visible_label != "Nouveau hors OSS"
+    error("#{label}: ligne radar invalide") unless row.length == 4 && row[0].match?(%r{\]\(https?://[^)]+\)}) && type && valid_label && row[3].match?(/\]\(#[^)]+\)/)
   end
   table_urls = rows.map { |row| row[0].to_s[/\]\((https?:\/\/[^)]+)\)/, 1] }
   topic_urls = topics.map { |title, _body| title[/\]\((https?:\/\/[^)]+)\)/, 1] }

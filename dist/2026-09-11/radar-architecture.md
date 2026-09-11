@@ -8,12 +8,12 @@ Exposition locale commune : à qualifier. Couverture incomplète : plusieurs del
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [Google Cloud Agent Gateway](https://cloud.google.com/release-notes#September_10_2026) | service · Nouveau hors OSS | VPC-SC ne protège que certains nouveaux déploiements configurés en egress total. | [Fiche](#google-cloud-agent-gateway) |
-| [Claude Managed Agents](https://platform.claude.com/docs/en/release-notes/overview) | plateforme · Nouveau hors OSS | Une politique serveur évalue chaque appel d’outil ou MCP. | [Fiche](#claude-managed-agents) |
-| [Gemini Enterprise Agent Platform Sandboxes](https://cloud.google.com/release-notes#September_10_2026) | plateforme · Nouveau hors OSS | Les sandboxes agentiques deviennent GA avec des contrôles réseau, de chiffrement et de persistance. | [Fiche](#gemini-enterprise-agent-platform-sandboxes) |
-| [Google Cloud IAM MCP Server](https://cloud.google.com/release-notes#September_10_2026) | service · Nouveau hors OSS | Un agent peut désormais administrer rôles personnalisés et deny policies via un serveur MCP GA. | [Fiche](#google-cloud-iam-mcp-server) |
-| [OpenAI Agents API](https://developers.openai.com/api/docs/changelog) | plateforme · Nouveau hors OSS | Une beta managée réunit sessions durables, orchestration, outils et sandboxes. | [Fiche](#openai-agents-api) |
-| [Cloud SQL Remote MCP Server](https://cloud.google.com/release-notes#September_10_2026) | service · Nouveau hors OSS | La désactivation temporaire de sqlcommenter retire un signal de traçabilité SQL. | [Fiche](#cloud-sql-remote-mcp-server) |
+| [Google Cloud Agent Gateway](https://cloud.google.com/release-notes#September_10_2026) | service · GCP | VPC-SC ne protège que certains nouveaux déploiements configurés en egress total. | [Fiche](#google-cloud-agent-gateway) |
+| [Claude Managed Agents](https://platform.claude.com/docs/en/release-notes/overview) | plateforme · Anthropic | Une politique serveur évalue chaque appel d’outil ou MCP. | [Fiche](#claude-managed-agents) |
+| [Gemini Enterprise Agent Platform Sandboxes](https://cloud.google.com/release-notes#September_10_2026) | plateforme · GCP | Les sandboxes agentiques deviennent GA avec des contrôles réseau, de chiffrement et de persistance. | [Fiche](#gemini-enterprise-agent-platform-sandboxes) |
+| [Google Cloud IAM MCP Server](https://cloud.google.com/release-notes#September_10_2026) | service · GCP | Un agent peut désormais administrer rôles personnalisés et deny policies via un serveur MCP GA. | [Fiche](#google-cloud-iam-mcp-server) |
+| [OpenAI Agents API](https://developers.openai.com/api/docs/changelog) | plateforme · OpenAI | Une beta managée réunit sessions durables, orchestration, outils et sandboxes. | [Fiche](#openai-agents-api) |
+| [Cloud SQL Remote MCP Server](https://cloud.google.com/release-notes#September_10_2026) | service · GCP | La désactivation temporaire de sqlcommenter retire un signal de traçabilité SQL. | [Fiche](#cloud-sql-remote-mcp-server) |
 | [llmfit](https://github.com/AlexsJones/llmfit) | outil · Nouveau projet OSS | L’outil rapproche inventaire matériel, modèles, quantification et mesures locales. | [Fiche](#llmfit) |
 
 ## [Google Cloud Agent Gateway](https://cloud.google.com/release-notes#September_10_2026)

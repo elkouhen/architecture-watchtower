@@ -37,7 +37,7 @@ Pendant une exécution orchestrée, émets un message de progression concis au d
 
 Traite d’abord tous les signaux `new` ou `open` arrivés à échéance, puis applique l’algorithme `Scanner → Filtrer → Vérifier → Publier` du contrat.
 
-Pour chaque candidat, renseigne le manifest structuré du contrat et exige successivement :
+Pour chaque candidat, renseigne le manifest structuré du contrat, notamment son `origin` fournisseur ou projet (`AWS`, `GCP`, `OpenAI`, `Anthropic`, etc.), et exige successivement :
 
 1. un changement nouveau ou substantiel dans la fenêtre locale de 90 jours, ou une première découverte locale pertinente ;
 2. un impact plausible sur architecture, sécurité, exploitation, coût ou lifecycle ;
@@ -63,7 +63,7 @@ Chaque fiche a pour titre `## [Nom](URL canonique)` et contient uniquement :
 - `**Utilité :**` un paragraphe concis sur l’impact, les limites, la maturité, le niveau `signal faible` ou `traction étayée`, et l’exposition locale (`à qualifier` si inconnue) ;
 - `**Repères de comparaison :**` facultatif, trois alternatives maximum.
 
-Le type de la vue d’ensemble vaut exactement `<nature> · <nouveauté>`, avec les valeurs autorisées par le contrat. Ajoute `### Pitch détaillé` à trois sujets maximum, uniquement si une conséquence transverse ou une seconde preuve le justifie ; reste bref et ne donne pas de procédure de déploiement.
+Le type de la vue d’ensemble vaut exactement `<nature> · <origine visible>`. Pour un candidat dont `novelty` vaut `Nouveau hors OSS`, affiche son origine exacte (`AWS`, `GCP`, `OpenAI`, `Anthropic`, etc.) et n’affiche jamais le libellé interne `Nouveau hors OSS`. Conserve `Nouveau projet OSS` pour un nouveau projet open source et `Mise à jour` pour une réapparition substantielle. Ajoute `### Pitch détaillé` à trois sujets maximum, uniquement si une conséquence transverse ou une seconde preuve le justifie ; reste bref et ne donne pas de procédure de déploiement.
 
 Termine exactement par `## Sujets écartés`, `## Sources consultées` et `## Sources en échec`. Dans `Sources consultées`, fournis les preuves primaires datées et l’unique bloc `watchtower-couverture` complet. Dans `Sources en échec`, indique période manquante et conséquence ; écris `Aucune.` si nécessaire.
 

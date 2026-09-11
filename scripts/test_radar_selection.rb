@@ -28,6 +28,7 @@ class RadarSelectionTest < Minitest::Test
       "canonical_url" => "https://example.org/#{id}",
       "nature" => "outil",
       "novelty" => "Nouveau hors OSS",
+      "origin" => "Éditeur Test",
       "subject" => "Changement #{id}",
       "product_version" => "1.0",
       "environment" => "exposition inconnue",
@@ -124,6 +125,12 @@ class RadarSelectionTest < Minitest::Test
 
     assert_equal ["accepted"], data.dig("selection", "selected_ids")
     assert_match(/confiance inférieure/, rejected["selection_reason"])
+  end
+
+  def test_managed_novelty_requires_an_exact_origin
+    data = manifest([candidate("missing-origin", "origin" => nil)])
+
+    assert WatchtowerRadarSelection.validate(data).any? { |message| message.include?("origin requis") }
   end
 
   def test_known_identity_must_be_a_substantive_update

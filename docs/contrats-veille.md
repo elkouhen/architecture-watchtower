@@ -106,7 +106,7 @@ Cet algorithme s’applique à chaque nouveau radar. Les cartes et classements m
 
 ### Manifest de qualification
 
-Chaque radar produit un registre d’exécution `state/radar-runs/AAAA-MM-JJ.yaml`. Ce fichier n’est pas un second livrable : il constitue la preuve structurée utilisée pour calculer et valider le rapport. Il contient la date, les rôles des sources, les douze entrées de couverture, les échecs et tous les candidats détectés. Chaque candidat possède au minimum une `identity_key` stable, un nom, une URL canonique, une nature, une nouveauté, les trois résultats de filtre, son statut OSS, sa licence le cas échéant, sa récence, ses quatre notes, leur justification et une preuve primaire lorsqu’elle est déclarée disponible.
+Chaque radar produit un registre d’exécution `state/radar-runs/AAAA-MM-JJ.yaml`. Ce fichier n’est pas un second livrable : il constitue la preuve structurée utilisée pour calculer et valider le rapport. Il contient la date, les rôles des sources, les douze entrées de couverture, les échecs et tous les candidats détectés. Chaque candidat possède au minimum une `identity_key` stable, un nom, une URL canonique, une nature, une nouveauté, une origine exacte, les trois résultats de filtre, son statut OSS, sa licence le cas échéant, sa récence, ses quatre notes, leur justification et une preuve primaire lorsqu’elle est déclarée disponible. `origin` nomme le fournisseur ou projet responsable (`AWS`, `GCP`, `OpenAI`, `Anthropic`, etc.) ; pour une nouveauté managée, cette valeur remplace le libellé technique `Nouveau hors OSS` dans la vue d’ensemble du rapport.
 
 ```yaml
 schema_version: 1
@@ -126,6 +126,7 @@ candidates:
     canonical_url: https://example.org/release
     nature: outil
     novelty: Nouveau hors OSS
+    origin: GCP
     subject: Changement vérifié
     product_version: "1.0"
     environment: exposition inconnue

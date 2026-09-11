@@ -6,9 +6,9 @@ Fenêtre de collecte : 48 h (signaux ASAP), 7 jours (nouveautés) et 30 jours (t
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [Cloud Run Agent Identity](https://cloud.google.com/run/docs/release-notes) | Nouveau hors OSS · service | Identités managées pour agents/MCP et enregistrement Agent Registry. | [fiche](#cloud-run--identités-dagents-et-agent-registry) |
-| [GKE Multi-Cloud bulletin GCP-2026-058](https://cloud.google.com/kubernetes-engine/security-bulletins) | Nouveau hors OSS · sécurité | Correctif d’une vérification d’autorisation manquante dans les APIs Multi-Cloud. | [fiche](#gke-multi-cloud--correctif-dautorisation) |
-| [Claude Fable 5.1](https://platform.claude.com/docs/en/release-notes/overview) | Nouveau hors OSS · modèle | Contexte 1M et sorties longues pour workloads agentiques. | [fiche](#claude-fable-51--contexte-et-tâches-longues) |
+| [Cloud Run Agent Identity](https://cloud.google.com/run/docs/release-notes) | GCP · service | Identités managées pour agents/MCP et enregistrement Agent Registry. | [fiche](#cloud-run--identités-dagents-et-agent-registry) |
+| [GKE Multi-Cloud bulletin GCP-2026-058](https://cloud.google.com/kubernetes-engine/security-bulletins) | GCP · sécurité | Correctif d’une vérification d’autorisation manquante dans les APIs Multi-Cloud. | [fiche](#gke-multi-cloud--correctif-dautorisation) |
+| [Claude Fable 5.1](https://platform.claude.com/docs/en/release-notes/overview) | Anthropic · modèle | Contexte 1M et sorties longues pour workloads agentiques. | [fiche](#claude-fable-51--contexte-et-tâches-longues) |
 | [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | Nouveau projet OSS · outil | Harness d’agents « everything-is-a-plugin », encore en developer preview. | [fiche](#deepseek-harness--harness-dagents-par-plugins) |
 | [OmniRoute](https://github.com/diegosouzapw/OmniRoute) | Nouveau projet OSS · gateway | Point d’entrée multi-fournisseurs avec fallback et routage par quotas. | [fiche](#omniroute--gateway-multi-fournisseurs) |
 | [Arcbox](https://github.com/arcboxlabs/arcbox) | Nouveau projet OSS · isolation | Micro-VM/machines OCI isolées pour agents, avec démarrage annoncé inférieur à 100 ms. | [fiche](#arcbox--isolation-dagents-compatible-oci) |

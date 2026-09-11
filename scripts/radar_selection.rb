@@ -238,6 +238,9 @@ module WatchtowerRadarSelection
     errors << "#{label}.canonical_url invalide" unless http_url?(candidate["canonical_url"])
     errors << "#{label}.nature invalide" unless NATURES.include?(candidate["nature"])
     errors << "#{label}.novelty invalide" unless NOVELTIES.include?(candidate["novelty"])
+    if candidate["novelty"] == "Nouveau hors OSS" && candidate["origin"].to_s.strip.empty?
+      errors << "#{label}.origin requis pour une nouveauté hors OSS"
+    end
     errors << "#{label}.recency invalide" unless RECENCY.key?(candidate["recency"])
     errors << "#{label}.signal_level invalide" unless SIGNAL_LEVELS.include?(candidate["signal_level"])
     errors << "#{label}.decision invalide" unless %w[monitor qualify test adopt avoid].include?(candidate["decision"])

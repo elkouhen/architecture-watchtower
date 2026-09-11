@@ -194,8 +194,11 @@ writing_prompt = <<~PROMPT
   Rédige le radar du #{options[:date].iso8601} à partir de la sélection verrouillée ci-dessous.
   #{writing_scope}
   N’effectue aucune nouvelle collecte web. Seuls les candidats selection_status=selected deviennent
-  des fiches, dans l’ordre de rank. Reprends exactement leur nom, URL, nature, novelty et champ fact,
-  ainsi que toutes leurs URL de preuve primaire. Reprends exactement la couverture du manifest dans
+  des fiches, dans l’ordre de rank. Reprends exactement leur nom, URL, nature, novelty, origin et champ fact.
+  Dans la colonne Type, affiche `<nature> · <origin>` pour `Nouveau hors OSS`,
+  `<nature> · Nouveau projet OSS` pour un nouveau projet OSS et `<nature> · Mise à jour` pour une mise à jour ;
+  le libellé interne `Nouveau hors OSS` ne doit jamais apparaître dans le rapport. Reprends aussi
+  toutes leurs URL de preuve primaire. Reprends exactement la couverture du manifest dans
   le bloc watchtower-couverture et chaque source_failure, période et conséquence dans Sources en
   échec. Si oss_exception existe, écris `Exception quota OSS : <valeur exacte>` dans Sujets écartés.
   Si minimum_exception existe, écris `Exception minimum de sujets : <valeur exacte>` dans Sujets

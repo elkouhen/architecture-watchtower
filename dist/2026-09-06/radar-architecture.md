@@ -8,7 +8,7 @@ L’exposition réelle des produits et versions dans la stack reste `inconnue` f
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
 | [Kubernetes 1.37 rootless](https://kubernetes.io/blog/2026/09/04/kubernetes-v1-37-rootless-beta/) | plateforme · Mise à jour | Le kubelet et les composants de nœud peuvent fonctionner dans un espace de noms utilisateur non-root. | [fiche](#kubernetes-137-rootless) |
-| [GCP-2026-060](https://cloud.google.com/support/bulletins) | service · Nouveau hors OSS | Bulletin High sur `sbcast` de Slurm pour Cluster Director. | [fiche](#gcp-2026-060--slurm-cluster-director) |
+| [GCP-2026-060](https://cloud.google.com/support/bulletins) | service · GCP | Bulletin High sur `sbcast` de Slurm pour Cluster Director. | [fiche](#gcp-2026-060--slurm-cluster-director) |
 | [Vault 2.1](https://developer.hashicorp.com/vault/docs/updates/release-notes) | service · Mise à jour | Le support natif des workflows agentiques sort de beta en GA. | [fiche](#vault-21--support-natif-des-workflows-agents) |
 | [Kata Containers 4.0](https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/) | plateforme · Nouveau projet OSS | runtime-rs et Dragonball forment un runtime de sandbox à processus unique. | [fiche](#kata-containers-40--runtime-rs-et-dragonball) |
 | [Xolis](https://github.com/gnawux/xolis) | outil · Nouveau projet OSS | Démonstrateur de sandbox d’agents Kubernetes sur Kata 4.0 et PVM. | [fiche](#xolis--sandbox-dagents-kubernetes-kata-et-pvm) |

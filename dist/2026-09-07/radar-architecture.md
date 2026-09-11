@@ -10,8 +10,8 @@ L’exposition réelle des produits et versions dans la stack reste `inconnue` f
 |---|---|---|---|
 | [Amazon EFS CSI Driver](https://aws.amazon.com/security/security-bulletins/2026-099-aws/) | outil · Mise à jour | La version 3.4.1 corrige une suppression inter-filesystem conditionnelle. | [fiche](#amazon-efs-csi-driver) |
 | [awslabs postgres-mcp-server](https://aws.amazon.com/security/security-bulletins/2026-101-aws/) | outil · Mise à jour | La version 1.1.7 rétablit la frontière de lecture seule, sous réserve des droits PostgreSQL. | [fiche](#awslabs-postgres-mcp-server) |
-| [AWS Agent Registry](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-faq.html) | service · Nouveau hors OSS | Le namespace Preview `bedrock-agentcore` s’arrête le 17 septembre. | [fiche](#aws-agent-registry) |
-| [Gemini Enterprise Workflow Builder](https://docs.cloud.google.com/gemini/enterprise/docs/release-notes) | service · Nouveau hors OSS | Workflows, import A2A/ADK et observabilité des agents sont désormais GA. | [fiche](#gemini-enterprise-workflow-builder) |
+| [AWS Agent Registry](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-faq.html) | service · AWS | Le namespace Preview `bedrock-agentcore` s’arrête le 17 septembre. | [fiche](#aws-agent-registry) |
+| [Gemini Enterprise Workflow Builder](https://docs.cloud.google.com/gemini/enterprise/docs/release-notes) | service · GCP | Workflows, import A2A/ADK et observabilité des agents sont désormais GA. | [fiche](#gemini-enterprise-workflow-builder) |
 | [Setec](https://github.com/zeroroot-ai/setec) | outil · Nouveau projet OSS | Une CRD Kubernetes pilote plusieurs frontières d’isolation, dont Kata/Firecracker. | [fiche](#setec) |
 | [OpenHands Software Agent SDK](https://github.com/openhands/software-agent-sdk) | bibliothèque · Nouveau projet OSS | SDK Python/TypeScript/REST pour agents de développement et workspaces éphémères. | [fiche](#openhands-software-agent-sdk) |
 

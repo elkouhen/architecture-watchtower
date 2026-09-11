@@ -232,6 +232,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Cloud SQL désactive temporairement les tags sqlcommenter sur son serveur
     MCP distant
   product_version: Cloud SQL Remote MCP Server for MySQL and PostgreSQL, 2026-09-10
@@ -287,6 +288,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Le serveur MCP IAM devient GA pour inspecter et gérer rôles personnalisés
     et deny policies
   product_version: Google Cloud IAM remote MCP server GA, 2026-09-10
@@ -341,6 +343,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: plateforme
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Les sandboxes Computer Use et Shell deviennent GA avec VPC-SC, PSC, CMEK
     et pause/reprise
   product_version: Gemini Enterprise Agent Platform sandboxes GA, 2026-09-10
@@ -396,6 +399,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Agent Gateway prend en charge VPC Service Controls uniquement pour certains
     nouveaux déploiements
   product_version: Agent Gateway VPC-SC support, deployments after 2026-09-08
@@ -451,6 +455,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Gemini Enterprise PayGo et ses outils développeur s'ouvrent à tous les
     comptes facturés
   product_version: Gemini Enterprise Pay-as-you-go, 2026-09-10
@@ -501,6 +506,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Managed Kafka permet d'exposer un cluster sur Internet
   product_version: Managed Service for Apache Kafka public clusters, 2026-09-10
   environment: exposition inconnue
@@ -551,6 +557,7 @@ candidates:
   canonical_url: https://developers.openai.com/api/docs/changelog
   nature: standard
   novelty: Nouveau hors OSS
+  origin: OpenAI
   subject: OpenAI ajoute expiration des clés projet et durée maximale imposable
   product_version: OpenAI Platform project API key policy, 2026-09-10
   environment: exposition inconnue
@@ -601,6 +608,7 @@ candidates:
   canonical_url: https://developers.openai.com/api/docs/changelog
   nature: plateforme
   novelty: Nouveau hors OSS
+  origin: OpenAI
   subject: L'Agents API public beta fournit sessions durables, orchestration et sandboxes
   product_version: OpenAI Agents API public beta, 2026-09-10
   environment: exposition inconnue
@@ -653,6 +661,7 @@ candidates:
   canonical_url: https://developers.openai.com/api/docs/changelog
   nature: modèle
   novelty: Nouveau hors OSS
+  origin: OpenAI
   subject: GPT-Live 1 devient GA avec délégation vers un modèle ou backend d'agent
   product_version: gpt-live-1 GA, 2026-09-10
   environment: exposition inconnue
@@ -701,6 +710,7 @@ candidates:
   canonical_url: https://platform.claude.com/docs/en/release-notes/overview
   nature: plateforme
   novelty: Nouveau hors OSS
+  origin: Anthropic
   subject: Les permissions auto évaluent côté serveur chaque appel d'outil ou MCP
   product_version: Claude Managed Agents auto permission policy, 2026-09-10
   environment: exposition inconnue
@@ -857,6 +867,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: Storage Intelligence Advisor devient GA pour piloter le stockage à l'échelle
   product_version: Cloud Storage Intelligence Advisor GA, 2026-09-10
   environment: exposition inconnue
@@ -907,6 +918,7 @@ candidates:
   canonical_url: https://cloud.google.com/release-notes#September_10_2026
   nature: service
   novelty: Nouveau hors OSS
+  origin: GCP
   subject: L'application Slack ajoute mentions de canal et conversations multi-tours
   product_version: Gemini Enterprise Slack app GA, 2026-09-10
   environment: exposition inconnue

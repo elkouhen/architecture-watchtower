@@ -6,10 +6,10 @@ Fenêtre de collecte : 48 h (ASAP), 7 jours (nouveautés) et 30 jours (tendances
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [API Gateway model routing hostname](https://cloud.google.com/release-notes) | Nouveau hors OSS · service | Les nouvelles passerelles de routage GCP peuvent recevoir un hostname `gateway.dev` différent. | [fiche](#api-gateway--hostname-des-passerelles-de-routage) |
-| [AWS Config](https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/) | Nouveau hors OSS · service | 60 types de ressources supplémentaires élargissent l’inventaire et les contrôles de conformité. | [fiche](#aws-config--couverture-de-60-nouveaux-types) |
-| [Amazon Bedrock Web Search](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/) | Nouveau hors OSS · service IA | La recherche web côté Bedrock devient disponible en GovCloud US-West. | [fiche](#bedrock-web-search--ancrage-en-govcloud) |
-| [Amazon S3 PrivateLink FIPS](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/) | Nouveau hors OSS · sécurité | S3 peut être joint par PrivateLink avec des endpoints validés FIPS 140-3. | [fiche](#s3--privatelink-pour-endpoints-fips) |
+| [API Gateway model routing hostname](https://cloud.google.com/release-notes) | GCP · service | Les nouvelles passerelles de routage GCP peuvent recevoir un hostname `gateway.dev` différent. | [fiche](#api-gateway--hostname-des-passerelles-de-routage) |
+| [AWS Config](https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/) | AWS · service | 60 types de ressources supplémentaires élargissent l’inventaire et les contrôles de conformité. | [fiche](#aws-config--couverture-de-60-nouveaux-types) |
+| [Amazon Bedrock Web Search](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/) | AWS · service IA | La recherche web côté Bedrock devient disponible en GovCloud US-West. | [fiche](#bedrock-web-search--ancrage-en-govcloud) |
+| [Amazon S3 PrivateLink FIPS](https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/) | AWS · sécurité | S3 peut être joint par PrivateLink avec des endpoints validés FIPS 140-3. | [fiche](#s3--privatelink-pour-endpoints-fips) |
 | [CICD-for-SageMakerUnifiedStudio](https://github.com/aws/CICD-for-SageMakerUnifiedStudio) | Nouveau projet OSS · outil CI/CD | Un CLI open source promeut notebooks, manifests et workloads data/IA entre environnements. | [fiche](#sagemaker-unified-studio--promotion-ci-cd) |
 
 ## [API Gateway — hostname des passerelles de routage](https://cloud.google.com/release-notes)

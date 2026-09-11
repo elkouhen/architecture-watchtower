@@ -8,11 +8,11 @@ Couverture incomplète : les voies AWS et IA dépendantes de l’historique Bedr
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) | plateforme · Nouveau hors OSS | Un checkpoint CRIU non fiable peut contourner le contexte de sécurité demandé lors d’une restauration containerd. | [Fiche](#gke--restauration-containerd-avec-criu) |
+| [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) | plateforme · GCP | Un checkpoint CRIU non fiable peut contourner le contexte de sécurité demandé lors d’une restauration containerd. | [Fiche](#gke--restauration-containerd-avec-criu) |
 | [GKE 2026-R38](https://cloud.google.com/kubernetes-engine/docs/release-notes) | plateforme · Mise à jour | Builds et cibles d’auto-upgrade changent par canal. | [Fiche](#gke-2026-r38) |
-| [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026) | service · Nouveau hors OSS | La mesure de distance devient configurable et change le sens de comparaison du seuil. | [Fiche](#apigee-semanticcachelookup) |
-| [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09) | outil · Nouveau hors OSS | Le composant Minikube empaqueté dans gcloud sera retiré après le 31 janvier 2027. | [Fiche](#cloud-sdk--composant-minikube) |
-| [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog) | service · Nouveau hors OSS | L’API Responses explique désormais les succès et échecs du cache de prompts. | [Fiche](#openai-prompt-cache-diagnostics) |
+| [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026) | service · GCP | La mesure de distance devient configurable et change le sens de comparaison du seuil. | [Fiche](#apigee-semanticcachelookup) |
+| [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09) | outil · GCP | Le composant Minikube empaqueté dans gcloud sera retiré après le 31 janvier 2027. | [Fiche](#cloud-sdk--composant-minikube) |
+| [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog) | service · OpenAI | L’API Responses explique désormais les succès et échecs du cache de prompts. | [Fiche](#openai-prompt-cache-diagnostics) |
 
 ## [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061)
 

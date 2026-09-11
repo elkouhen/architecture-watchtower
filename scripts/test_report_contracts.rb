@@ -50,7 +50,7 @@ class ReportContractsTest < Minitest::Test
 
   def radar(entries, source_roles = {}, subjects: %w[A B C D E])
     rows = subjects.map.with_index do |name, index|
-      kind = index < 2 ? "outil · Nouveau projet OSS" : "service · Nouveau hors OSS"
+      kind = index < 2 ? "outil · Nouveau projet OSS" : "service · GCP"
       "| [#{name}](https://example.org/#{name.downcase}) | #{kind} | Intégration | [fiche](##{name.downcase}) |"
     end.join("\n")
     topics = subjects.map do |name|
@@ -180,6 +180,14 @@ class ReportContractsTest < Minitest::Test
   def test_radar_full_coverage
     validate_radar_contract(radar(coverage), "test", Date.new(2026, 9, 5))
     assert_empty ERRORS
+  end
+
+  def test_radar_rejects_internal_non_oss_label
+    report = radar(coverage).sub("service · GCP", "service · Nouveau hors OSS")
+
+    validate_radar_contract(report, "test", Date.new(2026, 9, 5))
+
+    assert ERRORS.any? { |message| message.include?("ligne radar invalide") }
   end
 
   def test_quiet_radar_can_have_no_subject

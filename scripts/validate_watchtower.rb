@@ -210,7 +210,7 @@ def validate_radar_manifest(path, text, sources, signals, root: ROOT)
   actual = rows.map do |row|
     [row[0].to_s[/\[([^\]]+)\]/, 1], row[0].to_s[/\]\((https?:\/\/[^)]+)\)/, 1], row[1]]
   end
-  expected = selected.map { |candidate| [candidate["name"], candidate["canonical_url"], "#{candidate['nature']} · #{candidate['novelty']}"] }
+  expected = selected.map { |candidate| [candidate["name"], candidate["canonical_url"], "#{candidate['nature']} · #{radar_visible_label(candidate)}"] }
   error("#{path}: sélection publiée différente du manifest") unless actual == expected
 
   selected.each do |candidate|
