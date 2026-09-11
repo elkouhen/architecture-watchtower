@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Algorithme d’exécution du radar",
+    "quality_profile": "showcase",
+    "viewBox": [700, 340]
+  },
+  "lanes": [
+    { "id": "pipeline", "label": "Pipeline orchestré · Ruby → Codex → Ruby → Codex → Git" }
+  ],
+  "phases": [
+    { "id": "preparer", "label": "Préparer", "fromCol": 0, "toCol": 0 },
+    { "id": "qualifier", "label": "Qualifier", "fromCol": 1, "toCol": 1, "variant": "emphasis" },
+    { "id": "choisir", "label": "Sélectionner", "fromCol": 2, "toCol": 2 },
+    { "id": "rediger", "label": "Rédiger", "fromCol": 3, "toCol": 3, "variant": "emphasis" },
+    { "id": "mesurer", "label": "Mesurer", "fromCol": 4, "toCol": 4 },
+    { "id": "publier", "label": "Publier", "fromCol": 5, "toCol": 5, "variant": "security" }
+  ],
+  "groups": [
+    { "id": "execution_complete", "label": "Exécution normale", "lane": "pipeline", "fromCol": 0, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": [
+    "prepare_run",
+    "qualify_manifest",
+    "select_candidates",
+    "write_report",
+    "inject_metrics",
+    "validate_publish"
+  ],
+  "nodes": [
+    { "id": "prepare_run", "lane": "pipeline", "col": 0, "width": 60, "type": "security", "label": "Préparer", "sublabel": "dépôt · 90 j", "tag": "bloquant" },
+    { "id": "qualify_manifest", "lane": "pipeline", "col": 1, "width": 60, "type": "cloud", "label": "Filtrer", "sublabel": "12 voies" },
+    { "id": "select_candidates", "lane": "pipeline", "col": 2, "width": 60, "type": "backend", "label": "Trier", "sublabel": "plafond · OSS", "tag": "Ruby" },
+    { "id": "write_report", "lane": "pipeline", "col": 3, "width": 60, "type": "frontend", "label": "Rédiger", "sublabel": "manifest figé" },
+    { "id": "inject_metrics", "lane": "pipeline", "col": 4, "width": 60, "type": "backend", "label": "Mesurer", "sublabel": "tokens · durée" },
+    { "id": "validate_publish", "lane": "pipeline", "col": 5, "width": 60, "type": "security", "label": "Publier", "sublabel": "tests · Git", "tag": "commit local" }
+  ],
+  "edges": [
+    { "from": "prepare_run", "to": "qualify_manifest", "variant": "emphasis" },
+    { "from": "qualify_manifest", "to": "select_candidates", "variant": "emphasis", "route": "bottom-channel", "fromSide": "bottom", "toSide": "bottom" },
+    { "from": "select_candidates", "to": "write_report", "variant": "emphasis" },
+    { "from": "write_report", "to": "inject_metrics", "variant": "emphasis", "route": "bottom-channel", "fromSide": "bottom", "toSide": "bottom" },
+    { "from": "inject_metrics", "to": "validate_publish", "variant": "security" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Filtre d’éligibilité",
+      "items": [
+        "Changement nouveau ou substantiel sur 90 jours",
+        "Impact possible sur architecture, sécurité, exploitation ou coût",
+        "Preuve primaire précise et vérifiable"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Ordre déterministe",
+      "items": [
+        "Obligatoire, urgence, impact, pertinence, confiance, récence, identité",
+        "7 sujets normalement, jusqu’à 10 obligatoires ; dépassement critique admis",
+        "Objectif de 33 % de nouveaux projets OSS sans évincer un obligatoire"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Publication et branches protectrices",
+      "items": [
+        "Le rapport doit correspondre exactement au manifest sélectionné",
+        "--replace réutilise le manifest existant et saute collecte, qualification et sélection",
+        "Dépassement de budget ou validation en échec : aucun commit Git local"
+      ]
+    }
+  ]
+}
