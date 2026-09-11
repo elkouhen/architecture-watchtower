@@ -21,6 +21,9 @@ sources:
   - github-trending
   qualification:
   - gke-release-notes
+  - gke-security-bulletins
+  - gcp-release-notes
+  - openai-api-changelog
 coverage:
 - domain: AWS
   lane: releases_features
@@ -79,7 +82,7 @@ coverage:
   checked_at: '2026-09-09T10:00:00+02:00'
   from: '2026-09-08'
   through: '2026-09-09'
-  result: aucun changement retenu
+  result: signal retenu
   complete: true
   note: GCP-2026-060 seulement enrichi d’un lien.
 - domain: GCP
@@ -109,7 +112,7 @@ coverage:
   checked_at: '2026-09-09T10:00:00+02:00'
   from: '2026-09-08'
   through: '2026-09-09'
-  result: aucun changement retenu
+  result: signal retenu
   complete: false
   note: Historique Bedrock non clos du 07 au 09/09.
 - domain: IA
@@ -139,15 +142,58 @@ coverage:
   checked_at: '2026-09-09T10:00:00+02:00'
   from: '2026-09-08'
   through: '2026-09-09'
-  result: aucun changement retenu
+  result: signal retenu
   complete: false
   note: Historique Bedrock non clos du 07 au 09/09.
 source_failures:
 - source_id: aws-bedrock-history
   period: 2026-09-07/2026-09-09
   consequence: Historique et fallback non suffisants pour clore la période ; voies AWS et IA dépendantes incomplètes.
-candidate_yield_note: Un seul changement a franchi les trois filtres ; GCP-2026-060 n’avait pas de changement substantiel et Claude ant CLI 1.30.0 était déjà couvert.
+candidate_yield_note: Cinq changements publiés au plus tard le 9 septembre ont franchi les trois filtres lors de la reconstruction ; Agent Gateway avec Service Extensions, daté du 31 août, est resté hors de la sélection.
 candidates:
+- id: gcp-2026-061-containerd-criu
+  identity_key: gcp:gke-security:gcp-2026-061-containerd-criu
+  name: GKE — restauration containerd avec CRIU
+  canonical_url: https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
+  nature: plateforme
+  novelty: Nouveau hors OSS
+  subject: GCP-2026-061 signale qu’un checkpoint CRIU non fiable peut contourner le contexte de sécurité demandé lors d’une restauration containerd.
+  product_version: GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  impact_architectural: 5
+  urgence: 4
+  pertinence_stack: 4
+  confiance: 5
+  recency: 48h
+  coverage_lanes: [GCP/security, IA/security]
+  signal_level: normal
+  scoring_note: 'Impact 5 : contournement de contrôles de sécurité jusqu’aux privilèges root ; urgence 4 : bulletin récent sans exploitation annoncée ; pertinence 4 : Kubernetes et sécurité sont au cœur du radar ; confiance 5 : bulletin primaire et conditions d’exposition explicites.'
+  fact: Fait — GCP-2026-061 décrit un contournement du contexte de sécurité lors de la restauration d’un checkpoint non fiable avec containerd et CRIU ; les clusters GKE par défaut ne sont pas vulnérables.
+  analysis: Le risque concerne les plateformes ayant explicitement ajouté un mécanisme de checkpoint/restauration non fiable, pas un cluster GKE standard.
+  unknowns: Usage local de CRIU, provenance des checkpoints et versions déployées à qualifier.
+  maturity: Bulletin fournisseur publié ; identifiant CVE encore en attente au moment du contrôle.
+  decision: qualify
+  owner: sécurité/plateforme
+  due_date: '2026-09-17'
+  success_criterion: Inventaire confirmant l’absence de restauration CRIU non fiable, ou mesures correctives documentées.
+  evidence:
+  - source_id: gke-security-bulletins
+    url: https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
+    primary: true
+    observed_at: '2026-09-09'
+    published_at: '2026-09-09'
+    effective_at: inconnue
+    fact: Le bulletin décrit l’élévation de privilèges via checkpoint CRIU non fiable et précise que GKE n’active pas cette capacité par défaut.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 1
 - id: gke-2026-r38
   identity_key: legacy:SIG-2026-09-08-001
   name: GKE 2026-R38
@@ -193,12 +239,147 @@ candidates:
   mandatory: false
   selection_status: selected
   selection_reason: rang déterministe
-  rank: 1
+  rank: 2
+- id: apigee-semantic-cache-distance
+  identity_key: gcp:apigee:semantic-cache-distance-measures
+  name: Apigee SemanticCacheLookup
+  canonical_url: https://cloud.google.com/release-notes#September_09_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Apigee permet de choisir la mesure de distance du cache sémantique et change le sens de comparaison du seuil selon cette mesure.
+  product_version: Apigee 1-18-0-apigee-4 et versions ultérieures
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  impact_architectural: 4
+  urgence: 3
+  pertinence_stack: 4
+  confiance: 5
+  recency: 48h
+  coverage_lanes: [GCP/releases_features, IA/releases_features]
+  signal_level: normal
+  scoring_note: 'Impact 4 : la mesure et le seuil déterminent les réponses réutilisées par le cache IA ; urgence 3 : une mesure non par défaut exige un recalibrage ; pertinence 4 : gouvernance des gateways IA prioritaire ; confiance 5 : version et comportement documentés.'
+  fact: Fait — Apigee 1-18-0-apigee-4 ajoute plusieurs mesures de distance à SemanticCacheLookup et impose de recalibrer le seuil lorsqu’une mesure non par défaut est choisie.
+  analysis: Cette flexibilité adapte le cache au modèle d’embeddings mais rend le seuil partie intégrante du contrat de qualité.
+  unknowns: Présence de SemanticCacheLookup et métriques de faux positifs dans la stack à qualifier.
+  maturity: Fonctionnalité documentée dans une version Apigee en déploiement progressif.
+  decision: qualify
+  owner: plateforme IA/API
+  due_date: '2026-09-24'
+  success_criterion: Mesure de distance, seuil et jeu de validation inventoriés pour chaque cache sémantique.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_09_2026
+    primary: true
+    observed_at: '2026-09-09'
+    published_at: '2026-09-09'
+    effective_at: '2026-09-09'
+    fact: Les notes GCP documentent les nouvelles distances et le sens de comparaison du seuil à partir d’Apigee 1-18-0-apigee-4.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 3
+- id: cloud-sdk-minikube-deprecation
+  identity_key: gcp:cloud-sdk:minikube-component-removal-2027-01-31
+  name: Cloud SDK — composant Minikube
+  canonical_url: https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09
+  nature: outil
+  novelty: Nouveau hors OSS
+  subject: Google déprécie le composant Minikube empaqueté dans gcloud et annonce son retrait après le 31 janvier 2027.
+  product_version: Google Cloud SDK 584.0.0
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  impact_architectural: 3
+  urgence: 3
+  pertinence_stack: 4
+  confiance: 5
+  recency: 48h
+  coverage_lanes: [GCP/lifecycle_deprecations]
+  signal_level: normal
+  scoring_note: 'Impact 3 : postes et CI installant Minikube via gcloud doivent changer ; urgence 3 : retrait daté ; pertinence 4 : Kubernetes et outillage développeur centraux ; confiance 5 : version, date et remplacement documentés.'
+  fact: Fait — Cloud SDK 584.0.0 déprécie son composant Minikube et prévoit son retrait après le 31 janvier 2027, sans supprimer les configurations et clusters existants.
+  analysis: La dépendance à l’empaquetage gcloud doit être remplacée par l’installation OSS standard dans les postes et images CI concernés.
+  unknowns: Usage local de gcloud components install minikube à inventorier.
+  maturity: Dépréciation officielle avec date de retrait et solution de remplacement documentée.
+  decision: qualify
+  owner: plateforme développeur
+  due_date: '2026-10-08'
+  success_criterion: Aucune image ou procédure maintenue ne dépend du composant Minikube de gcloud.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09
+    primary: true
+    observed_at: '2026-09-09'
+    published_at: '2026-09-09'
+    effective_at: '2027-01-31'
+    fact: Les notes Cloud SDK 584.0.0 annoncent la dépréciation du composant Minikube et son retrait après le 31 janvier 2027.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 4
+- id: openai-prompt-cache-diagnostics
+  identity_key: openai:responses-api:prompt-cache-diagnostics
+  name: OpenAI Prompt Cache Diagnostics
+  canonical_url: https://developers.openai.com/api/docs/changelog
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: L’API Responses expose des diagnostics structurés pour expliquer les succès et échecs du cache de prompts.
+  product_version: OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  impact_architectural: 3
+  urgence: 2
+  pertinence_stack: 4
+  confiance: 5
+  recency: 7d
+  coverage_lanes: [IA/releases_features, IA/availability_quotas_costs]
+  signal_level: normal
+  scoring_note: 'Impact 3 : diagnostics d’un mécanisme de coût et latence ; urgence 2 : aucune rupture ; pertinence 4 : exploitation et coûts IA prioritaires ; confiance 5 : changelog et schéma officiels concordent.'
+  fact: Fait — Prompt Cache Diagnostics est disponible dans l’API Responses pour les modèles GPT-5.6 et ultérieurs et retourne notamment la raison d’un cache miss.
+  analysis: Ces champs peuvent alimenter des SLO de cache et isoler les changements augmentant le coût hors cache.
+  unknowns: Modèles utilisés, politique de rétention et instrumentation locale à qualifier.
+  maturity: Capacité GA de l’API Responses, à intégrer comme télémétrie.
+  decision: qualify
+  owner: plateforme IA/FinOps
+  due_date: '2026-10-01'
+  success_criterion: Tableau de bord distinguant hits, misses et raisons de miss sur les principaux flux Responses.
+  evidence:
+  - source_id: openai-api-changelog
+    url: https://developers.openai.com/api/docs/changelog
+    primary: true
+    observed_at: '2026-09-09'
+    published_at: '2026-09-08'
+    effective_at: '2026-09-08'
+    fact: Le changelog annonce Prompt Cache Diagnostics en GA et le schéma Responses expose les champs de diagnostic.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 5
 selection:
-  selected_ids: [gke-2026-r38]
-  eligible_count: 1
-  selected_count: 1
-  mandatory_count: 0
-  oss_required: 1
+  selected_ids:
+  - gcp-2026-061-containerd-criu
+  - gke-2026-r38
+  - apigee-semantic-cache-distance
+  - cloud-sdk-minikube-deprecation
+  - openai-prompt-cache-diagnostics
+  eligible_count: 5
+  selected_count: 5
+  mandatory_count: 1
+  oss_required: 2
   oss_selected: 0
-  oss_exception: 0 nouveau(x) projet(s) OSS éligible(s) pour 1 requis ; aucune alerte obligatoire n’a été évincée.
+  oss_exception: 0 nouveau(x) projet(s) OSS éligible(s) pour 2 requis ; aucune alerte obligatoire n’a été évincée.
+  minimum_exception:

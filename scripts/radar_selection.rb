@@ -107,6 +107,12 @@ module WatchtowerRadarSelection
         errors << "rangs sélectionnés incohérents" unless chosen.map { |candidate| candidate["rank"] }.sort == (1..chosen.length).to_a
         errors << "quota OSS calculé incohérent" unless selection["oss_required"] == (chosen.length * 0.33).ceil
         errors << "compte OSS calculé incohérent" unless selection["oss_selected"] == chosen.count { |candidate| new_oss?(candidate) }
+        minimum_exception = selection["minimum_exception"].to_s.strip
+        if chosen.length < 5
+          errors << "exception minimum de sujets requise" if minimum_exception.empty?
+        elsif !minimum_exception.empty?
+          errors << "exception minimum de sujets interdite avec cinq sujets ou plus"
+        end
       end
     end
     errors
@@ -160,6 +166,9 @@ module WatchtowerRadarSelection
     exception = if oss_selected < required
       "#{oss_selected} nouveau(x) projet(s) OSS éligible(s) pour #{required} requis ; aucune alerte obligatoire n’a été évincée."
     end
+    minimum_exception = if chosen.length < 5
+      "#{chosen.length} sujet(s) éligible(s) après les trois filtres ; #{data['candidate_yield_note']}"
+    end
     data["selection"] = {
       "selected_ids" => chosen.map { |candidate| candidate["id"] },
       "eligible_count" => eligible.length,
@@ -167,7 +176,8 @@ module WatchtowerRadarSelection
       "mandatory_count" => mandatory_count,
       "oss_required" => required,
       "oss_selected" => oss_selected,
-      "oss_exception" => exception
+      "oss_exception" => exception,
+      "minimum_exception" => minimum_exception
     }
     selected_lanes = chosen.flat_map { |candidate| candidate["coverage_lanes"] }.uniq
     data["coverage"].each do |entry|

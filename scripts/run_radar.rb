@@ -197,9 +197,10 @@ writing_prompt = <<~PROMPT
   des fiches, dans l’ordre de rank. Reprends exactement leur nom, URL, nature, novelty et champ fact,
   ainsi que toutes leurs URL de preuve primaire. Reprends exactement la couverture du manifest dans
   le bloc watchtower-couverture et chaque source_failure, période et conséquence dans Sources en
-  échec. Si oss_exception existe,
-  écris `Exception quota OSS : <valeur exacte>` dans Sujets écartés. Laisse les tokens sur la variante
-  non disponible. #{signal_instruction} Ne lance pas le validateur et ne crée aucun commit :
+  échec. Si oss_exception existe, écris `Exception quota OSS : <valeur exacte>` dans Sujets écartés.
+  Si minimum_exception existe, écris `Exception minimum de sujets : <valeur exacte>` dans Sujets
+  écartés. Laisse les tokens sur la variante non disponible. #{signal_instruction} Ne lance pas le
+  validateur et ne crée aucun commit :
   l’orchestrateur s’en charge.
 
   <radar-prompt>

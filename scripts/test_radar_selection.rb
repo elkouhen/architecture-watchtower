@@ -89,6 +89,7 @@ class RadarSelectionTest < Minitest::Test
 
     assert_equal %w[a b c], data.dig("selection", "selected_ids")
     assert_equal 3, data.dig("selection", "selected_count")
+    assert_match(/3 sujet\(s\) éligible\(s\)/, data.dig("selection", "minimum_exception"))
     assert_empty WatchtowerRadarSelection.validate(data, date: Date.new(2026, 9, 10), selected: true)
   end
 
@@ -112,6 +113,7 @@ class RadarSelectionTest < Minitest::Test
     assert_equal 7, data.dig("selection", "selected_count")
     assert_equal 3, data.dig("selection", "oss_selected")
     assert_nil data.dig("selection", "oss_exception")
+    assert_nil data.dig("selection", "minimum_exception")
   end
 
   def test_low_confidence_requires_weak_signal_label

@@ -261,6 +261,10 @@ def validate_radar_manifest(path, text, sources, signals, root: ROOT)
   end
   exception = data.dig("selection", "oss_exception")
   error("#{path}: exception quota OSS du manifest absente") if exception && !text.include?("Exception quota OSS : #{exception}")
+  minimum_exception = data.dig("selection", "minimum_exception")
+  if minimum_exception && !text.include?("Exception minimum de sujets : #{minimum_exception}")
+    error("#{path}: exception minimum de sujets du manifest absente")
+  end
   failure_section = sections_of(text)["sources en échec"].to_s
   Array(data["source_failures"]).each do |failure|
     unless failure_section.include?(failure["source_id"]) && failure_section.include?(failure["period"]) && failure_section.include?(failure["consequence"])
