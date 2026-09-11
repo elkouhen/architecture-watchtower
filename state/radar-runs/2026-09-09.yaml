@@ -1,0 +1,204 @@
+---
+schema_version: 1
+date: '2026-09-09'
+algorithm: scan-filter-verify-publish
+sources:
+  control:
+  - aws-whats-new
+  - aws-security-bulletins
+  - aws-eks-lifecycle
+  - aws-bedrock-history
+  - gcp-release-notes
+  - gcp-security-bulletins
+  - gcp-deprecation-policy
+  - gke-release-notes
+  - gke-security-bulletins
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - openai-api-deprecations
+  - anthropic-release-notes
+  discovery:
+  - github-trending
+  qualification:
+  - gke-release-notes
+coverage:
+- domain: AWS
+  lane: releases_features
+  sources: [aws-whats-new, aws-bedrock-history]
+  scope: Annonces AWS et historique Bedrock ; disponibilité fournisseur, pas exposition locale.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: false
+  note: Historique Bedrock non clos du 07 au 09/09.
+- domain: AWS
+  lane: security
+  sources: [aws-security-bulletins]
+  scope: Bulletins de sécurité AWS.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: true
+  note: Flux contrôlé.
+- domain: AWS
+  lane: lifecycle_deprecations
+  sources: [aws-eks-lifecycle, aws-bedrock-history]
+  scope: Lifecycle EKS et historique Bedrock.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: échec
+  complete: false
+  note: Bedrock non clos du 07 au 09/09.
+- domain: AWS
+  lane: availability_quotas_costs
+  sources: [aws-whats-new, aws-bedrock-history]
+  scope: Disponibilité, quotas et coûts AWS/Bedrock documentés.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: false
+  note: Historique Bedrock non clos du 07 au 09/09.
+- domain: GCP
+  lane: releases_features
+  sources: [gcp-release-notes, gke-release-notes, vertex-ai-release-notes]
+  scope: Nouveautés GCP, GKE et Vertex AI ; disponibilité fournisseur, pas exposition locale.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: signal retenu
+  complete: true
+  note: GKE R38 retenu.
+- domain: GCP
+  lane: security
+  sources: [gcp-security-bulletins, gke-security-bulletins]
+  scope: Bulletins de sécurité GCP et GKE.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: true
+  note: GCP-2026-060 seulement enrichi d’un lien.
+- domain: GCP
+  lane: lifecycle_deprecations
+  sources: [gcp-deprecation-policy, gke-release-notes, vertex-ai-release-notes]
+  scope: Politique GCP, cycles GKE et Vertex AI.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: signal retenu
+  complete: true
+  note: Cibles GKE modifiées.
+- domain: GCP
+  lane: availability_quotas_costs
+  sources: [gcp-release-notes, vertex-ai-release-notes]
+  scope: Disponibilité et annonces de capacité GCP/Vertex AI.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: signal retenu
+  complete: true
+  note: Déploiement GKE zonal progressif.
+- domain: IA
+  lane: releases_features
+  sources: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
+  scope: Fonctionnalités IA fournisseur ; disponibilité locale inconnue.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: false
+  note: Historique Bedrock non clos du 07 au 09/09.
+- domain: IA
+  lane: security
+  sources: [aws-security-bulletins, gcp-security-bulletins]
+  scope: Bulletins de sécurité liés aux plateformes IA.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: true
+  note: Flux contrôlés.
+- domain: IA
+  lane: lifecycle_deprecations
+  sources: [aws-bedrock-history, vertex-ai-release-notes, openai-api-deprecations, anthropic-release-notes]
+  scope: Lifecycle des plateformes et APIs IA.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: false
+  note: Historique Bedrock non clos du 07 au 09/09.
+- domain: IA
+  lane: availability_quotas_costs
+  sources: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
+  scope: Disponibilité, quotas et coûts IA documentés.
+  checked_at: '2026-09-09T10:00:00+02:00'
+  from: '2026-09-08'
+  through: '2026-09-09'
+  result: aucun changement retenu
+  complete: false
+  note: Historique Bedrock non clos du 07 au 09/09.
+source_failures:
+- source_id: aws-bedrock-history
+  period: 2026-09-07/2026-09-09
+  consequence: Historique et fallback non suffisants pour clore la période ; voies AWS et IA dépendantes incomplètes.
+candidate_yield_note: Un seul changement a franchi les trois filtres ; GCP-2026-060 n’avait pas de changement substantiel et Claude ant CLI 1.30.0 était déjà couvert.
+candidates:
+- id: gke-2026-r38
+  identity_key: legacy:SIG-2026-09-08-001
+  name: GKE 2026-R38
+  canonical_url: https://cloud.google.com/kubernetes-engine/docs/release-notes
+  nature: plateforme
+  novelty: Mise à jour
+  subject: GKE R38 remplace des builds par canal et les cibles d’auto-upgrade
+  product_version: GKE 2026-R38 version updates (2026-09-08)
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license:
+  impact_architectural: 4
+  urgence: 3
+  pertinence_stack: 5
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - GCP/lifecycle_deprecations
+  - GCP/availability_quotas_costs
+  signal_level: signal faible
+  scoring_note: 'Notes GKE précises : R38 ajoute et retire des builds, modifie les cibles d’auto-upgrade et reste déployée progressivement par zone ; versions, canaux et fenêtres de maintenance locaux inconnus.'
+  fact: 'les notes GKE du 8 septembre publient R38 : elles ajoutent notamment `1.37.0-gke.3165000` au canal Rapid, retirent des builds antérieurs et changent les cibles générales d’auto-upgrade.'
+  analysis: Cette rotation modifie la trajectoire effective des clusters gérés, même sans changement de version mineure local.
+  unknowns: Régions, versions, canaux et fenêtres de maintenance GKE locaux non inventoriés.
+  maturity: Changement fournisseur documenté avec déploiement zonal progressif.
+  decision: qualify
+  owner: plateforme Kubernetes
+  due_date: '2026-09-16'
+  success_criterion: Inventaire des clusters et validation qu’aucune cible R38 ne franchit une contrainte connue.
+  evidence:
+  - source_id: gke-release-notes
+    url: https://cloud.google.com/kubernetes-engine/docs/release-notes
+    primary: true
+    observed_at: '2026-09-09'
+    published_at: '2026-09-08'
+    effective_at: inconnue
+    fact: R38 ajoute et retire des builds et modifie les cibles d’auto-upgrade.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 1
+selection:
+  selected_ids: [gke-2026-r38]
+  eligible_count: 1
+  selected_count: 1
+  mandatory_count: 0
+  oss_required: 1
+  oss_selected: 0
+  oss_exception: 0 nouveau(x) projet(s) OSS éligible(s) pour 1 requis ; aucune alerte obligatoire n’a été évincée.
