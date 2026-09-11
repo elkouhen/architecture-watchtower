@@ -34,6 +34,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Manifests déterministes des radars : `state/radar-runs/YYYY-MM-DD.yaml`
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)
 - Validation locale : `ruby scripts/validate_watchtower.rb`
+- Site local : `python3 -m venv .venv-docs`, `.venv-docs/bin/python -m pip install -r requirements-docs.txt`, puis `ruby scripts/build_site.rb` et `.venv-docs/bin/python -m mkdocs serve`
 - Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
 - Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; qualification structurée, sélection Ruby, rédaction verrouillée, tokens cumulés et durée murale, validation et commit)
 - Régénération instrumentée d’un radar depuis son manifest verrouillé : `ruby scripts/run_radar.rb --date AAAA-MM-JJ --replace` (aucune recollecte ni resélection)
@@ -54,5 +55,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Le classement mensuel récapitule une seule fois par mois toutes les technologies observées, sans planifier de POC ou de laboratoire.
 
 Le hook versionné `.githooks/pre-commit` exécute automatiquement la validation. Pour l’activer dans un nouveau clone : `git config core.hooksPath .githooks`.
+
+La publication GitHub Pages est construite avec MkDocs Material. Les sources restent les fichiers Markdown versionnés ; `.mkdocs/` et `public/` sont des sorties locales régénérables et ne sont pas suivies par Git.
 
 Le catalogue évite les doublons entre thèmes ; les rapports et cartes restent regroupés par date pour faciliter la navigation historique.

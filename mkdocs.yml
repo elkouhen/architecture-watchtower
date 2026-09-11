@@ -1,0 +1,80 @@
+site_name: Architecture Watchtower
+site_description: Veille Cloud, DevOps, architecture applicative et IA
+site_url: https://elkouhen.github.io/architecture-watchtower/
+repo_url: https://github.com/elkouhen/architecture-watchtower
+repo_name: elkouhen/architecture-watchtower
+docs_dir: .mkdocs
+site_dir: public
+
+theme:
+  name: material
+  language: fr
+  icon:
+    logo: material/radar
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Activer le thème sombre
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Activer le thème clair
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+nav:
+  - Accueil: index.md
+  - Rapports: docs/rapports.md
+  - Catalogue: docs/catalogue.md
+  - Algorithme du radar: docs/algorithme-radar.html
+  - Référentiel:
+      - Contrats de veille: docs/contrats-veille.md
+      - Prompt du radar: radar-architecture.md
+      - Prompt des cartes: carte-service.md
+      - Prompt du classement mensuel: classement-mensuel.md
+      - PRD: PRD.md
+
+plugins:
+  - search:
+      lang: fr
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower-ascii}}
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+
+extra_css:
+  - docs/assets/watchtower.css
+
+not_in_nav: |
+  AGENTS.md
+  amelioration-continue.md
+  dist/**
+  docs/backlog-radar.md
+
+exclude_docs: |
+  docs/algorithme-radar.visual-check.*
+
+copyright: Contenu géré localement et versionné dans Git

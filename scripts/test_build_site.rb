@@ -2,43 +2,34 @@
 # frozen_string_literal: true
 
 require "minitest/autorun"
+require "tmpdir"
 require_relative "build_site"
 
 class BuildSiteTest < Minitest::Test
-  def test_watchtower_contract_marker_is_not_rendered
-    html = markdown_to_html(<<~MARKDOWN)
-      # Radar
-      <!-- watchtower:2 -->
-
-      Contenu visible.
-    MARKDOWN
-
-    refute_includes html, "watchtower:2"
-    assert_includes html, "Contenu visible."
+  def setup
+    @temporary_directory = Dir.mktmpdir("watchtower-mkdocs-")
+    @destination = Pathname.new(@temporary_directory).join("site")
   end
 
-  def test_other_html_comments_are_not_silently_removed
-    html = markdown_to_html("<!-- commentaire editorial -->\n")
-
-    assert_includes html, "commentaire editorial"
+  def teardown
+    FileUtils.remove_entry(@temporary_directory)
   end
 
-  def test_marker_inside_code_block_remains_visible
-    html = markdown_to_html("```html\n<!-- watchtower:2 -->\n```\n")
+  def test_prepares_homepage_reports_and_documentation
+    prepare_site_sources(destination: @destination)
 
-    assert_includes html, "watchtower:2"
+    homepage = @destination.join("index.md").read
+    assert_includes homepage, "https://github.com/elkouhen/architecture-watchtower/blob/master/state/signals.yaml"
+    refute_includes homepage, "](state/signals.yaml)"
+    assert @destination.join("dist", "2026-09-11", "radar-architecture.md").file?
+    assert @destination.join("docs", "catalogue.md").file?
+    assert @destination.join("docs", "algorithme-radar.html").file?
   end
 
-  def test_blockquote_marker_is_rendered_as_html
-    html = markdown_to_html("> **Tokens utilisés :** `42`\n")
+  def test_staging_does_not_copy_operational_state
+    prepare_site_sources(destination: @destination)
 
-    assert_includes html, "<blockquote><p><strong>Tokens utilisés :</strong> <code>42</code></p></blockquote>"
-    refute_includes html, "&gt;"
-  end
-
-  def test_navigation_links_to_algorithm_from_nested_report
-    html = page("Rapport", "Contenu", depth: 2)
-
-    assert_includes html, 'href="../../algorithme-radar.html"'
+    refute @destination.join("state").exist?
+    refute @destination.join("scripts").exist?
   end
 end

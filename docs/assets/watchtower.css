@@ -1,0 +1,20 @@
+:root {
+  --md-primary-fg-color: #5753c9;
+  --md-primary-fg-color--light: #7773df;
+  --md-primary-fg-color--dark: #39358f;
+}
+
+.md-typeset h1,
+.md-typeset h2 {
+  letter-spacing: -0.025em;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  font-size: 0.76rem;
+  width: 100%;
+}
+
+.md-typeset blockquote {
+  border-left-color: var(--md-accent-fg-color);
+}
