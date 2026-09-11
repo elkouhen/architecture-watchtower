@@ -6,6 +6,13 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [Google Cloud Agent Gateway](https://cloud.google.com/release-notes#September_10_2026) | gateway IA/sécurité | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#google-cloud-agent-gateway) | VPC-SC conditionnel · 10/09 |
+| [Claude Managed Agents](https://platform.claude.com/docs/en/release-notes/overview) | plateforme agents | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#claude-managed-agents) | permissions auto · 10/09 |
+| [Gemini Enterprise Agent Platform Sandboxes](https://cloud.google.com/release-notes#September_10_2026) | isolation agents | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#gemini-enterprise-agent-platform-sandboxes) | GA · 10/09 |
+| [Google Cloud IAM MCP Server](https://cloud.google.com/release-notes#September_10_2026) | IAM/MCP | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#google-cloud-iam-mcp-server) | GA · 10/09 |
+| [OpenAI Agents API](https://developers.openai.com/api/docs/changelog) | plateforme agents | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#openai-agents-api) | public beta · 10/09 |
+| [Cloud SQL Remote MCP Server](https://cloud.google.com/release-notes#September_10_2026) | données/MCP/observabilité | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#cloud-sql-remote-mcp-server) | sqlcommenter désactivé · 10/09 |
+| [llmfit](https://github.com/AlexsJones/llmfit) | dimensionnement IA OSS | à surveiller | [11/09](../dist/2026-09-11/radar-architecture.md#llmfit) | MIT · observé 11/09 |
 | [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) | plateforme Kubernetes/sécurité | à qualifier | [10/09](../dist/2026-09-10/radar-architecture.md#gke--restauration-containerd-avec-criu) | bulletin · 09/09 |
 | [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026) | cache sémantique/API | à qualifier | [10/09](../dist/2026-09-10/radar-architecture.md#apigee-semanticcachelookup) | distances configurables · 09/09 |
 | [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09) | outillage Kubernetes | à qualifier | [10/09](../dist/2026-09-10/radar-architecture.md#cloud-sdk--composant-minikube) | retrait après 31/01/2027 |

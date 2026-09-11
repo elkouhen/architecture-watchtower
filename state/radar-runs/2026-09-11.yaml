@@ -1,0 +1,969 @@
+---
+schema_version: 1
+date: '2026-09-11'
+algorithm: scan-filter-verify-publish
+sources:
+  control:
+  - aws-whats-new
+  - aws-security-bulletins
+  - aws-eks-lifecycle
+  - aws-bedrock-history
+  - gcp-release-notes
+  - gcp-security-bulletins
+  - gcp-deprecation-policy
+  - gke-release-notes
+  - gke-security-bulletins
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - openai-api-deprecations
+  - anthropic-release-notes
+  discovery:
+  - github-trending
+  - trendshift
+  qualification:
+  - gcp-release-notes
+  - openai-api-changelog
+  - anthropic-release-notes
+  - llmfit-repository
+  - vercel-agent-skills
+coverage:
+- domain: AWS
+  lane: releases_features
+  sources:
+  - aws-whats-new
+  - aws-bedrock-history
+  scope: Annonces AWS générales et historique Bedrock ; disponibilité fournisseur,
+    pas exposition locale.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: 'Flux What''s New non pris en charge et fallback sans annonces ; historique
+    Bedrock capturé avec retard. Périodes manquantes : What''s New 09–11/09, Bedrock
+    07–11/09.'
+- domain: AWS
+  lane: security
+  sources:
+  - aws-security-bulletins
+  scope: Bulletins de sécurité AWS pour services et composants publiés par AWS ; exposition
+    locale inconnue.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: Flux RSS non pris en charge et fallback arrêté au 31/08 ; période du 09 au
+    11/09 non close.
+- domain: AWS
+  lane: lifecycle_deprecations
+  sources:
+  - aws-eks-lifecycle
+  - aws-bedrock-history
+  scope: Versions et support EKS, lifecycle et disponibilité Bedrock ; inventaire
+    local inconnu.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: Capture EKS datée de deux semaines et historique Bedrock incomplet ; périodes
+    manquantes EKS 09–11/09 et Bedrock 07–11/09.
+- domain: AWS
+  lane: availability_quotas_costs
+  sources:
+  - aws-whats-new
+  - aws-bedrock-history
+  scope: Régions, quotas et coûts annoncés dans AWS What's New et l'historique Bedrock.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: 'Aucun des deux deltas n''a pu être clos : What''s New 09–11/09 et Bedrock
+    07–11/09.'
+- domain: GCP
+  lane: releases_features
+  sources:
+  - gcp-release-notes
+  - gke-release-notes
+  - vertex-ai-release-notes
+  scope: Notes générales GCP, versions et fonctionnalités GKE, mises à jour Vertex
+    AI ; déploiement local inconnu.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-10'
+  through: '2026-09-11'
+  result: signal retenu
+  complete: true
+  note: Intervalle entièrement parcouru ; changements du 10/09 consignés comme candidats
+    avant sélection.
+- domain: GCP
+  lane: security
+  sources:
+  - gcp-security-bulletins
+  - gke-security-bulletins
+  scope: Bulletins GCP et GKE ; le bulletin général ne clôt pas le delta propre à
+    la page GKE.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: Bulletins généraux GCP contrôlés ; la page GKE capturée le 10/09 ne contient
+    toujours pas GCP-2026-061. Volet GKE du 09 au 11/09 non clos.
+- domain: GCP
+  lane: lifecycle_deprecations
+  sources:
+  - gcp-deprecation-policy
+  - gke-release-notes
+  - vertex-ai-release-notes
+  scope: Politique de dépréciation GCP, lifecycle GKE et changements incompatibles
+    Vertex AI.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-10'
+  through: '2026-09-11'
+  result: aucun changement retenu
+  complete: true
+  note: Intervalle entièrement parcouru ; aucune nouvelle dépréciation dans le delta.
+- domain: GCP
+  lane: availability_quotas_costs
+  sources:
+  - gcp-release-notes
+  - vertex-ai-release-notes
+  scope: Disponibilités, régions, quotas et coûts GCP et Vertex AI ; contrats locaux
+    inconnus.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-10'
+  through: '2026-09-11'
+  result: signal retenu
+  complete: true
+  note: Intervalle entièrement parcouru ; changements de disponibilité et de facturation
+    consignés comme candidats avant sélection.
+- domain: IA
+  lane: releases_features
+  sources:
+  - aws-bedrock-history
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - anthropic-release-notes
+  scope: Fonctionnalités de plateformes IA AWS, GCP, OpenAI et Anthropic ; disponibilité
+    locale inconnue.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du
+    07 au 11/09.
+- domain: IA
+  lane: security
+  sources:
+  - aws-security-bulletins
+  - gcp-security-bulletins
+  scope: Bulletins AWS et GCP susceptibles d'affecter agents, connecteurs ou données
+    IA.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-09'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: Bulletins GCP contrôlés ; flux et fallback AWS insuffisamment frais pour clore
+    le 09–11/09.
+- domain: IA
+  lane: lifecycle_deprecations
+  sources:
+  - aws-bedrock-history
+  - vertex-ai-release-notes
+  - openai-api-deprecations
+  - anthropic-release-notes
+  scope: Dépréciations et changements incompatibles des plateformes IA ; usages locaux
+    inconnus.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du
+    07 au 11/09.
+- domain: IA
+  lane: availability_quotas_costs
+  sources:
+  - aws-bedrock-history
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - anthropic-release-notes
+  scope: Disponibilité, régions, quotas et coûts des plateformes IA ; droits contractuels
+    locaux inconnus.
+  checked_at: '2026-09-11T12:00:00+02:00'
+  from: '2026-09-07'
+  through: '2026-09-11'
+  result: échec
+  complete: false
+  note: Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du
+    07 au 11/09.
+source_failures:
+- source_id: aws-whats-new
+  period: 2026-09-09/2026-09-11
+  consequence: RSS non pris en charge et fallback sans annonces ; releases et disponibilité
+    AWS incomplètes.
+- source_id: aws-security-bulletins
+  period: 2026-09-09/2026-09-11
+  consequence: RSS non pris en charge et fallback arrêté au 31/08 ; sécurité AWS et
+    IA incomplète.
+- source_id: aws-eks-lifecycle
+  period: 2026-09-09/2026-09-11
+  consequence: Capture primaire trop ancienne pour clore le delta lifecycle EKS.
+- source_id: aws-bedrock-history
+  period: 2026-09-07/2026-09-11
+  consequence: Historique capturé avec retard ; voies AWS et IA liées à Bedrock incomplètes.
+- source_id: gke-security-bulletins
+  period: 2026-09-09/2026-09-11
+  consequence: Capture sans GCP-2026-061 ; le bulletin général GCP ne clôt pas la
+    source GKE.
+candidate_yield_note: 'Quatorze candidats représentatifs ont été examinés : douze
+  changements des deltas primaires et deux pistes OSS issues de GitHub Trending. Dix
+  franchissent les trois filtres ; quatre sont arrêtés pour absence de nouveauté substantielle
+  ou d''effet architectural suffisant. Les autres entrées des flux étaient hors périmètre,
+  applicatives, sponsorisées ou des doublons récents.'
+candidates:
+- id: candidate-001
+  identity_key: gcp:cloud-sql-remote-mcp:sqlcommenter-temporarily-disabled
+  name: Cloud SQL Remote MCP Server
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Cloud SQL désactive temporairement les tags sqlcommenter sur son serveur
+    MCP distant
+  product_version: Cloud SQL Remote MCP Server for MySQL and PostgreSQL, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 3
+  urgence: 3
+  pertinence_stack: 4
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - IA/releases_features
+  signal_level: normal
+  scoring_note: 'Impact 3 : la désactivation retire temporairement une métadonnée
+    de traçabilité SQL ; urgence 3 : rupture active sans date de rétablissement ;
+    pertinence 4 : MCP et observabilité IA sont prioritaires ; confiance 5 : note
+    primaire explicite pour MySQL et PostgreSQL.'
+  fact: Le 10 septembre, Google a temporairement désactivé l'ajout des tags sqlcommenter
+    via sql_commenter_enabled pour les requêtes des serveurs MCP Cloud SQL MySQL et
+    PostgreSQL.
+  analysis: Les pipelines d'audit ou de corrélation qui s'appuient sur ces commentaires
+    perdent ce signal ; cela ne démontre aucune exposition locale.
+  unknowns: Usage du serveur MCP Cloud SQL, dépendance aux tags et date de rétablissement
+    inconnus.
+  maturity: Service managé ; comportement temporairement dégradé et documenté.
+  decision: qualify
+  owner: plateforme données/observabilité
+  due_date: '2026-09-25'
+  success_criterion: Dépendances à sqlcommenter inventoriées et mécanisme de traçabilité
+    alternatif confirmé si nécessaire.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Désactivation temporaire documentée pour les serveurs MCP Cloud SQL MySQL
+      et PostgreSQL.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 6
+- id: candidate-002
+  identity_key: gcp:iam:mcp-server-ga
+  name: Google Cloud IAM MCP Server
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Le serveur MCP IAM devient GA pour inspecter et gérer rôles personnalisés
+    et deny policies
+  product_version: Google Cloud IAM remote MCP server GA, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 5
+  urgence: 2
+  pertinence_stack: 5
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - IA/releases_features
+  - IA/security
+  signal_level: normal
+  scoring_note: 'Impact 5 : un agent peut agir sur les rôles et politiques de refus,
+    frontière IAM critique ; urgence 2 : GA sans migration imposée ; pertinence 5
+    : Cloud, MCP et sécurité sont prioritaires ; confiance 5 : statut et capacités
+    documentés officiellement.'
+  fact: Google rend GA son serveur MCP IAM distant, utilisable par des applications
+    IA pour inspecter et gérer les rôles personnalisés et les deny policies.
+  analysis: La capacité transforme une interface d'administration IAM en outil d'agent
+    ; son adoption exige autorisations minimales, approbation humaine et journalisation.
+  unknowns: Comptes GCP, clients MCP, permissions accordées et contrôles d'approbation
+    inconnus.
+  maturity: Disponibilité générale annoncée ; exploitation locale non observée.
+  decision: qualify
+  owner: sécurité/plateforme IA
+  due_date: '2026-10-02'
+  success_criterion: Cas d'usage, scopes minimaux, approbations et audit définis avant
+    toute activation.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Le serveur MCP IAM est GA et couvre rôles personnalisés et deny policies.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 4
+- id: candidate-003
+  identity_key: gcp:gemini-agent-platform:sandboxes-ga-security-controls
+  name: Gemini Enterprise Agent Platform Sandboxes
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: plateforme
+  novelty: Nouveau hors OSS
+  subject: Les sandboxes Computer Use et Shell deviennent GA avec VPC-SC, PSC, CMEK
+    et pause/reprise
+  product_version: Gemini Enterprise Agent Platform sandboxes GA, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 5
+  urgence: 2
+  pertinence_stack: 5
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - GCP/availability_quotas_costs
+  - IA/releases_features
+  signal_level: normal
+  scoring_note: 'Impact 5 : exécution de commandes non fiables avec frontières réseau,
+    chiffrement et persistance structurantes ; urgence 2 : GA sans échéance ; pertinence
+    5 : sandboxing agentique et Cloud sont prioritaires ; confiance 5 : capacités
+    et contraintes officielles précises.'
+  fact: Google annonce GA les sandboxes Computer Use et Shell et documente VPC Service
+    Controls, Private Service Connect, CMEK ainsi que la pause/reprise avec conservation
+    d'état.
+  analysis: Le service fournit une primitive managée d'isolation d'agents, mais les
+    garanties runtime et le coût doivent être comparés aux sandboxes Kubernetes déjà
+    étudiées.
+  unknowns: Régions, quotas, coût, isolation runtime et workloads concernés inconnus.
+  maturity: GA fournisseur ; exploitation et réversibilité locales à qualifier.
+  decision: qualify
+  owner: plateforme IA/sécurité
+  due_date: '2026-10-02'
+  success_criterion: Frontières réseau, chiffrement, persistance, quotas et coûts
+    comparés aux besoins réels.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: GA des sandboxes et contrôles VPC-SC, PSC, CMEK et pause/reprise documentés.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 3
+- id: candidate-004
+  identity_key: gcp:agent-gateway:vpc-sc-post-2026-09-08
+  name: Google Cloud Agent Gateway
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Agent Gateway prend en charge VPC Service Controls uniquement pour certains
+    nouveaux déploiements
+  product_version: Agent Gateway VPC-SC support, deployments after 2026-09-08
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 5
+  urgence: 3
+  pertinence_stack: 5
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - IA/releases_features
+  - IA/security
+  signal_level: normal
+  scoring_note: 'Impact 5 : la protection périmétrique dépend de l''âge et du mode
+    réseau du déploiement ; urgence 3 : les instances existantes peuvent nécessiter
+    une recréation ; pertinence 5 : gateways et sécurité IA prioritaires ; confiance
+    5 : contraintes officielles explicites.'
+  fact: Agent Gateway applique VPC-SC seulement aux déploiements créés après le 8
+    septembre 2026 avec un modèle de connectivité VPC configuré en egress ALL_TRAFFIC.
+  analysis: Une activation déclarative de VPC-SC ne suffit pas pour les anciennes
+    instances ; l'âge du déploiement et le chemin d'egress deviennent des propriétés
+    de conformité.
+  unknowns: Instances Agent Gateway, dates de création, templates réseau et périmètres
+    VPC-SC inconnus.
+  maturity: Capacité fournisseur disponible avec conditions de déploiement documentées.
+  decision: qualify
+  owner: réseau/sécurité IA
+  due_date: '2026-09-25'
+  success_criterion: Inventaire des gateways avec date de création, mode egress et
+    application effective de VPC-SC.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: VPC-SC requiert une gateway postérieure au 08/09 et un template VPC en ALL_TRAFFIC.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 1
+- id: candidate-005
+  identity_key: gcp:gemini-enterprise:paygo-invoiced-accounts
+  name: Gemini Enterprise Pay-as-you-go
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Gemini Enterprise PayGo et ses outils développeur s'ouvrent à tous les
+    comptes facturés
+  product_version: Gemini Enterprise Pay-as-you-go, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 3
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/availability_quotas_costs
+  - IA/availability_quotas_costs
+  signal_level: normal
+  scoring_note: 'Impact 3 : l''accès change la voie d''approvisionnement d''outils
+    IA ; urgence 1 : aucune échéance ; pertinence 3 : adjacent aux plateformes IA,
+    usage inconnu ; confiance 5 : condition de facturation avant/après documentée.'
+  fact: Les projets liés à tout compte Cloud Billing facturé peuvent désormais souscrire
+    à Gemini Enterprise PayGo et accéder aux outils développeur IA, sans invitation
+    préalable.
+  analysis: Le changement enlève une barrière d'accès mais ne démontre ni besoin,
+    ni coût acceptable, ni adéquation d'architecture.
+  unknowns: Éditions, prix contractuels, comptes facturés et usages locaux inconnus.
+  maturity: Offre commerciale disponible ; exploitation locale non observée.
+  decision: monitor
+  owner: plateforme IA/FinOps
+  due_date: '2026-10-09'
+  success_criterion: Éditions, conditions de facturation et besoins internes documentés.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Accès PayGo étendu à tous les projets rattachés à un compte facturé.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- id: candidate-006
+  identity_key: gcp:managed-kafka:public-clusters
+  name: Google Cloud Managed Service for Apache Kafka
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Managed Kafka permet d'exposer un cluster sur Internet
+  product_version: Managed Service for Apache Kafka public clusters, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 4
+  urgence: 2
+  pertinence_stack: 3
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - GCP/availability_quotas_costs
+  signal_level: normal
+  scoring_note: 'Impact 4 : une nouvelle frontière Internet modifie réseau et menace
+    ; urgence 2 : option sans migration ; pertinence 3 : plateforme data adjacente
+    ; confiance 5 : disponibilité documentée officiellement.'
+  fact: Google Cloud Managed Service for Apache Kafka permet désormais de configurer
+    un cluster public joignable par des clients sur Internet.
+  analysis: La capacité simplifie certains accès externes mais élargit fortement la
+    surface d'attaque et doit rester une décision explicite.
+  unknowns: Usage Managed Kafka, plages autorisées, identité client et exigences réseau
+    inconnus.
+  maturity: Fonctionnalité fournisseur documentée ; exposition locale non observée.
+  decision: monitor
+  owner: plateforme données/réseau
+  due_date: '2026-10-09'
+  success_criterion: Politique d'interdiction ou conditions d'usage public définies
+    avec contrôles réseau et authentification.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Les clusters Managed Kafka peuvent être configurés comme clusters publics.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- id: candidate-007
+  identity_key: openai:api-keys:project-expiration-policy
+  name: OpenAI Project API Keys
+  canonical_url: https://developers.openai.com/api/docs/changelog
+  nature: standard
+  novelty: Nouveau hors OSS
+  subject: OpenAI ajoute expiration des clés projet et durée maximale imposable
+  product_version: OpenAI Platform project API key policy, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 4
+  urgence: 2
+  pertinence_stack: 5
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - IA/security
+  - IA/releases_features
+  signal_level: normal
+  scoring_note: 'Impact 4 : la durée de vie devient un contrôle d''organisation ;
+    urgence 2 : seules les nouvelles clés sont concernées ; pertinence 5 : sécurité
+    d''accès aux plateformes IA prioritaire ; confiance 5 : changelog primaire précis.'
+  fact: OpenAI permet de fixer une expiration lors de la création d'une clé projet
+    et d'imposer une durée maximale au niveau organisation ou projet.
+  analysis: Le contrôle réduit les secrets permanents mais n'assainit pas automatiquement
+    les clés existantes ; rotation et inventaire restent nécessaires.
+  unknowns: Organisations, clés existantes, automatisation de rotation et durées acceptables
+    inconnues.
+  maturity: Fonctionnalité de plateforme disponible ; politique locale à qualifier.
+  decision: qualify
+  owner: sécurité/plateforme IA
+  due_date: '2026-10-02'
+  success_criterion: Durée maximale définie et inventaire des clés existantes assorti
+    d'un plan de rotation.
+  evidence:
+  - source_id: openai-api-changelog
+    url: https://developers.openai.com/api/docs/changelog
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Expiration à la création et durée maximale administrable annoncées.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- id: candidate-008
+  identity_key: openai:agents-api:public-beta-managed-codex-harness
+  name: OpenAI Agents API
+  canonical_url: https://developers.openai.com/api/docs/changelog
+  nature: plateforme
+  novelty: Nouveau hors OSS
+  subject: L'Agents API public beta fournit sessions durables, orchestration et sandboxes
+  product_version: OpenAI Agents API public beta, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 5
+  urgence: 2
+  pertinence_stack: 5
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - IA/releases_features
+  - IA/availability_quotas_costs
+  signal_level: normal
+  scoring_note: 'Impact 5 : la plateforme peut déplacer orchestration, état, reprise
+    et sandbox vers un service managé ; urgence 2 : public beta sans échéance ; pertinence
+    5 : agents et exploitation IA prioritaires ; confiance 5 : contrat de capacité
+    officiel, limites de beta explicites.'
+  fact: OpenAI publie en beta l'Agents API avec harness Codex managé, sessions durables,
+    reprise, streaming, outils/MCP et sandboxes hébergées ou externes.
+  analysis: Le service redessine la frontière build-versus-buy d'une plateforme d'agents,
+    mais une beta ne doit pas porter seule un contrôle critique.
+  unknowns: SLA, régions, quotas, coûts, réversibilité de l'état et garanties de sandbox
+    inconnus.
+  maturity: Public beta ; solution de repli requise pour tout usage critique.
+  decision: qualify
+  owner: architecture/plateforme IA
+  due_date: '2026-10-02'
+  success_criterion: Contrats d'état, reprise, sécurité, coûts et réversibilité comparés
+    à une orchestration interne.
+  evidence:
+  - source_id: openai-api-changelog
+    url: https://developers.openai.com/api/docs/changelog
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Agents API public beta avec sessions durables, outils et sandboxes documentée.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 5
+- id: candidate-009
+  identity_key: openai:gpt-live-1:ga-full-duplex-delegation
+  name: GPT-Live 1
+  canonical_url: https://developers.openai.com/api/docs/changelog
+  nature: modèle
+  novelty: Nouveau hors OSS
+  subject: GPT-Live 1 devient GA avec délégation vers un modèle ou backend d'agent
+  product_version: gpt-live-1 GA, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 3
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - IA/releases_features
+  - IA/availability_quotas_costs
+  signal_level: normal
+  scoring_note: 'Impact 3 : voix temps réel et délégation séparent session média et
+    raisonnement ; urgence 1 : aucune échéance ; pertinence 3 : pattern IA adjacent
+    ; confiance 5 : statut, API et prix officiels.'
+  fact: GPT-Live 1 est GA pour des conversations vocales full-duplex et peut déléguer
+    le raisonnement et les outils à un modèle OpenAI ou à un backend client.
+  analysis: Le découplage voix/agent est architecturalement utile, mais la facturation
+    à la minute s'ajoute aux coûts backend.
+  unknowns: Cas d'usage vocal, latence, régions, données sensibles et budget inconnus.
+  maturity: GA fournisseur ; exploitation locale non observée.
+  decision: monitor
+  owner: architecture IA/FinOps
+  due_date: '2026-10-09'
+  success_criterion: Cas d'usage et enveloppe coût/latence documentés avant décision.
+  evidence:
+  - source_id: openai-api-changelog
+    url: https://developers.openai.com/api/docs/changelog
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: GA, délégation et prix de 0,05 USD par minute documentés.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- id: candidate-010
+  identity_key: anthropic:managed-agents:auto-permission-evaluation
+  name: Claude Managed Agents
+  canonical_url: https://platform.claude.com/docs/en/release-notes/overview
+  nature: plateforme
+  novelty: Nouveau hors OSS
+  subject: Les permissions auto évaluent côté serveur chaque appel d'outil ou MCP
+  product_version: Claude Managed Agents auto permission policy, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 5
+  urgence: 2
+  pertinence_stack: 5
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - IA/releases_features
+  - IA/security
+  signal_level: normal
+  scoring_note: 'Impact 5 : la décision run/deny/approval devient un contrôle serveur
+    pour chaque outil ; urgence 2 : option nouvelle sans migration ; pertinence 5
+    : gouvernance MCP prioritaire ; confiance 5 : événements et champs d''évaluation
+    documentés officiellement.'
+  fact: Claude Managed Agents ajoute une politique auto qui autorise, refuse ou suspend
+    chaque appel d'agent ou d'outil MCP et expose l'évaluation dans les événements.
+  analysis: Le contrôle centralise l'autorisation dynamique et son audit, mais sa
+    logique fournisseur doit rester observable et bornée par des permissions statiques
+    minimales.
+  unknowns: Règles d'évaluation, garanties, faux positifs, conservation des événements
+    et usage local inconnus.
+  maturity: Capacité de plateforme documentée ; comportement opérationnel local non
+    observé.
+  decision: qualify
+  owner: sécurité/plateforme IA
+  due_date: '2026-10-02'
+  success_criterion: Modèle de décision, permissions minimales, approbations et audit
+    comparés aux contrôles existants.
+  evidence:
+  - source_id: anthropic-release-notes
+    url: https://platform.claude.com/docs/en/release-notes/overview
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Politique auto et champs d'évaluation des événements documentés.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 2
+- id: candidate-011
+  identity_key: oss:llmfit:hardware-model-fit
+  name: llmfit
+  canonical_url: https://github.com/AlexsJones/llmfit
+  nature: outil
+  novelty: Nouveau projet OSS
+  subject: llmfit relie inventaire matériel, modèles, quantification et mesures locales
+  product_version: repository observed 2026-09-11
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: true
+  new_project: true
+  license: MIT
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 4
+  confiance: 4
+  recency: discovery
+  coverage_lanes:
+  - IA/availability_quotas_costs
+  signal_level: normal
+  scoring_note: 'Impact 3 : outille le placement et dimensionnement d''inférence locale
+    ; urgence 1 : découverte sans échéance ; pertinence 4 : exploitation et coût IA
+    prioritaires ; confiance 4 : dépôt MIT, API, conteneur et méthode documentés,
+    mesures indépendantes non vérifiées.'
+  fact: llmfit inspecte CPU, RAM, GPU et VRAM, estime l'adéquation des modèles et
+    quantifications, expose une API et peut enregistrer des benchmarks locaux.
+  analysis: L'outil peut servir de préfiltre reproductible pour le capacity planning
+    d'inférence, sans transformer ses estimations communautaires en benchmark d'adoption.
+  unknowns: Précision sur le matériel cible, sécurité de la chaîne d'installation,
+    maintenance et usage Kubernetes inconnus.
+  maturity: Projet actif avec binaire, conteneur, API et documentation ; exploitation
+    indépendante à qualifier.
+  decision: monitor
+  owner: plateforme IA
+  due_date: '2026-10-09'
+  success_criterion: Méthode d'estimation et provenance des mesures évaluées sur un
+    inventaire matériel réel, si une validation est demandée.
+  evidence:
+  - source_id: llmfit-repository
+    url: https://github.com/AlexsJones/llmfit
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: inconnue
+    effective_at: inconnue
+    fact: Dépôt MIT avec détection matérielle, recommandations, API, conteneur et
+      benchmarks documentés.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 7
+- id: candidate-012
+  identity_key: oss:vercel-labs:skills-cli
+  name: vercel-labs/skills
+  canonical_url: https://github.com/vercel-labs/skills
+  nature: outil
+  novelty: Nouveau projet OSS
+  subject: Un CLI ouvert distribue des skills d'agents
+  product_version: repository observed 2026-09-11
+  environment: exposition inconnue
+  substantive_change: false
+  architectural_effect: false
+  primary_evidence: true
+  open_source: true
+  new_project: true
+  license: inconnue
+  impact_architectural: 2
+  urgence: 1
+  pertinence_stack: 3
+  confiance: 3
+  recency: discovery
+  coverage_lanes: []
+  signal_level: normal
+  scoring_note: 'Impact 2 : packaging de skills déjà couvert localement par Agent
+    Plugins ; urgence 1 : aucune échéance ; pertinence 3 : outillage agent adjacent
+    ; confiance 3 : dépôt primaire public, licence et changement daté non établis.'
+  fact: Le dépôt public vercel-labs/skills présente un outil npx de distribution de
+    skills d'agents.
+  analysis: La piste recoupe un standard de packaging observé récemment et ne démontre
+    pas de changement substantiel distinct.
+  unknowns: Licence exacte, version, modèle de confiance et différenciation vis-à-vis
+    d'Agent Plugins inconnus.
+  maturity: Dépôt actif mais qualification arrêtée après échec des filtres de nouveauté
+    et d'effet architectural.
+  decision: avoid
+  owner: architecture/engineering
+  due_date: '2026-10-09'
+  success_criterion: Réexaminer uniquement sur release datée ou différenciation de
+    gouvernance démontrée.
+  evidence:
+  - source_id: vercel-agent-skills
+    url: https://github.com/vercel-labs/skills
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: inconnue
+    effective_at: inconnue
+    fact: Dépôt public et structure de CLI observés ; licence non qualifiée.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: changement non substantiel
+- id: candidate-013
+  identity_key: gcp:cloud-storage:storage-intelligence-advisor-ga
+  name: Cloud Storage Intelligence Advisor
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: Storage Intelligence Advisor devient GA pour piloter le stockage à l'échelle
+  product_version: Cloud Storage Intelligence Advisor GA, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 3
+  confiance: 4
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - GCP/availability_quotas_costs
+  signal_level: normal
+  scoring_note: 'Impact 3 : gouvernance transverse des objets à l''échelle organisation/projet
+    ; urgence 1 : GA sans échéance ; pertinence 3 : FinOps Cloud adjacent ; confiance
+    4 : statut et périmètre primaires, recommandations détaillées non qualifiées.'
+  fact: Cloud Storage Intelligence Advisor est GA pour surveiller et gérer le stockage
+    à l'échelle des organisations, dossiers et projets.
+  analysis: Le service peut centraliser des décisions de gouvernance et coût, mais
+    la nature et l'actionnabilité de ses recommandations restent à qualifier.
+  unknowns: Coût, régions, permissions, qualité des recommandations et inventaire
+    Cloud Storage inconnus.
+  maturity: GA fournisseur ; valeur opérationnelle locale non observée.
+  decision: monitor
+  owner: Cloud FinOps/plateforme
+  due_date: '2026-10-09'
+  success_criterion: Périmètre, coût, permissions et actions réellement proposées
+    documentés.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Statut GA et périmètre organisation, dossier et projet documentés.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- id: candidate-014
+  identity_key: gcp:gemini-enterprise:slack-multiturn-mentions
+  name: Gemini Enterprise for Slack
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  subject: L'application Slack ajoute mentions de canal et conversations multi-tours
+  product_version: Gemini Enterprise Slack app GA, 2026-09-10
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: false
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  impact_architectural: 2
+  urgence: 1
+  pertinence_stack: 2
+  confiance: 5
+  recency: 48h
+  coverage_lanes:
+  - GCP/releases_features
+  - IA/releases_features
+  signal_level: normal
+  scoring_note: 'Impact 2 : expérience d''intégration Slack sans nouveau contrat de
+    plateforme ; urgence 1 : réinstallation volontaire ; pertinence 2 : messagerie
+    non déclarée ; confiance 5 : comportement et prérequis officiels précis.'
+  fact: L'application Gemini Enterprise pour Slack ajoute mentions de canal et conversations
+    multi-tours, avec réinstallation administrateur et réautorisation utilisateur.
+  analysis: Le changement concerne surtout l'expérience et ne suffit pas à modifier
+    une architecture de plateforme dans le contexte connu.
+  unknowns: Usage de Slack, gouvernance des conversations et conservation des données
+    inconnus.
+  maturity: GA fournisseur ; piste arrêtée après le filtre d'effet architectural.
+  decision: avoid
+  owner: collaboration/plateforme IA
+  due_date: '2026-10-09'
+  success_criterion: Réexaminer seulement si un usage Slack gouverné devient un besoin
+    déclaré.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://cloud.google.com/release-notes#September_10_2026
+    primary: true
+    observed_at: '2026-09-11'
+    published_at: '2026-09-10'
+    effective_at: '2026-09-10'
+    fact: Mentions, multi-tour, réinstallation et réautorisation documentées.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: impact architectural non démontré
+selection:
+  selected_ids:
+  - candidate-004
+  - candidate-010
+  - candidate-003
+  - candidate-002
+  - candidate-008
+  - candidate-001
+  - candidate-011
+  eligible_count: 12
+  selected_count: 7
+  mandatory_count: 5
+  oss_required: 3
+  oss_selected: 1
+  oss_exception: 1 nouveau(x) projet(s) OSS éligible(s) pour 3 requis ; aucune alerte
+    obligatoire n’a été évincée.

@@ -2,6 +2,10 @@
 
 Le [classement mensuel](../classement-mensuel.md) est exécuté une fois par mois après clôture de la période ; les fichiers produits suivent le format `classement-mensuel-AAAA-MM.md`.
 
+## 11 septembre 2026
+
+- [Radar architecture](../dist/2026-09-11/radar-architecture.md)
+
 ## 10 septembre 2026
 
 - [Radar architecture](../dist/2026-09-10/radar-architecture.md)
