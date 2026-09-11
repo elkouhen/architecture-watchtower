@@ -8,6 +8,7 @@ require "yaml"
 
 ROOT = File.expand_path("..", __dir__)
 OUTPUT = File.join(ROOT, "public")
+ALGORITHM_SOURCE = File.join(ROOT, "docs", "algorithme-radar.html")
 
 def esc(value)
   CGI.escapeHTML(value.to_s)
@@ -165,7 +166,7 @@ def page(title, body, depth: 0, active: nil)
     <body>
       <header class="topbar">
         <a class="brand" href="#{prefix}index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
-        <nav><a href="#{prefix}index.html">Rapports</a><a href="#{prefix}catalogue.html">Catalogue</a><a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">Dépôt GitHub</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+        <nav><a href="#{prefix}index.html">Rapports</a><a href="#{prefix}catalogue.html">Catalogue</a><a href="#{prefix}algorithme-radar.html">Algorithme</a><a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">Dépôt GitHub</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
       </header>
       <main class="shell">
         <div class="ai-notice"><span>✦</span> Contenu entièrement géré par IA · <a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">voir le dépôt Git</a></div>
@@ -181,6 +182,9 @@ end
 if $PROGRAM_NAME == __FILE__
 FileUtils.rm_rf(OUTPUT)
 FileUtils.mkdir_p(File.join(OUTPUT, "assets"))
+abort "Diagramme source absent : #{ALGORITHM_SOURCE}" unless File.file?(ALGORITHM_SOURCE)
+
+FileUtils.cp(ALGORITHM_SOURCE, File.join(OUTPUT, "algorithme-radar.html"))
 
 css = <<~CSS
   :root { color-scheme: light; --bg:#f8f9fb; --surface:#fff; --ink:#172033; --muted:#667085; --line:#e6e9ef; --accent:#5753c9; --accent-soft:#efefff; --shadow:0 12px 32px rgba(23,32,51,.05); }

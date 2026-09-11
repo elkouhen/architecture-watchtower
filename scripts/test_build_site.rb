@@ -35,4 +35,10 @@ class BuildSiteTest < Minitest::Test
     assert_includes html, "<blockquote><p><strong>Tokens utilisés :</strong> <code>42</code></p></blockquote>"
     refute_includes html, "&gt;"
   end
+
+  def test_navigation_links_to_algorithm_from_nested_report
+    html = page("Rapport", "Contenu", depth: 2)
+
+    assert_includes html, 'href="../../algorithme-radar.html"'
+  end
 end
