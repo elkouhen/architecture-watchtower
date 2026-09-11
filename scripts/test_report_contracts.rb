@@ -268,6 +268,7 @@ class ReportContractsTest < Minitest::Test
       WatchtowerRadarSelection.select!(manifest)
       File.write(manifest_path, YAML.dump(manifest))
       report = radar(current_coverage, { "qualification_sources" => ["source"] }, subjects: ["A"])
+      report = report.sub("Aucun.", "Exception minimum de sujets : #{manifest.dig('selection', 'minimum_exception')}")
       File.write(report_path, report)
       source_ids = manifest["sources"].values.flatten.uniq
       sources = source_ids.map { |id| { "id" => id, "last_attempt" => "2026-09-10" } }
