@@ -1,6 +1,6 @@
 # Radar architecture — 9 septembre 2026
 <!-- watchtower:2 -->
-> **Tokens utilisés :** `615589` total — entrée `611748` (dont cache `529152`, hors cache `82596`), sortie `3841`, raisonnement `1293` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
+> **Tokens utilisés :** `126723` total — entrée `125260` (dont cache `102272`, hors cache `22988`), sortie `1463`, raisonnement `497` — mesure runtime Codex, durée `00:00:36`. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
 Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de maintenance GKE non inventoriés).
 
@@ -18,13 +18,13 @@ Exposition locale commune : inconnue (régions, versions, canaux et fenêtres de
 
 ## Sujets écartés
 
-- Exception quota OSS : aucun nouveau projet open source n’a passé les trois filtres dans la fenêtre du jour ; le seul sujet retenu est une mise à jour GKE substantielle.
+- Exception quota OSS : 0 nouveau(x) projet(s) OSS éligible(s) pour 1 requis ; aucune alerte obligatoire n’a été évincée.
 - GCP-2026-060 : mise à jour du 8 septembre limitée à l’ajout d’un lien vers le bulletin Cluster Toolkit, sans nouveau correctif ni périmètre.
 - Claude Platform : `ant` CLI 1.30.0 date du 3 septembre et ne constitue pas une évolution distincte depuis les radars récents.
 
 ## Sources consultées
 
-- S1 — `gke-release-notes` — contrôle et qualification — [GKE release notes](https://cloud.google.com/kubernetes-engine/docs/release-notes) — GKE 2026-R38, tous canaux de publication et déploiement progressif dans les zones Google Cloud ; publié le 2026-09-08 ; date d’effet exacte inconnue ; consulté le 2026-09-09 ; ajoute et retire des builds, modifie les cibles d’auto-upgrade et associe des images COS cumulatives ; signal retenu.
+- S1 — `gke-release-notes` — contrôle et qualification — [GKE release notes](https://cloud.google.com/kubernetes-engine/docs/release-notes) — GKE 2026-R38, tous canaux de publication et déploiement progressif dans les zones Google Cloud ; publié le 2026-09-08 ; date d’effet inconnue ; consulté le 2026-09-09 ; R38 ajoute et retire des builds et modifie les cibles d’auto-upgrade ; signal retenu.
 - S2 — `gcp-release-notes` — contrôle — [Google Cloud release notes](https://cloud.google.com/release-notes) — consultée le 2026-09-09 ; reprise 2026-09-08 ; R38 et changements du 8 septembre parcourus ; signal retenu.
 - S3 — `gcp-security-bulletins` — contrôle — [Google Cloud security bulletins](https://cloud.google.com/support/bulletins) — consultée le 2026-09-09 ; reprise 2026-09-08 ; aucun changement retenu.
 - S4 — `gke-security-bulletins` — contrôle — [GKE security bulletins](https://cloud.google.com/kubernetes-engine/security-bulletins) — consultée le 2026-09-09 ; reprise 2026-09-06 ; aucun changement retenu.
@@ -63,4 +63,4 @@ Couverture incomplète : les voies AWS et IA dépendantes de l’historique Bedr
 
 ## Sources en échec
 
-- `aws-bedrock-history` — historique et fallback non suffisants pour clore du 2026-09-07 au 2026-09-09 ; conséquence : voies AWS/IA dépendantes déclarées incomplètes.
+- `aws-bedrock-history` — période : `2026-09-07/2026-09-09` ; conséquence : Historique et fallback non suffisants pour clore la période ; voies AWS et IA dépendantes incomplètes.
