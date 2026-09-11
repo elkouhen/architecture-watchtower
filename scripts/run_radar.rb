@@ -79,6 +79,8 @@ rescue OptionParser::ParseError => e
   exit 2
 end
 
+generation_started_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
 report = ROOT.join("dist", options[:date].iso8601, "radar-architecture.md")
 manifest = ROOT.join("state", "radar-runs", "#{options[:date].iso8601}.yaml")
 abort "La date du radar ne peut pas être future: #{options[:date]}" if options[:date] > Date.today
@@ -225,7 +227,8 @@ if budget_path.file?
   end
 end
 
-WatchtowerTokenUsage.inject(report, usage)
+generation_duration = (Process.clock_gettime(Process::CLOCK_MONOTONIC) - generation_started_at).ceil
+WatchtowerTokenUsage.inject(report, usage, duration_seconds: generation_duration)
 
 relative_report = report.relative_path_from(ROOT).to_s
 live_log.phase("Validation démarrée — #{relative_report}")
@@ -259,4 +262,4 @@ if options[:commit]
 end
 
 puts "Radar instrumenté: #{relative_report}"
-puts WatchtowerTokenUsage.render(usage)
+puts WatchtowerTokenUsage.render(usage, duration_seconds: generation_duration)

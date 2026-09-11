@@ -64,10 +64,10 @@ def validate_monthly_editions(root)
   end
 end
 
-def validate_token_usage(text, label, required: true)
+def validate_token_usage(text, label, required: true, require_duration: false)
   unavailable = /^> \*\*Tokens utilisés :\*\* `non disponible` — compteur runtime non exposé\.$/
   simple = /^> \*\*Tokens utilisés :\*\* `(\d+)` — mesure runtime\.$/
-  detailed = /^> \*\*Tokens utilisés :\*\* `(\d+)` total — entrée `(\d+)` \(dont cache `(\d+)`, hors cache `(\d+)`\), sortie `(\d+)`, raisonnement `(\d+)` — mesure runtime Codex\..*$/
+  detailed = /^> \*\*Tokens utilisés :\*\* `(\d+)` total — entrée `(\d+)` \(dont cache `(\d+)`, hors cache `(\d+)`\), sortie `(\d+)`, raisonnement `(\d+)` — mesure runtime Codex(?:, durée `(\d+):([0-5]\d):([0-5]\d)`)?\..*$/
   lines = text.lines.map(&:chomp).select { |line| line.start_with?("> **Tokens utilisés :**") }
 
   if required && lines.length != 1
@@ -80,18 +80,20 @@ def validate_token_usage(text, label, required: true)
   match = lines.first.match(detailed)
   return error("#{label}: ligne de consommation de tokens absente ou invalide") unless match
 
-  total, input, cached, billed_input, output, reasoning = match.captures.map(&:to_i)
+  captures = match.captures
+  total, input, cached, billed_input, output, reasoning = captures.first(6).map(&:to_i)
   error("#{label}: total de tokens incohérent") unless total == input + output
   error("#{label}: tokens en cache supérieurs aux tokens d’entrée") if cached > input
   error("#{label}: entrée hors cache incohérente") unless billed_input == input - cached
   error("#{label}: tokens de raisonnement supérieurs aux tokens de sortie") if reasoning > output
+  error("#{label}: durée de génération requise") if require_duration && captures[6].nil?
 end
 
-def validate_contract(text, path, root, require_token_usage: true)
+def validate_contract(text, path, root, require_token_usage: true, require_duration: false)
   label = path.to_s
   error("#{label}: répertoire de date ISO requis") unless path.parent.basename.to_s.match?(/\A\d{4}-\d{2}-\d{2}\z/)
   error("#{label}: marqueur requis immédiatement après le titre") unless text.match?(/\A# [^\n]+\n\s*<!-- watchtower:2 -->/)
-  validate_token_usage(text, label, required: require_token_usage)
+  validate_token_usage(text, label, required: require_token_usage, require_duration: require_duration)
   date = date_value(path.parent.basename.to_s, label)
   error("#{label}: date de production future") if date && date > TODAY
   text.scan(/\[[^\]]+\]\(([^)]+)\)/).flatten.each do |target|

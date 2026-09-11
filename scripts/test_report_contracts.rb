@@ -100,7 +100,7 @@ class ReportContractsTest < Minitest::Test
 
   def test_detailed_token_usage_is_consistent
     valid = "> **Tokens utilisés :** `150` total — entrée `120` (dont cache `80`, hors cache `40`), sortie `30`, " \
-      "raisonnement `10` — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; " \
+      "raisonnement `10` — mesure runtime Codex, durée `00:02:03`. Le cache est facturé nettement moins cher que l’entrée hors cache ; " \
       "`hors cache` et `sortie` approchent le mieux le coût réel.\n"
     validate_token_usage(valid, "test")
     assert_empty ERRORS
@@ -110,6 +110,13 @@ class ReportContractsTest < Minitest::Test
 
     validate_token_usage(valid.sub("hors cache `40`", "hors cache `41`"), "test")
     assert ERRORS.any? { |message| message.include?("entrée hors cache incohérente") }
+
+    validate_token_usage(valid.sub("00:02:03", "00:62:03"), "test")
+    assert ERRORS.any? { |message| message.include?("absente ou invalide") }
+
+    without_duration = valid.sub(", durée `00:02:03`", "")
+    validate_token_usage(without_duration, "test", require_duration: true)
+    assert ERRORS.any? { |message| message.include?("durée de génération requise") }
   end
 
   def test_card_needs_three_distinct_declared_primary_sources

@@ -52,7 +52,7 @@ module WatchtowerTokenUsage
     Dir.glob(File.join(root, "sessions", "**", "rollout-*#{thread_id}.jsonl")).max
   end
 
-  def inject(report, usage)
+  def inject(report, usage, duration_seconds: nil)
     path = Pathname.new(report)
     raise Error, "rapport absent: #{path}" unless path.file?
     raise Error, "seul un radar peut être instrumenté: #{path}" unless path.basename.to_s == "radar-architecture.md"
@@ -61,15 +61,27 @@ module WatchtowerTokenUsage
     matches = text.lines.count { |line| line.match?(TOKEN_LINE) }
     raise Error, "une unique ligne de consommation est requise dans #{path}" unless matches == 1
 
-    path.write(text.sub(TOKEN_LINE, render(usage)))
+    path.write(text.sub(TOKEN_LINE, render(usage, duration_seconds: duration_seconds)))
   end
 
-  def render(usage)
+  def render(usage, duration_seconds: nil)
     billed_input = usage.fetch(:input) - usage.fetch(:cached)
+    duration = duration_seconds.nil? ? "" : ", durée `#{format_duration(duration_seconds)}`"
     "> **Tokens utilisés :** `#{usage.fetch(:total)}` total — entrée `#{usage.fetch(:input)}` " \
       "(dont cache `#{usage.fetch(:cached)}`, hors cache `#{billed_input}`), " \
-      "sortie `#{usage.fetch(:output)}`, raisonnement `#{usage.fetch(:reasoning)}` — mesure runtime Codex. " \
+      "sortie `#{usage.fetch(:output)}`, raisonnement `#{usage.fetch(:reasoning)}` — mesure runtime Codex#{duration}. " \
       "Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel."
+  end
+
+  def format_duration(duration_seconds)
+    seconds = Integer(duration_seconds)
+    raise Error, "durée invalide: #{duration_seconds.inspect}" if seconds.negative?
+
+    hours, remainder = seconds.divmod(3600)
+    minutes, seconds = remainder.divmod(60)
+    format("%02d:%02d:%02d", hours, minutes, seconds)
+  rescue ArgumentError, TypeError
+    raise Error, "durée invalide: #{duration_seconds.inspect}"
   end
 
   def sum(*usages)

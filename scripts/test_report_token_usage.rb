@@ -99,11 +99,21 @@ class ReportTokenUsageTest < Minitest::Test
         > **Tokens utilisés :** `non disponible` — compteur runtime non exposé.
       MD
 
-      WatchtowerTokenUsage.inject(report, WatchtowerTokenUsage.normalize(complete_usage))
+      WatchtowerTokenUsage.inject(
+        report,
+        WatchtowerTokenUsage.normalize(complete_usage),
+        duration_seconds: 7384
+      )
 
       assert_includes File.read(report),
-        "`150` total — entrée `120` (dont cache `80`, hors cache `40`), sortie `30`, raisonnement `10`"
+        "`150` total — entrée `120` (dont cache `80`, hors cache `40`), sortie `30`, raisonnement `10` " \
+        "— mesure runtime Codex, durée `02:03:04`"
     end
+  end
+
+  def test_formats_unbounded_hours_and_rejects_invalid_duration
+    assert_equal "27:01:02", WatchtowerTokenUsage.format_duration(97_262)
+    assert_raises(WatchtowerTokenUsage::Error) { WatchtowerTokenUsage.format_duration(-1) }
   end
 
   def test_sums_multiple_orchestrated_turns

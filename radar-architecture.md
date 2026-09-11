@@ -52,7 +52,7 @@ Au moins 33 % des sujets retenus sont de nouveaux projets OSS, arrondi au supér
 Écris uniquement `dist/AAAA-MM-JJ/radar-architecture.md` et les mises à jour locales exigées par `AGENTS.md`. Le rapport commence par :
 
 1. un titre, immédiatement suivi de `<!-- watchtower:2 -->` ;
-2. la ligne de tokens du contrat (`non disponible` provisoirement en mode `watchtower:orchestrated`) ;
+2. la ligne de métriques du contrat (tokens et, lorsque l’orchestrateur la mesure, durée murale ; variante `non disponible` provisoire en mode `watchtower:orchestrated`) ;
 3. `## Vue d’ensemble`, avec exactement `Outil | Type | Pitch rapide | Lien vers la section`.
 
 Chaque fiche a pour titre `## [Nom](URL canonique)` et contient uniquement :

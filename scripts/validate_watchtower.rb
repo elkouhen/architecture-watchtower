@@ -306,7 +306,14 @@ def validate_report(relative_path, source_data, sources, signals)
   end
   if modern
     previous_usage = previous.lines.any? { |line| line.start_with?("> **Tokens utilisés :**") }
-    validate_contract(text, path, ROOT, require_token_usage: !status.success? || previous_usage)
+    require_duration = !status.success? && path.basename.to_s == "radar-architecture.md"
+    validate_contract(
+      text,
+      path,
+      ROOT,
+      require_token_usage: !status.success? || previous_usage,
+      require_duration: require_duration
+    )
     validate_radar_manifest(path, text, sources, signals) if path.basename.to_s == "radar-architecture.md"
     return
   end

@@ -34,7 +34,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)
 - Validation locale : `ruby scripts/validate_watchtower.rb`
 - Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
-- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; qualification structurée, sélection Ruby, rédaction verrouillée, métriques cumulées, validation et commit)
+- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; qualification structurée, sélection Ruby, rédaction verrouillée, tokens cumulés et durée murale, validation et commit)
 - Régénération instrumentée du radar du jour : `ruby scripts/run_radar.rb --replace`
 - Calcul manuel d’un manifest : `ruby scripts/select_radar_candidates.rb --manifest state/radar-runs/AAAA-MM-JJ.yaml`
 - Collecte d’un flux RSS/Atom enregistré : `ruby scripts/collect_radar_source.rb --source ID --update-registry`
