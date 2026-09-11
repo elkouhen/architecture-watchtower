@@ -33,6 +33,10 @@ def inline_markdown(text)
   value.gsub(/\*([^*]+)\*/, '<em>\1</em>')
 end
 
+def watchtower_marker?(line)
+  line.strip.match?(/\A<!--\s*watchtower:\d+\s*-->\z/)
+end
+
 def markdown_to_html(markdown)
   lines = markdown.lines.map(&:chomp)
   html = []
@@ -75,6 +79,13 @@ def markdown_to_html(markdown)
       next
     end
 
+    if watchtower_marker?(line)
+      flush_paragraph.call
+      close_list.call
+      index += 1
+      next
+    end
+
     if line.start_with?("|") && index + 1 < lines.length && lines[index + 1].start_with?("|")
       flush_paragraph.call
       close_list.call
@@ -105,6 +116,10 @@ def markdown_to_html(markdown)
       level = [match[1].length, 4].min
       title = match[2].strip
       html << "<h#{level} id=\"#{slug(title.gsub(/\[|\]\([^)]*\)/, ""))}\">#{inline_markdown(title)}</h#{level}>"
+    elsif (match = line.match(/\A>\s?(.*)\z/))
+      flush_paragraph.call
+      close_list.call
+      html << "<blockquote><p>#{inline_markdown(match[1])}</p></blockquote>"
     elsif line.match?(/\A\s*[-*]\s+/)
       flush_paragraph.call
       wanted = "ul"
@@ -163,6 +178,7 @@ def page(title, body, depth: 0, active: nil)
   HTML
 end
 
+if $PROGRAM_NAME == __FILE__
 FileUtils.rm_rf(OUTPUT)
 FileUtils.mkdir_p(File.join(OUTPUT, "assets"))
 
@@ -220,7 +236,9 @@ metadata = reports.map do |path|
   title = File.foreach(path).find { |line| line.start_with?("# ") }&.sub(/^#\s+/, "")&.strip || basename
   title = title.gsub(/\[([^\]]+)\]\([^)]+\)/, "\\1")
   kind = basename.start_with?("radar-") ? "radar" : basename.start_with?("carte-") ? "carte" : "mensuel"
-  excerpt = File.foreach(path).find { |line| line.strip.length > 0 && !line.start_with?("#", "|", "-", "*") }&.strip.to_s
+  excerpt = File.foreach(path).find do |line|
+    line.strip.length > 0 && !line.start_with?("#", "|", "-", "*") && !watchtower_marker?(line)
+  end&.strip.to_s
   output = File.join(OUTPUT, relative.sub(/\.md\z/, ".html"))
   FileUtils.mkdir_p(File.dirname(output))
   depth = relative.split("/").length - 1
@@ -294,3 +312,4 @@ if File.file?(catalogue)
 end
 
 puts "Generated #{metadata.length} reports in #{OUTPUT}"
+end

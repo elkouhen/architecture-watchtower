@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Radar architecture — 11 septembre 2026 · Architecture Watchtower</title>
+  <meta name="description" content="Veille Cloud, DevOps, architecture applicative et IA.">
+  <link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../../index.html"><span class="brand-mark">◈</span> Architecture Watchtower</a>
+    <nav><a href="../../index.html">Rapports</a><a href="../../catalogue.html">Catalogue</a><a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">Dépôt GitHub</a><button id="theme-toggle" type="button" aria-label="Changer de thème">☼</button></nav>
+  </header>
+  <main class="shell">
+    <div class="ai-notice"><span>✦</span> Contenu entièrement géré par IA · <a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">voir le dépôt Git</a></div>
+    <article><div class="eyebrow">2026-09-11 · radar</div><h1 id="radar-architecture-11-septembre-2026">Radar architecture — 11 septembre 2026</h1>
+<blockquote><p><strong>Tokens utilisés :</strong> <code>2997139</code> total — entrée <code>2955706</code> (dont cache <code>2712576</code>, hors cache <code>243130</code>), sortie <code>41433</code>, raisonnement <code>4247</code> — mesure runtime Codex. Le cache est facturé nettement moins cher que l’entrée hors cache ; <code>hors cache</code> et <code>sortie</code> approchent le mieux le coût réel.</p></blockquote>
+<p>Exposition locale commune : à qualifier. Couverture incomplète : plusieurs deltas AWS, GKE et Bedrock n’ont pas pu être clos ; aucune absence de changement n’en est déduite.</p>
+<h2 id="vue-densemble">Vue d’ensemble</h2>
+<div class="table-wrap"><table><thead><tr><th>Outil</th><th>Type</th><th>Pitch rapide</th></tr></thead><tbody><tr><td><a href="https://cloud.google.com/release-notes#September_10_2026">Google Cloud Agent Gateway</a></td><td>service · Nouveau hors OSS</td><td>VPC-SC ne protège que certains nouveaux déploiements configurés en egress total.</td></tr><tr><td><a href="https://platform.claude.com/docs/en/release-notes/overview">Claude Managed Agents</a></td><td>plateforme · Nouveau hors OSS</td><td>Une politique serveur évalue chaque appel d’outil ou MCP.</td></tr><tr><td><a href="https://cloud.google.com/release-notes#September_10_2026">Gemini Enterprise Agent Platform Sandboxes</a></td><td>plateforme · Nouveau hors OSS</td><td>Les sandboxes agentiques deviennent GA avec des contrôles réseau, de chiffrement et de persistance.</td></tr><tr><td><a href="https://cloud.google.com/release-notes#September_10_2026">Google Cloud IAM MCP Server</a></td><td>service · Nouveau hors OSS</td><td>Un agent peut désormais administrer rôles personnalisés et deny policies via un serveur MCP GA.</td></tr><tr><td><a href="https://developers.openai.com/api/docs/changelog">OpenAI Agents API</a></td><td>plateforme · Nouveau hors OSS</td><td>Une beta managée réunit sessions durables, orchestration, outils et sandboxes.</td></tr><tr><td><a href="https://cloud.google.com/release-notes#September_10_2026">Cloud SQL Remote MCP Server</a></td><td>service · Nouveau hors OSS</td><td>La désactivation temporaire de sqlcommenter retire un signal de traçabilité SQL.</td></tr><tr><td><a href="https://github.com/AlexsJones/llmfit">llmfit</a></td><td>outil · Nouveau projet OSS</td><td>L’outil rapproche inventaire matériel, modèles, quantification et mesures locales.</td></tr></tbody></table></div>
+<h2 id="google-cloud-agent-gateway"><a href="https://cloud.google.com/release-notes#September_10_2026">Google Cloud Agent Gateway</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> <strong>Fait — Agent Gateway applique VPC-SC seulement aux déploiements créés après le 8 septembre 2026 avec un modèle de connectivité VPC configuré en egress ALL_TRAFFIC.</strong> <strong>Analyse :</strong> une activation déclarative de VPC-SC ne suffit donc pas à protéger les anciennes instances.</li>
+<li><strong>Utilité :</strong> L’âge du déploiement et son chemin d’egress deviennent des propriétés de conformité. Maturité : capacité fournisseur disponible avec conditions documentées ; niveau normal ; instances, dates de création, templates réseau et périmètres VPC-SC <code>à qualifier</code>. <strong>Décision :</strong> qualification par <code>réseau/sécurité IA</code> avant le 25/09 ; succès = inventaire des gateways avec date de création, mode egress et application effective de VPC-SC.</li>
+<li><strong>Repères de comparaison :</strong> recréation d’une gateway conforme ; contrôle réseau externe ; absence d’exposition via Agent Gateway.</li>
+</ul>
+<h2 id="claude-managed-agents"><a href="https://platform.claude.com/docs/en/release-notes/overview">Claude Managed Agents</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> <strong>Fait — Claude Managed Agents ajoute une politique auto qui autorise, refuse ou suspend chaque appel d&#39;agent ou d&#39;outil MCP et expose l&#39;évaluation dans les événements.</strong> <strong>Analyse :</strong> ce contrôle centralise l’autorisation dynamique et son audit.</li>
+<li><strong>Utilité :</strong> La logique fournisseur doit rester observable et bornée par des permissions statiques minimales. Maturité : capacité de plateforme documentée ; niveau normal ; règles d’évaluation, garanties, faux positifs, conservation des événements et usage local <code>à qualifier</code>. <strong>Décision :</strong> qualification par <code>sécurité/plateforme IA</code> avant le 02/10 ; succès = modèle de décision, permissions minimales, approbations et audit comparés aux contrôles existants.</li>
+<li><strong>Repères de comparaison :</strong> approbation humaine systématique ; politiques statiques minimales ; moteur d’autorisation externe.</li>
+</ul>
+<h2 id="gemini-enterprise-agent-platform-sandboxes"><a href="https://cloud.google.com/release-notes#September_10_2026">Gemini Enterprise Agent Platform Sandboxes</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> <strong>Fait — Google annonce GA les sandboxes Computer Use et Shell et documente VPC Service Controls, Private Service Connect, CMEK ainsi que la pause/reprise avec conservation d&#39;état.</strong> <strong>Analyse :</strong> il s’agit d’une primitive managée d’isolation et de persistance pour agents.</li>
+<li><strong>Utilité :</strong> Les contrôles réseau et de chiffrement sont structurants, mais les garanties runtime et le coût doivent être comparés aux sandboxes Kubernetes déjà étudiées. Maturité : GA fournisseur ; niveau normal ; régions, quotas, coût, isolation runtime et workloads concernés <code>à qualifier</code>. <strong>Décision :</strong> qualification par <code>plateforme IA/sécurité</code> avant le 02/10 ; succès = frontières réseau, chiffrement, persistance, quotas et coûts comparés aux besoins réels.</li>
+<li><strong>Repères de comparaison :</strong> Agent Sandbox sur Kubernetes ; microVM dédiées ; exécution éphémère sans état.</li>
+</ul>
+<h2 id="google-cloud-iam-mcp-server"><a href="https://cloud.google.com/release-notes#September_10_2026">Google Cloud IAM MCP Server</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> <strong>Fait — Google rend GA son serveur MCP IAM distant, utilisable par des applications IA pour inspecter et gérer les rôles personnalisés et les deny policies.</strong> <strong>Analyse :</strong> une interface d’administration IAM devient ainsi un outil d’agent.</li>
+<li><strong>Utilité :</strong> Cette frontière critique exige autorisations minimales, approbation humaine et journalisation. Maturité : disponibilité générale annoncée ; niveau normal ; comptes GCP, clients MCP, permissions et contrôles d’approbation <code>à qualifier</code>. <strong>Décision :</strong> qualification par <code>sécurité/plateforme IA</code> avant le 02/10 ; succès = cas d’usage, scopes minimaux, approbations et audit définis avant toute activation.</li>
+<li><strong>Repères de comparaison :</strong> workflows IAM déclaratifs ; console et API sous contrôle humain ; serveur MCP interne à capacités réduites.</li>
+</ul>
+<h2 id="openai-agents-api"><a href="https://developers.openai.com/api/docs/changelog">OpenAI Agents API</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> <strong>Fait — OpenAI publie en beta l&#39;Agents API avec harness Codex managé, sessions durables, reprise, streaming, outils/MCP et sandboxes hébergées ou externes.</strong> <strong>Analyse :</strong> la plateforme peut déplacer orchestration, état, reprise et exécution vers un service managé.</li>
+<li><strong>Utilité :</strong> Ce contrat redessine la frontière build-versus-buy d’une plateforme d’agents, mais une beta ne doit pas porter seule un contrôle critique et requiert une solution de repli. Maturité : public beta ; niveau normal ; SLA, régions, quotas, coûts, réversibilité de l’état et garanties de sandbox <code>à qualifier</code>. <strong>Décision :</strong> qualification par <code>architecture/plateforme IA</code> avant le 02/10 ; succès = contrats d’état, reprise, sécurité, coûts et réversibilité comparés à une orchestration interne.</li>
+<li><strong>Repères de comparaison :</strong> orchestration interne ; framework agent auto-hébergé ; service managé avec état externalisé.</li>
+</ul>
+<h2 id="cloud-sql-remote-mcp-server"><a href="https://cloud.google.com/release-notes#September_10_2026">Cloud SQL Remote MCP Server</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> <strong>Fait — Le 10 septembre, Google a temporairement désactivé l&#39;ajout des tags sqlcommenter via sql_commenter_enabled pour les requêtes des serveurs MCP Cloud SQL MySQL et PostgreSQL.</strong> <strong>Analyse :</strong> les chaînes d’audit ou de corrélation dépendantes de ces commentaires perdent temporairement ce signal.</li>
+<li><strong>Utilité :</strong> La rupture est active sans date de rétablissement, mais ne démontre aucune exposition locale. Maturité : service managé au comportement temporairement dégradé et documenté ; niveau normal ; usage du serveur MCP, dépendance aux tags et mécanisme alternatif <code>à qualifier</code>. <strong>Décision :</strong> qualification par <code>plateforme données/observabilité</code> avant le 25/09 ; succès = dépendances à sqlcommenter inventoriées et mécanisme de traçabilité alternatif confirmé si nécessaire.</li>
+<li><strong>Repères de comparaison :</strong> audit natif Cloud SQL ; corrélation par attributs de trace ; journalisation applicative explicite.</li>
+</ul>
+<h2 id="llmfit"><a href="https://github.com/AlexsJones/llmfit">llmfit</a></h2>
+<ul>
+<li><strong>Pitch rapide :</strong> <strong>Fait — llmfit inspecte CPU, RAM, GPU et VRAM, estime l&#39;adéquation des modèles et quantifications, expose une API et peut enregistrer des benchmarks locaux.</strong> <strong>Analyse :</strong> l’outil peut préfiltrer les choix de placement et de dimensionnement d’inférence.</li>
+<li><strong>Utilité :</strong> Ses estimations communautaires ne constituent ni un benchmark d’adoption ni une preuve de performance sur le matériel cible. Maturité : projet actif avec binaire, conteneur, API et documentation ; niveau normal ; précision, chaîne d’installation, maintenance et usage Kubernetes <code>à qualifier</code>. <strong>Décision :</strong> surveillance par <code>plateforme IA</code> avant le 09/10 ; succès = méthode d’estimation et provenance des mesures évaluées sur un inventaire matériel réel, si une validation est demandée.</li>
+<li><strong>Repères de comparaison :</strong> benchmark local direct ; calculateurs fournisseur ; profiling d’un serveur d’inférence.</li>
+</ul>
+<h2 id="sujets-ecartes">Sujets écartés</h2>
+<ul>
+<li>Exception quota OSS : 1 nouveau(x) projet(s) OSS éligible(s) pour 3 requis ; aucune alerte obligatoire n’a été évincée.</li>
+<li>Quatorze candidats représentatifs ont été examinés : douze changements des deltas primaires et deux pistes OSS issues de GitHub Trending. Dix franchissent les trois filtres ; quatre sont arrêtés pour absence de nouveauté substantielle ou d&#39;effet architectural suffisant. Les autres entrées des flux étaient hors périmètre, applicatives, sponsorisées ou des doublons récents.</li>
+<li>Les candidats éligibles non retenus l’ont été hors capacité après le classement déterministe ; <code>vercel-labs/skills</code> n’apporte pas de changement substantiel distinct et Gemini Enterprise for Slack n’a pas d’effet architectural démontré.</li>
+</ul>
+<h2 id="sources-consultees">Sources consultées</h2>
+<ul>
+<li><code>gcp-release-notes</code> — contrôle et qualification — <a href="https://cloud.google.com/release-notes#September_10_2026">Google Cloud release notes du 10 septembre</a> — services Agent Gateway, Gemini Enterprise Agent Platform Sandboxes, IAM MCP Server et Cloud SQL Remote MCP Server ; publié et effectif le 2026-09-10 ; consulté le 2026-09-11 ; faits repris dans les fiches correspondantes.</li>
+<li><code>anthropic-release-notes</code> — contrôle et qualification — <a href="https://platform.claude.com/docs/en/release-notes/overview">Claude Platform release notes</a> — Claude Managed Agents ; publié et effectif le 2026-09-10 ; consulté le 2026-09-11 ; politique auto et événements d’évaluation documentés.</li>
+<li><code>openai-api-changelog</code> — contrôle et qualification — <a href="https://developers.openai.com/api/docs/changelog">OpenAI API changelog</a> — OpenAI Agents API public beta ; publié et effectif le 2026-09-10 ; consulté le 2026-09-11 ; sessions durables, reprise, outils et sandboxes documentés.</li>
+<li><code>llmfit-repository</code> — qualification — <a href="https://github.com/AlexsJones/llmfit">dépôt llmfit</a> — version de dépôt observée le 2026-09-11 ; date de publication et date d’effet inconnues ; consulté le 2026-09-11 ; licence MIT, détection matérielle, recommandations, API, conteneur et benchmarks documentés.</li>
+<li><code>gcp-security-bulletins</code>, <code>gcp-deprecation-policy</code>, <code>gke-release-notes</code>, <code>vertex-ai-release-notes</code> et <code>openai-api-deprecations</code> — contrôle — consultés le 2026-09-11 ; aucun autre changement retenu.</li>
+<li><code>aws-whats-new</code>, <code>aws-security-bulletins</code>, <code>aws-eks-lifecycle</code>, <code>aws-bedrock-history</code> et <code>gke-security-bulletins</code> — contrôle — tentés le 2026-09-11 ; deltas incomplets détaillés ci-dessous.</li>
+<li><code>github-trending</code> et <code>trendshift</code> — découverte — consultés le 2026-09-11 ; deux pistes OSS examinées, dont llmfit qualifié.</li>
+</ul>
+<pre><code>algorithm: scan-filter-verify-publish
+control_sources: [aws-whats-new, aws-security-bulletins, aws-eks-lifecycle, aws-bedrock-history, gcp-release-notes, gcp-security-bulletins, gcp-deprecation-policy, gke-release-notes, gke-security-bulletins, vertex-ai-release-notes, openai-api-changelog, openai-api-deprecations, anthropic-release-notes]
+discovery_sources: [github-trending, trendshift]
+qualification_sources: [gcp-release-notes, openai-api-changelog, anthropic-release-notes, llmfit-repository, vercel-agent-skills]
+coverage:
+  - domain: AWS
+    lane: releases_features
+    sources: [aws-whats-new, aws-bedrock-history]
+    scope: &quot;Annonces AWS générales et historique Bedrock ; disponibilité fournisseur, pas exposition locale.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-07&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Flux What&#39;s New non pris en charge et fallback sans annonces ; historique Bedrock capturé avec retard. Périodes manquantes : What&#39;s New 09–11/09, Bedrock 07–11/09.&quot;
+  - domain: AWS
+    lane: security
+    sources: [aws-security-bulletins]
+    scope: &quot;Bulletins de sécurité AWS pour services et composants publiés par AWS ; exposition locale inconnue.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-09&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Flux RSS non pris en charge et fallback arrêté au 31/08 ; période du 09 au 11/09 non close.&quot;
+  - domain: AWS
+    lane: lifecycle_deprecations
+    sources: [aws-eks-lifecycle, aws-bedrock-history]
+    scope: &quot;Versions et support EKS, lifecycle et disponibilité Bedrock ; inventaire local inconnu.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-07&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Capture EKS datée de deux semaines et historique Bedrock incomplet ; périodes manquantes EKS 09–11/09 et Bedrock 07–11/09.&quot;
+  - domain: AWS
+    lane: availability_quotas_costs
+    sources: [aws-whats-new, aws-bedrock-history]
+    scope: &quot;Régions, quotas et coûts annoncés dans AWS What&#39;s New et l&#39;historique Bedrock.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-07&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Aucun des deux deltas n&#39;a pu être clos : What&#39;s New 09–11/09 et Bedrock 07–11/09.&quot;
+  - domain: GCP
+    lane: releases_features
+    sources: [gcp-release-notes, gke-release-notes, vertex-ai-release-notes]
+    scope: &quot;Notes générales GCP, versions et fonctionnalités GKE, mises à jour Vertex AI ; déploiement local inconnu.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-10&quot;
+    through: &quot;2026-09-11&quot;
+    result: signal retenu
+    complete: true
+    note: &quot;Intervalle entièrement parcouru ; changements du 10/09 consignés comme candidats avant sélection.&quot;
+  - domain: GCP
+    lane: security
+    sources: [gcp-security-bulletins, gke-security-bulletins]
+    scope: &quot;Bulletins GCP et GKE ; le bulletin général ne clôt pas le delta propre à la page GKE.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-09&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Bulletins généraux GCP contrôlés ; la page GKE capturée le 10/09 ne contient toujours pas GCP-2026-061. Volet GKE du 09 au 11/09 non clos.&quot;
+  - domain: GCP
+    lane: lifecycle_deprecations
+    sources: [gcp-deprecation-policy, gke-release-notes, vertex-ai-release-notes]
+    scope: &quot;Politique de dépréciation GCP, lifecycle GKE et changements incompatibles Vertex AI.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-10&quot;
+    through: &quot;2026-09-11&quot;
+    result: aucun changement retenu
+    complete: true
+    note: &quot;Intervalle entièrement parcouru ; aucune nouvelle dépréciation dans le delta.&quot;
+  - domain: GCP
+    lane: availability_quotas_costs
+    sources: [gcp-release-notes, vertex-ai-release-notes]
+    scope: &quot;Disponibilités, régions, quotas et coûts GCP et Vertex AI ; contrats locaux inconnus.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-10&quot;
+    through: &quot;2026-09-11&quot;
+    result: signal retenu
+    complete: true
+    note: &quot;Intervalle entièrement parcouru ; changements de disponibilité et de facturation consignés comme candidats avant sélection.&quot;
+  - domain: IA
+    lane: releases_features
+    sources: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
+    scope: &quot;Fonctionnalités de plateformes IA AWS, GCP, OpenAI et Anthropic ; disponibilité locale inconnue.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-07&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du 07 au 11/09.&quot;
+  - domain: IA
+    lane: security
+    sources: [aws-security-bulletins, gcp-security-bulletins]
+    scope: &quot;Bulletins AWS et GCP susceptibles d&#39;affecter agents, connecteurs ou données IA.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-09&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Bulletins GCP contrôlés ; flux et fallback AWS insuffisamment frais pour clore le 09–11/09.&quot;
+  - domain: IA
+    lane: lifecycle_deprecations
+    sources: [aws-bedrock-history, vertex-ai-release-notes, openai-api-deprecations, anthropic-release-notes]
+    scope: &quot;Dépréciations et changements incompatibles des plateformes IA ; usages locaux inconnus.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-07&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du 07 au 11/09.&quot;
+  - domain: IA
+    lane: availability_quotas_costs
+    sources: [aws-bedrock-history, vertex-ai-release-notes, openai-api-changelog, anthropic-release-notes]
+    scope: &quot;Disponibilité, régions, quotas et coûts des plateformes IA ; droits contractuels locaux inconnus.&quot;
+    checked_at: &quot;2026-09-11T12:00:00+02:00&quot;
+    from: &quot;2026-09-07&quot;
+    through: &quot;2026-09-11&quot;
+    result: échec
+    complete: false
+    note: &quot;Vertex AI, OpenAI et Anthropic contrôlés ; historique Bedrock incomplet du 07 au 11/09.&quot;</code></pre>
+<h2 id="sources-en-echec">Sources en échec</h2>
+<ul>
+<li><code>aws-whats-new</code> — <code>2026-09-09/2026-09-11</code> — RSS non pris en charge et fallback sans annonces ; releases et disponibilité AWS incomplètes.</li>
+<li><code>aws-security-bulletins</code> — <code>2026-09-09/2026-09-11</code> — RSS non pris en charge et fallback arrêté au 31/08 ; sécurité AWS et IA incomplète.</li>
+<li><code>aws-eks-lifecycle</code> — <code>2026-09-09/2026-09-11</code> — Capture primaire trop ancienne pour clore le delta lifecycle EKS.</li>
+<li><code>aws-bedrock-history</code> — <code>2026-09-07/2026-09-11</code> — Historique capturé avec retard ; voies AWS et IA liées à Bedrock incomplètes.</li>
+<li><code>gke-security-bulletins</code> — <code>2026-09-09/2026-09-11</code> — Capture sans GCP-2026-061 ; le bulletin général GCP ne clôt pas la source GKE.</li>
+</ul></article>
+  </main>
+  <footer class="footer">Veille locale · contenu entièrement géré par IA · <a href="https://github.com/elkouhen/architecture-watchtower" rel="noreferrer">dépôt GitHub</a> · générée le 11/09/2026</footer>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>
