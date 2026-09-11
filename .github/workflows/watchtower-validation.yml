@@ -19,7 +19,8 @@ jobs:
           ruby-version: "3.3"
       - name: Tester les contrats et l’instrumentation
         run: |
-          ruby scripts/test_report_contracts.rb
-          ruby scripts/test_report_token_usage.rb
+          for test_file in scripts/test_*.rb; do
+            ruby "$test_file"
+          done
       - name: Valider les registres et les index
         run: ruby scripts/validate_watchtower.rb --daily

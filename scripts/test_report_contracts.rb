@@ -202,7 +202,7 @@ class ReportContractsTest < Minitest::Test
     validate_radar_contract(radar(current_coverage), "test", Date.new(2026, 9, 8))
     assert_empty ERRORS
 
-    validate_radar_contract(radar(current_coverage, "discovery_sources" => %w[a b c]), "test", Date.new(2026, 9, 8))
+    validate_radar_contract(radar(current_coverage, { "discovery_sources" => %w[a b c] }), "test", Date.new(2026, 9, 8))
     assert ERRORS.any? { |message| message.include?("plus de deux sources de découverte") }
   end
 
@@ -210,7 +210,7 @@ class ReportContractsTest < Minitest::Test
     current_coverage = coverage.map do |entry|
       entry.merge("checked_at" => "2026-09-08T12:00:00+02:00", "through" => "2026-09-08")
     end
-    validate_radar_contract(radar(current_coverage, "discovery_sources" => []), "test", Date.new(2026, 9, 8))
+    validate_radar_contract(radar(current_coverage, { "discovery_sources" => [] }), "test", Date.new(2026, 9, 8))
     assert ERRORS.any? { |message| message.include?("aucune source de découverte consultée") }
   end
 
@@ -218,7 +218,7 @@ class ReportContractsTest < Minitest::Test
     current_coverage = coverage.map do |entry|
       entry.merge("checked_at" => "2026-09-08T12:00:00+02:00", "through" => "2026-09-08")
     end
-    validate_radar_contract(radar(current_coverage, "control_sources" => ["aws-releases_features"]), "test", Date.new(2026, 9, 8))
+    validate_radar_contract(radar(current_coverage, { "control_sources" => ["aws-releases_features"] }), "test", Date.new(2026, 9, 8))
     assert ERRORS.any? { |message| message.include?("absente de control_sources") }
   end
 
