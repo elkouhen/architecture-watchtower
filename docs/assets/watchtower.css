@@ -76,11 +76,13 @@
 }
 
 .watchtower-hero h1 {
-  max-width: 7ch;
+  max-width: none;
   margin: 0 !important;
   color: inherit !important;
-  font-size: clamp(3.1rem, 9vw, 6.5rem) !important;
-  line-height: .86;
+  font-size: clamp(2.35rem, 7vw, 5rem) !important;
+  line-height: .92;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .watchtower-hero h1 span { color: var(--watchtower-cyan); }
