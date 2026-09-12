@@ -13,20 +13,9 @@ theme:
     logo: material/radar
     repo: fontawesome/brands/github
   palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: deep purple
-      accent: indigo
-      toggle:
-        icon: material/weather-night
-        name: Activer le thème sombre
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: deep purple
-      accent: deep purple
-      toggle:
-        icon: material/weather-sunny
-        name: Activer le thème clair
+    - scheme: slate
+      primary: blue
+      accent: teal
   features:
     - navigation.instant
     - navigation.sections

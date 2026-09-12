@@ -66,17 +66,17 @@ def build_homepage(root)
     ---
 
     <div class="watchtower-hero">
-      <p class="watchtower-kicker">SIGNAL / SYSTÈMES / DÉCISIONS</p>
-      <h1>Architecture<br><span>Watchtower</span></h1>
-      <p class="watchtower-hero__lede">Le radar qui transforme le bruit Cloud, DevOps et IA en décisions d’architecture exploitables.</p>
+      <p class="watchtower-kicker">ARCHITECTURE WATCHTOWER</p>
+      <h1>Veille d’architecture,<br>gardée locale.</h1>
+      <p class="watchtower-hero__lede">Des changements Cloud, DevOps et IA sourcés, triés et reliés à des décisions exploitables.</p>
       <div class="watchtower-hero__actions">
         <a class="md-button md-button--primary" href="#{latest_path}">Lire le dernier radar</a>
         <a class="md-button" href="docs/catalogue/">Explorer le catalogue</a>
       </div>
-      <div class="watchtower-signal-row">
-        <span><i></i> Sources primaires</span>
-        <span><i></i> Analyse locale</span>
-        <span><i></i> Décisions traçables</span>
+      <div class="watchtower-signal-row" aria-label="Principes de la veille">
+        <span>Sources primaires</span>
+        <span>Analyse locale</span>
+        <span>Décisions traçables</span>
       </div>
     </div>
 
@@ -86,7 +86,7 @@ def build_homepage(root)
     #{report_cards.join("\n")}
     </div>
 
-    ## Explorer le poste de contrôle
+    ## Explorer
 
     <div class="watchtower-explore-grid">
       <a href="docs/catalogue/"><span>01</span><strong>Catalogue</strong><small>Technologies et patterns analysés.</small></a>
