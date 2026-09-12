@@ -1,6 +1,6 @@
 # Radar architecture — 12 septembre 2026
 <!-- watchtower:2 -->
-> **Tokens utilisés :** `3030130` total — entrée `3009768` (dont cache `2820352`, hors cache `189416`), sortie `20362`, raisonnement `3360` — mesure runtime Codex, durée `00:07:19`.
+> **Tokens utilisés :** `3030130` total — entrée `3009768` (dont cache `2820352`, hors cache `189416`), sortie `20362`, raisonnement `3360` — mesure runtime Codex, durée `00:07:19`. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
 Couverture incomplète : les deltas AWS, Bedrock et GKE indiqués dans `Sources en échec` ne sont pas clos ; aucune absence de changement n’en est déduite.
 
@@ -8,54 +8,13 @@ Couverture incomplète : les deltas AWS, Bedrock et GKE indiqués dans `Sources 
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [Vault CVE-2026-5006](https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678) | service · Mise à jour | Correctif et exposition locale restent à qualifier. | [Fiche](#vault-cve-2026-5006) |
-| [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) | plateforme · Mise à jour | Le risque est limité aux restaurations CRIU explicitement ajoutées. | [Fiche](#gke--restauration-containerd-avec-criu) |
-| [Google Cloud Agent Gateway](https://cloud.google.com/release-notes#September_10_2026) | plateforme · Mise à jour | VPC-SC dépend de la date et de l’egress du déploiement. | [Fiche](#google-cloud-agent-gateway) |
-| [Elastic Agent et runtime OTel](https://www.elastic.co/docs/release-notes/elastic-agent/known-issues) | outil · Mise à jour | Les versions 9.5.0–9.5.1 peuvent perdre de la télémétrie silencieusement. | [Fiche](#elastic-agent-et-runtime-otel) |
-| [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog) | service · Mise à jour | Les raisons de cache miss restent à instrumenter localement. | [Fiche](#openai-prompt-cache-diagnostics) |
-
-## [Vault CVE-2026-5006](https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678)
-
-**Pitch rapide :** Fait — suivi de signal existant : Vault CVE-2026-5006 reste corrigée par Vault 2.0.4 et les branches maintenues documentées par HashiCorp. Analyse — sans inventaire des versions et policies templatisées, l’exposition ne peut pas être conclue.
-
-**Utilité :** L’advisory est prioritaire pour la sécurité des secrets ; versions Vault, chemins de policies templatisées et exposition locale sont `à qualifier`. Décision : qualification par `sécurité/plateforme` avant le 19/09 ; succès = inventaire et confirmation de non-exposition ou du correctif.
-
-## [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061)
-
-**Pitch rapide :** Fait — suivi de signal existant : GCP-2026-061 décrit le contournement du contexte de sécurité à la restauration d’un checkpoint CRIU non fiable ; GKE ne l’active pas par défaut. Analyse — le risque reste borné aux plateformes ayant explicitement ajouté ce mécanisme.
-
-**Utilité :** Le risque peut aller jusqu’aux privilèges root, mais l’usage de CRIU, la provenance des checkpoints et les versions GKE sont `à qualifier`. Décision : qualification par `sécurité/plateforme` avant le 17/09 ; succès = absence confirmée de restauration CRIU non fiable ou mesures correctives documentées.
-
-## [Google Cloud Agent Gateway](https://cloud.google.com/release-notes#September_10_2026)
-
-**Pitch rapide :** Fait — suivi de signal existant : Agent Gateway applique VPC-SC seulement aux déploiements créés après le 8 septembre 2026 avec egress VPC ALL_TRAFFIC. Analyse — VPC-SC ne prouve pas la protection des instances plus anciennes.
-
-**Utilité :** Date de création et chemin egress deviennent des propriétés de conformité ; les gateways et périmètres réels restent `à qualifier`. Décision : qualification par `réseau/sécurité IA` avant le 25/09 ; succès = inventaire des dates, egress et application effective de VPC-SC.
-
-## [Elastic Agent et runtime OTel](https://www.elastic.co/docs/release-notes/elastic-agent/known-issues)
-
-**Pitch rapide :** Fait — suivi de signal existant : Elastic Agent documente des pertes silencieuses possibles avec le runtime OTel en 9.5.0–9.5.1 et le correctif 9.5.2. Analyse — la continuité de télémétrie ne peut être supposée sans connaître les pipelines déployés.
-
-**Utilité :** Une perte silencieuse invalide potentiellement les garanties de collecte ; version Elastic Agent et usage OTel sont `à qualifier`. Décision : qualification par `observabilité` avant le 19/09 ; succès = inventaire des agents et absence des versions concernées ou correctif 9.5.2.
-
-## [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog)
-
-**Pitch rapide :** Fait — suivi de signal existant : Prompt Cache Diagnostics expose dans Responses les raisons de cache miss pour les modèles GPT-5.6 et ultérieurs. Analyse — ces champs suivent coûts et latences hors cache sans constituer un contrôle de disponibilité.
-
-**Utilité :** C’est une télémétrie utile pour FinOps, mais modèles, instrumentation, rétention et flux locaux restent `à qualifier`. Décision : qualification par `plateforme IA/FinOps` avant le 01/10 ; succès = tableau de bord distinguant hits, misses et raisons de miss.
 
 ## Sujets écartés
 
-- Aucun nouveau candidat éligible n’a été trouvé dans les deltas clos du 12/09. Les cinq fiches retenues sont des suivis de signaux actifs revus le 12/09, classés par impact opérationnel ; ils ne comptent pas dans le quota OSS.
-- Exception quota OSS : les cinq sujets sélectionnés sont des suivis (`Mise à jour`) ; le quota ne s’applique donc à aucun nouveau candidat.
+- Exception minimum de sujets : 0 sujet(s) éligible(s) après les trois filtres ; Aucun candidat n'a été détecté dans les deltas primaires clos du 12/09. GitHub Trending et Trendshift ont été parcourus : aucune piste Cloud, Kubernetes, DevOps ou IA ne réunissait nouveauté substantielle, effet architectural et preuve primaire non dupliquée. Les voies AWS et GKE non closes sont exclues de toute conclusion d'absence de changement.
+- Aucun candidat sélectionné : aucune fiche, aucun signal et aucune entrée de catalogue ne sont créés.
 
 ## Sources consultées
-
-- Suivi primaire : [HCSEC-2026-32 — Vault](https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678) — Vault 2.0.4 / 1.21.9 / 1.20.14 / 1.19.20 ; publié le 28/08/2026, effet inconnue, revu le 12/09/2026 ; versions corrigées de CVE-2026-5006.
-- Suivi primaire : [Elastic Agent known issues](https://www.elastic.co/docs/release-notes/elastic-agent/known-issues) — Elastic Agent 9.5.0–9.5.1, correctif 9.5.2 ; publié le 02/09/2026, effet inconnue, revu le 12/09/2026 ; pertes silencieuses possibles du runtime OTel.
-- Suivi primaire : [GCP-2026-061](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) — GKE/containerd/CRIU ; publié le 09/09/2026, effet inconnue, revu le 12/09/2026 ; conditions d’exposition et non-activation par défaut.
-- Suivi primaire : [Google Cloud release notes](https://cloud.google.com/release-notes#September_10_2026) — Agent Gateway VPC-SC ; publié le 10/09/2026, effet le 08/09/2026, revu le 12/09/2026 ; condition de création et egress ALL_TRAFFIC.
-- Suivi primaire : [OpenAI API changelog](https://developers.openai.com/api/docs/changelog) — Responses GPT-5.6+ ; publié et effectif le 08/09/2026, revu le 12/09/2026 ; diagnostics de cache.
 
 - Contrôle : [AWS What's New and service release notes](https://aws.amazon.com/about-aws/whats-new/recent/feed/) — consulté le 12/09/2026 ; delta non clos.
 - Contrôle : [AWS security bulletins](https://aws.amazon.com/security/security-bulletins/rss/feed/) — consulté le 12/09/2026 ; delta non clos.
@@ -77,7 +36,7 @@ Couverture incomplète : les deltas AWS, Bedrock et GKE indiqués dans `Sources 
 algorithm: scan-filter-verify-publish
 control_sources: [aws-whats-new, aws-security-bulletins, aws-eks-lifecycle, aws-bedrock-history, gcp-release-notes, gcp-security-bulletins, gcp-deprecation-policy, gke-release-notes, gke-security-bulletins, vertex-ai-release-notes, openai-api-changelog, openai-api-deprecations, anthropic-release-notes]
 discovery_sources: [github-trending, trendshift]
-qualification_sources: [hashicorp-security, elastic-official, gke-security-bulletins, gcp-release-notes, openai-api-changelog]
+qualification_sources: []
 coverage:
   - domain: AWS
     lane: releases_features
@@ -136,7 +95,7 @@ coverage:
     checked_at: "2026-09-12T12:00:00+02:00"
     from: "2026-09-09"
     through: "2026-09-12"
-    result: signal retenu
+    result: aucun changement retenu
     complete: true
     note: "Bulletins GCP et GKE parcourus ; aucun bulletin postérieur à GCP-2026-061."
   - domain: GCP

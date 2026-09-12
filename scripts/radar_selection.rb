@@ -31,11 +31,14 @@ module WatchtowerRadarSelection
   def recent_identities(signals_data, date)
     start = date - 90
     registry_records(signals_data, "signals", "signal_fields").each_with_object({}) do |signal, result|
+      # A signal written by the radar being selected is not prior local history.
+      next if Date.parse(signal["first_seen"].to_s) == date
+
       seen = Date.parse(signal["last_seen"].to_s)
       next unless %w[new open].include?(signal["status"]) || seen >= start
 
       result[legacy_identity(signal)] = signal["id"]
-    rescue Date::Error
+    rescue ArgumentError
       result[legacy_identity(signal)] = signal["id"]
     end
   end
@@ -105,14 +108,8 @@ module WatchtowerRadarSelection
         ids = chosen.sort_by { |candidate| candidate["rank"].to_i }.map { |candidate| candidate["id"] }
         errors << "selected_ids incohérents" unless selection["selected_ids"] == ids
         errors << "rangs sélectionnés incohérents" unless chosen.map { |candidate| candidate["rank"] }.sort == (1..chosen.length).to_a
-        quota_population = chosen.reject { |candidate| follow_up?(candidate) }
-        errors << "quota OSS calculé incohérent" unless selection["oss_required"] == (quota_population.length * 0.33).ceil
+        errors << "quota OSS calculé incohérent" unless selection["oss_required"] == (chosen.length * 0.33).ceil
         errors << "compte OSS calculé incohérent" unless selection["oss_selected"] == chosen.count { |candidate| new_oss?(candidate) }
-        if selection.key?("follow_up_ids") || selection.key?("follow_up_count")
-          follow_up_ids = chosen.select { |candidate| follow_up?(candidate) }.map { |candidate| candidate["id"] }
-          errors << "follow_up_ids incohérents" unless selection["follow_up_ids"] == follow_up_ids
-          errors << "follow_up_count incohérent" unless selection["follow_up_count"] == follow_up_ids.length
-        end
         minimum_exception = selection["minimum_exception"].to_s.strip
         if chosen.length < 5
           errors << "exception minimum de sujets requise" if minimum_exception.empty?
@@ -147,7 +144,7 @@ module WatchtowerRadarSelection
     end
     chosen = eligible.first(target)
 
-    required = (chosen.reject { |candidate| follow_up?(candidate) }.length * 0.33).ceil
+    required = (chosen.length * 0.33).ceil
     missing = required - chosen.count { |candidate| new_oss?(candidate) }
     if missing.positive?
       replacements = (eligible - chosen).select { |candidate| new_oss?(candidate) }
@@ -183,8 +180,6 @@ module WatchtowerRadarSelection
       "oss_required" => required,
       "oss_selected" => oss_selected,
       "oss_exception" => exception,
-      "follow_up_count" => chosen.count { |candidate| follow_up?(candidate) },
-      "follow_up_ids" => chosen.select { |candidate| follow_up?(candidate) }.map { |candidate| candidate["id"] },
       "minimum_exception" => minimum_exception
     }
     selected_lanes = chosen.flat_map { |candidate| candidate["coverage_lanes"] }.uniq
@@ -215,13 +210,6 @@ module WatchtowerRadarSelection
 
   def new_oss?(candidate)
     candidate["novelty"] == "Nouveau projet OSS" && candidate["open_source"] == true && candidate["new_project"] == true
-  end
-
-  # Les suivis sont des réapparitions explicitement présentées comme des mises à
-  # jour. Ils complètent le minimum éditorial, mais ne gonflent pas le quota des
-  # nouveaux projets OSS.
-  def follow_up?(candidate)
-    candidate["novelty"] == "Mise à jour"
   end
 
   def rejection_reason(candidate, identities)

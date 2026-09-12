@@ -32,7 +32,7 @@ begin
   manifest.write(YAML.dump(data))
   puts "Sélection radar calculée: #{data.dig('selection', 'selected_count')} sujet(s), " \
     "#{data.dig('selection', 'oss_selected')}/#{data.dig('selection', 'oss_required')} nouveau(x) projet(s) OSS."
-rescue KeyError, Date::Error, Psych::Exception, WatchtowerRadarSelection::Error => e
+rescue KeyError, ArgumentError, Psych::Exception, WatchtowerRadarSelection::Error => e
   warn "ERREUR: #{e.message}"
   exit 1
 end

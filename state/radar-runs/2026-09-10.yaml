@@ -230,11 +230,10 @@ source_failures:
   period: 2026-09-09/2026-09-10
   consequence: La liste de dépôts n'était pas exposée par la page ni par Explore ;
     découverte assurée uniquement par Trendshift.
-candidate_yield_note: 'Vingt pistes ont été examinées : douze changements des deltas
-  officiels et huit entrées représentatives de Trendshift. Cinq ont franchi les trois
-  filtres et sont consignées ci-dessous ; les quinze autres, dont tous les nouveaux
-  projets OSS, ont été arrêtées comme doublons récents, changements trop locaux ou
-  pistes applicatives avant qualification complète.'
+candidate_yield_note: 'Cinq pistes ont été examinées : Agent Gateway avec Service
+  Extensions est le seul changement distinct du 09/09 qui franchit les trois filtres
+  ; GKE CRIU, Apigee SemanticCacheLookup, Cloud SDK Minikube et OpenAI Prompt Cache
+  Diagnostics répètent des sujets publiés le 09/09 sans delta substantiel.'
 candidates:
 - id: gcp-2026-061-containerd-criu
   identity_key: gcp:gke-security:gcp-2026-061-containerd-criu
@@ -247,7 +246,7 @@ candidates:
     contexte de sécurité demandé lors d'une restauration containerd.
   product_version: GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
   environment: inconnu
-  substantive_change: true
+  substantive_change: false
   architectural_effect: true
   primary_evidence: true
   open_source: false
@@ -291,9 +290,8 @@ candidates:
     fact: Le bulletin décrit l'élévation de privilèges via checkpoint CRIU non fiable
       et précise que GKE n'active pas cette capacité par défaut.
   mandatory: true
-  selection_status: selected
-  selection_reason: candidat obligatoire
-  rank: 1
+  selection_status: rejected
+  selection_reason: changement non substantiel
 - id: apigee-semantic-cache-distance
   identity_key: gcp:apigee:semantic-cache-distance-measures
   name: Apigee SemanticCacheLookup
@@ -305,7 +303,7 @@ candidates:
     le sens de comparaison du seuil selon cette mesure.
   product_version: Apigee 1-18-0-apigee-4 et versions ultérieures
   environment: inconnu
-  substantive_change: true
+  substantive_change: false
   architectural_effect: true
   primary_evidence: true
   open_source: false
@@ -347,9 +345,8 @@ candidates:
     fact: Les notes GCP documentent les nouvelles distances et le sens de comparaison
       du seuil à partir d'Apigee 1-18-0-apigee-4.
   mandatory: false
-  selection_status: selected
-  selection_reason: rang déterministe
-  rank: 2
+  selection_status: rejected
+  selection_reason: changement non substantiel
 - id: openai-prompt-cache-diagnostics
   identity_key: openai:responses-api:prompt-cache-diagnostics
   name: OpenAI Prompt Cache Diagnostics
@@ -361,7 +358,7 @@ candidates:
     et échecs du cache de prompts.
   product_version: OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
   environment: inconnu
-  substantive_change: true
+  substantive_change: false
   architectural_effect: true
   primary_evidence: true
   open_source: false
@@ -402,9 +399,8 @@ candidates:
     fact: Le changelog annonce Prompt Cache Diagnostics en GA et le schéma Responses
       expose les champs de diagnostic.
   mandatory: false
-  selection_status: selected
-  selection_reason: rang déterministe
-  rank: 5
+  selection_status: rejected
+  selection_reason: changement non substantiel
 - id: cloud-sdk-minikube-deprecation
   identity_key: gcp:cloud-sdk:minikube-component-removal-2027-01-31
   name: Cloud SDK — composant Minikube
@@ -416,7 +412,7 @@ candidates:
     son retrait après le 31 janvier 2027.
   product_version: Google Cloud SDK 584.0.0
   environment: inconnu
-  substantive_change: true
+  substantive_change: false
   architectural_effect: true
   primary_evidence: true
   open_source: false
@@ -457,9 +453,8 @@ candidates:
     fact: Les notes Cloud SDK 584.0.0 annoncent la dépréciation du composant Minikube
       et son retrait après le 31 janvier 2027.
   mandatory: false
-  selection_status: selected
-  selection_reason: rang déterministe
-  rank: 3
+  selection_status: rejected
+  selection_reason: changement non substantiel
 - id: agent-gateway-service-extensions
   identity_key: gcp:agent-gateway:service-extensions-authorization
   name: Agent Gateway avec Service Extensions
@@ -517,18 +512,19 @@ candidates:
   mandatory: false
   selection_status: selected
   selection_reason: rang déterministe
-  rank: 4
+  rank: 1
 selection:
   selected_ids:
-  - gcp-2026-061-containerd-criu
-  - apigee-semantic-cache-distance
-  - cloud-sdk-minikube-deprecation
   - agent-gateway-service-extensions
-  - openai-prompt-cache-diagnostics
-  eligible_count: 5
-  selected_count: 5
-  mandatory_count: 1
-  oss_required: 2
+  eligible_count: 1
+  selected_count: 1
+  mandatory_count: 0
+  oss_required: 1
   oss_selected: 0
-  oss_exception: 0 nouveau(x) projet(s) OSS éligible(s) pour 2 requis ; aucune alerte
+  oss_exception: 0 nouveau(x) projet(s) OSS éligible(s) pour 1 requis ; aucune alerte
     obligatoire n’a été évincée.
+  minimum_exception: '1 sujet(s) éligible(s) après les trois filtres ; Cinq pistes
+    ont été examinées : Agent Gateway avec Service Extensions est le seul changement
+    distinct du 09/09 qui franchit les trois filtres ; GKE CRIU, Apigee SemanticCacheLookup,
+    Cloud SDK Minikube et OpenAI Prompt Cache Diagnostics répètent des sujets publiés
+    le 09/09 sans delta substantiel.'

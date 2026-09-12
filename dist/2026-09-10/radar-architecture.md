@@ -8,29 +8,7 @@ Exposition locale commune : à qualifier. Couverture incomplète : plusieurs del
 
 | Outil | Type | Pitch rapide | Lien vers la section |
 |---|---|---|---|
-| [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) | plateforme · GCP | Un checkpoint non fiable peut contourner le contexte de sécurité demandé. | [Fiche](#gke--restauration-containerd-avec-criu) |
-| [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026) | service · GCP | Les distances deviennent configurables et imposent de recalibrer le seuil. | [Fiche](#apigee-semanticcachelookup) |
-| [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09) | outil · GCP | Le composant Minikube de gcloud sera retiré après janvier 2027. | [Fiche](#cloud-sdk--composant-minikube) |
 | [Agent Gateway avec Service Extensions](https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026) | plateforme · GCP | L’autorisation du trafic agentique peut être déléguée à une extension. | [Fiche](#agent-gateway-avec-service-extensions) |
-| [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog) | service · OpenAI | L’API expose les raisons des succès et échecs du cache de prompts. | [Fiche](#openai-prompt-cache-diagnostics) |
-
-## [GKE — restauration containerd avec CRIU](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061)
-
-- **Pitch rapide :** **Fait — GCP-2026-061 décrit un contournement du contexte de sécurité lors de la restauration d'un checkpoint non fiable avec containerd et CRIU ; les clusters GKE par défaut ne sont pas vulnérables.** **Analyse :** le risque concerne les plateformes qui ont explicitement ajouté un mécanisme de checkpoint/restauration non fiable, pas un cluster GKE standard.
-- **Utilité :** Le bulletin documente un impact pouvant aller jusqu’à une exécution root avec capacités élevées et filtres seccomp non appliqués. Maturité : bulletin fournisseur publié, identifiant CVE encore en attente ; niveau `signal faible`, faute d’exposition locale observée ; usage local de CRIU, provenance des checkpoints et versions déployées `à qualifier`. **Décision :** qualification par `sécurité/plateforme` avant le 17/09 ; succès = inventaire confirmant l’absence de restauration CRIU non fiable, ou versions et mesures correctives documentées pour chaque cluster concerné.
-- **Repères de comparaison :** clusters GKE par défaut sans restauration CRIU ; admission refusant les checkpoints non fiables ; isolation renforcée des workloads concernés.
-
-## [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026)
-
-- **Pitch rapide :** **Fait — Apigee 1-18-0-apigee-4 ajoute plusieurs mesures de distance à SemanticCacheLookup et impose de recalibrer le seuil lorsqu'une mesure non par défaut est choisie.** **Analyse :** le seuil devient une partie explicite du contrat de qualité du cache sémantique.
-- **Utilité :** Le choix entre produit scalaire, cosinus, L2 au carré et L1 permet d’aligner la comparaison sur les embeddings, mais une ancienne valeur de seuil ne conserve pas nécessairement sa signification. Maturité : fonctionnalité documentée dans une version Apigee en déploiement progressif ; niveau `signal faible`, sans traction indépendante étayée ; présence du cache et métriques de faux positifs `à qualifier`. **Décision :** qualification par `plateforme IA/API` avant le 24/09 ; succès = mesure, seuil et jeu de validation inventoriés pour chaque cache sémantique utilisé.
-- **Repères de comparaison :** cache exact par clé ; cache sémantique applicatif ; absence de cache pour les réponses sensibles.
-
-## [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09)
-
-- **Pitch rapide :** **Fait — Cloud SDK 584.0.0 déprécie son composant Minikube et prévoit son retrait après le 31 janvier 2027, sans supprimer les configurations et clusters existants.** **Analyse :** les installations qui dépendent de l’empaquetage gcloud doivent adopter la distribution OSS standard.
-- **Utilité :** Le changement touche les postes, images CI et scripts de bootstrap utilisant `gcloud components install minikube`, pas Minikube lui-même. Maturité : dépréciation officielle avec date et voie de remplacement ; niveau `signal faible`, faute d’exposition locale observée ; dépendances locales `à qualifier`. **Décision :** qualification par `plateforme développeur` avant le 08/10 ; succès = aucune image ou procédure maintenue ne dépend du composant Minikube de gcloud.
-- **Repères de comparaison :** installation binaire officielle Minikube ; gestionnaire de paquets du poste ; clusters de développement distants.
 
 ## [Agent Gateway avec Service Extensions](https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026)
 
@@ -38,24 +16,15 @@ Exposition locale commune : à qualifier. Couverture incomplète : plusieurs del
 - **Utilité :** La capacité sépare le routage agentique de la décision d’autorisation et permet d’intégrer un moteur personnalisé. Maturité : intégration déclarée GA ; niveau `signal faible`, sans traction indépendante étayée ; usage d’Agent Gateway, modèle de décision, latence et comportement de repli `à qualifier`. **Décision :** surveillance par `architecture IA/sécurité` avant le 01/10 ; succès = décision documentée sur le point d’autorisation, le mode de repli et les SLO si Agent Gateway est retenu.
 - **Repères de comparaison :** autorisation dans l’application ; proxy `ext_authz` ; politiques IAM natives sans extension personnalisée.
 
-## [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog)
-
-- **Pitch rapide :** **Fait — Prompt Cache Diagnostics est disponible dans l'API Responses pour les modèles GPT-5.6 et ultérieurs et retourne notamment la raison d'un cache miss.** **Analyse :** ces champs peuvent rendre observable la part de coût et de latence liée aux changements de préfixe ou de modèle.
-- **Utilité :** La télémétrie distingue les jetons manqués et certaines causes de miss ; elle aide à diagnostiquer le cache sans en faire un contrôle de disponibilité. Maturité : capacité GA de Responses ; niveau `signal faible`, sans traction indépendante étayée ; modèles, rétention et instrumentation locale `à qualifier`. **Décision :** qualification par `plateforme IA/FinOps` avant le 01/10 ; succès = tableau de bord distinguant hits, misses et raisons de miss sur les principaux flux Responses.
-- **Repères de comparaison :** métriques d’usage agrégées ; traces applicatives ; estimation hors ligne des préfixes réutilisables.
-
 ## Sujets écartés
 
-- Exception quota OSS : 0 nouveau(x) projet(s) OSS éligible(s) pour 2 requis ; aucune alerte obligatoire n’a été évincée.
-- Vingt pistes ont été examinées : douze changements des deltas officiels et huit entrées représentatives de Trendshift. Cinq ont franchi les trois filtres et sont consignées ci-dessus ; les quinze autres, dont tous les nouveaux projets OSS, ont été arrêtées comme doublons récents, changements trop locaux ou pistes applicatives avant qualification complète.
+- Exception minimum de sujets : 1 sujet(s) éligible(s) après les trois filtres ; Cinq pistes ont été examinées : Agent Gateway avec Service Extensions est le seul changement distinct du 09/09 qui franchit les trois filtres ; GKE CRIU, Apigee SemanticCacheLookup, Cloud SDK Minikube et OpenAI Prompt Cache Diagnostics répètent des sujets publiés le 09/09 sans delta substantiel.
+- Exception quota OSS : 0 nouveau(x) projet(s) OSS éligible(s) pour 1 requis ; aucune alerte obligatoire n’a été évincée.
 
 ## Sources consultées
 
 - `gcp-security-bulletins` — contrôle et qualification — [GCP-2026-061](https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061) — GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f ; périmètre GKE, exposition locale inconnue ; publié le 2026-09-09 ; effet inconnu ; consulté le 2026-09-10 ; le bulletin décrit l'élévation de privilèges via checkpoint CRIU non fiable et précise que GKE n'active pas cette capacité par défaut.
-- `gcp-release-notes` — contrôle et qualification — [Apigee SemanticCacheLookup](https://cloud.google.com/release-notes#September_09_2026) — Apigee 1-18-0-apigee-4 et versions ultérieures ; déploiement local inconnu ; publié et effectif le 2026-09-09 ; consulté le 2026-09-10 ; les notes GCP documentent les nouvelles distances et le sens de comparaison du seuil à partir d'Apigee 1-18-0-apigee-4.
-- `gcp-release-notes` — contrôle et qualification — [Cloud SDK — composant Minikube](https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09) — Google Cloud SDK 584.0.0 ; environnement inconnu ; publié le 2026-09-09 ; retrait effectif après le 2027-01-31 ; consulté le 2026-09-10 ; les notes annoncent la dépréciation du composant Minikube et son retrait après le 31 janvier 2027.
 - `gcp-release-notes` — contrôle et qualification — [Agent Gateway avec Service Extensions](https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026) — Google Cloud Agent Gateway et Service Extensions GA ; environnement inconnu ; publié et effectif le 2026-08-31 ; consulté le 2026-09-10 ; les notes Service Extensions annoncent l'intégration Agent Gateway en disponibilité générale.
-- `openai-api-changelog` — contrôle et qualification — [OpenAI Prompt Cache Diagnostics](https://developers.openai.com/api/docs/changelog) — OpenAI Responses API, modèles GPT-5.6 et ultérieurs ; environnement inconnu ; publié et effectif le 2026-09-08 ; consulté le 2026-09-10 ; le changelog annonce Prompt Cache Diagnostics en GA et le schéma Responses expose les champs de diagnostic.
 - `gcp-deprecation-policy`, `vertex-ai-release-notes`, `openai-api-deprecations` et `anthropic-release-notes` — contrôle — bornes de reprise au 2026-09-09 ; consultés le 2026-09-10 ; aucun autre changement retenu.
 - `aws-whats-new`, `aws-security-bulletins`, `aws-eks-lifecycle`, `aws-bedrock-history`, `gke-release-notes` et `gke-security-bulletins` — contrôle — tentés le 2026-09-10 ; deltas incomplets détaillés ci-dessous.
 - `github-trending` et `trendshift` — découverte — consultés le 2026-09-10 ; Trendshift exposait 24 entrées, sans nouveau projet OSS qualifié.

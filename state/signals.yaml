@@ -1210,19 +1210,18 @@ signals:
   - Vault 2.0.4 / 1.21.9 / 1.20.14 / 1.19.20
   - unknown
   - '2026-08-29'
-  - '2026-09-12'
-  - 5
-  - 4
-  - 5
-  - 5
+  - '2026-08-29'
+  -
+  -
+  -
+  -
   - high
   - open
   - qualify
   - sécurité/plateforme
   - '2026-09-19'
-  - mise_a_jour
+  -
   - - dist/2026-08-29/radar-architecture.md
-    - dist/2026-09-12/radar-architecture.md
   - local_commit
   -
   - 9
@@ -1239,9 +1238,8 @@ signals:
   - unknown
   - '2026-08-29'
   - '2026-08-29'
-  - - date: '2026-09-12'
-      change: 'Échéance revue : Le correctif Vault reste prioritaire ; versions déployées, politiques templated et exposition locale inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition.'
-  - 'Impact 5 : élévation de privilèges via des policies templatisées ; urgence 4 : correctif prioritaire avant l’échéance ; pertinence 5 : secrets et sécurité de plateforme prioritaires ; confiance 5 : advisory HashiCorp primaire et versions corrigées explicites.'
+  -
+  -
   -
   -
   - high
@@ -1586,19 +1584,18 @@ signals:
   - Elastic Agent 9.5.0–9.5.1 / correctif 9.5.2
   - unknown
   - '2026-09-02'
-  - '2026-09-12'
-  - 4
-  - 4
-  - 5
-  - 5
+  - '2026-09-02'
+  -
+  -
+  -
+  -
   - high
   - open
   - qualify
   - observabilité
   - '2026-09-19'
-  - mise_a_jour
+  -
   - - dist/2026-09-02/radar-architecture.md
-    - dist/2026-09-12/radar-architecture.md
   - local_commit
   -
   - 9
@@ -2288,86 +2285,6 @@ signals:
   - Dépôt AGPL-3.0, Docker, CDP et WebDriver BiDi vérifiés; nightlies, compatibilité Web, sécurité d’exécution et benchmarks locaux à qualifier.
   -
   -
-- - SIG-2026-09-10-001
-  - gcp:gke-security:gcp-2026-061-containerd-criu
-  - https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
-  - GCP-2026-061 décrit un contournement du contexte de sécurité lors d’une restauration containerd avec CRIU
-  - GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
-  - inconnu
-  - '2026-09-10'
-  - '2026-09-12'
-  - 5
-  - 4
-  - 4
-  - 5
-  - high
-  - new
-  - qualify
-  - sécurité/plateforme
-  - '2026-09-17'
-  - mise_a_jour
-  - - dist/2026-09-10/radar-architecture.md
-    - dist/2026-09-12/radar-architecture.md
-  - local_commit
-  -
-  -
-  - - date: '2026-09-12'
-      change: 'Suivi retenu : le bulletin GCP-2026-061 reste prioritaire ; usage de CRIU, provenance des checkpoints et versions GKE restent à inventorier.'
-  - 'Impact 5 : contournement de contrôles de sécurité jusqu’aux privilèges root ; urgence 4 : bulletin récent à qualifier rapidement sans exploitation annoncée ; pertinence 4 : Kubernetes et sécurité sont au cœur du radar, exposition locale inconnue ; confiance 5 : bulletin primaire détaillé et conditions d’exposition explicites.'
-  - '2026-09-12'
-  - Le bulletin GCP-2026-061 reste prioritaire ; usage de CRIU, provenance des checkpoints et versions GKE restent à inventorier.
-- - SIG-2026-09-10-002
-  - gcp:apigee:semantic-cache-distance-measures
-  - https://cloud.google.com/release-notes#September_09_2026
-  - Apigee rend configurables les mesures de distance de SemanticCacheLookup et lie leur seuil au sens de comparaison
-  - Apigee 1-18-0-apigee-4 et versions ultérieures
-  - inconnu
-  - '2026-09-10'
-  - '2026-09-10'
-  - 4
-  - 3
-  - 4
-  - 5
-  - high
-  - new
-  - qualify
-  - plateforme IA/API
-  - '2026-09-24'
-  - nouveau_hors_oss
-  - - dist/2026-09-10/radar-architecture.md
-  - local_commit
-  -
-  -
-  -
-  - 'Impact 4 : la mesure et le seuil déterminent les réponses réutilisées par une couche de cache IA ; urgence 3 : tout passage à une mesure non par défaut exige un recalibrage ; pertinence 4 : gouvernance et exploitation des gateways IA sont prioritaires ; confiance 5 : version et comportement documentés par les notes officielles.'
-  -
-  -
-- - SIG-2026-09-10-003
-  - gcp:cloud-sdk:minikube-component-removal-2027-01-31
-  - https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09
-  - Cloud SDK déprécie son composant Minikube avant retrait après le 31 janvier 2027
-  - Google Cloud SDK 584.0.0
-  - inconnu
-  - '2026-09-10'
-  - '2026-09-10'
-  - 3
-  - 3
-  - 4
-  - 5
-  - high
-  - new
-  - qualify
-  - plateforme développeur
-  - '2026-10-08'
-  - nouveau_hors_oss
-  - - dist/2026-09-10/radar-architecture.md
-  - local_commit
-  -
-  -
-  -
-  - 'Impact 3 : les images de postes et CI qui installent Minikube via gcloud doivent changer de chaîne d’installation ; urgence 3 : retrait daté au 31 janvier 2027 ; pertinence 4 : Kubernetes et outillage développeur sont centraux ; confiance 5 : version, date et voie de migration sont documentées officiellement.'
-  -
-  -
 - - SIG-2026-09-10-004
   - gcp:agent-gateway:service-extensions-authorization
   - https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026
@@ -2394,34 +2311,6 @@ signals:
   - 'Impact 4 : l’autorisation peut être externalisée au point de passage du trafic agentique ; urgence 2 : GA sans migration imposée ; pertinence 4 : gouvernance des agents et gateways est prioritaire ; confiance 5 : statut GA et périmètre documentés par la source primaire.'
   -
   -
-- - SIG-2026-09-10-005
-  - openai:responses-api:prompt-cache-diagnostics
-  - https://developers.openai.com/api/docs/changelog
-  - Responses expose des diagnostics structurés pour le cache de prompts
-  - OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
-  - inconnu
-  - '2026-09-10'
-  - '2026-09-12'
-  - 3
-  - 2
-  - 4
-  - 5
-  - high
-  - new
-  - qualify
-  - plateforme IA/FinOps
-  - '2026-10-01'
-  - mise_a_jour
-  - - dist/2026-09-10/radar-architecture.md
-    - dist/2026-09-12/radar-architecture.md
-  - local_commit
-  -
-  -
-  - - date: '2026-09-12'
-      change: 'Suivi retenu : les diagnostics de cache restent à qualifier dans les flux Responses, sans nouvelle annonce.'
-  - 'Impact 3 : les diagnostics rendent observable un mécanisme de coût et latence jusque-là opaque ; urgence 2 : aucune rupture ni échéance ; pertinence 4 : exploitation et coûts IA sont prioritaires ; confiance 5 : changelog et schéma d’API officiels concordent.'
-  - '2026-09-12'
-  - Les diagnostics de cache restent à qualifier dans les flux Responses, sans nouvelle annonce.
 - - SIG-2026-09-11-001
   - gcp:agent-gateway:vpc-sc-post-2026-09-08
   - https://cloud.google.com/release-notes#September_10_2026
@@ -2429,7 +2318,7 @@ signals:
   - Agent Gateway VPC-SC support, deployments after 2026-09-08
   - exposition inconnue
   - '2026-09-11'
-  - '2026-09-12'
+  - '2026-09-11'
   - 5
   - 3
   - 5
@@ -2439,17 +2328,15 @@ signals:
   - qualify
   - réseau/sécurité IA
   - '2026-09-25'
-  - mise_a_jour
+  - nouveau_hors_oss
   - - dist/2026-09-11/radar-architecture.md
-    - dist/2026-09-12/radar-architecture.md
   - pending_orchestrator_commit
   -
   -
-  - - date: '2026-09-12'
-      change: 'Suivi retenu : VPC-SC reste conditionné par la date de création et l’egress des déploiements Agent Gateway ; exposition locale à inventorier.'
+  -
   - 'Impact 5 : la protection périmétrique dépend de l''âge et du mode réseau du déploiement ; urgence 3 : les instances existantes peuvent nécessiter une recréation ; pertinence 5 : gateways et sécurité IA prioritaires ; confiance 5 : contraintes officielles explicites.'
-  - '2026-09-12'
-  - VPC-SC reste conditionné par la date de création et l’egress des déploiements Agent Gateway ; exposition locale à inventorier.
+  -
+  -
 - - SIG-2026-09-11-002
   - anthropic:managed-agents:auto-permission-evaluation
   - https://platform.claude.com/docs/en/release-notes/overview
