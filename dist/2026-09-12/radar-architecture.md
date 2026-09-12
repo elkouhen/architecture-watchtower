@@ -162,8 +162,8 @@ coverage:
 
 ## Sources en échec
 
-- `aws-whats-new` — période `2026-09-09/2026-09-12` : RSS non pris en charge ; releases et disponibilité AWS incomplètes.
-- `aws-security-bulletins` — période `2026-09-09/2026-09-12` : RSS non pris en charge ; sécurité AWS et IA incomplète.
-- `aws-eks-lifecycle` — période `2026-09-09/2026-09-12` : Capture primaire trop ancienne pour clore le delta lifecycle EKS.
-- `aws-bedrock-history` — période `2026-09-07/2026-09-12` : Historique capturé avec retard ; voies AWS et IA liées à Bedrock incomplètes.
-- `gke-release-notes` — période `2026-09-11/2026-09-12` : Page primaire inaccessible ; voies GKE releases et lifecycle incomplètes.
+- `aws-whats-new` — `2026-09-09/2026-09-12` — RSS non pris en charge ; releases et disponibilité AWS incomplètes.
+- `aws-security-bulletins` — `2026-09-09/2026-09-12` — RSS non pris en charge ; sécurité AWS et IA incomplète.
+- `aws-eks-lifecycle` — `2026-09-09/2026-09-12` — Capture primaire trop ancienne pour clore le delta lifecycle EKS.
+- `aws-bedrock-history` — `2026-09-07/2026-09-12` — Historique capturé avec retard ; voies AWS et IA liées à Bedrock incomplètes.
+- `gke-release-notes` — `2026-09-11/2026-09-12` — Page primaire inaccessible ; voies GKE releases et lifecycle incomplètes.
