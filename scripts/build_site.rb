@@ -38,9 +38,15 @@ def build_homepage(root)
     all_reports.find { |path| path.basename.to_s.start_with?("classement-mensuel-") }
   ].compact.sort.reverse
   latest_radar = reports.find { |path| path.basename.to_s == "radar-architecture.md" }
-  report_lines = reports.map do |path|
+  report_cards = reports.map do |path|
     relative = path.relative_path_from(root)
-    "- `#{path.parent.basename}` · **#{report_kind(path)}** — [#{report_title(path)}](#{relative})"
+    <<~HTML.strip
+      <a class="watchtower-report-card" href="#{relative}">
+        <span class="watchtower-report-card__kind">#{report_kind(path)}</span>
+        <strong>#{report_title(path)}</strong>
+        <span class="watchtower-report-card__date">#{path.parent.basename}</span>
+      </a>
+    HTML
   end
 
   latest_link = if latest_radar
@@ -55,21 +61,34 @@ def build_homepage(root)
       - toc
     ---
 
-    # Architecture Watchtower
+    <div class="watchtower-hero">
+      <p class="watchtower-kicker">SIGNAL / SYSTÈMES / DÉCISIONS</p>
+      <h1>Architecture<br><span>Watchtower</span></h1>
+      <p class="watchtower-hero__lede">Le radar qui transforme le bruit Cloud, DevOps et IA en décisions d’architecture exploitables.</p>
+      <div class="watchtower-hero__actions">
+        #{latest_link}{ .md-button .md-button--primary }
+        [Explorer le catalogue](docs/catalogue.md){ .md-button }
+      </div>
+      <div class="watchtower-signal-row">
+        <span><i></i> Sources primaires</span>
+        <span><i></i> Analyse locale</span>
+        <span><i></i> Décisions traçables</span>
+      </div>
+    </div>
 
-    Veille locale et vérifiée sur le Cloud, le DevOps, l’architecture applicative et l’IA.
+    ## Derniers signaux
 
-    #{latest_link}
+    <div class="watchtower-report-grid">
+    #{report_cards.join("\n")}
+    </div>
 
-    ## Dernières publications
+    ## Explorer le poste de contrôle
 
-    #{report_lines.join("\n")}
-
-    ## Explorer
-
-    - [Catalogue](docs/catalogue.md) — technologies et patterns déjà analysés.
-    - [Tous les rapports](docs/rapports.md) — historique chronologique des radars, cartes et classements.
-    - [Algorithme du radar](docs/algorithme-radar.html) — fonctionnement de la collecte à la publication.
+    <div class="watchtower-explore-grid">
+      <a href="docs/catalogue.md"><span>01</span><strong>Catalogue</strong><small>Technologies et patterns analysés.</small></a>
+      <a href="docs/rapports.md"><span>02</span><strong>Rapports</strong><small>Radars, cartes et classements datés.</small></a>
+      <a href="docs/algorithme-radar.html"><span>03</span><strong>Algorithme</strong><small>De la collecte à la publication.</small></a>
+    </div>
   MARKDOWN
 end
 
