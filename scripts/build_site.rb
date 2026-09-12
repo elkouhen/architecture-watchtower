@@ -30,6 +30,10 @@ def report_kind(path)
   "Classement mensuel"
 end
 
+def site_path(path)
+  path.to_s.sub(/\.md\z/, "/")
+end
+
 def build_homepage(root)
   all_reports = root.glob("dist/*/*.md").sort.reverse
   reports = [
@@ -39,7 +43,7 @@ def build_homepage(root)
   ].compact.sort.reverse
   latest_radar = reports.find { |path| path.basename.to_s == "radar-architecture.md" }
   report_cards = reports.map do |path|
-    relative = path.relative_path_from(root)
+    relative = site_path(path.relative_path_from(root))
     <<~HTML.strip
       <a class="watchtower-report-card" href="#{relative}">
         <span class="watchtower-report-card__kind">#{report_kind(path)}</span>
@@ -50,7 +54,7 @@ def build_homepage(root)
   end
 
   latest_path = if latest_radar
-    latest_radar.relative_path_from(root).to_s
+    site_path(latest_radar.relative_path_from(root))
   else
     "docs/rapports.md"
   end
@@ -67,7 +71,7 @@ def build_homepage(root)
       <p class="watchtower-hero__lede">Le radar qui transforme le bruit Cloud, DevOps et IA en décisions d’architecture exploitables.</p>
       <div class="watchtower-hero__actions">
         <a class="md-button md-button--primary" href="#{latest_path}">Lire le dernier radar</a>
-        <a class="md-button" href="docs/catalogue.md">Explorer le catalogue</a>
+        <a class="md-button" href="docs/catalogue/">Explorer le catalogue</a>
       </div>
       <div class="watchtower-signal-row">
         <span><i></i> Sources primaires</span>
@@ -85,8 +89,8 @@ def build_homepage(root)
     ## Explorer le poste de contrôle
 
     <div class="watchtower-explore-grid">
-      <a href="docs/catalogue.md"><span>01</span><strong>Catalogue</strong><small>Technologies et patterns analysés.</small></a>
-      <a href="docs/rapports.md"><span>02</span><strong>Rapports</strong><small>Radars, cartes et classements datés.</small></a>
+      <a href="docs/catalogue/"><span>01</span><strong>Catalogue</strong><small>Technologies et patterns analysés.</small></a>
+      <a href="docs/rapports/"><span>02</span><strong>Rapports</strong><small>Radars, cartes et classements datés.</small></a>
       <a href="docs/algorithme-radar.html"><span>03</span><strong>Algorithme</strong><small>De la collecte à la publication.</small></a>
     </div>
   MARKDOWN
