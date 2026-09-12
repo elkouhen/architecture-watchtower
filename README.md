@@ -15,6 +15,7 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 
 - Radar quotidien : `dist/YYYY-MM-DD/radar-architecture.md`
 - Classement mensuel : `dist/YYYY-MM-DD/classement-mensuel-AAAA-MM.md`
+- [Radar du 12 septembre 2026](dist/2026-09-12/radar-architecture.md)
 - [Radar du 11 septembre 2026](dist/2026-09-11/radar-architecture.md)
 - [Radar du 10 septembre 2026](dist/2026-09-10/radar-architecture.md)
 - [Radar du 9 septembre 2026](dist/2026-09-09/radar-architecture.md)

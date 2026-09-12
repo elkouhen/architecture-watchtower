@@ -1,3 +1,4 @@
+---
 schema_version: 3
 format: tabular-v1
 scoring_policy:
@@ -8,10 +9,8 @@ scoring_policy:
   - urgence
   - pertinence_stack
   - confiance
-  legacy_field: legacy_score conserve les anciens scores sans être utilisé pour les
-    nouvelles sélections.
-  identity_rule: Un identifiant reste stable ; une évolution du même sujet met à jour
-    l'entrée et son historique au lieu de créer un doublon.
+  legacy_field: legacy_score conserve les anciens scores sans être utilisé pour les nouvelles sélections.
+  identity_rule: Un identifiant reste stable ; une évolution du même sujet met à jour l'entrée et son historique au lieu de créer un doublon.
 signal_fields:
 - id
 - identity_key
@@ -40,100 +39,2561 @@ signal_fields:
 - last_reviewed
 - review_note
 signals:
-  - ["SIG-2026-09-04-001", "legacy:SIG-2026-09-04-001", "https://cloud.google.com/release-notes", "Les nouvelles passerelles de routage de modèles GCP peuvent changer de hostname par défaut", "API Gateway model routing hostname change (2026-09-03)", "unknown", "2026-09-04", "2026-09-04", 4, 4, 4, 5, "high", "open", "qualify", "réseau/plateforme", "2026-09-18", "nouveau_hors_oss", ["dist/2026-09-04/radar-architecture.md"], "local_commit", null, null, [{"date":"2026-09-11","change":"Échéance revue : les passerelles de routage créées depuis le 03/09 peuvent recevoir un hostname gateway.dev ; exposition locale toujours inconnue."}], null, "2026-09-11", "Maintenir ouvert jusqu’à l’inventaire des passerelles créées depuis le 03/09 et la vérification de l’usage de defaultHostname ; réexamen le 18/09."]
-  - ["SIG-2026-09-04-002", "legacy:SIG-2026-09-04-002", "https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/", "AWS Config ajoute 60 types de ressources dont Bedrock et Organizations", "AWS Config resource types expansion (2026-09-02)", "unknown", "2026-09-04", "2026-09-04", 4, 3, 4, 5, "high", "new", "qualify", "sécurité/Cloud", "2026-09-18", "nouveau_hors_oss", ["dist/2026-09-04/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-04-003", "legacy:SIG-2026-09-04-003", "https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/", "Bedrock Web Search arrive dans AWS GovCloud US-West", "Amazon Bedrock Web Search GovCloud (US-West) (2026-09-02)", "unknown", "2026-09-04", "2026-09-04", 4, 3, 3, 5, "high", "new", "qualify", "IA/sécurité", "2026-09-18", "nouveau_hors_oss", ["dist/2026-09-04/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-04-004", "legacy:SIG-2026-09-04-004", "https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/", "S3 ajoute des endpoints PrivateLink validés FIPS 140-3", "Amazon S3 PrivateLink FIPS endpoints (2026-09-03)", "unknown", "2026-09-04", "2026-09-04", 4, 3, 4, 5, "high", "new", "qualify", "sécurité/Cloud", "2026-09-18", "nouveau_hors_oss", ["dist/2026-09-04/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-04-005", "legacy:SIG-2026-09-04-005", "https://github.com/aws/CICD-for-SageMakerUnifiedStudio", "Le CLI OSS SageMaker Unified Studio étend la promotion CI/CD aux notebooks et manifests assistés par IA", "SMUS CI/CD CLI (2026-09-02 capabilities)", "unknown", "2026-09-04", "2026-09-04", 4, 2, 4, 5, "high", "new", "test", "plateforme IA/IaC", "2026-09-25", "nouveau_oss", ["dist/2026-09-04/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-03-001", "legacy:SIG-2026-09-03-001", "https://cloud.google.com/run/docs/release-notes", "Cloud Run ajoute les identités d’agents managées et l’enregistrement Agent Registry", "Cloud Run Agent Platform integration (2026-09-01)", "unknown", "2026-09-03", "2026-09-03", 5, 3, 4, 5, "high", "new", "qualify", "IA/plateforme", "2026-09-17", "nouveau_hors_oss", ["dist/2026-09-03/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-03-002", "legacy:SIG-2026-09-03-002", "https://cloud.google.com/kubernetes-engine/security-bulletins", "GKE Multi-Cloud corrige une vérification d’autorisation manquante", "GKE Multi-Cloud APIs bulletin GCP-2026-058", "unknown", "2026-09-03", "2026-09-03", 4, 5, 3, 5, "high", "closed", "monitor", "sécurité/plateforme", "2026-09-10", "nouveau_hors_oss", ["dist/2026-09-03/radar-architecture.md"], "local_commit", null, null, [{"date":"2026-09-10","change":"Échéance revue : Google confirme le correctif côté serveur, l’absence d’exploitation observée et aucune action client requise."}], null, "2026-09-10", "Bulletin GCP-2026-058 revu : tous les clusters ont été corrigés côté serveur, aucune exploitation n’a été constatée et aucune action client n’est requise. Signal clôturé ; réouvrir seulement sur nouvelle preuve fournisseur ou incident local."]
-  - ["SIG-2026-09-03-003", "legacy:SIG-2026-09-03-003", "https://platform.claude.com/docs/en/release-notes/overview", "Claude Fable 5.1 augmente le contexte et la durée des tâches agentiques", "Claude Fable 5.1 (2026-09-01)", "unknown", "2026-09-03", "2026-09-03", 4, 3, 3, 5, "high", "new", "qualify", "IA/plateforme", "2026-09-24", "nouveau_hors_oss", ["dist/2026-09-03/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-03-004", "legacy:SIG-2026-09-03-004", "https://github.com/deepseek-ai/deepseek-harness", "DeepSeek Harness propose un agent harness extensible par plugins", "DeepSeek Harness developer preview", "unknown", "2026-09-03", "2026-09-03", 4, 2, 4, 4, "medium", "new", "test", "IA/plateforme", "2026-09-24", "nouveau_oss", ["dist/2026-09-03/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-03-005", "legacy:SIG-2026-09-03-005", "https://github.com/diegosouzapw/OmniRoute", "OmniRoute fournit une passerelle multi-fournisseurs avec fallback et routage", "OmniRoute v3.8.51", "unknown", "2026-09-03", "2026-09-03", 4, 2, 4, 4, "medium", "new", "qualify", "IA/plateforme", "2026-09-24", "nouveau_oss", ["dist/2026-09-03/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-03-006", "legacy:SIG-2026-09-03-006", "https://github.com/arcboxlabs/arcbox", "Arcbox isole les agents dans des machines compatibles OCI à démarrage rapide", "Arcbox developer preview", "unknown", "2026-09-03", "2026-09-03", 5, 2, 4, 4, "medium", "new", "test", "plateforme/sécurité", "2026-09-24", "nouveau_oss", ["dist/2026-09-03/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-03-007", "legacy:SIG-2026-09-03-007", "https://github.com/ulab-uiuc/LLMRouter", "LLMRouter explore le routage de modèles comme bibliothèque open source", "LLMRouter current repository", "unknown", "2026-09-03", "2026-09-03", 3, 2, 4, 4, "medium", "new", "monitor", "IA/plateforme", "2026-10-01", "nouveau_oss", ["dist/2026-09-03/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-02-001", "legacy:SIG-2026-09-02-001", "https://blog.cloudflare.com/cloudflare-computer/", "Cloudflare Computer propose un runtime de travail pour agents", "@cloudflare/computer early preview", "unknown", "2026-09-02", "2026-09-02", null, null, null, null, "high", "new", "test", "IA/plateforme", "2026-09-19", null, ["dist/2026-09-02/radar-architecture.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-09-02-002", "legacy:SIG-2026-09-02-002", "https://blog.cloudflare.com/agents-on-cloudflare/", "Cloudflare Agents regroupe le déploiement et l’observabilité des agents", "Cloudflare Agents early product", "unknown", "2026-09-02", "2026-09-02", null, null, null, null, "high", "new", "qualify", "IA/observabilité", "2026-09-17", null, ["dist/2026-09-02/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-09-02-003", "legacy:SIG-2026-09-02-003", "https://litmuschaos.io/", "LitmusChaos structure des expériences de chaos engineering Kubernetes", "LitmusChaos 2026 H1", "unknown", "2026-09-02", "2026-09-02", null, null, null, null, "medium", "new", "test", "SRE/plateforme", "2026-09-22", null, ["dist/2026-09-02/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-29-001", "legacy:SIG-2026-08-29-001", "https://modelcontextprotocol.io/specification/2026-07-28", "MCP 2026-07-28 stabilise un cœur stateless et formalise les extensions", "MCP 2026-07-28", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "qualify", "IA/plateforme", "2026-09-12", null, ["dist/2026-08-29/carte-mcp.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-08-27-001", "legacy:SIG-2026-08-27-001", "https://kubernetes.io/releases/1.37/", "Kubernetes 1.37.0 disponible, puis Storage Version Migration GA et RangeStream beta", "Kubernetes 1.37", "unknown", "2026-08-27", "2026-09-06", null, null, null, null, "high", "new", "test", "plateforme Kubernetes", "2026-09-16", null, ["dist/2026-08-27/radar-architecture.md","dist/2026-09-02/radar-architecture.md","dist/2026-09-06/radar-architecture.md"], "local_commit", null, 8, [{"date":"2026-08-27","change":"Release 1.37.0 observée."},{"date":"2026-09-02","change":"Mise à jour substantielle : Storage Version Migration GA et RangeStream beta."},{"date":"2026-09-06","change":"Mise à jour substantielle : KubeletInUserNamespace passe beta dans Kubernetes 1.37."}], null, null, null]
-  - ["SIG-2026-09-06-001", "legacy:SIG-2026-09-06-001", "https://cloud.google.com/support/bulletins", "GCP-2026-060 signale un risque High dans sbcast de Slurm pour Cluster Director", "GCP-2026-060 / CVE-2026-65107 (2026-09-04)", "unknown", "2026-09-06", "2026-09-06", 3, 3, 3, 5, null, "new", "qualify", "plateforme HPC/sécurité", "2026-09-20", "nouveau_hors_oss", ["dist/2026-09-06/radar-architecture.md"], "local_commit", null, null, null, "Bulletin primaire précis ; exposition Cluster Director/Slurm inconnue.", null, null]
-  - ["SIG-2026-09-06-002", "legacy:SIG-2026-09-06-002", "https://github.com/gnawux/xolis", "Xolis compose Agent Sandbox, Kata runtime-rs et PVM pour isoler des agents sur EKS", "tags kubecon-japan-2026 / demo-with-pvm (observés 2026-09-06)", "unknown", "2026-09-06", "2026-09-06", 3, 1, 4, 3, null, "new", "monitor", "plateforme Kubernetes/IA", "2026-09-27", "nouveau_projet_oss", ["dist/2026-09-06/radar-architecture.md"], "local_commit", null, null, null, "Dépôt et démonstration Kata primaire ; auteur documente explicitement les lacunes HA, réseau et production.", null, null]
-  - ["SIG-2026-09-06-003", "legacy:SIG-2026-09-06-003", "https://developer.hashicorp.com/vault/docs/updates/release-notes", "Vault 2.1 fait sortir de beta le support des workflows agentiques", "Vault 2.1 (2026-09-01)", "unknown", "2026-09-06", "2026-09-06", 4, 2, 5, 5, null, "new", "qualify", "sécurité/plateforme", "2026-09-20", "mise_a_jour", ["dist/2026-09-06/radar-architecture.md"], "local_commit", null, null, null, "Release notes HashiCorp précises ; édition Vault et exposition agents inconnues.", null, null]
-  - ["SIG-2026-09-06-004", "legacy:SIG-2026-09-06-004", "https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/", "Kata Containers 4.0 stabilise runtime-rs et le VMM Dragonball", "Kata Containers 4.0 (2026-07-21, observé 2026-09-06)", "unknown", "2026-09-06", "2026-09-06", 4, 1, 4, 4, null, "new", "monitor", "plateforme Kubernetes/IA", "2026-09-27", "nouveau_projet_oss", ["dist/2026-09-06/radar-architecture.md"], "local_commit", null, null, null, "Source primaire Kata et composant OSS ; compatibilité de distribution à qualifier.", null, null]
-  - ["SIG-2026-08-27-002", "legacy:SIG-2026-08-27-002", "https://status.elastic.co/", "Incident endpoint APM Serverless résolu", "Elastic Cloud APM Serverless", "unknown", "2026-08-27", "2026-08-28", null, null, null, null, "high", "closed", "monitor", "observabilité", "2026-08-29", null, ["dist/2026-08-27/carte-elasticsearch.md"], "local_commit", null, 5, null, null, "2026-09-03", "Incident fournisseur résolu ; aucune exposition locale n'est démontrée. Réouvrir uniquement en cas de récidive ou d'inventaire confirmant un impact."]
-  - ["SIG-2026-08-27-003", "legacy:SIG-2026-08-27-003", "https://www.elastic.co/docs/release-notes", "Elastic Stack 9.5.2 version actuelle documentée", "Elastic Stack 9.5.2", "unknown", "2026-08-27", "2026-08-27", null, null, null, null, "high", "deferred", "qualify", "plateforme/observabilité", "2026-09-10", null, ["dist/2026-08-27/radar-architecture.md","dist/2026-08-27/carte-elasticsearch.md"], "local_commit", null, 6, null, null, "2026-09-03", "La version 9.5.2 reste documentée comme version courante ; qualification reportée jusqu'à l'inventaire des versions Elastic réellement déployées."]
-  - ["SIG-2026-08-28-001", "legacy:SIG-2026-08-28-001", "https://github.com/kubernetes-sigs/agent-sandbox", "Agent Sandbox propose une CRD pour les workloads singleton persistants d’agents", "Agent Sandbox v0.5.6", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "high", "new", "test", "plateforme Kubernetes", "2026-09-12", null, ["dist/2026-08-28/radar-architecture.md","dist/2026-08-28/carte-agent-sandbox.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-08-28-002", "legacy:SIG-2026-08-28-002", "https://github.com/open-telemetry/semantic-conventions-genai", "Les conventions OpenTelemetry GenAI évoluent dans un dépôt dédié", "GenAI semantic conventions", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "high", "new", "monitor", "IA/observabilité", "2026-09-30", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-28-003", "legacy:SIG-2026-08-28-003", "https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/", "Le groupe de travail Kubernetes AI Gateway développe des patterns de routage IA", "non applicable", "unknown", "2026-08-27", "2026-08-28", null, null, null, null, "high", "new", "monitor", "plateforme Kubernetes", "2026-09-30", null, ["dist/2026-08-27/radar-architecture.md","dist/2026-08-28/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-28-004", "legacy:SIG-2026-08-28-004", "https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27", "Hermes Agent v0.20.6 accélère les capacités runtime, MCP et opérations", "Hermes Agent v0.20.6", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "high", "deferred", "monitor", "IA/plateforme", "2026-09-19", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 7, null, null, "2026-09-05", "Aucune évolution substantielle confirmée depuis le signal initial ; suivi conservé sans planifier de POC. Réexamen si release structurante, incident ou adoption documentée."]
-  - ["SIG-2026-08-28-005", "legacy:SIG-2026-08-28-005", "https://github.com/statelyai/agent/releases", "Stately Agent alpha.21 formalise davantage les agents comme machines d’état", "@statelyai/agent 2.0.0-alpha.21", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "high", "new", "monitor", "IA/plateforme", "2026-09-12", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 6, null, null, null, null]
-  - ["SIG-2026-08-28-006", "legacy:SIG-2026-08-28-006", "https://github.com/modelstudioai/OpenAgentPack", "OpenAgentPack propose un control plane IaC pour les agents cloud", "OpenAgentPack beta", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "medium", "new", "monitor", "IA/plateforme", "2026-09-12", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 6, null, null, null, null]
-  - ["SIG-2026-08-27-004", "legacy:SIG-2026-08-27-004", "https://github.com/topics/agent-observability", "Émergence des outils AgentOps et observabilité des agents IA", "non applicable", "unknown", "2026-08-27", "2026-08-27", null, null, null, null, "medium", "deferred", "monitor", "IA/observabilité", "2026-09-19", null, ["dist/2026-08-27/radar-architecture.md"], "local_commit", null, 6, null, null, "2026-09-05", "Le pattern reste trop agrégé pour une décision produit ; conservé comme veille thématique sans POC planifié."]
-  - ["SIG-2026-08-28-007", "legacy:SIG-2026-08-28-007", "https://github.com/tt-a1i/archify", "Archify transforme des descriptions de systèmes en artefacts d’architecture interactifs", "Archify v2.16.0-dev.0", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "high", "deferred", "monitor", "architecture/plateforme", "2026-09-19", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 8, null, null, "2026-09-05", "Signal de découverte déjà documenté, sans évolution substantielle indépendante depuis le 28/08 ; qualification laissée à une décision ultérieure."]
-  - ["SIG-2026-08-28-008", "legacy:SIG-2026-08-28-008", "https://github.com/workweave/router", "WorkWeave/router signale le pattern de routage dynamique des modèles", "unknown", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "low", "discarded", "avoid", "IA/plateforme", "2026-09-05", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", "Preuves primaires et maturité insuffisantes pour maintenir le signal actif.", 6, null, null, "2026-09-05", "Signal faible sans version, licence ou chemin de déploiement suffisamment vérifiable ; écarté du suivi actif."]
-  - ["SIG-2026-08-28-009", "legacy:SIG-2026-08-28-009", "https://github.com/Tencent/WeMM-Embedding", "WeMM-Embedding signale une convergence des embeddings multimodaux et du RAG", "unknown", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "low", "new", "monitor", "IA/plateforme", "2026-09-12", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 6, null, null, null, null]
-  - ["SIG-2026-08-28-010", "legacy:SIG-2026-08-28-010", "https://github.com/tailscale/tailcat", "Tailcat signale un outil de diagnostic réseau sur data plane maillé", "unknown", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "low", "deferred", "monitor", "réseau/plateforme", "2026-09-19", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 5, null, null, "2026-09-05", "Outil de diagnostic intéressant mais sans évolution substantielle depuis la découverte ; conservé en veille réseau."]
-  - ["SIG-2026-08-28-011", "legacy:SIG-2026-08-28-011", "https://github.com/GetBusbar/busbar", "Busbar propose une frontière d’exécution gouvernée pour les systèmes IA", "Busbar 1.5.x", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "high", "deferred", "monitor", "IA/plateforme", "2026-09-19", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 8, null, null, "2026-09-05", "Le projet reste pertinent pour la gouvernance IA, mais aucune évolution vérifiée ne justifie une nouvelle sélection ; aucun POC planifié."]
-  - ["SIG-2026-08-28-012", "legacy:SIG-2026-08-28-012", "https://github.com/oomol-lab/open-connector", "OpenConnector fournit une gateway de connecteurs gouvernés pour agents IA", "unknown", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "high", "deferred", "monitor", "IA/plateforme", "2026-09-19", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 8, null, null, "2026-09-05", "Gateway de connecteurs déjà étudiée ; pas de changement substantiel vérifié depuis le 28/08."]
-  - ["SIG-2026-08-28-013", "legacy:SIG-2026-08-28-013", "https://github.com/JetBrains/go-modern-guidelines", "JetBrains/go-modern-guidelines formalise des pratiques Go pour les agents de code", "unknown", "unknown", "2026-08-28", "2026-08-28", null, null, null, null, "medium", "deferred", "monitor", "architecture/engineering", "2026-09-19", null, ["dist/2026-08-28/radar-architecture.md"], "local_commit", null, 7, null, null, "2026-09-05", "Standard de contexte pour agents de code conservé en veille ; aucun changement substantiel ou décision stack à prendre aujourd’hui."]
-  - ["SIG-2026-08-29-003", "legacy:SIG-2026-08-29-003", "https://github.com/hezo-ai/hezo", "Hezo remonte dans Trendshift avec un pattern d’équipe d’agents IA self-hosted", "unknown", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "medium", "discarded", "avoid", "IA/plateforme", "2026-09-05", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", "Découverte de popularité insuffisante pour caractériser une technologie exploitable.", 6, null, null, "2026-09-05", "Signal Trendshift sans preuve primaire suffisante ni évolution vérifiée ; écarté du suivi actif."]
-  - ["SIG-2026-08-29-004", "legacy:SIG-2026-08-29-004", "https://github.com/chrisgreg/boop", "Boop signale une inbox de notifications développeur self-hosted", "unknown", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "medium", "new", "monitor", "plateforme/observabilité", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 4, null, null, null, null]
-  - ["SIG-2026-08-29-005", "legacy:SIG-2026-08-29-005", "https://github.com/agentready-org/standard", "AgentReady propose un standard de préparation des dépôts pour les agents", "unknown", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "low", "discarded", "avoid", "architecture/engineering", "2026-09-05", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", "Maturité et preuves insuffisantes.", 6, null, null, "2026-09-05", "Projet très précoce avec confiance faible et sans évolution primaire vérifiée ; écarté."]
-  - ["SIG-2026-08-29-016", "legacy:SIG-2026-08-29-016", "https://github.com/openJiuwen-ai/jiuwenswarm", "JiuwenSwarm remonte en tête du Trendshift daily avec une plateforme multi-agents distribuée", "v0.2.4.beta3 documentée", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "deferred", "monitor", "IA/plateforme", "2026-09-19", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 8, null, null, "2026-09-05", "Plateforme multi-agents beta conservée en veille ; aucune évolution substantielle confirmée depuis le 29/08."]
-  - ["SIG-2026-08-29-002", "legacy:SIG-2026-08-29-002", "https://github.com/sapientinc/PRAXIST", "PRAXIST remonte en deuxième position avec un système de recherche agentique mesurable", "unknown", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "medium", "new", "monitor", "IA/plateforme", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-29-006", "legacy:SIG-2026-08-29-006", "https://github.com/hashicorp/terraform/releases", "Terraform 1.17 alpha fait évoluer terraform test et terraform query", "Terraform v1.17.0-alpha20260827", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "deferred", "monitor", "IaC", "2026-09-26", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 7, null, null, "2026-09-05", "Terraform 1.17 reste alpha ; suivi conservé pour les changements de test et query, sans planifier de validation pratique."]
-  - ["SIG-2026-08-29-007", "legacy:SIG-2026-08-29-007", "https://www.hashicorp.com/en/long-term-support", "Les versions HashiCorp postérieures à avril 2026 suivent Support Cycle 2", "HashiCorp support model", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "qualify", "plateforme/IaC", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-29-008", "legacy:SIG-2026-08-29-008", "https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678", "Vault CVE-2026-5006 corrigée dans les versions 2.0.4 et branches maintenues", "Vault 2.0.4 / 1.21.9 / 1.20.14 / 1.19.20", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "open", "qualify", "sécurité/plateforme", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 9, null, null, "2026-09-05", "Le correctif Vault reste prioritaire ; exposition et versions réellement déployées inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition."]
-  - ["SIG-2026-08-29-009", "legacy:SIG-2026-08-29-009", "https://developer.hashicorp.com/nomad/docs/release-notes/v1-10-x", "Nomad 1.10 impose l’identité de workload pour Vault et Consul", "Nomad 1.10.x", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "qualify", "plateforme", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-08-29-010", "legacy:SIG-2026-08-29-010", "https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/", "Agent Plugins 1.0 standardise le packaging skill et MCP", "Agent Plugins 1.0", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "monitor", "architecture/engineering", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-29-011", "legacy:SIG-2026-08-29-011", "https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/", "GitHub rend les allowlists MCP disponibles dans les paramètres entreprise", "GitHub Copilot managed settings", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "deferred", "qualify", "sécurité/engineering", "2026-09-26", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 8, null, null, "2026-09-05", "La capacité d’allowlist MCP reste pertinente, mais l’usage GitHub de l'utilisateur est inconnu ; qualification reportée sans POC planifié."]
-  - ["SIG-2026-08-29-012", "legacy:SIG-2026-08-29-012", "https://opentelemetry.io/blog/2026/consuming-opentelemetry-entity-events/", "OpenTelemetry documente le pattern des entity events pour l’inventaire temporel", "Entity Data Model / v1.58.0 relationships", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "monitor", "observabilité", "2026-09-30", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-29-013", "legacy:SIG-2026-08-29-013", "https://opentelemetry.io/blog/2026/cardinality-limits-in-opentelemetry/", "OpenTelemetry explicite les effets des limites de cardinalité sur les ventilations", "OpenTelemetry Metrics SDK cardinality limits", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "qualify", "observabilité", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-08-29-014", "legacy:SIG-2026-08-29-014", "https://github.com/agentgateway/agentgateway/releases", "agentgateway 1.4 ajoute MCP 2026-07-28 et des contrôles de gateway IA", "agentgateway v1.4.0", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "monitor", "IA/plateforme", "2026-09-12", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-08-29-015", "legacy:SIG-2026-08-29-015", "https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-ecs-action-logs/", "Amazon ECS fournit des Action Logs pour les déploiements et mises à jour de daemon", "ECS Action Logs", "unknown", "2026-08-29", "2026-08-29", null, null, null, null, "high", "new", "monitor", "Cloud/observabilité", "2026-09-30", null, ["dist/2026-08-29/radar-architecture.md"], "local_commit", null, 6, null, null, null, null]
-  - ["SIG-2026-08-30-001", "legacy:SIG-2026-08-30-001", "https://www.kubeflow.org/", "Kubeflow obtient la graduation CNCF et structure le cycle de vie Data & AI sur Kubernetes", "Kubeflow CNCF graduated", "unknown", "2026-08-30", "2026-08-30", null, null, null, null, "high", "new", "qualify", "plateforme IA", "2026-09-12", null, ["dist/2026-08-30/radar-architecture.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-08-30-002", "legacy:SIG-2026-08-30-002", "https://github.com/kgateway-dev/kgateway", "kgateway 2.4 étend Gateway API, les policies et la découverte de backends AWS", "kgateway v2.4.1", "unknown", "2026-08-30", "2026-08-30", null, null, null, null, "high", "new", "test", "plateforme réseau", "2026-09-19", null, ["dist/2026-08-30/radar-architecture.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-08-30-003", "legacy:SIG-2026-08-30-003", "https://buildpacks.io/", "Cloud Native Buildpacks obtient la graduation CNCF avec une trajectoire SBOM et OCI Artifacts", "Cloud Native Buildpacks CNCF graduated", "unknown", "2026-08-30", "2026-08-30", null, null, null, null, "high", "new", "monitor", "plateforme CI", "2026-09-19", null, ["dist/2026-08-30/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-08-30-004", "legacy:SIG-2026-08-30-004", "https://www.elastic.co/docs/release-notes/cloud-serverless/deprecations", "Elastic Cloud Serverless déprécie les API internes de Stack Monitoring", "Elastic Cloud Serverless — 2026-08-26 deprecation", "unknown", "2026-08-30", "2026-08-30", null, null, null, null, "high", "open", "qualify", "observabilité", "2026-09-20", null, ["dist/2026-08-30/radar-architecture.md"], "local_commit", null, 8, null, null, "2026-09-06", "Inventaire Elastic Cloud Serverless et APIs internes toujours inconnu ; maintenir ouvert avec une nouvelle échéance, sans conclure à l’exposition."]
-  - ["SIG-2026-08-30-005", "legacy:SIG-2026-08-30-005", "https://github.com/open-telemetry/opentelemetry-collector-releases", "OpenTelemetry Collector 0.159 puis 0.160 confirme une cadence bimensuelle et une gouvernance par stabilité de composants", "OpenTelemetry Collector v0.160.0", "unknown", "2026-08-30", "2026-09-02", null, null, null, null, "high", "new", "monitor", "observabilité", "2026-09-16", null, ["dist/2026-08-30/radar-architecture.md","dist/2026-09-02/radar-architecture.md"], "local_commit", null, 6, [{"date":"2026-08-30","change":"Version 0.159 et cadence bimensuelle observées."},{"date":"2026-09-02","change":"Mise à jour vers 0.160.0."}], null, null, null]
-  - ["SIG-2026-09-02-006", "legacy:SIG-2026-09-02-006", "https://github.com/hashicorp/terraform/releases/tag/v1.16.0", "Terraform 1.16 stabilise le stockage privé planifié et les imports modulaires", "Terraform 1.16.0", "unknown", "2026-09-02", "2026-09-02", null, null, null, null, "high", "new", "test", "IaC", "2026-09-18", null, ["dist/2026-09-02/radar-architecture.md"], "local_commit", null, 8, null, null, null, null]
-  - ["SIG-2026-09-02-004", "legacy:SIG-2026-09-02-004", "https://www.elastic.co/docs/release-notes/elastic-agent/known-issues", "Elastic Agent documente des pertes silencieuses possibles avec le runtime OTel", "Elastic Agent 9.5.0–9.5.1 / correctif 9.5.2", "unknown", "2026-09-02", "2026-09-02", null, null, null, null, "high", "open", "qualify", "observabilité", "2026-09-12", null, ["dist/2026-09-02/radar-architecture.md"], "local_commit", null, 9, null, null, "2026-09-05", "Le risque de pertes silencieuses reste ouvert ; vérifier la version Elastic Agent réellement déployée avant toute recommandation."]
-  - ["SIG-2026-09-02-005", "legacy:SIG-2026-09-02-005", "https://www.elastic.co/docs/release-notes/cloud-serverless", "Elastic Cloud Serverless ajoute des actions d’écriture et des contrôles d’audit", "Elastic Cloud Serverless — 2026-08-27", "unknown", "2026-09-02", "2026-09-02", null, null, null, null, "high", "new", "qualify", "observabilité/sécurité", "2026-09-12", null, ["dist/2026-09-02/radar-architecture.md"], "local_commit", null, 7, null, null, null, null]
-  - ["SIG-2026-09-05-001", "legacy:SIG-2026-09-05-001", "https://aws.amazon.com/about-aws/whats-new/2026/09/aws-mcp-server-serverless/", "AWS MCP Server ajoute une capacité serverless de diagnostic Lambda", "AWS MCP Server serverless capability (2026-09-04)", "unknown", "2026-09-05", "2026-09-05", 4, 3, 4, 5, "high", "new", "qualify", "plateforme/observabilité", "2026-09-19", "nouveau_hors_oss", ["dist/2026-09-05/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-002", "legacy:SIG-2026-09-05-002", "https://aws.amazon.com/about-aws/whats-new/2026/09/ec2-images-supported-instances/", "EC2 permet de déclarer les types d’instances compatibles avec une AMI", "Amazon EC2 compatible instance types on AMIs (2026-09-04)", "unknown", "2026-09-05", "2026-09-05", 4, 3, 4, 5, "high", "new", "qualify", "plateforme/IaC", "2026-09-19", "nouveau_hors_oss", ["dist/2026-09-05/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-003", "legacy:SIG-2026-09-05-003", "https://aws.amazon.com/about-aws/whats-new/2026/09/transfer-family-sftp-credential-rotation/", "Transfer Family permet la rotation des identifiants de connecteurs SFTP", "AWS Transfer Family SFTP connector credential rotation (2026-09-04)", "unknown", "2026-09-05", "2026-09-05", 4, 4, 3, 5, "high", "new", "qualify", "sécurité/intégration", "2026-09-19", "nouveau_hors_oss", ["dist/2026-09-05/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-004", "legacy:SIG-2026-09-05-004", "https://aws.amazon.com/about-aws/whats-new/2026/09/sagemaker-batch-transform-g6e-instances/", "SageMaker Batch Transform supporte les instances G6e", "Amazon SageMaker Batch Transform G6e (2026-09-04)", "unknown", "2026-09-05", "2026-09-05", 3, 2, 3, 4, "medium", "new", "monitor", "IA/plateforme", "2026-09-26", "nouveau_hors_oss", ["dist/2026-09-05/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-005", "legacy:SIG-2026-09-05-005", "https://github.com/volcano-sh/kthena", "Kthena sépare contrôle des workloads et routage pour l’inférence Kubernetes", "Kthena current repository and release page (observed 2026-09-05)", "unknown", "2026-09-05", "2026-09-05", 4, 2, 4, 4, "medium", "new", "monitor", "IA/plateforme Kubernetes", "2026-09-19", "nouveau_oss", ["dist/2026-09-05/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-006", "legacy:SIG-2026-09-05-006", "https://github.com/initializ/forge", "Forge propose un runtime de skills et d’agents orienté Kubernetes et environnements isolés", "Forge current repository and changelog (observed 2026-09-05)", "unknown", "2026-09-05", "2026-09-05", 4, 2, 3, 4, "medium", "new", "monitor", "plateforme/sécurité IA", "2026-09-19", "nouveau_oss", ["dist/2026-09-05/radar-architecture.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-007", "legacy:SIG-2026-09-05-007", "https://docs.cloud.google.com/iam/docs/workload-identity-federation", "Workload Identity Federation étend l’accès sans clés aux workloads multicloud et aux pipelines", "Google Cloud Workload Identity Federation documentation updated 2026-08-28", "unknown", "2026-09-05", "2026-09-05", 5, 3, 5, 5, "high", "new", "qualify", "sécurité/plateforme", "2026-09-19", "nouveau_hors_oss", [], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-008", "legacy:SIG-2026-09-05-008", "https://docs.cloud.google.com/apigee/docs/apihub/release-notes", "Apigee API hub expose des capacités MCP et Agent Registry pour gouverner les APIs", "Apigee API hub MCP tools and proxies (2026-04/05)", "unknown", "2026-09-05", "2026-09-05", 5, 2, 5, 5, "high", "new", "qualify", "API management/IA", "2026-09-19", "nouveau_hors_oss", [], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-009", "legacy:SIG-2026-09-05-009", "https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html", "Airflow 3.3 renforce l’orchestration data-aware par partitionnement d’assets", "Apache Airflow 3.3.1 / asset partitioning (2026-08-12)", "unknown", "2026-09-05", "2026-09-05", 4, 2, 4, 5, "high", "new", "monitor", "data-platform", "2026-09-26", "nouveau_hors_oss", [], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-010", "legacy:SIG-2026-09-05-010", "https://docs.gitlab.com/releases/19/gitlab-19-2-released/", "GitLab 19.2 rend le CI/CD agentique opérable avec Duo CLI, MCP et human-in-the-loop", "GitLab 19.2 Duo CLI and custom flows (2026-07-16)", "unknown", "2026-09-05", "2026-09-05", 4, 2, 4, 5, "high", "new", "monitor", "CI/CD-platform", "2026-09-26", "nouveau_hors_oss", ["dist/2026-09-05/carte-gitlab-duo-agent-platform.md"], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-011", "legacy:SIG-2026-09-05-011", "https://docs.pingidentity.com/pingone/release_notes/", "Ping Identity ajoute une gouvernance des agents et un serveur MCP administré", "PingOne Remote MCP Server early access / AI Agents (2026)", "unknown", "2026-09-05", "2026-09-05", 5, 2, 4, 4, "medium", "new", "monitor", "IAM/sécurité IA", "2026-09-26", "nouveau_hors_oss", [], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-05-012", "legacy:SIG-2026-09-05-012", "https://helm.sh/blog/", "Helm 4 devient la branche stable tandis que Helm 3 entre en support limité", "Helm 4 current stable / Helm 3 lifecycle (observed 2026-09-05)", "unknown", "2026-09-05", "2026-09-05", 3, 3, 4, 4, "medium", "new", "monitor", "plateforme Kubernetes", "2026-09-26", "nouveau_hors_oss", [], "local_commit", null, null, null, null, null, null]
-  - ["SIG-2026-09-07-001", "legacy:SIG-2026-09-07-001", "https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-faq.html", "AWS Agent Registry impose une migration incompatible de namespace avant l’arrêt du 17 septembre", "AWS Agent Registry namespace migration (deadline 2026-09-17)", "unknown", "2026-09-07", "2026-09-07", 5, 4, 4, 5, "high", "open", "qualify", "plateforme IA", "2026-09-15", "nouveau_hors_oss", ["dist/2026-09-07/radar-architecture.md"], "local_commit", null, null, [{"date":"2026-09-11","change":"Échéance revue : AWS maintient l’arrêt du namespace bedrock-agentcore au 17/09 et exige une migration explicite des données et intégrations."}], "Guide primaire détaillé: endpoints, IAM, ARN, SDK, CLI, quotas, événements et schéma changent; exposition locale inconnue.", "2026-09-11", "Maintenir ouvert avec réexamen le 15/09 : inventorier les registres existants et confirmer la migration avant l’arrêt du 17/09."]
-  - ["SIG-2026-09-07-002", "legacy:SIG-2026-09-07-002", "https://docs.cloud.google.com/gemini/enterprise/docs/release-notes", "Gemini Enterprise rend GA Workflow Builder, import A2A/ADK et vues de métriques agents", "Gemini Enterprise Workflow Builder and agent metrics GA (2026-09-03)", "unknown", "2026-09-07", "2026-09-07", 4, 2, 3, 5, "high", "new", "qualify", "plateforme IA", "2026-09-21", "nouveau_hors_oss", ["dist/2026-09-07/radar-architecture.md"], "local_commit", null, null, null, "Deux entrées de notes de version GCP du 03/09 et page de métriques précises; régions, coût et intégration locale inconnus.", null, null]
-  - ["SIG-2026-09-07-003", "legacy:SIG-2026-09-07-003", "https://docs.cloud.google.com/chronicle/docs/soar/respond/working-with-playbooks/case-playbooks", "Google SecOps ajoute playbooks de dossier et reaction triggers en Preview", "Google SecOps case playbooks Preview", "unknown", "2026-09-07", "2026-09-07", 3, 2, 3, 5, "high", "deferred", "monitor", "sécurité/Cloud", "2026-09-21", "nouveau_hors_oss", [], "local_commit", null, null, null, "Notes GCP précises; Preview et exposition inconnue; non retenu face aux bulletins sécurité prioritaires.", "2026-09-07", "Différé sans POC; réexaminer en cas de GA, d’exposition confirmée ou d’évolution substantielle."]
-  - ["SIG-2026-09-07-004", "legacy:SIG-2026-09-07-004", "https://github.com/zeroroot-ai/setec", "Setec propose une CRD Sandbox à backends Kata/Firecracker, QEMU, gVisor ou runc", "Setec v1alpha1 pre-release (observed 2026-09-07)", "unknown", "2026-09-07", "2026-09-07", 4, 1, 4, 3, "medium", "new", "monitor", "Kubernetes/plateforme", "2026-09-28", "nouveau_oss", ["dist/2026-09-07/radar-architecture.md"], "local_commit", null, null, null, "Dépôt Apache-2.0, CRD, Helm et prérequis vérifiables; statut alpha et performances sans preuve indépendante.", null, null]
-  - ["SIG-2026-09-07-005", "legacy:SIG-2026-09-07-005", "https://github.com/openhands/software-agent-sdk", "OpenHands fournit un SDK modulaire, un Agent Server et des workspaces pour agents de développement", "OpenHands Software Agent SDK repository (observed 2026-09-07)", "unknown", "2026-09-07", "2026-09-07", 3, 1, 4, 3, "medium", "new", "monitor", "plateforme IA", "2026-09-28", "nouveau_oss", ["dist/2026-09-07/radar-architecture.md"], "local_commit", null, null, null, "Dépôt MIT, API et frontières de composants vérifiés; version de release, sécurité d’exécution et exploitation indépendante à qualifier.", null, null]
-  - ["SIG-2026-09-07-006", "legacy:SIG-2026-09-07-006", "https://aws.amazon.com/security/security-bulletins/2026-099-aws/", "Amazon EFS CSI Driver corrige une suppression inter-filesystem conditionnelle", "Amazon EFS CSI Driver <=3.4.0 / fixed 3.4.1", "unknown", "2026-09-07", "2026-09-07", 5, 4, 5, 5, "high", "open", "qualify", "plateforme Kubernetes/sécurité", "2026-09-18", "mise_a_jour", ["dist/2026-09-07/radar-architecture.md"], "local_commit", null, null, [{"date":"2026-09-11","change":"Échéance revue : versions <=3.4.0 affectées uniquement avec --delete-access-point-root-dir=true ; exposition locale inconnue."}], "Bulletin AWS primaire précis; impact conditionné par --delete-access-point-root-dir=true et le droit de créer des PV; exposition inconnue.", "2026-09-11", "Maintenir ouvert jusqu’à l’inventaire de la version du driver, de l’option de suppression et des droits de création de PV ; réexamen le 18/09."]
-  - ["SIG-2026-09-07-007", "legacy:SIG-2026-09-07-007", "https://aws.amazon.com/security/security-bulletins/2026-101-aws/", "awslabs postgres-mcp-server corrige un contournement de la frontière de lecture seule", "awslabs postgres-mcp-server <1.1.7 / fixed 1.1.7", "unknown", "2026-09-07", "2026-09-07", 5, 4, 4, 5, "high", "open", "qualify", "plateforme IA/sécurité données", "2026-09-18", "mise_a_jour", ["dist/2026-09-07/radar-architecture.md"], "local_commit", null, null, [{"date":"2026-09-11","change":"Échéance revue : les paquets <1.1.7 sont affectés et un rôle PostgreSQL minimal reste recommandé après correctif."}], "Bulletin AWS primaire précis; droits PostgreSQL minimaux nécessaires même après correctif; paquet et forks locaux inconnus.", "2026-09-11", "Maintenir ouvert jusqu’à l’inventaire des paquets et forks et la vérification des privilèges PostgreSQL ; réexamen le 18/09."]
-  - ["SIG-2026-09-08-001", "legacy:SIG-2026-09-08-001", "https://cloud.google.com/kubernetes-engine/docs/release-notes", "GKE R38 remplace des builds par canal et les cibles d’auto-upgrade", "GKE 2026-R38 version updates (2026-09-08)", "exposition inconnue", "2026-09-08", "2026-09-09", 4, 3, 5, 5, "high", "new", "qualify", "plateforme Kubernetes", "2026-09-16", "mise_a_jour", ["dist/2026-09-08/radar-architecture.md", "dist/2026-09-09/radar-architecture.md"], "pending_orchestrator_commit", null, null, ["2026-09-08: R37 ouvre Kubernetes 1.37 au canal Rapid et modifie les cibles d’auto-upgrade."], "Notes GKE précises : R38 ajoute et retire des builds, modifie les cibles d’auto-upgrade et reste déployée progressivement par zone ; versions, canaux et fenêtres de maintenance locaux inconnus.", "2026-09-09", "Qualifier les clusters GKE concernés avant le 16/09 ; succès : inventaire des canaux et comparaison des cibles R38."]
-  - ["SIG-2026-09-08-002", "legacy:SIG-2026-09-08-002", "https://docs.cloud.google.com/sql/docs/postgres/upgrade-in-place", "Cloud SQL for PostgreSQL permet des changements d’infrastructure et de version en place", "Cloud SQL for PostgreSQL in-place upgrades and downgrades (2026-09-04)", "unknown", "2026-09-08", "2026-09-08", 4, 2, 3, 4, "high", "new", "monitor", "plateforme données", "2026-09-22", "mise_a_jour", ["dist/2026-09-08/radar-architecture.md"], "local_commit", null, null, null, "Documentation Google Cloud primaire précise; PostgreSQL 12+, downtime, stockage Hyperdisk et journaux PITR documentés, exposition locale inconnue.", null, null]
-  - ["SIG-2026-09-08-003", "legacy:SIG-2026-09-08-003", "https://docs.cloud.google.com/gemini/docs/codeassist/release-notes", "Gemini Code Assist ferme l’achat en console aux nouveaux comptes sans abonnement actif", "Gemini Code Assist subscription purchasing change (2026-09-04)", "unknown", "2026-09-08", "2026-09-08", 3, 3, 4, 5, "high", "new", "qualify", "plateforme engineering/achats", "2026-09-22", "mise_a_jour", ["dist/2026-09-08/radar-architecture.md"], "local_commit", null, null, null, "Notes Gemini Code Assist primaires; impact sur approvisionnement documenté, prix et contrats locaux inconnus.", null, null]
-  - ["SIG-2026-09-08-004", "legacy:SIG-2026-09-08-004", "https://docs.cloud.google.com/firestore/native/docs/security/get-started", "Firestore ajoute un simulateur de règles de sécurité dans la console", "Firestore Security Rules simulator GA (2026-09-04)", "unknown", "2026-09-08", "2026-09-08", 3, 1, 3, 4, "high", "new", "monitor", "sécurité applicative", "2026-09-29", "nouveau_hors_oss", ["dist/2026-09-08/radar-architecture.md"], "local_commit", null, null, null, "Documentation Google Cloud primaire; opérations, jetons, permission IAM et limite face aux tests automatisés documentés, exposition locale inconnue.", null, null]
-  - ["SIG-2026-09-08-005", "legacy:SIG-2026-09-08-005", "https://github.com/bytedance/deer-flow", "DeerFlow 2.0 compose sous-agents, mémoire, skills, outils, gateway et sandboxes", "DeerFlow 2.0 repository (observed 2026-09-08)", "unknown", "2026-09-08", "2026-09-08", 4, 1, 4, 4, "medium", "new", "monitor", "plateforme IA", "2026-09-29", "nouveau_projet_oss", ["dist/2026-09-08/radar-architecture.md"], "local_commit", null, null, null, "Dépôt MIT, architecture et Docker Compose vérifiés; popularité distincte de la maturité, isolation et exploitation indépendante à qualifier.", null, null]
-  - ["SIG-2026-09-08-006", "legacy:SIG-2026-09-08-006", "https://github.com/lightpanda-io/browser", "Lightpanda fournit un navigateur headless natif pour automatisations et agents", "Lightpanda nightly repository (observed 2026-09-08)", "unknown", "2026-09-08", "2026-09-08", 3, 1, 4, 4, "medium", "new", "monitor", "plateforme IA/sécurité", "2026-09-29", "nouveau_projet_oss", ["dist/2026-09-08/radar-architecture.md"], "local_commit", null, null, null, "Dépôt AGPL-3.0, Docker, CDP et WebDriver BiDi vérifiés; nightlies, compatibilité Web, sécurité d’exécution et benchmarks locaux à qualifier.", null, null]
-  - ["SIG-2026-09-10-001", "gcp:gke-security:gcp-2026-061-containerd-criu", "https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061", "GCP-2026-061 décrit un contournement du contexte de sécurité lors d’une restauration containerd avec CRIU", "GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f", "inconnu", "2026-09-10", "2026-09-10", 5, 4, 4, 5, "high", "new", "qualify", "sécurité/plateforme", "2026-09-17", "nouveau_hors_oss", ["dist/2026-09-10/radar-architecture.md"], "local_commit", null, null, null, "Impact 5 : contournement de contrôles de sécurité jusqu’aux privilèges root ; urgence 4 : bulletin récent à qualifier rapidement sans exploitation annoncée ; pertinence 4 : Kubernetes et sécurité sont au cœur du radar, exposition locale inconnue ; confiance 5 : bulletin primaire détaillé et conditions d’exposition explicites.", null, null]
-  - ["SIG-2026-09-10-002", "gcp:apigee:semantic-cache-distance-measures", "https://cloud.google.com/release-notes#September_09_2026", "Apigee rend configurables les mesures de distance de SemanticCacheLookup et lie leur seuil au sens de comparaison", "Apigee 1-18-0-apigee-4 et versions ultérieures", "inconnu", "2026-09-10", "2026-09-10", 4, 3, 4, 5, "high", "new", "qualify", "plateforme IA/API", "2026-09-24", "nouveau_hors_oss", ["dist/2026-09-10/radar-architecture.md"], "local_commit", null, null, null, "Impact 4 : la mesure et le seuil déterminent les réponses réutilisées par une couche de cache IA ; urgence 3 : tout passage à une mesure non par défaut exige un recalibrage ; pertinence 4 : gouvernance et exploitation des gateways IA sont prioritaires ; confiance 5 : version et comportement documentés par les notes officielles.", null, null]
-  - ["SIG-2026-09-10-003", "gcp:cloud-sdk:minikube-component-removal-2027-01-31", "https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09", "Cloud SDK déprécie son composant Minikube avant retrait après le 31 janvier 2027", "Google Cloud SDK 584.0.0", "inconnu", "2026-09-10", "2026-09-10", 3, 3, 4, 5, "high", "new", "qualify", "plateforme développeur", "2026-10-08", "nouveau_hors_oss", ["dist/2026-09-10/radar-architecture.md"], "local_commit", null, null, null, "Impact 3 : les images de postes et CI qui installent Minikube via gcloud doivent changer de chaîne d’installation ; urgence 3 : retrait daté au 31 janvier 2027 ; pertinence 4 : Kubernetes et outillage développeur sont centraux ; confiance 5 : version, date et voie de migration sont documentées officiellement.", null, null]
-  - ["SIG-2026-09-10-004", "gcp:agent-gateway:service-extensions-authorization", "https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026", "Agent Gateway délègue l’autorisation du trafic agentique via Service Extensions", "Google Cloud Agent Gateway et Service Extensions GA", "inconnu", "2026-09-10", "2026-09-10", 4, 2, 4, 5, "high", "new", "monitor", "architecture IA/sécurité", "2026-10-01", "nouveau_hors_oss", ["dist/2026-09-10/radar-architecture.md"], "local_commit", null, null, null, "Impact 4 : l’autorisation peut être externalisée au point de passage du trafic agentique ; urgence 2 : GA sans migration imposée ; pertinence 4 : gouvernance des agents et gateways est prioritaire ; confiance 5 : statut GA et périmètre documentés par la source primaire.", null, null]
-  - ["SIG-2026-09-10-005", "openai:responses-api:prompt-cache-diagnostics", "https://developers.openai.com/api/docs/changelog", "Responses expose des diagnostics structurés pour le cache de prompts", "OpenAI Responses API ; modèles GPT-5.6 et ultérieurs", "inconnu", "2026-09-10", "2026-09-10", 3, 2, 4, 5, "high", "new", "qualify", "plateforme IA/FinOps", "2026-10-01", "nouveau_hors_oss", ["dist/2026-09-10/radar-architecture.md"], "local_commit", null, null, null, "Impact 3 : les diagnostics rendent observable un mécanisme de coût et latence jusque-là opaque ; urgence 2 : aucune rupture ni échéance ; pertinence 4 : exploitation et coûts IA sont prioritaires ; confiance 5 : changelog et schéma d’API officiels concordent.", null, null]
-  - ["SIG-2026-09-11-001", "gcp:agent-gateway:vpc-sc-post-2026-09-08", "https://cloud.google.com/release-notes#September_10_2026", "Agent Gateway prend en charge VPC Service Controls uniquement pour certains nouveaux déploiements", "Agent Gateway VPC-SC support, deployments after 2026-09-08", "exposition inconnue", "2026-09-11", "2026-09-11", 5, 3, 5, 5, "high", "new", "qualify", "réseau/sécurité IA", "2026-09-25", "nouveau_hors_oss", ["dist/2026-09-11/radar-architecture.md"], "pending_orchestrator_commit", null, null, null, "Impact 5 : la protection périmétrique dépend de l'âge et du mode réseau du déploiement ; urgence 3 : les instances existantes peuvent nécessiter une recréation ; pertinence 5 : gateways et sécurité IA prioritaires ; confiance 5 : contraintes officielles explicites.", null, null]
-  - ["SIG-2026-09-11-002", "anthropic:managed-agents:auto-permission-evaluation", "https://platform.claude.com/docs/en/release-notes/overview", "Les permissions auto évaluent côté serveur chaque appel d'outil ou MCP", "Claude Managed Agents auto permission policy, 2026-09-10", "exposition inconnue", "2026-09-11", "2026-09-11", 5, 2, 5, 5, "high", "new", "qualify", "sécurité/plateforme IA", "2026-10-02", "nouveau_hors_oss", ["dist/2026-09-11/radar-architecture.md"], "pending_orchestrator_commit", null, null, null, "Impact 5 : la décision run/deny/approval devient un contrôle serveur pour chaque outil ; urgence 2 : option nouvelle sans migration ; pertinence 5 : gouvernance MCP prioritaire ; confiance 5 : événements et champs d'évaluation documentés officiellement.", null, null]
-  - ["SIG-2026-09-11-003", "gcp:gemini-agent-platform:sandboxes-ga-security-controls", "https://cloud.google.com/release-notes#September_10_2026", "Les sandboxes Computer Use et Shell deviennent GA avec VPC-SC, PSC, CMEK et pause/reprise", "Gemini Enterprise Agent Platform sandboxes GA, 2026-09-10", "exposition inconnue", "2026-09-11", "2026-09-11", 5, 2, 5, 5, "high", "new", "qualify", "plateforme IA/sécurité", "2026-10-02", "nouveau_hors_oss", ["dist/2026-09-11/radar-architecture.md"], "pending_orchestrator_commit", null, null, null, "Impact 5 : exécution de commandes non fiables avec frontières réseau, chiffrement et persistance structurantes ; urgence 2 : GA sans échéance ; pertinence 5 : sandboxing agentique et Cloud sont prioritaires ; confiance 5 : capacités et contraintes officielles précises.", null, null]
-  - ["SIG-2026-09-11-004", "gcp:iam:mcp-server-ga", "https://cloud.google.com/release-notes#September_10_2026", "Le serveur MCP IAM devient GA pour inspecter et gérer rôles personnalisés et deny policies", "Google Cloud IAM remote MCP server GA, 2026-09-10", "exposition inconnue", "2026-09-11", "2026-09-11", 5, 2, 5, 5, "high", "new", "qualify", "sécurité/plateforme IA", "2026-10-02", "nouveau_hors_oss", ["dist/2026-09-11/radar-architecture.md"], "pending_orchestrator_commit", null, null, null, "Impact 5 : un agent peut agir sur les rôles et politiques de refus, frontière IAM critique ; urgence 2 : GA sans migration imposée ; pertinence 5 : Cloud, MCP et sécurité sont prioritaires ; confiance 5 : statut et capacités documentés officiellement.", null, null]
-  - ["SIG-2026-09-11-005", "openai:agents-api:public-beta-managed-codex-harness", "https://developers.openai.com/api/docs/changelog", "L'Agents API public beta fournit sessions durables, orchestration et sandboxes", "OpenAI Agents API public beta, 2026-09-10", "exposition inconnue", "2026-09-11", "2026-09-11", 5, 2, 5, 5, "high", "new", "qualify", "architecture/plateforme IA", "2026-10-02", "nouveau_hors_oss", ["dist/2026-09-11/radar-architecture.md"], "pending_orchestrator_commit", null, null, null, "Impact 5 : la plateforme peut déplacer orchestration, état, reprise et sandbox vers un service managé ; urgence 2 : public beta sans échéance ; pertinence 5 : agents et exploitation IA prioritaires ; confiance 5 : contrat de capacité officiel, limites de beta explicites.", null, null]
-  - ["SIG-2026-09-11-006", "gcp:cloud-sql-remote-mcp:sqlcommenter-temporarily-disabled", "https://cloud.google.com/release-notes#September_10_2026", "Cloud SQL désactive temporairement les tags sqlcommenter sur son serveur MCP distant", "Cloud SQL Remote MCP Server for MySQL and PostgreSQL, 2026-09-10", "exposition inconnue", "2026-09-11", "2026-09-11", 3, 3, 4, 5, "high", "new", "qualify", "plateforme données/observabilité", "2026-09-25", "nouveau_hors_oss", ["dist/2026-09-11/radar-architecture.md"], "pending_orchestrator_commit", null, null, null, "Impact 3 : la désactivation retire temporairement une métadonnée de traçabilité SQL ; urgence 3 : rupture active sans date de rétablissement ; pertinence 4 : MCP et observabilité IA sont prioritaires ; confiance 5 : note primaire explicite pour MySQL et PostgreSQL.", null, null]
-  - ["SIG-2026-09-11-007", "oss:llmfit:hardware-model-fit", "https://github.com/AlexsJones/llmfit", "llmfit relie inventaire matériel, modèles, quantification et mesures locales", "repository observed 2026-09-11", "exposition inconnue", "2026-09-11", "2026-09-11", 3, 1, 4, 4, "medium", "new", "monitor", "plateforme IA", "2026-10-09", "nouveau_projet_oss", ["dist/2026-09-11/radar-architecture.md"], "pending_orchestrator_commit", null, null, null, "Impact 3 : outille le placement et dimensionnement d'inférence locale ; urgence 1 : découverte sans échéance ; pertinence 4 : exploitation et coût IA prioritaires ; confiance 4 : dépôt MIT, API, conteneur et méthode documentés, mesures indépendantes non vérifiées.", null, null]
+- - SIG-2026-09-04-001
+  - legacy:SIG-2026-09-04-001
+  - https://cloud.google.com/release-notes
+  - Les nouvelles passerelles de routage de modèles GCP peuvent changer de hostname par défaut
+  - API Gateway model routing hostname change (2026-09-03)
+  - unknown
+  - '2026-09-04'
+  - '2026-09-04'
+  - 4
+  - 4
+  - 4
+  - 5
+  - high
+  - open
+  - qualify
+  - réseau/plateforme
+  - '2026-09-18'
+  - nouveau_hors_oss
+  - - dist/2026-09-04/radar-architecture.md
+  - local_commit
+  -
+  -
+  - - date: '2026-09-11'
+      change: 'Échéance revue : les passerelles de routage créées depuis le 03/09 peuvent recevoir un hostname gateway.dev ; exposition locale toujours inconnue.'
+  -
+  - '2026-09-11'
+  - Maintenir ouvert jusqu’à l’inventaire des passerelles créées depuis le 03/09 et la vérification de l’usage de defaultHostname ; réexamen le 18/09.
+- - SIG-2026-09-04-002
+  - legacy:SIG-2026-09-04-002
+  - https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/
+  - AWS Config ajoute 60 types de ressources dont Bedrock et Organizations
+  - AWS Config resource types expansion (2026-09-02)
+  - unknown
+  - '2026-09-04'
+  - '2026-09-04'
+  - 4
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - sécurité/Cloud
+  - '2026-09-18'
+  - nouveau_hors_oss
+  - - dist/2026-09-04/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-04-003
+  - legacy:SIG-2026-09-04-003
+  - https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/
+  - Bedrock Web Search arrive dans AWS GovCloud US-West
+  - Amazon Bedrock Web Search GovCloud (US-West) (2026-09-02)
+  - unknown
+  - '2026-09-04'
+  - '2026-09-04'
+  - 4
+  - 3
+  - 3
+  - 5
+  - high
+  - new
+  - qualify
+  - IA/sécurité
+  - '2026-09-18'
+  - nouveau_hors_oss
+  - - dist/2026-09-04/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-04-004
+  - legacy:SIG-2026-09-04-004
+  - https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/
+  - S3 ajoute des endpoints PrivateLink validés FIPS 140-3
+  - Amazon S3 PrivateLink FIPS endpoints (2026-09-03)
+  - unknown
+  - '2026-09-04'
+  - '2026-09-04'
+  - 4
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - sécurité/Cloud
+  - '2026-09-18'
+  - nouveau_hors_oss
+  - - dist/2026-09-04/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-04-005
+  - legacy:SIG-2026-09-04-005
+  - https://github.com/aws/CICD-for-SageMakerUnifiedStudio
+  - Le CLI OSS SageMaker Unified Studio étend la promotion CI/CD aux notebooks et manifests assistés par IA
+  - SMUS CI/CD CLI (2026-09-02 capabilities)
+  - unknown
+  - '2026-09-04'
+  - '2026-09-04'
+  - 4
+  - 2
+  - 4
+  - 5
+  - high
+  - new
+  - test
+  - plateforme IA/IaC
+  - '2026-09-25'
+  - nouveau_oss
+  - - dist/2026-09-04/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-03-001
+  - legacy:SIG-2026-09-03-001
+  - https://cloud.google.com/run/docs/release-notes
+  - Cloud Run ajoute les identités d’agents managées et l’enregistrement Agent Registry
+  - Cloud Run Agent Platform integration (2026-09-01)
+  - unknown
+  - '2026-09-03'
+  - '2026-09-03'
+  - 5
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - IA/plateforme
+  - '2026-09-17'
+  - nouveau_hors_oss
+  - - dist/2026-09-03/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-03-002
+  - legacy:SIG-2026-09-03-002
+  - https://cloud.google.com/kubernetes-engine/security-bulletins
+  - GKE Multi-Cloud corrige une vérification d’autorisation manquante
+  - GKE Multi-Cloud APIs bulletin GCP-2026-058
+  - unknown
+  - '2026-09-03'
+  - '2026-09-03'
+  - 4
+  - 5
+  - 3
+  - 5
+  - high
+  - closed
+  - monitor
+  - sécurité/plateforme
+  - '2026-09-10'
+  - nouveau_hors_oss
+  - - dist/2026-09-03/radar-architecture.md
+  - local_commit
+  -
+  -
+  - - date: '2026-09-10'
+      change: 'Échéance revue : Google confirme le correctif côté serveur, l’absence d’exploitation observée et aucune action client requise.'
+  -
+  - '2026-09-10'
+  - 'Bulletin GCP-2026-058 revu : tous les clusters ont été corrigés côté serveur, aucune exploitation n’a été constatée et aucune action client n’est requise. Signal clôturé ; réouvrir seulement sur nouvelle preuve fournisseur ou incident local.'
+- - SIG-2026-09-03-003
+  - legacy:SIG-2026-09-03-003
+  - https://platform.claude.com/docs/en/release-notes/overview
+  - Claude Fable 5.1 augmente le contexte et la durée des tâches agentiques
+  - Claude Fable 5.1 (2026-09-01)
+  - unknown
+  - '2026-09-03'
+  - '2026-09-03'
+  - 4
+  - 3
+  - 3
+  - 5
+  - high
+  - new
+  - qualify
+  - IA/plateforme
+  - '2026-09-24'
+  - nouveau_hors_oss
+  - - dist/2026-09-03/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-03-004
+  - legacy:SIG-2026-09-03-004
+  - https://github.com/deepseek-ai/deepseek-harness
+  - DeepSeek Harness propose un agent harness extensible par plugins
+  - DeepSeek Harness developer preview
+  - unknown
+  - '2026-09-03'
+  - '2026-09-03'
+  - 4
+  - 2
+  - 4
+  - 4
+  - medium
+  - new
+  - test
+  - IA/plateforme
+  - '2026-09-24'
+  - nouveau_oss
+  - - dist/2026-09-03/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-03-005
+  - legacy:SIG-2026-09-03-005
+  - https://github.com/diegosouzapw/OmniRoute
+  - OmniRoute fournit une passerelle multi-fournisseurs avec fallback et routage
+  - OmniRoute v3.8.51
+  - unknown
+  - '2026-09-03'
+  - '2026-09-03'
+  - 4
+  - 2
+  - 4
+  - 4
+  - medium
+  - new
+  - qualify
+  - IA/plateforme
+  - '2026-09-24'
+  - nouveau_oss
+  - - dist/2026-09-03/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-03-006
+  - legacy:SIG-2026-09-03-006
+  - https://github.com/arcboxlabs/arcbox
+  - Arcbox isole les agents dans des machines compatibles OCI à démarrage rapide
+  - Arcbox developer preview
+  - unknown
+  - '2026-09-03'
+  - '2026-09-03'
+  - 5
+  - 2
+  - 4
+  - 4
+  - medium
+  - new
+  - test
+  - plateforme/sécurité
+  - '2026-09-24'
+  - nouveau_oss
+  - - dist/2026-09-03/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-03-007
+  - legacy:SIG-2026-09-03-007
+  - https://github.com/ulab-uiuc/LLMRouter
+  - LLMRouter explore le routage de modèles comme bibliothèque open source
+  - LLMRouter current repository
+  - unknown
+  - '2026-09-03'
+  - '2026-09-03'
+  - 3
+  - 2
+  - 4
+  - 4
+  - medium
+  - new
+  - monitor
+  - IA/plateforme
+  - '2026-10-01'
+  - nouveau_oss
+  - - dist/2026-09-03/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-02-001
+  - legacy:SIG-2026-09-02-001
+  - https://blog.cloudflare.com/cloudflare-computer/
+  - Cloudflare Computer propose un runtime de travail pour agents
+  - "@cloudflare/computer early preview"
+  - unknown
+  - '2026-09-02'
+  - '2026-09-02'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - test
+  - IA/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-09-02/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  -
+  -
+- - SIG-2026-09-02-002
+  - legacy:SIG-2026-09-02-002
+  - https://blog.cloudflare.com/agents-on-cloudflare/
+  - Cloudflare Agents regroupe le déploiement et l’observabilité des agents
+  - Cloudflare Agents early product
+  - unknown
+  - '2026-09-02'
+  - '2026-09-02'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - qualify
+  - IA/observabilité
+  - '2026-09-17'
+  -
+  - - dist/2026-09-02/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  -
+  -
+- - SIG-2026-09-02-003
+  - legacy:SIG-2026-09-02-003
+  - https://litmuschaos.io/
+  - LitmusChaos structure des expériences de chaos engineering Kubernetes
+  - LitmusChaos 2026 H1
+  - unknown
+  - '2026-09-02'
+  - '2026-09-02'
+  -
+  -
+  -
+  -
+  - medium
+  - new
+  - test
+  - SRE/plateforme
+  - '2026-09-22'
+  -
+  - - dist/2026-09-02/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  -
+  -
+- - SIG-2026-08-29-001
+  - legacy:SIG-2026-08-29-001
+  - https://modelcontextprotocol.io/specification/2026-07-28
+  - MCP 2026-07-28 stabilise un cœur stateless et formalise les extensions
+  - MCP 2026-07-28
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - IA/plateforme
+  - '2026-10-03'
+  -
+  - - dist/2026-08-29/carte-mcp.md
+  - local_commit
+  -
+  - 8
+  - - date: '2026-09-12'
+      change: 'Échéance revue : MCP 2026-07-28 reste la référence étudiée ; clients, gateway et IAM locaux ne sont pas inventoriés. Qualification reportée sans nouvelle expérimentation.'
+  -
+  - '2026-09-12'
+  - MCP 2026-07-28 reste la référence étudiée ; clients, gateway et IAM locaux ne sont pas inventoriés. Qualification reportée sans nouvelle expérimentation.
+- - SIG-2026-08-27-001
+  - legacy:SIG-2026-08-27-001
+  - https://kubernetes.io/releases/1.37/
+  - Kubernetes 1.37.0 disponible, puis Storage Version Migration GA et RangeStream beta
+  - Kubernetes 1.37
+  - unknown
+  - '2026-08-27'
+  - '2026-09-06'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - test
+  - plateforme Kubernetes
+  - '2026-09-16'
+  -
+  - - dist/2026-08-27/radar-architecture.md
+    - dist/2026-09-02/radar-architecture.md
+    - dist/2026-09-06/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  - - date: '2026-08-27'
+      change: Release 1.37.0 observée.
+    - date: '2026-09-02'
+      change: 'Mise à jour substantielle : Storage Version Migration GA et RangeStream beta.'
+    - date: '2026-09-06'
+      change: 'Mise à jour substantielle : KubeletInUserNamespace passe beta dans Kubernetes 1.37.'
+  -
+  -
+  -
+- - SIG-2026-09-06-001
+  - legacy:SIG-2026-09-06-001
+  - https://cloud.google.com/support/bulletins
+  - GCP-2026-060 signale un risque High dans sbcast de Slurm pour Cluster Director
+  - GCP-2026-060 / CVE-2026-65107 (2026-09-04)
+  - unknown
+  - '2026-09-06'
+  - '2026-09-06'
+  - 3
+  - 3
+  - 3
+  - 5
+  -
+  - new
+  - qualify
+  - plateforme HPC/sécurité
+  - '2026-09-20'
+  - nouveau_hors_oss
+  - - dist/2026-09-06/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Bulletin primaire précis ; exposition Cluster Director/Slurm inconnue.
+  -
+  -
+- - SIG-2026-09-06-002
+  - legacy:SIG-2026-09-06-002
+  - https://github.com/gnawux/xolis
+  - Xolis compose Agent Sandbox, Kata runtime-rs et PVM pour isoler des agents sur EKS
+  - tags kubecon-japan-2026 / demo-with-pvm (observés 2026-09-06)
+  - unknown
+  - '2026-09-06'
+  - '2026-09-06'
+  - 3
+  - 1
+  - 4
+  - 3
+  -
+  - new
+  - monitor
+  - plateforme Kubernetes/IA
+  - '2026-09-27'
+  - nouveau_projet_oss
+  - - dist/2026-09-06/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Dépôt et démonstration Kata primaire ; auteur documente explicitement les lacunes HA, réseau et production.
+  -
+  -
+- - SIG-2026-09-06-003
+  - legacy:SIG-2026-09-06-003
+  - https://developer.hashicorp.com/vault/docs/updates/release-notes
+  - Vault 2.1 fait sortir de beta le support des workflows agentiques
+  - Vault 2.1 (2026-09-01)
+  - unknown
+  - '2026-09-06'
+  - '2026-09-06'
+  - 4
+  - 2
+  - 5
+  - 5
+  -
+  - new
+  - qualify
+  - sécurité/plateforme
+  - '2026-09-20'
+  - mise_a_jour
+  - - dist/2026-09-06/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Release notes HashiCorp précises ; édition Vault et exposition agents inconnues.
+  -
+  -
+- - SIG-2026-09-06-004
+  - legacy:SIG-2026-09-06-004
+  - https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/
+  - Kata Containers 4.0 stabilise runtime-rs et le VMM Dragonball
+  - Kata Containers 4.0 (2026-07-21, observé 2026-09-06)
+  - unknown
+  - '2026-09-06'
+  - '2026-09-06'
+  - 4
+  - 1
+  - 4
+  - 4
+  -
+  - new
+  - monitor
+  - plateforme Kubernetes/IA
+  - '2026-09-27'
+  - nouveau_projet_oss
+  - - dist/2026-09-06/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Source primaire Kata et composant OSS ; compatibilité de distribution à qualifier.
+  -
+  -
+- - SIG-2026-08-27-002
+  - legacy:SIG-2026-08-27-002
+  - https://status.elastic.co/
+  - Incident endpoint APM Serverless résolu
+  - Elastic Cloud APM Serverless
+  - unknown
+  - '2026-08-27'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - closed
+  - monitor
+  - observabilité
+  - '2026-08-29'
+  -
+  - - dist/2026-08-27/carte-elasticsearch.md
+  - local_commit
+  -
+  - 5
+  -
+  -
+  - '2026-09-03'
+  - Incident fournisseur résolu ; aucune exposition locale n'est démontrée. Réouvrir uniquement en cas de récidive ou d'inventaire confirmant un impact.
+- - SIG-2026-08-27-003
+  - legacy:SIG-2026-08-27-003
+  - https://www.elastic.co/docs/release-notes
+  - Elastic Stack 9.5.2 version actuelle documentée
+  - Elastic Stack 9.5.2
+  - unknown
+  - '2026-08-27'
+  - '2026-08-27'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - plateforme/observabilité
+  - '2026-09-10'
+  -
+  - - dist/2026-08-27/radar-architecture.md
+    - dist/2026-08-27/carte-elasticsearch.md
+  - local_commit
+  -
+  - 6
+  -
+  -
+  - '2026-09-03'
+  - La version 9.5.2 reste documentée comme version courante ; qualification reportée jusqu'à l'inventaire des versions Elastic réellement déployées.
+- - SIG-2026-08-28-001
+  - legacy:SIG-2026-08-28-001
+  - https://github.com/kubernetes-sigs/agent-sandbox
+  - Agent Sandbox propose une CRD pour les workloads singleton persistants d’agents
+  - Agent Sandbox v0.5.6
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - plateforme Kubernetes
+  - '2026-09-26'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+    - dist/2026-08-28/carte-agent-sandbox.md
+  - local_commit
+  -
+  - 8
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Aucune évolution substantielle ou exposition locale n’est établie depuis la carte ; suivi reporté, sans test planifié.'
+  -
+  - '2026-09-12'
+  - Aucune évolution substantielle ou exposition locale n’est établie depuis la carte ; suivi reporté, sans test planifié.
+- - SIG-2026-08-28-002
+  - legacy:SIG-2026-08-28-002
+  - https://github.com/open-telemetry/semantic-conventions-genai
+  - Les conventions OpenTelemetry GenAI évoluent dans un dépôt dédié
+  - GenAI semantic conventions
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - monitor
+  - IA/observabilité
+  - '2026-09-30'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  -
+  -
+- - SIG-2026-08-28-003
+  - legacy:SIG-2026-08-28-003
+  - https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/
+  - Le groupe de travail Kubernetes AI Gateway développe des patterns de routage IA
+  - non applicable
+  - unknown
+  - '2026-08-27'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - monitor
+  - plateforme Kubernetes
+  - '2026-09-30'
+  -
+  - - dist/2026-08-27/radar-architecture.md
+    - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  -
+  -
+- - SIG-2026-08-28-004
+  - legacy:SIG-2026-08-28-004
+  - https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27
+  - Hermes Agent v0.20.6 accélère les capacités runtime, MCP et opérations
+  - Hermes Agent v0.20.6
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  - '2026-09-05'
+  - Aucune évolution substantielle confirmée depuis le signal initial ; suivi conservé sans planifier de POC. Réexamen si release structurante, incident ou adoption documentée.
+- - SIG-2026-08-28-005
+  - legacy:SIG-2026-08-28-005
+  - https://github.com/statelyai/agent/releases
+  - Stately Agent alpha.21 formalise davantage les agents comme machines d’état
+  - "@statelyai/agent 2.0.0-alpha.21"
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-26'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 6
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Release alpha déjà observée ; aucune évolution substantielle primaire vérifiée. Suivi reporté.'
+  -
+  - '2026-09-12'
+  - Release alpha déjà observée ; aucune évolution substantielle primaire vérifiée. Suivi reporté.
+- - SIG-2026-08-28-006
+  - legacy:SIG-2026-08-28-006
+  - https://github.com/modelstudioai/OpenAgentPack
+  - OpenAgentPack propose un control plane IaC pour les agents cloud
+  - OpenAgentPack beta
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - medium
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-26'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 6
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Projet beta déjà observé ; aucune évolution substantielle primaire vérifiée. Suivi reporté.'
+  -
+  - '2026-09-12'
+  - Projet beta déjà observé ; aucune évolution substantielle primaire vérifiée. Suivi reporté.
+- - SIG-2026-08-27-004
+  - legacy:SIG-2026-08-27-004
+  - https://github.com/topics/agent-observability
+  - Émergence des outils AgentOps et observabilité des agents IA
+  - non applicable
+  - unknown
+  - '2026-08-27'
+  - '2026-08-27'
+  -
+  -
+  -
+  -
+  - medium
+  - deferred
+  - monitor
+  - IA/observabilité
+  - '2026-09-19'
+  -
+  - - dist/2026-08-27/radar-architecture.md
+  - local_commit
+  -
+  - 6
+  -
+  -
+  - '2026-09-05'
+  - Le pattern reste trop agrégé pour une décision produit ; conservé comme veille thématique sans POC planifié.
+- - SIG-2026-08-28-007
+  - legacy:SIG-2026-08-28-007
+  - https://github.com/tt-a1i/archify
+  - Archify transforme des descriptions de systèmes en artefacts d’architecture interactifs
+  - Archify v2.16.0-dev.0
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - architecture/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  - '2026-09-05'
+  - Signal de découverte déjà documenté, sans évolution substantielle indépendante depuis le 28/08 ; qualification laissée à une décision ultérieure.
+- - SIG-2026-08-28-008
+  - legacy:SIG-2026-08-28-008
+  - https://github.com/workweave/router
+  - WorkWeave/router signale le pattern de routage dynamique des modèles
+  - unknown
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - low
+  - discarded
+  - avoid
+  - IA/plateforme
+  - '2026-09-05'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  - Preuves primaires et maturité insuffisantes pour maintenir le signal actif.
+  - 6
+  -
+  -
+  - '2026-09-05'
+  - Signal faible sans version, licence ou chemin de déploiement suffisamment vérifiable ; écarté du suivi actif.
+- - SIG-2026-08-28-009
+  - legacy:SIG-2026-08-28-009
+  - https://github.com/Tencent/WeMM-Embedding
+  - WeMM-Embedding signale une convergence des embeddings multimodaux et du RAG
+  - unknown
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - low
+  - discarded
+  - avoid
+  - IA/plateforme
+  - '2026-09-12'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  - Version, maturité d’exploitation et différenciation non vérifiables au-delà du signal de découverte.
+  - 6
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Signal de découverte sans version, licence ou chemin d’exploitation suffisamment vérifiable ; écarté du suivi actif.'
+  -
+  - '2026-09-12'
+  - Signal de découverte sans version, licence ou chemin d’exploitation suffisamment vérifiable ; écarté du suivi actif.
+- - SIG-2026-08-28-010
+  - legacy:SIG-2026-08-28-010
+  - https://github.com/tailscale/tailcat
+  - Tailcat signale un outil de diagnostic réseau sur data plane maillé
+  - unknown
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - low
+  - deferred
+  - monitor
+  - réseau/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 5
+  -
+  -
+  - '2026-09-05'
+  - Outil de diagnostic intéressant mais sans évolution substantielle depuis la découverte ; conservé en veille réseau.
+- - SIG-2026-08-28-011
+  - legacy:SIG-2026-08-28-011
+  - https://github.com/GetBusbar/busbar
+  - Busbar propose une frontière d’exécution gouvernée pour les systèmes IA
+  - Busbar 1.5.x
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  - '2026-09-05'
+  - Le projet reste pertinent pour la gouvernance IA, mais aucune évolution vérifiée ne justifie une nouvelle sélection ; aucun POC planifié.
+- - SIG-2026-08-28-012
+  - legacy:SIG-2026-08-28-012
+  - https://github.com/oomol-lab/open-connector
+  - OpenConnector fournit une gateway de connecteurs gouvernés pour agents IA
+  - unknown
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  - '2026-09-05'
+  - Gateway de connecteurs déjà étudiée ; pas de changement substantiel vérifié depuis le 28/08.
+- - SIG-2026-08-28-013
+  - legacy:SIG-2026-08-28-013
+  - https://github.com/JetBrains/go-modern-guidelines
+  - JetBrains/go-modern-guidelines formalise des pratiques Go pour les agents de code
+  - unknown
+  - unknown
+  - '2026-08-28'
+  - '2026-08-28'
+  -
+  -
+  -
+  -
+  - medium
+  - deferred
+  - monitor
+  - architecture/engineering
+  - '2026-09-19'
+  -
+  - - dist/2026-08-28/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  - '2026-09-05'
+  - Standard de contexte pour agents de code conservé en veille ; aucun changement substantiel ou décision stack à prendre aujourd’hui.
+- - SIG-2026-08-29-003
+  - legacy:SIG-2026-08-29-003
+  - https://github.com/hezo-ai/hezo
+  - Hezo remonte dans Trendshift avec un pattern d’équipe d’agents IA self-hosted
+  - unknown
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - medium
+  - discarded
+  - avoid
+  - IA/plateforme
+  - '2026-09-05'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  - Découverte de popularité insuffisante pour caractériser une technologie exploitable.
+  - 6
+  -
+  -
+  - '2026-09-05'
+  - Signal Trendshift sans preuve primaire suffisante ni évolution vérifiée ; écarté du suivi actif.
+- - SIG-2026-08-29-004
+  - legacy:SIG-2026-08-29-004
+  - https://github.com/chrisgreg/boop
+  - Boop signale une inbox de notifications développeur self-hosted
+  - unknown
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - medium
+  - deferred
+  - monitor
+  - plateforme/observabilité
+  - '2026-09-26'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 4
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Outil déjà identifié ; aucun changement substantiel ni besoin d’architecture démontré. Suivi reporté.'
+  -
+  - '2026-09-12'
+  - Outil déjà identifié ; aucun changement substantiel ni besoin d’architecture démontré. Suivi reporté.
+- - SIG-2026-08-29-005
+  - legacy:SIG-2026-08-29-005
+  - https://github.com/agentready-org/standard
+  - AgentReady propose un standard de préparation des dépôts pour les agents
+  - unknown
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - low
+  - discarded
+  - avoid
+  - architecture/engineering
+  - '2026-09-05'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  - Maturité et preuves insuffisantes.
+  - 6
+  -
+  -
+  - '2026-09-05'
+  - Projet très précoce avec confiance faible et sans évolution primaire vérifiée ; écarté.
+- - SIG-2026-08-29-016
+  - legacy:SIG-2026-08-29-016
+  - https://github.com/openJiuwen-ai/jiuwenswarm
+  - JiuwenSwarm remonte en tête du Trendshift daily avec une plateforme multi-agents distribuée
+  - v0.2.4.beta3 documentée
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  - '2026-09-05'
+  - Plateforme multi-agents beta conservée en veille ; aucune évolution substantielle confirmée depuis le 29/08.
+- - SIG-2026-08-29-002
+  - legacy:SIG-2026-08-29-002
+  - https://github.com/sapientinc/PRAXIST
+  - PRAXIST remonte en deuxième position avec un système de recherche agentique mesurable
+  - unknown
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - medium
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-26'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  - Signal de tendance sans évolution primaire ni maturité d’exploitation confirmées.
+  - 7
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Signal de tendance déjà observé ; aucune évolution primaire substantielle confirmée. Suivi reporté.'
+  -
+  - '2026-09-12'
+  - Signal de tendance déjà observé ; aucune évolution primaire substantielle confirmée. Suivi reporté.
+- - SIG-2026-08-29-006
+  - legacy:SIG-2026-08-29-006
+  - https://github.com/hashicorp/terraform/releases
+  - Terraform 1.17 alpha fait évoluer terraform test et terraform query
+  - Terraform v1.17.0-alpha20260827
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - IaC
+  - '2026-09-26'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  - '2026-09-05'
+  - Terraform 1.17 reste alpha ; suivi conservé pour les changements de test et query, sans planifier de validation pratique.
+- - SIG-2026-08-29-007
+  - legacy:SIG-2026-08-29-007
+  - https://www.hashicorp.com/en/long-term-support
+  - Les versions HashiCorp postérieures à avril 2026 suivent Support Cycle 2
+  - HashiCorp support model
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - plateforme/IaC
+  - '2026-10-03'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Le modèle Support Cycle 2 reste documenté ; les versions et éditions HashiCorp réellement exploitées restent inconnues. Qualification reportée.'
+  -
+  - '2026-09-12'
+  - Le modèle Support Cycle 2 reste documenté ; les versions et éditions HashiCorp réellement exploitées restent inconnues. Qualification reportée.
+- - SIG-2026-08-29-008
+  - legacy:SIG-2026-08-29-008
+  - https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678
+  - Vault CVE-2026-5006 corrigée dans les versions 2.0.4 et branches maintenues
+  - Vault 2.0.4 / 1.21.9 / 1.20.14 / 1.19.20
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - open
+  - qualify
+  - sécurité/plateforme
+  - '2026-09-19'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 9
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Le correctif Vault reste prioritaire ; versions déployées, politiques templated et exposition locale inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition.'
+  -
+  - '2026-09-12'
+  - Le correctif Vault reste prioritaire ; versions déployées, politiques templated et exposition locale inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition.
+- - SIG-2026-08-29-009
+  - legacy:SIG-2026-08-29-009
+  - https://developer.hashicorp.com/nomad/docs/release-notes/v1-10-x
+  - Nomad 1.10 impose l’identité de workload pour Vault et Consul
+  - Nomad 1.10.x
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - plateforme
+  - '2026-10-03'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Le changement d’identité Nomad est documenté ; usage local de Nomad, Vault et Consul non inventorié. Qualification reportée.'
+  -
+  - '2026-09-12'
+  - Le changement d’identité Nomad est documenté ; usage local de Nomad, Vault et Consul non inventorié. Qualification reportée.
+- - SIG-2026-08-29-010
+  - legacy:SIG-2026-08-29-010
+  - https://github.blog/changelog/2026-08-12-agent-plugins-1-0-in-vs-code-copilot-cli-and-the-copilot-app/
+  - Agent Plugins 1.0 standardise le packaging skill et MCP
+  - Agent Plugins 1.0
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - architecture/engineering
+  - '2026-09-26'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Packaging Agent Plugins déjà observé ; usage Copilot et MCP local inconnu, sans changement substantiel confirmé.'
+  -
+  - '2026-09-12'
+  - Packaging Agent Plugins déjà observé ; usage Copilot et MCP local inconnu, sans changement substantiel confirmé.
+- - SIG-2026-08-29-011
+  - legacy:SIG-2026-08-29-011
+  - https://github.blog/changelog/2026-08-06-mcp-allowlists-in-enterprise-managed-settings/
+  - GitHub rend les allowlists MCP disponibles dans les paramètres entreprise
+  - GitHub Copilot managed settings
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - sécurité/engineering
+  - '2026-09-26'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  - '2026-09-05'
+  - La capacité d’allowlist MCP reste pertinente, mais l’usage GitHub de l'utilisateur est inconnu ; qualification reportée sans POC planifié.
+- - SIG-2026-08-29-012
+  - legacy:SIG-2026-08-29-012
+  - https://opentelemetry.io/blog/2026/consuming-opentelemetry-entity-events/
+  - OpenTelemetry documente le pattern des entity events pour l’inventaire temporel
+  - Entity Data Model / v1.58.0 relationships
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - monitor
+  - observabilité
+  - '2026-09-30'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  -
+  -
+- - SIG-2026-08-29-013
+  - legacy:SIG-2026-08-29-013
+  - https://opentelemetry.io/blog/2026/cardinality-limits-in-opentelemetry/
+  - OpenTelemetry explicite les effets des limites de cardinalité sur les ventilations
+  - OpenTelemetry Metrics SDK cardinality limits
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - observabilité
+  - '2026-09-26'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Les limites de cardinalité restent documentées ; configuration et coût de la télémétrie locale inconnus. Qualification reportée.'
+  -
+  - '2026-09-12'
+  - Les limites de cardinalité restent documentées ; configuration et coût de la télémétrie locale inconnus. Qualification reportée.
+- - SIG-2026-08-29-014
+  - legacy:SIG-2026-08-29-014
+  - https://github.com/agentgateway/agentgateway/releases
+  - agentgateway 1.4 ajoute MCP 2026-07-28 et des contrôles de gateway IA
+  - agentgateway v1.4.0
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - monitor
+  - IA/plateforme
+  - '2026-09-26'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Version agentgateway déjà observée ; aucune évolution primaire substantielle confirmée. Suivi reporté.'
+  -
+  - '2026-09-12'
+  - Version agentgateway déjà observée ; aucune évolution primaire substantielle confirmée. Suivi reporté.
+- - SIG-2026-08-29-015
+  - legacy:SIG-2026-08-29-015
+  - https://aws.amazon.com/about-aws/whats-new/2026/07/amazon-ecs-action-logs/
+  - Amazon ECS fournit des Action Logs pour les déploiements et mises à jour de daemon
+  - ECS Action Logs
+  - unknown
+  - '2026-08-29'
+  - '2026-08-29'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - monitor
+  - Cloud/observabilité
+  - '2026-09-30'
+  -
+  - - dist/2026-08-29/radar-architecture.md
+  - local_commit
+  -
+  - 6
+  -
+  -
+  -
+  -
+- - SIG-2026-08-30-001
+  - legacy:SIG-2026-08-30-001
+  - https://www.kubeflow.org/
+  - Kubeflow obtient la graduation CNCF et structure le cycle de vie Data & AI sur Kubernetes
+  - Kubeflow CNCF graduated
+  - unknown
+  - '2026-08-30'
+  - '2026-08-30'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - plateforme IA
+  - '2026-10-03'
+  -
+  - - dist/2026-08-30/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  - - date: '2026-09-12'
+      change: 'Échéance revue : La graduation Kubeflow reste documentée ; adoption Kubernetes et besoins ML locaux inconnus. Qualification reportée.'
+  -
+  - '2026-09-12'
+  - La graduation Kubeflow reste documentée ; adoption Kubernetes et besoins ML locaux inconnus. Qualification reportée.
+- - SIG-2026-08-30-002
+  - legacy:SIG-2026-08-30-002
+  - https://github.com/kgateway-dev/kgateway
+  - kgateway 2.4 étend Gateway API, les policies et la découverte de backends AWS
+  - kgateway v2.4.1
+  - unknown
+  - '2026-08-30'
+  - '2026-08-30'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - test
+  - plateforme réseau
+  - '2026-09-19'
+  -
+  - - dist/2026-08-30/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  -
+  -
+- - SIG-2026-08-30-003
+  - legacy:SIG-2026-08-30-003
+  - https://buildpacks.io/
+  - Cloud Native Buildpacks obtient la graduation CNCF avec une trajectoire SBOM et OCI Artifacts
+  - Cloud Native Buildpacks CNCF graduated
+  - unknown
+  - '2026-08-30'
+  - '2026-08-30'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - monitor
+  - plateforme CI
+  - '2026-09-19'
+  -
+  - - dist/2026-08-30/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  -
+  -
+  -
+  -
+- - SIG-2026-08-30-004
+  - legacy:SIG-2026-08-30-004
+  - https://www.elastic.co/docs/release-notes/cloud-serverless/deprecations
+  - Elastic Cloud Serverless déprécie les API internes de Stack Monitoring
+  - Elastic Cloud Serverless — 2026-08-26 deprecation
+  - unknown
+  - '2026-08-30'
+  - '2026-08-30'
+  -
+  -
+  -
+  -
+  - high
+  - open
+  - qualify
+  - observabilité
+  - '2026-09-20'
+  -
+  - - dist/2026-08-30/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  - '2026-09-06'
+  - Inventaire Elastic Cloud Serverless et APIs internes toujours inconnu ; maintenir ouvert avec une nouvelle échéance, sans conclure à l’exposition.
+- - SIG-2026-08-30-005
+  - legacy:SIG-2026-08-30-005
+  - https://github.com/open-telemetry/opentelemetry-collector-releases
+  - OpenTelemetry Collector 0.159 puis 0.160 confirme une cadence bimensuelle et une gouvernance par stabilité de composants
+  - OpenTelemetry Collector v0.160.0
+  - unknown
+  - '2026-08-30'
+  - '2026-09-02'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - monitor
+  - observabilité
+  - '2026-09-16'
+  -
+  - - dist/2026-08-30/radar-architecture.md
+    - dist/2026-09-02/radar-architecture.md
+  - local_commit
+  -
+  - 6
+  - - date: '2026-08-30'
+      change: Version 0.159 et cadence bimensuelle observées.
+    - date: '2026-09-02'
+      change: Mise à jour vers 0.160.0.
+  -
+  -
+  -
+- - SIG-2026-09-02-006
+  - legacy:SIG-2026-09-02-006
+  - https://github.com/hashicorp/terraform/releases/tag/v1.16.0
+  - Terraform 1.16 stabilise le stockage privé planifié et les imports modulaires
+  - Terraform 1.16.0
+  - unknown
+  - '2026-09-02'
+  - '2026-09-02'
+  -
+  -
+  -
+  -
+  - high
+  - new
+  - test
+  - IaC
+  - '2026-09-18'
+  -
+  - - dist/2026-09-02/radar-architecture.md
+  - local_commit
+  -
+  - 8
+  -
+  -
+  -
+  -
+- - SIG-2026-09-02-004
+  - legacy:SIG-2026-09-02-004
+  - https://www.elastic.co/docs/release-notes/elastic-agent/known-issues
+  - Elastic Agent documente des pertes silencieuses possibles avec le runtime OTel
+  - Elastic Agent 9.5.0–9.5.1 / correctif 9.5.2
+  - unknown
+  - '2026-09-02'
+  - '2026-09-02'
+  -
+  -
+  -
+  -
+  - high
+  - open
+  - qualify
+  - observabilité
+  - '2026-09-19'
+  -
+  - - dist/2026-09-02/radar-architecture.md
+  - local_commit
+  -
+  - 9
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Le risque de pertes silencieuses Elastic Agent reste ouvert ; version réellement déployée et usage du runtime OTel inconnus. Maintenir ouvert jusqu’à inventaire.'
+  -
+  - '2026-09-12'
+  - Le risque de pertes silencieuses Elastic Agent reste ouvert ; version réellement déployée et usage du runtime OTel inconnus. Maintenir ouvert jusqu’à inventaire.
+- - SIG-2026-09-02-005
+  - legacy:SIG-2026-09-02-005
+  - https://www.elastic.co/docs/release-notes/cloud-serverless
+  - Elastic Cloud Serverless ajoute des actions d’écriture et des contrôles d’audit
+  - Elastic Cloud Serverless — 2026-08-27
+  - unknown
+  - '2026-09-02'
+  - '2026-09-02'
+  -
+  -
+  -
+  -
+  - high
+  - deferred
+  - qualify
+  - observabilité/sécurité
+  - '2026-09-26'
+  -
+  - - dist/2026-09-02/radar-architecture.md
+  - local_commit
+  -
+  - 7
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Fonctions d’écriture et d’audit déjà documentées ; exposition Elastic Cloud Serverless locale inconnue. Qualification reportée.'
+  -
+  - '2026-09-12'
+  - Fonctions d’écriture et d’audit déjà documentées ; exposition Elastic Cloud Serverless locale inconnue. Qualification reportée.
+- - SIG-2026-09-05-001
+  - legacy:SIG-2026-09-05-001
+  - https://aws.amazon.com/about-aws/whats-new/2026/09/aws-mcp-server-serverless/
+  - AWS MCP Server ajoute une capacité serverless de diagnostic Lambda
+  - AWS MCP Server serverless capability (2026-09-04)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 4
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme/observabilité
+  - '2026-09-19'
+  - nouveau_hors_oss
+  - - dist/2026-09-05/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-002
+  - legacy:SIG-2026-09-05-002
+  - https://aws.amazon.com/about-aws/whats-new/2026/09/ec2-images-supported-instances/
+  - EC2 permet de déclarer les types d’instances compatibles avec une AMI
+  - Amazon EC2 compatible instance types on AMIs (2026-09-04)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 4
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme/IaC
+  - '2026-09-19'
+  - nouveau_hors_oss
+  - - dist/2026-09-05/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-003
+  - legacy:SIG-2026-09-05-003
+  - https://aws.amazon.com/about-aws/whats-new/2026/09/transfer-family-sftp-credential-rotation/
+  - Transfer Family permet la rotation des identifiants de connecteurs SFTP
+  - AWS Transfer Family SFTP connector credential rotation (2026-09-04)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 4
+  - 4
+  - 3
+  - 5
+  - high
+  - new
+  - qualify
+  - sécurité/intégration
+  - '2026-09-19'
+  - nouveau_hors_oss
+  - - dist/2026-09-05/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-004
+  - legacy:SIG-2026-09-05-004
+  - https://aws.amazon.com/about-aws/whats-new/2026/09/sagemaker-batch-transform-g6e-instances/
+  - SageMaker Batch Transform supporte les instances G6e
+  - Amazon SageMaker Batch Transform G6e (2026-09-04)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 3
+  - 2
+  - 3
+  - 4
+  - medium
+  - new
+  - monitor
+  - IA/plateforme
+  - '2026-09-26'
+  - nouveau_hors_oss
+  - - dist/2026-09-05/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-005
+  - legacy:SIG-2026-09-05-005
+  - https://github.com/volcano-sh/kthena
+  - Kthena sépare contrôle des workloads et routage pour l’inférence Kubernetes
+  - Kthena current repository and release page (observed 2026-09-05)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 4
+  - 2
+  - 4
+  - 4
+  - medium
+  - new
+  - monitor
+  - IA/plateforme Kubernetes
+  - '2026-09-19'
+  - nouveau_oss
+  - - dist/2026-09-05/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-006
+  - legacy:SIG-2026-09-05-006
+  - https://github.com/initializ/forge
+  - Forge propose un runtime de skills et d’agents orienté Kubernetes et environnements isolés
+  - Forge current repository and changelog (observed 2026-09-05)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 4
+  - 2
+  - 3
+  - 4
+  - medium
+  - new
+  - monitor
+  - plateforme/sécurité IA
+  - '2026-09-19'
+  - nouveau_oss
+  - - dist/2026-09-05/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-007
+  - legacy:SIG-2026-09-05-007
+  - https://docs.cloud.google.com/iam/docs/workload-identity-federation
+  - Workload Identity Federation étend l’accès sans clés aux workloads multicloud et aux pipelines
+  - Google Cloud Workload Identity Federation documentation updated 2026-08-28
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 5
+  - 3
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - sécurité/plateforme
+  - '2026-09-19'
+  - nouveau_hors_oss
+  - []
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-008
+  - legacy:SIG-2026-09-05-008
+  - https://docs.cloud.google.com/apigee/docs/apihub/release-notes
+  - Apigee API hub expose des capacités MCP et Agent Registry pour gouverner les APIs
+  - Apigee API hub MCP tools and proxies (2026-04/05)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 5
+  - 2
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - API management/IA
+  - '2026-09-19'
+  - nouveau_hors_oss
+  - []
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-009
+  - legacy:SIG-2026-09-05-009
+  - https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html
+  - Airflow 3.3 renforce l’orchestration data-aware par partitionnement d’assets
+  - Apache Airflow 3.3.1 / asset partitioning (2026-08-12)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 4
+  - 2
+  - 4
+  - 5
+  - high
+  - new
+  - monitor
+  - data-platform
+  - '2026-09-26'
+  - nouveau_hors_oss
+  - []
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-010
+  - legacy:SIG-2026-09-05-010
+  - https://docs.gitlab.com/releases/19/gitlab-19-2-released/
+  - GitLab 19.2 rend le CI/CD agentique opérable avec Duo CLI, MCP et human-in-the-loop
+  - GitLab 19.2 Duo CLI and custom flows (2026-07-16)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 4
+  - 2
+  - 4
+  - 5
+  - high
+  - new
+  - monitor
+  - CI/CD-platform
+  - '2026-09-26'
+  - nouveau_hors_oss
+  - - dist/2026-09-05/carte-gitlab-duo-agent-platform.md
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-011
+  - legacy:SIG-2026-09-05-011
+  - https://docs.pingidentity.com/pingone/release_notes/
+  - Ping Identity ajoute une gouvernance des agents et un serveur MCP administré
+  - PingOne Remote MCP Server early access / AI Agents (2026)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 5
+  - 2
+  - 4
+  - 4
+  - medium
+  - new
+  - monitor
+  - IAM/sécurité IA
+  - '2026-09-26'
+  - nouveau_hors_oss
+  - []
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-05-012
+  - legacy:SIG-2026-09-05-012
+  - https://helm.sh/blog/
+  - Helm 4 devient la branche stable tandis que Helm 3 entre en support limité
+  - Helm 4 current stable / Helm 3 lifecycle (observed 2026-09-05)
+  - unknown
+  - '2026-09-05'
+  - '2026-09-05'
+  - 3
+  - 3
+  - 4
+  - 4
+  - medium
+  - new
+  - monitor
+  - plateforme Kubernetes
+  - '2026-09-26'
+  - nouveau_hors_oss
+  - []
+  - local_commit
+  -
+  -
+  -
+  -
+  -
+  -
+- - SIG-2026-09-07-001
+  - legacy:SIG-2026-09-07-001
+  - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-faq.html
+  - AWS Agent Registry impose une migration incompatible de namespace avant l’arrêt du 17 septembre
+  - AWS Agent Registry namespace migration (deadline 2026-09-17)
+  - unknown
+  - '2026-09-07'
+  - '2026-09-07'
+  - 5
+  - 4
+  - 4
+  - 5
+  - high
+  - open
+  - qualify
+  - plateforme IA
+  - '2026-09-15'
+  - nouveau_hors_oss
+  - - dist/2026-09-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  - - date: '2026-09-11'
+      change: 'Échéance revue : AWS maintient l’arrêt du namespace bedrock-agentcore au 17/09 et exige une migration explicite des données et intégrations.'
+  - 'Guide primaire détaillé: endpoints, IAM, ARN, SDK, CLI, quotas, événements et schéma changent; exposition locale inconnue.'
+  - '2026-09-11'
+  - 'Maintenir ouvert avec réexamen le 15/09 : inventorier les registres existants et confirmer la migration avant l’arrêt du 17/09.'
+- - SIG-2026-09-07-002
+  - legacy:SIG-2026-09-07-002
+  - https://docs.cloud.google.com/gemini/enterprise/docs/release-notes
+  - Gemini Enterprise rend GA Workflow Builder, import A2A/ADK et vues de métriques agents
+  - Gemini Enterprise Workflow Builder and agent metrics GA (2026-09-03)
+  - unknown
+  - '2026-09-07'
+  - '2026-09-07'
+  - 4
+  - 2
+  - 3
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme IA
+  - '2026-09-21'
+  - nouveau_hors_oss
+  - - dist/2026-09-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Deux entrées de notes de version GCP du 03/09 et page de métriques précises; régions, coût et intégration locale inconnus.
+  -
+  -
+- - SIG-2026-09-07-003
+  - legacy:SIG-2026-09-07-003
+  - https://docs.cloud.google.com/chronicle/docs/soar/respond/working-with-playbooks/case-playbooks
+  - Google SecOps ajoute playbooks de dossier et reaction triggers en Preview
+  - Google SecOps case playbooks Preview
+  - unknown
+  - '2026-09-07'
+  - '2026-09-07'
+  - 3
+  - 2
+  - 3
+  - 5
+  - high
+  - deferred
+  - monitor
+  - sécurité/Cloud
+  - '2026-09-21'
+  - nouveau_hors_oss
+  - []
+  - local_commit
+  -
+  -
+  -
+  - Notes GCP précises; Preview et exposition inconnue; non retenu face aux bulletins sécurité prioritaires.
+  - '2026-09-07'
+  - Différé sans POC; réexaminer en cas de GA, d’exposition confirmée ou d’évolution substantielle.
+- - SIG-2026-09-07-004
+  - legacy:SIG-2026-09-07-004
+  - https://github.com/zeroroot-ai/setec
+  - Setec propose une CRD Sandbox à backends Kata/Firecracker, QEMU, gVisor ou runc
+  - Setec v1alpha1 pre-release (observed 2026-09-07)
+  - unknown
+  - '2026-09-07'
+  - '2026-09-07'
+  - 4
+  - 1
+  - 4
+  - 3
+  - medium
+  - new
+  - monitor
+  - Kubernetes/plateforme
+  - '2026-09-28'
+  - nouveau_oss
+  - - dist/2026-09-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Dépôt Apache-2.0, CRD, Helm et prérequis vérifiables; statut alpha et performances sans preuve indépendante.
+  -
+  -
+- - SIG-2026-09-07-005
+  - legacy:SIG-2026-09-07-005
+  - https://github.com/openhands/software-agent-sdk
+  - OpenHands fournit un SDK modulaire, un Agent Server et des workspaces pour agents de développement
+  - OpenHands Software Agent SDK repository (observed 2026-09-07)
+  - unknown
+  - '2026-09-07'
+  - '2026-09-07'
+  - 3
+  - 1
+  - 4
+  - 3
+  - medium
+  - new
+  - monitor
+  - plateforme IA
+  - '2026-09-28'
+  - nouveau_oss
+  - - dist/2026-09-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Dépôt MIT, API et frontières de composants vérifiés; version de release, sécurité d’exécution et exploitation indépendante à qualifier.
+  -
+  -
+- - SIG-2026-09-07-006
+  - legacy:SIG-2026-09-07-006
+  - https://aws.amazon.com/security/security-bulletins/2026-099-aws/
+  - Amazon EFS CSI Driver corrige une suppression inter-filesystem conditionnelle
+  - Amazon EFS CSI Driver <=3.4.0 / fixed 3.4.1
+  - unknown
+  - '2026-09-07'
+  - '2026-09-07'
+  - 5
+  - 4
+  - 5
+  - 5
+  - high
+  - open
+  - qualify
+  - plateforme Kubernetes/sécurité
+  - '2026-09-18'
+  - mise_a_jour
+  - - dist/2026-09-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  - - date: '2026-09-11'
+      change: 'Échéance revue : versions <=3.4.0 affectées uniquement avec --delete-access-point-root-dir=true ; exposition locale inconnue.'
+  - Bulletin AWS primaire précis; impact conditionné par --delete-access-point-root-dir=true et le droit de créer des PV; exposition inconnue.
+  - '2026-09-11'
+  - Maintenir ouvert jusqu’à l’inventaire de la version du driver, de l’option de suppression et des droits de création de PV ; réexamen le 18/09.
+- - SIG-2026-09-07-007
+  - legacy:SIG-2026-09-07-007
+  - https://aws.amazon.com/security/security-bulletins/2026-101-aws/
+  - awslabs postgres-mcp-server corrige un contournement de la frontière de lecture seule
+  - awslabs postgres-mcp-server <1.1.7 / fixed 1.1.7
+  - unknown
+  - '2026-09-07'
+  - '2026-09-07'
+  - 5
+  - 4
+  - 4
+  - 5
+  - high
+  - open
+  - qualify
+  - plateforme IA/sécurité données
+  - '2026-09-18'
+  - mise_a_jour
+  - - dist/2026-09-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  - - date: '2026-09-11'
+      change: 'Échéance revue : les paquets <1.1.7 sont affectés et un rôle PostgreSQL minimal reste recommandé après correctif.'
+  - Bulletin AWS primaire précis; droits PostgreSQL minimaux nécessaires même après correctif; paquet et forks locaux inconnus.
+  - '2026-09-11'
+  - Maintenir ouvert jusqu’à l’inventaire des paquets et forks et la vérification des privilèges PostgreSQL ; réexamen le 18/09.
+- - SIG-2026-09-08-001
+  - legacy:SIG-2026-09-08-001
+  - https://cloud.google.com/kubernetes-engine/docs/release-notes
+  - GKE R38 remplace des builds par canal et les cibles d’auto-upgrade
+  - GKE 2026-R38 version updates (2026-09-08)
+  - exposition inconnue
+  - '2026-09-08'
+  - '2026-09-09'
+  - 4
+  - 3
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme Kubernetes
+  - '2026-09-16'
+  - mise_a_jour
+  - - dist/2026-09-08/radar-architecture.md
+    - dist/2026-09-09/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  - - '2026-09-08: R37 ouvre Kubernetes 1.37 au canal Rapid et modifie les cibles d’auto-upgrade.'
+  - 'Notes GKE précises : R38 ajoute et retire des builds, modifie les cibles d’auto-upgrade et reste déployée progressivement par zone ; versions, canaux et fenêtres de maintenance locaux inconnus.'
+  - '2026-09-09'
+  - 'Qualifier les clusters GKE concernés avant le 16/09 ; succès : inventaire des canaux et comparaison des cibles R38.'
+- - SIG-2026-09-08-002
+  - legacy:SIG-2026-09-08-002
+  - https://docs.cloud.google.com/sql/docs/postgres/upgrade-in-place
+  - Cloud SQL for PostgreSQL permet des changements d’infrastructure et de version en place
+  - Cloud SQL for PostgreSQL in-place upgrades and downgrades (2026-09-04)
+  - unknown
+  - '2026-09-08'
+  - '2026-09-08'
+  - 4
+  - 2
+  - 3
+  - 4
+  - high
+  - new
+  - monitor
+  - plateforme données
+  - '2026-09-22'
+  - mise_a_jour
+  - - dist/2026-09-08/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Documentation Google Cloud primaire précise; PostgreSQL 12+, downtime, stockage Hyperdisk et journaux PITR documentés, exposition locale inconnue.
+  -
+  -
+- - SIG-2026-09-08-003
+  - legacy:SIG-2026-09-08-003
+  - https://docs.cloud.google.com/gemini/docs/codeassist/release-notes
+  - Gemini Code Assist ferme l’achat en console aux nouveaux comptes sans abonnement actif
+  - Gemini Code Assist subscription purchasing change (2026-09-04)
+  - unknown
+  - '2026-09-08'
+  - '2026-09-08'
+  - 3
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme engineering/achats
+  - '2026-09-22'
+  - mise_a_jour
+  - - dist/2026-09-08/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Notes Gemini Code Assist primaires; impact sur approvisionnement documenté, prix et contrats locaux inconnus.
+  -
+  -
+- - SIG-2026-09-08-004
+  - legacy:SIG-2026-09-08-004
+  - https://docs.cloud.google.com/firestore/native/docs/security/get-started
+  - Firestore ajoute un simulateur de règles de sécurité dans la console
+  - Firestore Security Rules simulator GA (2026-09-04)
+  - unknown
+  - '2026-09-08'
+  - '2026-09-08'
+  - 3
+  - 1
+  - 3
+  - 4
+  - high
+  - new
+  - monitor
+  - sécurité applicative
+  - '2026-09-29'
+  - nouveau_hors_oss
+  - - dist/2026-09-08/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Documentation Google Cloud primaire; opérations, jetons, permission IAM et limite face aux tests automatisés documentés, exposition locale inconnue.
+  -
+  -
+- - SIG-2026-09-08-005
+  - legacy:SIG-2026-09-08-005
+  - https://github.com/bytedance/deer-flow
+  - DeerFlow 2.0 compose sous-agents, mémoire, skills, outils, gateway et sandboxes
+  - DeerFlow 2.0 repository (observed 2026-09-08)
+  - unknown
+  - '2026-09-08'
+  - '2026-09-08'
+  - 4
+  - 1
+  - 4
+  - 4
+  - medium
+  - new
+  - monitor
+  - plateforme IA
+  - '2026-09-29'
+  - nouveau_projet_oss
+  - - dist/2026-09-08/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Dépôt MIT, architecture et Docker Compose vérifiés; popularité distincte de la maturité, isolation et exploitation indépendante à qualifier.
+  -
+  -
+- - SIG-2026-09-08-006
+  - legacy:SIG-2026-09-08-006
+  - https://github.com/lightpanda-io/browser
+  - Lightpanda fournit un navigateur headless natif pour automatisations et agents
+  - Lightpanda nightly repository (observed 2026-09-08)
+  - unknown
+  - '2026-09-08'
+  - '2026-09-08'
+  - 3
+  - 1
+  - 4
+  - 4
+  - medium
+  - new
+  - monitor
+  - plateforme IA/sécurité
+  - '2026-09-29'
+  - nouveau_projet_oss
+  - - dist/2026-09-08/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - Dépôt AGPL-3.0, Docker, CDP et WebDriver BiDi vérifiés; nightlies, compatibilité Web, sécurité d’exécution et benchmarks locaux à qualifier.
+  -
+  -
+- - SIG-2026-09-10-001
+  - gcp:gke-security:gcp-2026-061-containerd-criu
+  - https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
+  - GCP-2026-061 décrit un contournement du contexte de sécurité lors d’une restauration containerd avec CRIU
+  - GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
+  - inconnu
+  - '2026-09-10'
+  - '2026-09-10'
+  - 5
+  - 4
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - sécurité/plateforme
+  - '2026-09-17'
+  - nouveau_hors_oss
+  - - dist/2026-09-10/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 5 : contournement de contrôles de sécurité jusqu’aux privilèges root ; urgence 4 : bulletin récent à qualifier rapidement sans exploitation annoncée ; pertinence 4 : Kubernetes et sécurité sont au cœur du radar, exposition locale inconnue ; confiance 5 : bulletin primaire détaillé et conditions d’exposition explicites.'
+  -
+  -
+- - SIG-2026-09-10-002
+  - gcp:apigee:semantic-cache-distance-measures
+  - https://cloud.google.com/release-notes#September_09_2026
+  - Apigee rend configurables les mesures de distance de SemanticCacheLookup et lie leur seuil au sens de comparaison
+  - Apigee 1-18-0-apigee-4 et versions ultérieures
+  - inconnu
+  - '2026-09-10'
+  - '2026-09-10'
+  - 4
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme IA/API
+  - '2026-09-24'
+  - nouveau_hors_oss
+  - - dist/2026-09-10/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 4 : la mesure et le seuil déterminent les réponses réutilisées par une couche de cache IA ; urgence 3 : tout passage à une mesure non par défaut exige un recalibrage ; pertinence 4 : gouvernance et exploitation des gateways IA sont prioritaires ; confiance 5 : version et comportement documentés par les notes officielles.'
+  -
+  -
+- - SIG-2026-09-10-003
+  - gcp:cloud-sdk:minikube-component-removal-2027-01-31
+  - https://cloud.google.com/sdk/docs/release-notes#58400_2026-09-09
+  - Cloud SDK déprécie son composant Minikube avant retrait après le 31 janvier 2027
+  - Google Cloud SDK 584.0.0
+  - inconnu
+  - '2026-09-10'
+  - '2026-09-10'
+  - 3
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme développeur
+  - '2026-10-08'
+  - nouveau_hors_oss
+  - - dist/2026-09-10/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 3 : les images de postes et CI qui installent Minikube via gcloud doivent changer de chaîne d’installation ; urgence 3 : retrait daté au 31 janvier 2027 ; pertinence 4 : Kubernetes et outillage développeur sont centraux ; confiance 5 : version, date et voie de migration sont documentées officiellement.'
+  -
+  -
+- - SIG-2026-09-10-004
+  - gcp:agent-gateway:service-extensions-authorization
+  - https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026
+  - Agent Gateway délègue l’autorisation du trafic agentique via Service Extensions
+  - Google Cloud Agent Gateway et Service Extensions GA
+  - inconnu
+  - '2026-09-10'
+  - '2026-09-10'
+  - 4
+  - 2
+  - 4
+  - 5
+  - high
+  - new
+  - monitor
+  - architecture IA/sécurité
+  - '2026-10-01'
+  - nouveau_hors_oss
+  - - dist/2026-09-10/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 4 : l’autorisation peut être externalisée au point de passage du trafic agentique ; urgence 2 : GA sans migration imposée ; pertinence 4 : gouvernance des agents et gateways est prioritaire ; confiance 5 : statut GA et périmètre documentés par la source primaire.'
+  -
+  -
+- - SIG-2026-09-10-005
+  - openai:responses-api:prompt-cache-diagnostics
+  - https://developers.openai.com/api/docs/changelog
+  - Responses expose des diagnostics structurés pour le cache de prompts
+  - OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
+  - inconnu
+  - '2026-09-10'
+  - '2026-09-10'
+  - 3
+  - 2
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme IA/FinOps
+  - '2026-10-01'
+  - nouveau_hors_oss
+  - - dist/2026-09-10/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 3 : les diagnostics rendent observable un mécanisme de coût et latence jusque-là opaque ; urgence 2 : aucune rupture ni échéance ; pertinence 4 : exploitation et coûts IA sont prioritaires ; confiance 5 : changelog et schéma d’API officiels concordent.'
+  -
+  -
+- - SIG-2026-09-11-001
+  - gcp:agent-gateway:vpc-sc-post-2026-09-08
+  - https://cloud.google.com/release-notes#September_10_2026
+  - Agent Gateway prend en charge VPC Service Controls uniquement pour certains nouveaux déploiements
+  - Agent Gateway VPC-SC support, deployments after 2026-09-08
+  - exposition inconnue
+  - '2026-09-11'
+  - '2026-09-11'
+  - 5
+  - 3
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - réseau/sécurité IA
+  - '2026-09-25'
+  - nouveau_hors_oss
+  - - dist/2026-09-11/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  -
+  - 'Impact 5 : la protection périmétrique dépend de l''âge et du mode réseau du déploiement ; urgence 3 : les instances existantes peuvent nécessiter une recréation ; pertinence 5 : gateways et sécurité IA prioritaires ; confiance 5 : contraintes officielles explicites.'
+  -
+  -
+- - SIG-2026-09-11-002
+  - anthropic:managed-agents:auto-permission-evaluation
+  - https://platform.claude.com/docs/en/release-notes/overview
+  - Les permissions auto évaluent côté serveur chaque appel d'outil ou MCP
+  - Claude Managed Agents auto permission policy, 2026-09-10
+  - exposition inconnue
+  - '2026-09-11'
+  - '2026-09-11'
+  - 5
+  - 2
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - sécurité/plateforme IA
+  - '2026-10-02'
+  - nouveau_hors_oss
+  - - dist/2026-09-11/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  -
+  - 'Impact 5 : la décision run/deny/approval devient un contrôle serveur pour chaque outil ; urgence 2 : option nouvelle sans migration ; pertinence 5 : gouvernance MCP prioritaire ; confiance 5 : événements et champs d''évaluation documentés officiellement.'
+  -
+  -
+- - SIG-2026-09-11-003
+  - gcp:gemini-agent-platform:sandboxes-ga-security-controls
+  - https://cloud.google.com/release-notes#September_10_2026
+  - Les sandboxes Computer Use et Shell deviennent GA avec VPC-SC, PSC, CMEK et pause/reprise
+  - Gemini Enterprise Agent Platform sandboxes GA, 2026-09-10
+  - exposition inconnue
+  - '2026-09-11'
+  - '2026-09-11'
+  - 5
+  - 2
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme IA/sécurité
+  - '2026-10-02'
+  - nouveau_hors_oss
+  - - dist/2026-09-11/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  -
+  - 'Impact 5 : exécution de commandes non fiables avec frontières réseau, chiffrement et persistance structurantes ; urgence 2 : GA sans échéance ; pertinence 5 : sandboxing agentique et Cloud sont prioritaires ; confiance 5 : capacités et contraintes officielles précises.'
+  -
+  -
+- - SIG-2026-09-11-004
+  - gcp:iam:mcp-server-ga
+  - https://cloud.google.com/release-notes#September_10_2026
+  - Le serveur MCP IAM devient GA pour inspecter et gérer rôles personnalisés et deny policies
+  - Google Cloud IAM remote MCP server GA, 2026-09-10
+  - exposition inconnue
+  - '2026-09-11'
+  - '2026-09-11'
+  - 5
+  - 2
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - sécurité/plateforme IA
+  - '2026-10-02'
+  - nouveau_hors_oss
+  - - dist/2026-09-11/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  -
+  - 'Impact 5 : un agent peut agir sur les rôles et politiques de refus, frontière IAM critique ; urgence 2 : GA sans migration imposée ; pertinence 5 : Cloud, MCP et sécurité sont prioritaires ; confiance 5 : statut et capacités documentés officiellement.'
+  -
+  -
+- - SIG-2026-09-11-005
+  - openai:agents-api:public-beta-managed-codex-harness
+  - https://developers.openai.com/api/docs/changelog
+  - L'Agents API public beta fournit sessions durables, orchestration et sandboxes
+  - OpenAI Agents API public beta, 2026-09-10
+  - exposition inconnue
+  - '2026-09-11'
+  - '2026-09-11'
+  - 5
+  - 2
+  - 5
+  - 5
+  - high
+  - new
+  - qualify
+  - architecture/plateforme IA
+  - '2026-10-02'
+  - nouveau_hors_oss
+  - - dist/2026-09-11/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  -
+  - 'Impact 5 : la plateforme peut déplacer orchestration, état, reprise et sandbox vers un service managé ; urgence 2 : public beta sans échéance ; pertinence 5 : agents et exploitation IA prioritaires ; confiance 5 : contrat de capacité officiel, limites de beta explicites.'
+  -
+  -
+- - SIG-2026-09-11-006
+  - gcp:cloud-sql-remote-mcp:sqlcommenter-temporarily-disabled
+  - https://cloud.google.com/release-notes#September_10_2026
+  - Cloud SQL désactive temporairement les tags sqlcommenter sur son serveur MCP distant
+  - Cloud SQL Remote MCP Server for MySQL and PostgreSQL, 2026-09-10
+  - exposition inconnue
+  - '2026-09-11'
+  - '2026-09-11'
+  - 3
+  - 3
+  - 4
+  - 5
+  - high
+  - new
+  - qualify
+  - plateforme données/observabilité
+  - '2026-09-25'
+  - nouveau_hors_oss
+  - - dist/2026-09-11/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  -
+  - 'Impact 3 : la désactivation retire temporairement une métadonnée de traçabilité SQL ; urgence 3 : rupture active sans date de rétablissement ; pertinence 4 : MCP et observabilité IA sont prioritaires ; confiance 5 : note primaire explicite pour MySQL et PostgreSQL.'
+  -
+  -
+- - SIG-2026-09-11-007
+  - oss:llmfit:hardware-model-fit
+  - https://github.com/AlexsJones/llmfit
+  - llmfit relie inventaire matériel, modèles, quantification et mesures locales
+  - repository observed 2026-09-11
+  - exposition inconnue
+  - '2026-09-11'
+  - '2026-09-11'
+  - 3
+  - 1
+  - 4
+  - 4
+  - medium
+  - new
+  - monitor
+  - plateforme IA
+  - '2026-10-09'
+  - nouveau_projet_oss
+  - - dist/2026-09-11/radar-architecture.md
+  - pending_orchestrator_commit
+  -
+  -
+  -
+  - 'Impact 3 : outille le placement et dimensionnement d''inférence locale ; urgence 1 : découverte sans échéance ; pertinence 4 : exploitation et coût IA prioritaires ; confiance 4 : dépôt MIT, API, conteneur et méthode documentés, mesures indépendantes non vérifiées.'
+  -
+  -
