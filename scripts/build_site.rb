@@ -49,10 +49,10 @@ def build_homepage(root)
     HTML
   end
 
-  latest_link = if latest_radar
-    "[Lire le dernier radar](#{latest_radar.relative_path_from(root)})"
+  latest_path = if latest_radar
+    latest_radar.relative_path_from(root).to_s
   else
-    "[Parcourir les rapports](docs/rapports.md)"
+    "docs/rapports.md"
   end
 
   <<~MARKDOWN
@@ -66,8 +66,8 @@ def build_homepage(root)
       <h1>Architecture<br><span>Watchtower</span></h1>
       <p class="watchtower-hero__lede">Le radar qui transforme le bruit Cloud, DevOps et IA en décisions d’architecture exploitables.</p>
       <div class="watchtower-hero__actions">
-        #{latest_link}{ .md-button .md-button--primary }
-        [Explorer le catalogue](docs/catalogue.md){ .md-button }
+        <a class="md-button md-button--primary" href="#{latest_path}">Lire le dernier radar</a>
+        <a class="md-button" href="docs/catalogue.md">Explorer le catalogue</a>
       </div>
       <div class="watchtower-signal-row">
         <span><i></i> Sources primaires</span>
