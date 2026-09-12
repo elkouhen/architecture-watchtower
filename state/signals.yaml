@@ -1210,18 +1210,19 @@ signals:
   - Vault 2.0.4 / 1.21.9 / 1.20.14 / 1.19.20
   - unknown
   - '2026-08-29'
-  - '2026-08-29'
-  -
-  -
-  -
-  -
+  - '2026-09-12'
+  - 5
+  - 4
+  - 5
+  - 5
   - high
   - open
   - qualify
   - sécurité/plateforme
   - '2026-09-19'
-  -
+  - mise_a_jour
   - - dist/2026-08-29/radar-architecture.md
+    - dist/2026-09-12/radar-architecture.md
   - local_commit
   -
   - 9
@@ -1238,8 +1239,9 @@ signals:
   - unknown
   - '2026-08-29'
   - '2026-08-29'
-  -
-  -
+  - - date: '2026-09-12'
+      change: 'Échéance revue : Le correctif Vault reste prioritaire ; versions déployées, politiques templated et exposition locale inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition.'
+  - 'Impact 5 : élévation de privilèges via des policies templatisées ; urgence 4 : correctif prioritaire avant l’échéance ; pertinence 5 : secrets et sécurité de plateforme prioritaires ; confiance 5 : advisory HashiCorp primaire et versions corrigées explicites.'
   -
   -
   - high
@@ -1584,18 +1586,19 @@ signals:
   - Elastic Agent 9.5.0–9.5.1 / correctif 9.5.2
   - unknown
   - '2026-09-02'
-  - '2026-09-02'
-  -
-  -
-  -
-  -
+  - '2026-09-12'
+  - 4
+  - 4
+  - 5
+  - 5
   - high
   - open
   - qualify
   - observabilité
   - '2026-09-19'
-  -
+  - mise_a_jour
   - - dist/2026-09-02/radar-architecture.md
+    - dist/2026-09-12/radar-architecture.md
   - local_commit
   -
   - 9
@@ -2292,7 +2295,7 @@ signals:
   - GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
   - inconnu
   - '2026-09-10'
-  - '2026-09-10'
+  - '2026-09-12'
   - 5
   - 4
   - 4
@@ -2302,15 +2305,17 @@ signals:
   - qualify
   - sécurité/plateforme
   - '2026-09-17'
-  - nouveau_hors_oss
+  - mise_a_jour
   - - dist/2026-09-10/radar-architecture.md
+    - dist/2026-09-12/radar-architecture.md
   - local_commit
   -
   -
-  -
+  - - date: '2026-09-12'
+      change: 'Suivi retenu : le bulletin GCP-2026-061 reste prioritaire ; usage de CRIU, provenance des checkpoints et versions GKE restent à inventorier.'
   - 'Impact 5 : contournement de contrôles de sécurité jusqu’aux privilèges root ; urgence 4 : bulletin récent à qualifier rapidement sans exploitation annoncée ; pertinence 4 : Kubernetes et sécurité sont au cœur du radar, exposition locale inconnue ; confiance 5 : bulletin primaire détaillé et conditions d’exposition explicites.'
-  -
-  -
+  - '2026-09-12'
+  - Le bulletin GCP-2026-061 reste prioritaire ; usage de CRIU, provenance des checkpoints et versions GKE restent à inventorier.
 - - SIG-2026-09-10-002
   - gcp:apigee:semantic-cache-distance-measures
   - https://cloud.google.com/release-notes#September_09_2026
@@ -2396,7 +2401,7 @@ signals:
   - OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
   - inconnu
   - '2026-09-10'
-  - '2026-09-10'
+  - '2026-09-12'
   - 3
   - 2
   - 4
@@ -2406,15 +2411,17 @@ signals:
   - qualify
   - plateforme IA/FinOps
   - '2026-10-01'
-  - nouveau_hors_oss
+  - mise_a_jour
   - - dist/2026-09-10/radar-architecture.md
+    - dist/2026-09-12/radar-architecture.md
   - local_commit
   -
   -
-  -
+  - - date: '2026-09-12'
+      change: 'Suivi retenu : les diagnostics de cache restent à qualifier dans les flux Responses, sans nouvelle annonce.'
   - 'Impact 3 : les diagnostics rendent observable un mécanisme de coût et latence jusque-là opaque ; urgence 2 : aucune rupture ni échéance ; pertinence 4 : exploitation et coûts IA sont prioritaires ; confiance 5 : changelog et schéma d’API officiels concordent.'
-  -
-  -
+  - '2026-09-12'
+  - Les diagnostics de cache restent à qualifier dans les flux Responses, sans nouvelle annonce.
 - - SIG-2026-09-11-001
   - gcp:agent-gateway:vpc-sc-post-2026-09-08
   - https://cloud.google.com/release-notes#September_10_2026
@@ -2422,7 +2429,7 @@ signals:
   - Agent Gateway VPC-SC support, deployments after 2026-09-08
   - exposition inconnue
   - '2026-09-11'
-  - '2026-09-11'
+  - '2026-09-12'
   - 5
   - 3
   - 5
@@ -2432,15 +2439,17 @@ signals:
   - qualify
   - réseau/sécurité IA
   - '2026-09-25'
-  - nouveau_hors_oss
+  - mise_a_jour
   - - dist/2026-09-11/radar-architecture.md
+    - dist/2026-09-12/radar-architecture.md
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: '2026-09-12'
+      change: 'Suivi retenu : VPC-SC reste conditionné par la date de création et l’egress des déploiements Agent Gateway ; exposition locale à inventorier.'
   - 'Impact 5 : la protection périmétrique dépend de l''âge et du mode réseau du déploiement ; urgence 3 : les instances existantes peuvent nécessiter une recréation ; pertinence 5 : gateways et sécurité IA prioritaires ; confiance 5 : contraintes officielles explicites.'
-  -
-  -
+  - '2026-09-12'
+  - VPC-SC reste conditionné par la date de création et l’egress des déploiements Agent Gateway ; exposition locale à inventorier.
 - - SIG-2026-09-11-002
   - anthropic:managed-agents:auto-permission-evaluation
   - https://platform.claude.com/docs/en/release-notes/overview

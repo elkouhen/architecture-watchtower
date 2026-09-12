@@ -20,7 +20,12 @@ sources:
   discovery:
   - github-trending
   - trendshift
-  qualification: []
+  qualification:
+  - hashicorp-security
+  - elastic-official
+  - gke-security-bulletins
+  - gcp-release-notes
+  - openai-api-changelog
 coverage:
 - domain: AWS
   lane: releases_features
@@ -99,7 +104,7 @@ coverage:
   checked_at: '2026-09-12T12:00:00+02:00'
   from: '2026-09-09'
   through: '2026-09-12'
-  result: aucun changement retenu
+  result: signal retenu
   complete: true
   note: Bulletins GCP et GKE parcourus ; aucun bulletin postérieur à GCP-2026-061.
 - domain: GCP
@@ -212,18 +217,272 @@ candidate_yield_note: 'Aucun candidat n''a été détecté dans les deltas prima
   Kubernetes, DevOps ou IA ne réunissait nouveauté substantielle, effet architectural
   et preuve primaire non dupliquée. Les voies AWS et GKE non closes sont exclues de
   toute conclusion d''absence de changement.'
-candidates: []
+candidates:
+- id: vault-cve-2026-5006-follow-up
+  identity_key: legacy:SIG-2026-08-29-008
+  name: Vault CVE-2026-5006
+  canonical_url: https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678
+  nature: service
+  novelty: Mise à jour
+  subject: Suivi du correctif Vault CVE-2026-5006.
+  product_version: Vault 2.0.4 / 1.21.9 / 1.20.14 / 1.19.20
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 30d
+  impact_architectural: 5
+  urgence: 4
+  pertinence_stack: 5
+  confiance: 5
+  signal_level: normal
+  scoring_note: Correctif prioritaire ; versions et policies locales à qualifier.
+  fact: 'Fait — suivi de signal existant : Vault CVE-2026-5006 reste corrigée par
+    Vault 2.0.4 et les branches maintenues documentées par HashiCorp.'
+  analysis: Analyse — sans inventaire des versions et policies templatisées, l’exposition
+    ne peut pas être conclue.
+  unknowns: Versions Vault, policies templatisées et exposition locale à qualifier.
+  maturity: Advisory sécurité primaire avec versions corrigées explicites.
+  decision: qualify
+  owner: sécurité/plateforme
+  due_date: '2026-09-19'
+  success_criterion: Inventaire des instances et confirmation de non-exposition ou
+    du correctif.
+  coverage_lanes:
+  - AWS/security
+  - GCP/security
+  - IA/security
+  evidence:
+  - source_id: hashicorp-security
+    primary: true
+    url: https://discuss.hashicorp.com/t/hcsec-2026-32-vault-vulnerable-to-privilege-escalation-via-slash-injection-in-templated-policy-paths/77678
+    published_at: '2026-08-28'
+    effective_at: inconnue
+    observed_at: '2026-09-12'
+    fact: L’advisory HCSEC-2026-32 documente CVE-2026-5006 et les versions Vault corrigées.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 1
+- id: gcp-2026-061-containerd-criu-follow-up
+  identity_key: gcp:gke-security:gcp-2026-061-containerd-criu
+  name: GKE — restauration containerd avec CRIU
+  canonical_url: https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
+  nature: plateforme
+  novelty: Mise à jour
+  subject: Suivi du bulletin GCP-2026-061 sur les checkpoints CRIU.
+  product_version: GKE avec restauration de checkpoints containerd/CRIU ; GHSA-p7v4-vr35-mj6f
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 7d
+  impact_architectural: 5
+  urgence: 4
+  pertinence_stack: 4
+  confiance: 5
+  signal_level: normal
+  scoring_note: Contournement possible jusqu’à root ; usage local de CRIU à inventorier.
+  fact: 'Fait — suivi de signal existant : GCP-2026-061 décrit le contournement du
+    contexte de sécurité à la restauration d’un checkpoint CRIU non fiable ; GKE ne
+    l’active pas par défaut.'
+  analysis: Analyse — le risque reste borné aux plateformes ayant explicitement ajouté
+    ce mécanisme.
+  unknowns: Usage CRIU, provenance des checkpoints et versions GKE à qualifier.
+  maturity: Bulletin fournisseur détaillé avec conditions d’exposition explicites.
+  decision: qualify
+  owner: sécurité/plateforme
+  due_date: '2026-09-17'
+  success_criterion: Inventaire confirmant l’absence de restauration CRIU non fiable
+    ou mesures correctives.
+  coverage_lanes:
+  - GCP/security
+  - IA/security
+  evidence:
+  - source_id: gke-security-bulletins
+    primary: true
+    url: https://cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-061
+    published_at: '2026-09-09'
+    effective_at: inconnue
+    observed_at: '2026-09-12'
+    fact: Le bulletin décrit l’élévation de privilèges via checkpoint CRIU non fiable
+      et précise que GKE ne l’active pas par défaut.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 2
+- id: agent-gateway-vpc-sc-follow-up
+  identity_key: gcp:agent-gateway:vpc-sc-post-2026-09-08
+  name: Google Cloud Agent Gateway
+  canonical_url: https://cloud.google.com/release-notes#September_10_2026
+  nature: plateforme
+  novelty: Mise à jour
+  subject: Suivi de VPC Service Controls pour Agent Gateway.
+  product_version: Agent Gateway VPC-SC support, deployments after 2026-09-08
+  environment: exposition inconnue
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 7d
+  impact_architectural: 5
+  urgence: 3
+  pertinence_stack: 5
+  confiance: 5
+  signal_level: normal
+  scoring_note: La protection dépend de l’âge et du chemin egress du déploiement.
+  fact: 'Fait — suivi de signal existant : Agent Gateway applique VPC-SC seulement
+    aux déploiements créés après le 8 septembre 2026 avec egress VPC ALL_TRAFFIC.'
+  analysis: Analyse — VPC-SC ne prouve pas la protection des instances plus anciennes.
+  unknowns: Dates de création, egress et périmètres VPC-SC à qualifier.
+  maturity: Capacité fournisseur avec conditions de déploiement documentées.
+  decision: qualify
+  owner: réseau/sécurité IA
+  due_date: '2026-09-25'
+  success_criterion: Inventaire des gateways avec date, egress et application effective
+    de VPC-SC.
+  coverage_lanes:
+  - GCP/releases_features
+  - GCP/security
+  - IA/releases_features
+  - IA/security
+  evidence:
+  - source_id: gcp-release-notes
+    primary: true
+    url: https://cloud.google.com/release-notes#September_10_2026
+    published_at: '2026-09-10'
+    effective_at: '2026-09-08'
+    observed_at: '2026-09-12'
+    fact: Les notes GCP bornent VPC-SC aux nouveaux déploiements Agent Gateway configurés
+      avec egress ALL_TRAFFIC.
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 3
+- id: elastic-agent-otel-follow-up
+  identity_key: legacy:SIG-2026-09-02-004
+  name: Elastic Agent et runtime OTel
+  canonical_url: https://www.elastic.co/docs/release-notes/elastic-agent/known-issues
+  nature: outil
+  novelty: Mise à jour
+  subject: Suivi des pertes silencieuses Elastic Agent avec le runtime OTel.
+  product_version: Elastic Agent 9.5.0–9.5.1 / correctif 9.5.2
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: Elastic License 2.0
+  recency: 30d
+  impact_architectural: 4
+  urgence: 4
+  pertinence_stack: 5
+  confiance: 5
+  signal_level: normal
+  scoring_note: Des pertes silencieuses peuvent invalider les garanties de collecte.
+  fact: 'Fait — suivi de signal existant : Elastic Agent documente des pertes silencieuses
+    possibles avec le runtime OTel en 9.5.0–9.5.1 et le correctif 9.5.2.'
+  analysis: Analyse — la continuité de télémétrie ne peut être supposée sans connaître
+    les pipelines déployés.
+  unknowns: Version Elastic Agent et usage OTel à qualifier.
+  maturity: Problème connu documenté avec version corrective explicite.
+  decision: qualify
+  owner: observabilité
+  due_date: '2026-09-19'
+  success_criterion: Inventaire des agents et confirmation de l’absence des versions
+    concernées ou du correctif 9.5.2.
+  coverage_lanes:
+  - AWS/releases_features
+  - GCP/releases_features
+  - IA/releases_features
+  evidence:
+  - source_id: elastic-official
+    primary: true
+    url: https://www.elastic.co/docs/release-notes/elastic-agent/known-issues
+    published_at: '2026-09-02'
+    effective_at: inconnue
+    observed_at: '2026-09-12'
+    fact: Les problèmes connus Elastic Agent documentent les pertes silencieuses possibles
+      du runtime OTel et le correctif 9.5.2.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 4
+- id: openai-prompt-cache-diagnostics-follow-up
+  identity_key: openai:responses-api:prompt-cache-diagnostics
+  name: OpenAI Prompt Cache Diagnostics
+  canonical_url: https://developers.openai.com/api/docs/changelog
+  nature: service
+  novelty: Mise à jour
+  subject: Suivi des diagnostics du cache de prompts dans Responses.
+  product_version: OpenAI Responses API ; modèles GPT-5.6 et ultérieurs
+  environment: inconnu
+  substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: non applicable
+  recency: 7d
+  impact_architectural: 3
+  urgence: 2
+  pertinence_stack: 4
+  confiance: 5
+  signal_level: normal
+  scoring_note: Les diagnostics rendent les coûts et latences de cache observables.
+  fact: 'Fait — suivi de signal existant : Prompt Cache Diagnostics expose dans Responses
+    les raisons de cache miss pour les modèles GPT-5.6 et ultérieurs.'
+  analysis: Analyse — ces champs suivent coûts et latences hors cache sans constituer
+    un contrôle de disponibilité.
+  unknowns: Modèles, instrumentation, rétention et flux Responses locaux à qualifier.
+  maturity: Capacité GA documentée par le changelog et le schéma API.
+  decision: qualify
+  owner: plateforme IA/FinOps
+  due_date: '2026-10-01'
+  success_criterion: Tableau de bord distinguant hits, misses et raisons de miss.
+  coverage_lanes:
+  - IA/releases_features
+  - IA/availability_quotas_costs
+  evidence:
+  - source_id: openai-api-changelog
+    primary: true
+    url: https://developers.openai.com/api/docs/changelog
+    published_at: '2026-09-08'
+    effective_at: '2026-09-08'
+    observed_at: '2026-09-12'
+    fact: Le changelog annonce Prompt Cache Diagnostics en GA et le schéma Responses
+      expose les champs de diagnostic.
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 5
 selection:
-  selected_ids: []
-  eligible_count: 0
-  selected_count: 0
-  mandatory_count: 0
+  selected_ids:
+  - vault-cve-2026-5006-follow-up
+  - gcp-2026-061-containerd-criu-follow-up
+  - agent-gateway-vpc-sc-follow-up
+  - elastic-agent-otel-follow-up
+  - openai-prompt-cache-diagnostics-follow-up
+  eligible_count: 5
+  selected_count: 5
+  mandatory_count: 3
   oss_required: 0
   oss_selected: 0
   oss_exception: 
-  minimum_exception: '0 sujet(s) éligible(s) après les trois filtres ; Aucun candidat
-    n''a été détecté dans les deltas primaires clos du 12/09. GitHub Trending et Trendshift
-    ont été parcourus : aucune piste Cloud, Kubernetes, DevOps ou IA ne réunissait
-    nouveauté substantielle, effet architectural et preuve primaire non dupliquée.
-    Les voies AWS et GKE non closes sont exclues de toute conclusion d''absence de
-    changement.'
+  follow_up_count: 5
+  follow_up_ids:
+  - vault-cve-2026-5006-follow-up
+  - gcp-2026-061-containerd-criu-follow-up
+  - agent-gateway-vpc-sc-follow-up
+  - elastic-agent-otel-follow-up
+  - openai-prompt-cache-diagnostics-follow-up
+  minimum_exception:

@@ -224,6 +224,12 @@ def validate_radar_manifest(path, text, sources, signals, root: ROOT)
     elsif !Array(signal["deliverables"]).include?(path.relative_path_from(root).to_s)
       error("#{path}: livrable absent du signal #{signal['id']}")
     else
+      # Un signal est une entrée vivante : ses classe, notes et échéance peuvent
+      # évoluer lors d'un suivi. Les éditions historiques restent contrôlées par
+      # leur manifest ; seule la dernière édition liée au signal est comparée à
+      # l'état courant du registre.
+      next unless Array(signal["deliverables"]).last == path.relative_path_from(root).to_s
+
       expected_classification = {
         "Nouveau projet OSS" => "nouveau_projet_oss",
         "Nouveau hors OSS" => "nouveau_hors_oss",
