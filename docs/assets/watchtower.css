@@ -136,10 +136,10 @@
 .watchtower-report-card,
 .watchtower-explore-grid a {
   display: flex;
-  min-height: 11rem;
+  min-height: 7.25rem;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.25rem;
+  padding: .9rem 1rem;
   border: 1px solid rgba(124, 58, 237, .18);
   border-radius: 1rem;
   color: inherit !important;
@@ -167,7 +167,7 @@
 
 .watchtower-report-card strong,
 .watchtower-explore-grid strong {
-  font-size: 1.06rem;
+  font-size: .95rem;
   line-height: 1.25;
 }
 
@@ -184,5 +184,5 @@ html[data-md-color-scheme="slate"] .watchtower-explore-grid a {
   .watchtower-report-grid,
   .watchtower-explore-grid { grid-template-columns: 1fr; }
   .watchtower-report-card,
-  .watchtower-explore-grid a { min-height: 8rem; }
+  .watchtower-explore-grid a { min-height: 6.5rem; }
 }
