@@ -19,9 +19,10 @@ class BuildSiteTest < Minitest::Test
     prepare_site_sources(destination: @destination)
 
     homepage = @destination.join("index.md").read
-    assert_includes homepage, "Dernières publications"
-    assert_includes homepage, "dist/2026-09-11/radar-architecture.md"
-    assert_includes homepage, "docs/catalogue.md"
+    assert_includes homepage, "Derniers signaux"
+    assert_includes homepage, 'class="watchtower-hero"'
+    assert_includes homepage, "dist/2026-09-12/radar-architecture/"
+    assert_includes homepage, "docs/catalogue/"
     refute_includes homepage, "Validation locale"
     refute_includes homepage, "state/signals.yaml"
     assert @destination.join("dist", "2026-09-11", "radar-architecture.md").file?
