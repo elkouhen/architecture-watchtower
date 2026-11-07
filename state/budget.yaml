@@ -1,14 +1,8 @@
-# Budget de consommation par exécution orchestrée du radar.
-# Valeur non fournie par l'utilisateur (quota plateforme réel inconnu) : ce chiffre est une
-# référence provisoire dérivée de l'historique observé (dist/2026-09-08 : 218031 tokens hors
-# cache, avec 4 voies AWS en échec). À ajuster dès que le quota réel est connu.
+# Budget de contexte du radar hebdomadaire. Aucun compteur de tokens n’est exposé par la
+# session : le contrôle est a priori, sur la taille des fichiers lus par le modèle.
 radar:
-  unit: tokens_hors_cache
-  period: per_run
-  reference_value: 250000
-  overrun_threshold_pct: 10
-  action_on_overrun: discard
-  # Contrôle a priori : taille maximale, en octets, du préfixe injecté dans un tour Codex
-  # (prompt, extrait de contrat, contexte préparé, sélection). Au-delà, aucun appel n'est lancé.
-  max_prompt_bytes: 120000
-  note: "Seuil d'arrêt = reference_value * (1 + overrun_threshold_pct/100) = 275000. Au-delà, l'orchestrateur (scripts/run_radar.rb) annule la publication : pas de commit, changements locaux annulés, alerte affichée. La consommation déjà dépensée pour produire le tour n'est pas récupérable ; ce garde-fou protège la publication, pas la génération elle-même."
+  unit: octets
+  # Taille au-delà de laquelle `scripts/run_radar.rb` avertit qu’un brief ou le digest
+  # doit être lu par sections plutôt qu’en une seule fois.
+  max_brief_bytes: 120000
+  note: "Le brief de qualification (prompt réduit, repères des notes, contexte compact) vise moins de 40 000 octets ; le digest hebdomadaire des deltas vise moins de 80 000 octets. Les lectures du cache sont ciblées par le digest (fichier et ligne)."

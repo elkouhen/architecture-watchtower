@@ -23,4 +23,4 @@ jobs:
             ruby "$test_file"
           done
       - name: Valider les registres et les index
-        run: ruby scripts/validate_watchtower.rb --daily
+        run: ruby scripts/validate_watchtower.rb --fresh

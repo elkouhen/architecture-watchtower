@@ -13,6 +13,15 @@ module WatchtowerRadarSelection
   RECENCY = { "48h" => 0, "7d" => 1, "30d" => 2, "discovery" => 3 }.freeze
   SIGNAL_LEVELS = ["normal", "signal faible"].freeze
   FILTER_FIELDS = %w[substantive_change architectural_effect primary_evidence].freeze
+  SCHEMA_VERSIONS = [1, 2].freeze
+  # Schéma 2 : la qualification reste compacte ; la prose n’est exigée que pour les candidats sélectionnés.
+  QUALIFICATION_FIELDS = %w[id identity_key name canonical_url nature novelty subject product_version environment recency
+                            signal_level scoring_note fact decision owner due_date].freeze
+  LEGACY_FIELDS = (QUALIFICATION_FIELDS + %w[analysis unknowns maturity success_criterion]).freeze
+  PROSE_FIELDS = %w[pitch_court analyse utilite success_criterion].freeze
+  OPTIONAL_PROSE_FIELDS = %w[reperes pitch_detaille].freeze
+  MAX_DETAILED_PITCHES = 3
+  PROTECTED_URGENCY = 4
 
   module_function
 
@@ -44,9 +53,13 @@ module WatchtowerRadarSelection
     end
   end
 
-  def validate(data, date: nil, selected: false)
+  def schema_version(data)
+    data["schema_version"] == 2 ? 2 : 1
+  end
+
+  def validate(data, date: nil, selected: false, prose: false)
     errors = []
-    errors << "schema_version doit valoir 1" unless data["schema_version"] == 1
+    errors << "schema_version doit valoir 1 ou 2" unless SCHEMA_VERSIONS.include?(data["schema_version"])
     manifest_date = parse_date(data["date"], "date", errors)
     errors << "date du manifest inattendue" if date && manifest_date && manifest_date != date
     errors << "algorithm doit valoir scan-filter-verify-publish" unless data["algorithm"] == "scan-filter-verify-publish"
@@ -81,7 +94,7 @@ module WatchtowerRadarSelection
     end
     duplicate_values(candidates, "id").each { |value| errors << "id candidat dupliqué #{value}" }
     duplicate_values(candidates, "identity_key").each { |value| errors << "identity_key candidate dupliquée #{value}" }
-    candidates.each_with_index { |candidate, index| validate_candidate(candidate, index, errors) }
+    candidates.each_with_index { |candidate, index| validate_candidate(candidate, index, errors, schema_version(data)) }
     if candidates.length < 12 && data["candidate_yield_note"].to_s.strip.empty?
       errors << "candidate_yield_note requis lorsque moins de douze candidats sont examinés"
     end
@@ -117,9 +130,21 @@ module WatchtowerRadarSelection
         elsif !minimum_exception.empty?
           errors << "exception minimum de sujets interdite avec cinq sujets ou plus"
         end
+        validate_prose(chosen, errors) if prose && schema_version(data) == 2
       end
     end
     errors
+  end
+
+  # Phase de rédaction : chaque candidat sélectionné porte sa prose, rendue ensuite par script.
+  def validate_prose(chosen, errors)
+    chosen.each do |candidate|
+      PROSE_FIELDS.each do |field|
+        errors << "#{candidate['id']}.#{field} absent (prose de rédaction)" if candidate[field].to_s.strip.empty?
+      end
+    end
+    detailed = chosen.count { |candidate| !candidate["pitch_detaille"].to_s.strip.empty? }
+    errors << "au plus #{MAX_DETAILED_PITCHES} pitchs détaillés" if detailed > MAX_DETAILED_PITCHES
   end
 
   def select!(data, identities: {})
@@ -149,7 +174,7 @@ module WatchtowerRadarSelection
     missing = required - chosen.count { |candidate| new_oss?(candidate) }
     if missing.positive?
       replacements = (eligible - chosen).select { |candidate| new_oss?(candidate) }
-      victims = chosen.reject { |candidate| candidate["mandatory"] || new_oss?(candidate) }.sort_by { |candidate| sort_key(candidate) }.reverse
+      victims = chosen.reject { |candidate| protected?(candidate) }.sort_by { |candidate| sort_key(candidate) }.reverse
       [missing, replacements.length, victims.length].min.times do
         chosen.delete(victims.shift)
         chosen << replacements.shift
@@ -168,7 +193,8 @@ module WatchtowerRadarSelection
 
     oss_selected = chosen.count { |candidate| new_oss?(candidate) }
     exception = if oss_selected < required
-      "#{oss_selected} nouveau(x) projet(s) OSS éligible(s) pour #{required} requis ; aucune alerte obligatoire n’a été évincée."
+      "#{oss_selected} nouveau(x) projet(s) OSS éligible(s) pour #{required} requis ; aucun candidat obligatoire, " \
+        "urgent ou de dépréciation n’a été évincé."
     end
     minimum_exception = if chosen.length < 5
       "#{chosen.length} sujet(s) éligible(s) après les trois filtres ; #{data['candidate_yield_note']}"
@@ -209,6 +235,15 @@ module WatchtowerRadarSelection
     candidate["impact_architectural"] == 5 || candidate["urgence"] == 5
   end
 
+  # Le quota OSS ne peut évincer ni un candidat obligatoire, ni un candidat urgent,
+  # ni une dépréciation : un retrait de modèle ou une fin de support reste publié.
+  def protected?(candidate)
+    return true if candidate["mandatory"] || new_oss?(candidate)
+    return true if candidate["urgence"].to_i >= PROTECTED_URGENCY
+
+    Array(candidate["coverage_lanes"]).any? { |lane| lane.to_s.end_with?("/lifecycle_deprecations") }
+  end
+
   def new_oss?(candidate)
     candidate["novelty"] == "Nouveau projet OSS" && candidate["open_source"] == true && candidate["new_project"] == true
   end
@@ -230,7 +265,7 @@ module WatchtowerRadarSelection
     nil
   end
 
-  def validate_candidate(candidate, index, errors)
+  def validate_candidate(candidate, index, errors, version = 1)
     label = "candidates[#{index}]"
     unless candidate.is_a?(Hash)
       errors << "#{label} doit être un objet"
@@ -253,7 +288,7 @@ module WatchtowerRadarSelection
       errors << "#{label}.coverage_lanes invalide" unless lanes.nil? || valid_lanes?(lanes)
       return
     end
-    %w[id identity_key name canonical_url nature novelty subject product_version environment recency signal_level scoring_note fact analysis unknowns maturity decision owner due_date success_criterion].each do |field|
+    (version == 2 ? QUALIFICATION_FIELDS : LEGACY_FIELDS).each do |field|
       errors << "#{label}.#{field} absent" if candidate[field].to_s.strip.empty?
     end
     errors << "#{label}.nature invalide" unless NATURES.include?(candidate["nature"])

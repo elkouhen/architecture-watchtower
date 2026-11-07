@@ -85,8 +85,15 @@ Statut : implémenté le 10 septembre 2026. Les collecteurs structurés couvrent
 - Traiter les échéances et synchroniser les signaux par script ; ne plus faire relire les registres au modèle.
 - Collecter les flux et pages dans un cache local avant la qualification ; injecter seulement les deltas compacts.
 - N’injecter que les sections du contrat utiles à chaque phase ; mesurer le préfixe avant tout appel.
-- **Statut :** implémenté le 7 novembre 2026 (`review_due_signals.rb`, `collect_radar_deltas.rb`, `contract_sections.rb`, `sync_radar_signals.rb`, `index_reports.rb`, `--dry-run`).
-- **Reste à faire :** analyse isolée par document (`watchtower:isolate-v1`) si la rédaction du manifest reste le poste dominant en sortie.
+- **Statut :** implémenté le 7 novembre 2026 (`review_due_signals.rb`, `collect_radar_deltas.rb`, `contract_sections.rb`, `sync_radar_signals.rb`, `index_reports.rb`).
+
+### RADAR-12 — Supprimer la double rédaction et pré-filtrer les deltas
+
+- Mesure du 7 novembre 2026 : la sortie (manifest de 46 Ko puis rapport de 28 Ko reprenant les mêmes champs) et le nombre de tours d’outil dominaient le coût, avant la taille du préfixe.
+- Pré-filtrer les deltas par script (`radar_digest.rb` : voies et mots-clés de stack, fichier et ligne du cache) pour une lecture unique.
+- Qualifier en fiches compactes ; n’exiger la prose que des candidats sélectionnés ; rendre le rapport et le catalogue par script (`radar_render.rb`).
+- Pré-remplir couverture et échecs (`radar_manifest.rb`) ; fusionner prompt et extrait de contrat en un brief ; protéger les candidats urgents ou de dépréciation contre le quota OSS ; passer le radar en cadence hebdomadaire.
+- **Statut :** implémenté le 7 novembre 2026 (`run_radar.rb prepare|select|publish|replace`, manifest schéma 2).
 
 ## Ordre conseillé
 

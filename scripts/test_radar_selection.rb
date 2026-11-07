@@ -47,20 +47,16 @@ class RadarSelectionTest < Minitest::Test
       "signal_level" => "normal",
       "scoring_note" => "Notes justifiées.",
       "fact" => "Fait vérifié.",
-      "analysis" => "Conséquence architecturale.",
-      "unknowns" => "Exposition locale inconnue.",
-      "maturity" => "Maturité documentée.",
       "decision" => "qualify",
       "owner" => "plateforme",
       "due_date" => "2026-09-24",
-      "success_criterion" => "Inventaire établi.",
       "evidence" => [{ "source_id" => "source", "url" => "https://example.org/#{id}", "primary" => true, "observed_at" => "2026-09-10", "fact" => "Fait vérifié." }]
     }.merge(overrides)
   end
 
   def manifest(candidates, complete: true)
     {
-      "schema_version" => 1,
+      "schema_version" => 2,
       "date" => "2026-09-10",
       "algorithm" => "scan-filter-verify-publish",
       "sources" => {
@@ -106,7 +102,7 @@ class RadarSelectionTest < Minitest::Test
   end
 
   def test_quota_replaces_lowest_non_mandatory_candidate
-    candidates = (1..5).map { |n| candidate("normal-#{n}", "urgence" => 4) } +
+    candidates = (1..5).map { |n| candidate("normal-#{n}", "urgence" => 3) } +
       (1..3).map { |n| oss("oss-#{n}", "urgence" => 1) }
     data = manifest(candidates)
     WatchtowerRadarSelection.select!(data)
@@ -115,6 +111,40 @@ class RadarSelectionTest < Minitest::Test
     assert_equal 3, data.dig("selection", "oss_selected")
     assert_nil data.dig("selection", "oss_exception")
     assert_nil data.dig("selection", "minimum_exception")
+  end
+
+  def test_quota_never_evicts_urgent_or_deprecation_candidates
+    candidates = (1..4).map { |n| candidate("urgent-#{n}", "urgence" => 4) } +
+      [candidate("deprecation", "urgence" => 2, "coverage_lanes" => ["IA/lifecycle_deprecations"])] +
+      (1..3).map { |n| oss("oss-#{n}", "urgence" => 1) }
+    data = manifest(candidates)
+    WatchtowerRadarSelection.select!(data)
+
+    assert_equal 7, data.dig("selection", "selected_count")
+    assert_includes data.dig("selection", "selected_ids"), "deprecation"
+    assert_equal 2, data.dig("selection", "oss_selected")
+    assert_match(/urgent ou de dépréciation/, data.dig("selection", "oss_exception"))
+  end
+
+  def test_prose_is_required_only_for_selected_candidates_in_schema_2
+    data = manifest([candidate("a"), candidate("b", "urgence" => 1)] + (1..6).map { |n| candidate("c#{n}", "impact_architectural" => 4) })
+    WatchtowerRadarSelection.select!(data)
+    errors = WatchtowerRadarSelection.validate(data, date: Date.new(2026, 9, 10), selected: true, prose: true)
+    assert errors.any? { |message| message.include?("pitch_court absent") }
+    refute errors.any? { |message| message.start_with?("b.") }, errors.inspect
+
+    data["candidates"].select { |item| item["selection_status"] == "selected" }.each_with_index do |item, index|
+      item.merge!("pitch_court" => "Court.", "analyse" => "Analyse.", "utilite" => "Utile.", "success_criterion" => "Succès.")
+      item["pitch_detaille"] = "Détail." if index < 4
+    end
+    errors = WatchtowerRadarSelection.validate(data, date: Date.new(2026, 9, 10), selected: true, prose: true)
+    assert_equal ["au plus 3 pitchs détaillés"], errors
+  end
+
+  def test_legacy_schema_1_still_requires_the_historical_prose_fields
+    data = manifest([candidate("a")]).merge("schema_version" => 1)
+    errors = WatchtowerRadarSelection.validate(data, date: Date.new(2026, 9, 10))
+    assert errors.any? { |message| message.include?("analysis absent") }
   end
 
   def test_low_confidence_requires_weak_signal_label

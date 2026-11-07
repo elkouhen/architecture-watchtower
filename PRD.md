@@ -10,7 +10,7 @@ Architecture Watchtower est un dispositif local de veille et d’apprentissage d
 
 Le produit génère deux types de livrables :
 
-- un radar quotidien `dist/YYYY-MM-DD/radar-architecture.md` ;
+- un radar hebdomadaire `dist/YYYY-MM-DD/radar-architecture.md` ;
 - une carte de service `dist/YYYY-MM-DD/carte-<service>.md` lorsqu’un sujet est suffisamment mature.
 
 Les rapports, signaux, sources et décisions restent versionnés dans Git. Aucune publication externe n’est requise.
@@ -62,7 +62,7 @@ Ses attentes :
 
 ## 6. Fonctionnalités requises
 
-### FR-01 — Radar quotidien
+### FR-01 — Radar hebdomadaire
 
 Le système doit produire un radar Markdown daté contenant idéalement 8 à 10 sujets, avec une vue d’ensemble puis une fiche par sujet.
 
@@ -171,7 +171,7 @@ Valider puis committer localement
 
 | Fichier | Responsabilité |
 |---|---|
-| `radar-architecture.md` | Prompt du radar quotidien |
+| `radar-architecture.md` | Prompt du radar hebdomadaire |
 | `carte-service.md` | Prompt des cartes de service |
 | `state/context.yaml` | Profil, clouds, plateformes et thèmes favoris |
 | `state/sources.yaml` | Catalogue des sources et règles d’usage |

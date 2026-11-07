@@ -384,7 +384,10 @@ def validate_report(relative_path, source_data, sources, signals)
   end
 end
 
-def validate_daily_freshness
+# Le radar est hebdomadaire : la tolérance couvre une semaine et quelques jours de décalage.
+FRESHNESS_DAYS = 10
+
+def validate_freshness
   dates = Dir.glob(ROOT.join("dist/*/radar-architecture.md").to_s).map do |path|
     value = Pathname.new(path).parent.basename.to_s
     Date.parse(value) if value.match?(/\A\d{4}-\d{2}-\d{2}\z/)
@@ -392,10 +395,10 @@ def validate_daily_freshness
     nil
   end.compact
 
-  return error("aucun radar daté disponible pour le contrôle quotidien") if dates.empty?
+  return error("aucun radar daté disponible pour le contrôle de fraîcheur") if dates.empty?
 
   latest = dates.max
-  error("fraîcheur quotidienne: dernier radar #{latest}, attendu au plus tôt #{TODAY - 1}") if latest < TODAY - 1
+  error("fraîcheur hebdomadaire: dernier radar #{latest}, attendu au plus tôt #{TODAY - FRESHNESS_DAYS}") if latest < TODAY - FRESHNESS_DAYS
 end
 
 if $PROGRAM_NAME == __FILE__
@@ -420,7 +423,7 @@ end
 
 validated_reports.each { |path| validate_report(path, source_data, sources, signals) }
 validate_monthly_editions(ROOT)
-validate_daily_freshness if ARGV.include?("--daily")
+validate_freshness if ARGV.include?("--fresh") || ARGV.include?("--daily")
 
 WARNINGS.each { |message| warn("AVERTISSEMENT: #{message}") }
 ERRORS.each { |message| warn("ERREUR: #{message}") }

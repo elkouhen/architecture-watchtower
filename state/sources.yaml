@@ -48,6 +48,25 @@ coverage_requirements:
     - vertex-ai-release-notes
     - openai-api-changelog
     - anthropic-release-notes
+# Périmètre de chaque voie, repris tel quel dans le manifest pré-rempli par scripts/run_radar.rb prepare.
+coverage_scopes:
+  AWS/releases_features: "Annonces AWS générales et historique Bedrock ; disponibilité fournisseur, pas exposition locale."
+  AWS/security: "Bulletins de sécurité AWS (services, SDK, agents, EKS) ; exposition locale inconnue."
+  AWS/lifecycle_deprecations: "Historique documentaire EKS et Bedrock ; inventaire local des versions inconnu."
+  AWS/availability_quotas_costs: "Régions, quotas et coûts AWS/Bedrock annoncés ; pas d’exposition locale."
+  GCP/releases_features: "Notes de version Google Cloud agrégées, GKE et Vertex AI ; disponibilité fournisseur, pas exposition locale."
+  GCP/security: "Bulletins de sécurité Google Cloud et GKE ; versions locales inconnues."
+  GCP/lifecycle_deprecations: "Politique de dépréciation, changements de comportement GKE/Vertex AI et sections Breaking/Deprecated GCP."
+  GCP/availability_quotas_costs: "Disponibilités régionales, machines et modèles GCP/Vertex AI ; pas d’exposition locale."
+  IA/releases_features: "Changelogs OpenAI, Anthropic, Bedrock et Vertex AI ; disponibilité fournisseur, usage local inconnu."
+  IA/security: "Bulletins AWS et GCP touchant SDK, serveurs MCP et agents ; exposition locale inconnue."
+  IA/lifecycle_deprecations: "Dépréciations de modèles et de versions d’API OpenAI, Anthropic, Bedrock et Vertex AI."
+  IA/availability_quotas_costs: "Canaux d’accès, régions, quotas et coûts des API IA."
+# Pré-filtre du digest (scripts/radar_digest.rb) : mots-clés de stack et de voie. Absent, les
+# listes par défaut du module s’appliquent ; une liste fournie remplace la liste par défaut.
+# digest:
+#   stack_keywords: [EKS, GKE, Kubernetes]
+#   lane_keywords: {security: [CVE-], lifecycle_deprecations: [deprecat], availability_quotas_costs: [region]}
 # Flux RSS/Atom collectés par script (scripts/collect_radar_deltas.rb) avant la qualification.
 # La clé est l’identifiant de source ; l’URL de la source reste la page canonique citée.
 feeds:

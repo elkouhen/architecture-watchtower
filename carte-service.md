@@ -1,4 +1,4 @@
-# Carte quotidienne d’un service — consigne
+# Carte d’un service — consigne
 
 Toute nouvelle consigne de l'utilisateur concernant le contenu, le format, le périmètre, les sources ou le comportement d’une carte de service doit d’abord être intégrée à ce prompt avant la génération ou la mise à jour d’une carte.
 
@@ -25,6 +25,7 @@ Avant la sortie, vérifie que le pitch explique clairement le service, que le mo
 3. Rechercher par nom et URL canonique les cartes et rapports locaux des 30 derniers jours ; n’ouvrir intégralement que la dernière carte du même service ou un rapport portant une évolution substantielle.
 4. Produire la carte pédagogique demandée même sans nouveauté. Dans `Évolutions depuis la dernière carte`, écrire `première carte` ou `aucune évolution vérifiée`, avec lien vers la précédente et date de contrôle. Ne pas substituer un heartbeat à la carte.
 5. Prioriser documentation, release notes, avis de sécurité, lifecycle, dépôts et matrices de compatibilité officielles. Commencer par trois sources primaires complémentaires : présentation/usage, déploiement/intégration et exploitation/sécurité. N’en ajouter une quatrième ou cinquième que pour une lacune décisionnelle précise ; ne faire aucune recherche large de contexte non liée au service.
+6. Capturer chaque page primaire avec `ruby scripts/fetch_page.rb --url <URL>` : le script écrit le texte normalisé sous `.cache/pages/` et affiche ses titres. Lire ensuite uniquement les sections utiles (`sed -n`, `rg -n`) au lieu de charger la page entière ; une page lue en entier doit être justifiée par une lacune précise.
 
 ## Format obligatoire
 

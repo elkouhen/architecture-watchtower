@@ -8,12 +8,12 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - [Rapports et cartes par date](docs/rapports.md)
 - Prompts : [radar](radar-architecture.md), [carte de service](carte-service.md), [classement mensuel](classement-mensuel.md)
 - [Contrats de validation, preuves et notation](docs/contrats-veille.md)
-- [Algorithme graphique d’exécution du radar](docs/algorithme-radar.html)
+- [Algorithme graphique d’exécution du radar](docs/algorithme-radar.html) (schéma historique du pipeline Codex, antérieur aux phases `prepare`/`select`/`publish` du 7 novembre 2026)
 - [Backlog de fiabilisation du radar](docs/backlog-radar.md)
 
 ## Livrables
 
-- Radar quotidien : `dist/YYYY-MM-DD/radar-architecture.md`
+- Radar hebdomadaire : `dist/YYYY-MM-DD/radar-architecture.md`
 - Classement mensuel : `dist/YYYY-MM-DD/classement-mensuel-AAAA-MM.md`
 - [Radar du 7 novembre 2026](dist/2026-11-07/radar-architecture.md)
 - [Radar du 11 septembre 2026](dist/2026-09-11/radar-architecture.md)
@@ -36,18 +36,17 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Progression d’apprentissage : [`state/learning.yaml`](state/learning.yaml)
 - Validation locale : `ruby scripts/validate_watchtower.rb`
 - Site local : `python3 -m venv .venv-docs`, `.venv-docs/bin/python -m pip install -r requirements-docs.txt`, puis `ruby scripts/build_site.rb` et `.venv-docs/bin/python -m mkdocs serve`
-- Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
-- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; échéances et collecte par script, qualification structurée, sélection Ruby, rédaction verrouillée, signaux et index par script, tokens cumulés et durée murale, validation et commit)
-- Mesure du préfixe sans appel Codex : `ruby scripts/run_radar.rb --dry-run` (échéances simulées, collecte dans `.cache/radar/<date>/`, taille du contexte par composant)
+- Contrôle de fraîcheur hebdomadaire : `ruby scripts/validate_watchtower.rb --fresh`
+- Radar hebdomadaire en phases, dans la session (dépôt propre requis) : `ruby scripts/run_radar.rb prepare` (échéances, collecte dans `.cache/radar/<date>/`, digest pré-filtré, manifest pré-rempli, brief de qualification), qualification par le modèle, `ruby scripts/run_radar.rb select` (sélection déterministe, brief de rédaction), rédaction par le modèle, `ruby scripts/run_radar.rb publish` (rendu du rapport et du catalogue, curseurs, signaux, index, validation, commit)
+- Nouveau rendu d’un radar depuis son manifest rédigé : `ruby scripts/run_radar.rb replace --date AAAA-MM-JJ` (aucune collecte ni sélection)
 - Échéances de signaux : `ruby scripts/review_due_signals.rb [--date AAAA-MM-JJ] [--dry-run]`
-- Collecte locale des sources du radar : `ruby scripts/collect_radar_deltas.rb --date AAAA-MM-JJ [--update-registry]`
+- Collecte locale des sources du radar hors orchestration : `ruby scripts/collect_radar_deltas.rb --date AAAA-MM-JJ [--update-registry]`
 - Synchronisation des signaux depuis un manifest sélectionné : `ruby scripts/sync_radar_signals.rb --manifest state/radar-runs/AAAA-MM-JJ.yaml --report dist/AAAA-MM-JJ/radar-architecture.md`
 - Index d’un radar : `ruby scripts/index_reports.rb --date AAAA-MM-JJ`
 - Contexte préparé d’une carte : `ruby scripts/prepare_carte_context.rb --service <nom> [--url <URL>]`
+- Capture locale d’une page primaire pour une carte : `ruby scripts/fetch_page.rb --url <URL>`
 - Contexte préparé du classement mensuel : `ruby scripts/prepare_classement_context.rb --month AAAA-MM`
-- Régénération instrumentée d’un radar depuis son manifest verrouillé : `ruby scripts/run_radar.rb --date AAAA-MM-JJ --replace` (aucune recollecte ni resélection)
 - Calcul manuel d’un manifest : `ruby scripts/select_radar_candidates.rb --manifest state/radar-runs/AAAA-MM-JJ.yaml`
-- Collecte d’un flux RSS/Atom enregistré : `ruby scripts/collect_radar_source.rb --source ID --update-registry`
 - PRD : [`PRD.md`](PRD.md)
 - Tests : `for t in scripts/test_*.rb; do ruby "$t"; done`
 

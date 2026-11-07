@@ -44,37 +44,35 @@ class PrepareRadarContextTest < Minitest::Test
   def test_builds_a_compact_qualification_context
     Dir.mktmpdir("watchtower-context-test-") do |dir|
       setup_repo(dir)
-      collection = [{ "source_id" => "control", "status" => "ok", "kind" => "feed", "items" => [] }]
-      context = WatchtowerRadarContext.build(root: dir, date: Date.new(2026, 9, 9), collection: collection, reviewed_signals: [{ "id" => "x" }])
+      collection = [{ "source_id" => "control", "status" => "ok", "kind" => "feed", "from" => "2026-09-08", "through" => "2026-09-09",
+                      "items_total" => 1, "items" => [["2026-09-09", "T", "https://example.org/t", "001.md", "extrait", []]],
+                      "headings" => ["# a"], "excerpt" => "e", "index_path" => "x/index.md" }]
+      context = WatchtowerRadarContext.build(root: dir, date: Date.new(2026, 9, 9), collection: collection,
+                                             reviewed_signals: [{ "id" => "x" }], digest: { "path" => "d.md", "bytes" => 10 })
 
-      assert_equal %w[id identity_key canonical_url last_seen status], context.dig("recent_signals", "fields")
-      assert_equal ["recent", "legacy:recent", "https://example.org/recent", "2026-09-08", "open"], context.dig("recent_signals", "rows", 0)
+      assert_equal %w[identity_key canonical_url status], context.dig("recent_signals", "fields")
+      assert_equal ["legacy:recent", "https://example.org/recent", "open"], context.dig("recent_signals", "rows", 0)
       assert_equal 1, context.dig("recent_signals", "rows").length
-      refute context.key?("due_signals")
-      refute context.key?("learning")
       assert_equal [{ "id" => "x" }], context["reviewed_signals"]
-      assert_equal collection, context["collection"]
       assert_equal ".cache/radar/2026-09-09", context["cache_dir"]
-      assert_equal %w[id url last_success status], context.dig("sources", "fields")
-      assert_equal %w[control github-trending], context.dig("sources", "rows").map(&:first).sort
-      refute_includes JSON.generate(context), "https://example.org/unused"
-      plan = context["collection_plan"].find { |entry| entry["source_ids"] == ["control"] }
-      assert_equal ["AWS/releases_features"], plan["lanes"]
-      assert_equal "https://example.org/feed.xml", plan["feed_url"]
+      assert_equal({ "path" => "d.md", "bytes" => 10 }, context["digest"])
+      summary = context["collection"].first
+      assert_equal %w[source_id status kind from through items_total index_path], summary.keys
+      refute summary.key?("items")
+      %w[collection_plan sources coverage_requirements control_source_ids].each { |key| refute context.key?(key), key }
       assert_equal [["2026-09-08", "Report", "https://example.org/report"]], context.dig("recent_report_subjects", "rows")
       assert_equal [["Only", "https://example.org/only"]], context.dig("catalogue_only_entries", "rows")
       assert_equal %w[correction date item outcome report], context["recent_feedback"][0].keys.sort
       refute_includes JSON.generate(context), "long note"
+      refute_includes JSON.generate(context), "https://example.org/unused"
     end
   end
 
-  def test_writing_context_targets_catalogue_rows
+  def test_selected_sources_cover_control_and_discovery_only
     Dir.mktmpdir("watchtower-context-test-") do |dir|
       setup_repo(dir)
-      context = WatchtowerRadarContext.writing(root: dir, date: Date.new(2026, 9, 9), selected_urls: ["https://example.org/recent"])
-      assert_equal 4, context.dig("catalogue", "insert_after_line")
-      assert_equal "| Élément | Nature |", context.dig("catalogue", "header")
-      assert_equal [{ "line" => 5, "text" => "| [Recent](https://example.org/recent) | outil |" }], context.dig("catalogue", "existing_rows_for_selection")
+      sources = WatchtowerRadarContext.selected_sources(WatchtowerRadarContext.load_yaml(File.join(dir, "state/sources.yaml")))
+      assert_equal %w[control github-trending], sources.map { |source| source["id"] }.sort
     end
   end
 end

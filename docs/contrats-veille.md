@@ -94,31 +94,30 @@ Le validateur distingue radar, carte et classement : sections et contenu non vid
 
 ## Algorithme Scanner → Filtrer → Vérifier → Publier
 
-Cet algorithme s’applique à chaque nouveau radar. Les cartes et classements mensuels conservent leurs propres méthodes.
+Cet algorithme s’applique à chaque nouveau radar, produit une fois par semaine. Les cartes et classements mensuels conservent leurs propres méthodes. Les scripts collectent, pré-filtrent, sélectionnent, rendent et publient ; le modèle qualifie les deltas puis rédige la prose des seuls sujets retenus.
 
 ### 1. Scanner
 
-1. Commencer par les données locales structurées : index de déduplication des signaux des 90 derniers jours, dernières dates de succès des sources, sujets des livrables récents et entrées canoniques du catalogue. Les échéances atteintes sont traitées avant la collecte par `scripts/review_due_signals.rb` (clôture d’une décision `monitor`, report d’une décision portant une action, avec motif, `last_reviewed` et historique) ; le modèle ne les réexamine pas. En exécution orchestrée, `scripts/prepare_radar_context.rb` fournit cette vue compacte dans `watchtower:prepared-context` ; ne pas relire les fichiers qu’elle synthétise sauf incohérence précise.
-2. Construire un petit ensemble de sources primaires couvrant les douze couples AWS/GCP/IA et fonctionnalités/sécurité/lifecycle/disponibilité. Réutiliser une même collecte pour plusieurs couples lorsque son périmètre les couvre réellement. Viser six à huit sources de contrôle sans sacrifier la couverture obligatoire.
-3. Consulter au moins un et au maximum deux flux de découverte open source. Cette étape reste obligatoire même pour économiser du budget ; leur résultat sert uniquement à proposer des candidats.
-4. Traiter chaque source comme un flux à delta : `scripts/collect_radar_deltas.rb` reprend à `last_success` (au plus trente jours en arrière, le reste devenant une lacune datée `gap`), télécharge chaque URL une seule fois et écrit dans `.cache/radar/AAAA-MM-JJ/` les éléments de delta d’un flux ou le texte normalisé d’une page. Le modèle lit ce cache localement et de façon ciblée ; il ne rouvre pas ces URL sur le web.
-5. Si une source primaire échoue, le collecteur essaie un seul fallback ; le modèle peut tenter une seule ouverture web d’une source restée `failed`. Si cela échoue ou reste incomplet, conserver la précédente valeur de `last_success`, déclarer la période manquante et ne pas conclure à l’absence de changement.
+1. `scripts/run_radar.rb prepare` traite d’abord les échéances atteintes (clôture d’une décision `monitor`, report d’une décision portant une action, avec motif, `last_reviewed` et historique) ; le modèle ne les réexamine pas.
+2. Il collecte ensuite les sources de contrôle imposées par `coverage_requirements` et les deux pages de découverte, chaque URL une seule fois, dans `.cache/radar/AAAA-MM-JJ/` : un flux RSS/Atom devient une liste d’éléments en delta depuis `last_success` (au plus trente jours en arrière, le reste devenant une lacune datée `gap`) ; une page HTML devient un texte normalisé. Un flux dont tous les éléments tombent dans le delta et dont la taille correspond à un plafond fournisseur (vingt éléments ou plus, multiple de cinq ou au moins cinquante) est déclaré plafonné : la période antérieure à son élément le plus ancien devient `truncated_period`. Si une source échoue, le collecteur essaie un seul fallback ; le modèle peut tenter une seule ouverture web d’une source restée `failed`. En cas d’échec persistant, conserver la précédente valeur de `last_success`, déclarer la période manquante et ne pas conclure à l’absence de changement.
+3. `scripts/radar_digest.rb` écrit `digest.md` : chaque élément de flux est étiqueté par voie (mots-clés sécurité, lifecycle, disponibilité/coûts) et par mots-clés de stack (`digest` dans `state/sources.yaml`, listes par défaut sinon). Un élément qui touche la stack ou une voie sécurité/lifecycle est retenu avec un extrait et le chemin de son fichier ; les autres sont listés par titre seul. Un élément long à sections (digest quotidien d’un fournisseur) est découpé par produit avec le numéro de ligne de chaque section retenue, les autres étant seulement nommées. Une page est découpée en blocs datés et seuls les blocs de la fenêtre de collecte sont extraits, avec leur ligne. Les pages de découverte sont réduites à la liste des dépôts (nom, description, étoiles). Ces étiquettes orientent la lecture ; elles ne qualifient rien, et un titre explicite suffit à ouvrir un élément listé par titre seul.
+4. Le script pré-remplit le manifest (rôles des sources, douze entrées de couverture avec périmètre, bornes, complétude et note déduites de la collecte, `source_failures` pour chaque échec, lacune ou plafond) et écrit `brief-qualification.md` : introduction et sections `But et périmètre` et `Qualification` du prompt, `Repères des notes` du contrat, chemins de travail et contexte compact (`scripts/prepare_radar_context.rb` : fenêtre de déduplication, contexte d’architecture, signaux récents réduits à identité, URL et statut, sujets des radars récents, entrées du catalogue, retours récents, résumé de collecte). Le modèle lit le brief puis le digest, chacun une fois, et ne relit ni contrat, ni registres, ni livrables.
 
 ### Manifest de qualification
 
-Chaque radar produit un registre d’exécution `state/radar-runs/AAAA-MM-JJ.yaml`. Ce fichier n’est pas un second livrable : il constitue la preuve structurée utilisée pour calculer et valider le rapport. Il contient la date, les rôles des sources, les douze entrées de couverture, les échecs et tous les candidats détectés. Chaque candidat possède au minimum une `identity_key` stable, un nom, une URL canonique, une nature, une nouveauté, une origine exacte, les trois résultats de filtre, son statut OSS, sa licence le cas échéant, sa récence, ses quatre notes, leur justification et une preuve primaire lorsqu’elle est déclarée disponible. `origin` nomme le fournisseur ou projet responsable (`AWS`, `GCP`, `OpenAI`, `Anthropic`, etc.) ; pour une nouveauté managée, cette valeur remplace le libellé technique `Nouveau hors OSS` dans la vue d’ensemble du rapport.
+Chaque radar produit un registre d’exécution `state/radar-runs/AAAA-MM-JJ.yaml` au schéma 2. Ce fichier n’est pas un second livrable : il constitue la preuve structurée utilisée pour calculer, rédiger et valider le rapport. Le squelette pré-rempli contient la date, les rôles des sources, les douze entrées de couverture et les échecs ; le modèle y ajoute tous les candidats détectés et le rendement. Chaque candidat possède au minimum une `identity_key` stable, un nom, une URL canonique, une nature, une nouveauté, une origine exacte, les trois résultats de filtre, son statut OSS, sa licence le cas échéant, sa récence, ses quatre notes et leur justification, un fait d’une phrase, une décision avec propriétaire et échéance, et une preuve primaire lorsqu’elle est déclarée disponible. `origin` nomme le fournisseur ou projet responsable (`AWS`, `GCP`, `OpenAI`, `Anthropic`, etc.) ; pour une nouveauté managée, cette valeur remplace le libellé technique `Nouveau hors OSS` dans la vue d’ensemble du rapport.
 
 ```yaml
-schema_version: 1
-date: "2026-09-10"
+schema_version: 2
+date: "2026-11-14"
 algorithm: scan-filter-verify-publish
 sources:
   control: [aws-whats-new]
   discovery: [github-trending]
   qualification: [projet-canonique]
-coverage: [] # les douze entrées au format watchtower-couverture
-source_failures: []
-candidate_yield_note: Moins de douze éléments disponibles dans les deltas contrôlés.
+coverage: [] # les douze entrées au format watchtower-couverture, pré-remplies
+source_failures: [] # pré-rempli depuis la collecte
+candidate_yield_note: Rendement réel de la lecture du digest.
 candidates:
   - id: candidate-001
     identity_key: produit:sujet-stable
@@ -144,30 +143,33 @@ candidates:
     coverage_lanes: [GCP/releases_features]
     signal_level: normal
     scoring_note: Justification des quatre notes.
-    fact: Fait précis destiné au rapport.
-    analysis: Conséquence architecturale et limites.
-    unknowns: Exposition locale à qualifier.
-    maturity: État documenté du produit.
+    fact: Fait précis d’une phrase, repris tel quel dans le rapport.
     decision: qualify
     owner: plateforme
-    due_date: "2026-09-24"
-    success_criterion: Inventaire concerné établi.
+    due_date: "2026-11-28"
     evidence:
       - source_id: projet-canonique
         url: https://example.org/release
         primary: true
-        observed_at: "2026-09-10"
-        published_at: "2026-09-09"
+        observed_at: "2026-11-14"
+        published_at: "2026-11-13"
         effective_at: inconnue
         fact: Version et périmètre vérifiés.
+    # Ajoutés après sélection, pour les seuls candidats retenus :
+    pitch_court: Une phrase pour la vue d’ensemble.
+    analyse: Analyse ou inférence, nommée comme telle.
+    utilite: Impact, limites, maturité et inconnues locales.
+    success_criterion: Critère de succès de la décision.
+    reperes: Alternative A ; alternative B   # facultatif
+    pitch_detaille: Conséquence transverse.  # facultatif, trois candidats au plus
 selection: {} # réservé au script de sélection
 ```
 
-Un élément rejeté par l’un des trois filtres (`substantive_change`, `architectural_effect` ou `primary_evidence` à `false`) est consigné en fiche allégée : `id`, `identity_key`, `name`, `canonical_url`, `novelty`, `subject`, les trois filtres et `rejection_note` suffisent ; les notes, preuves et champs de rédaction ne sont exigés que pour les candidats qui franchissent les trois filtres. Aucune cible numérique de candidats n’est imposée ; `candidate_yield_note` décrit le rendement réel lorsque moins de douze éléments ont été examinés.
+Un élément rejeté par l’un des trois filtres (`substantive_change`, `architectural_effect` ou `primary_evidence` à `false`) est consigné en fiche allégée : `id`, `identity_key`, `name`, `canonical_url`, `novelty`, `subject`, les trois filtres et `rejection_note` suffisent. Les champs de prose ne sont exigés que des candidats sélectionnés, après le calcul de la sélection ; un candidat éligible mais non retenu reste compact. Aucune cible numérique de candidats n’est imposée ; `candidate_yield_note` décrit le rendement réel lorsque moins de douze éléments ont été examinés. Les manifests au schéma 1 (radars antérieurs au 14 novembre 2026) conservent leurs champs historiques et restent validés tels quels.
 
-L’URL n’est pas l’identité. Une même page de notes de version peut porter plusieurs sujets, tandis qu’un même sujet peut changer d’URL. Une identité déjà observée dans les 90 jours impose le type `Mise à jour` et un changement substantiel explicite. Le script `scripts/select_radar_candidates.rb` est seul responsable des champs `selection_status`, `rank`, `selection_reason` et du bloc `selection` ; l’agent ne les décide pas.
+L’URL n’est pas l’identité. Une même page de notes de version peut porter plusieurs sujets, tandis qu’un même sujet peut changer d’URL. Une identité déjà observée dans les 90 jours impose le type `Mise à jour` et un changement substantiel explicite. Le script `scripts/select_radar_candidates.rb` (ou la phase `select`) est seul responsable des champs `selection_status`, `rank`, `selection_reason` et du bloc `selection` ; l’agent ne les décide pas.
 
-Après la rédaction, `scripts/sync_radar_signals.rb` crée ou met à jour exactement un signal par candidat sélectionné, de même `identity_key`. Sa `classification` vaut respectivement `nouveau_projet_oss`, `nouveau_hors_oss` ou `mise_a_jour`. L’URL, les quatre notes, la décision, le propriétaire, l’échéance, `last_seen`, `scoring_note` et le lien vers le livrable reprennent le candidat et la date du radar ; une `Mise à jour` rouvre le signal et ajoute l’entrée d’historique. `due_date` est une date de réexamen : à son échéance sans nouvelle observation, `scripts/review_due_signals.rb` clôt un signal `monitor` ou diffère un signal portant une action. Le modèle ne modifie jamais `state/signals.yaml` directement.
+Après la rédaction, la phase `publish` crée ou met à jour exactement un signal par candidat sélectionné, de même `identity_key`. Sa `classification` vaut respectivement `nouveau_projet_oss`, `nouveau_hors_oss` ou `mise_a_jour`. L’URL, les quatre notes, la décision, le propriétaire, l’échéance, `last_seen`, `scoring_note` et le lien vers le livrable reprennent le candidat et la date du radar ; une `Mise à jour` rouvre le signal et ajoute l’entrée d’historique. `due_date` est une date de réexamen : à son échéance sans nouvelle observation, la phase `prepare` suivante clôt un signal `monitor` ou diffère un signal portant une action. Le modèle ne modifie jamais `state/signals.yaml` directement.
 
 ### 2. Filtrer
 
@@ -189,39 +191,27 @@ Noter ensuite `impact_architectural`, `urgence`, `pertinence_stack` et `confianc
 
 Le classement est déterministe et sans score agrégé. Trier les candidats éligibles par la clé suivante : obligatoire d’abord, urgence décroissante, impact architectural décroissant, pertinence stack décroissante (`inconnu` après les valeurs numériques), confiance décroissante, récence `48h`, `7d`, `30d`, `discovery`, puis `identity_key` alphabétique.
 
-Lorsque sept candidats ou moins sont éligibles, les conserver tous. Au-delà, retenir les sept premiers, sauf si plus de sept candidats obligatoires existent : les retenir jusqu’au plafond de dix ; si plus de dix candidats obligatoires existent, le dépassement critique est admis. Calculer ensuite le quota OSS. Pour le satisfaire, remplacer seulement les derniers candidats non obligatoires et non OSS par les meilleurs nouveaux projets OSS éligibles encore exclus. Ne jamais évincer un candidat obligatoire. Si le quota reste impossible, inscrire automatiquement une exception motivée dans le manifest et la reprendre dans `Sujets écartés`.
+Lorsque sept candidats ou moins sont éligibles, les conserver tous. Au-delà, retenir les sept premiers, sauf si plus de sept candidats obligatoires existent : les retenir jusqu’au plafond de dix ; si plus de dix candidats obligatoires existent, le dépassement critique est admis. Calculer ensuite le quota OSS. Pour le satisfaire, remplacer seulement les derniers candidats non protégés par les meilleurs nouveaux projets OSS éligibles encore exclus. Sont protégés les candidats obligatoires, les candidats d’urgence 4 ou 5 et les candidats reliés à une voie `lifecycle_deprecations` : un retrait de modèle, une fin de support ou une dépréciation n’est jamais évincé par le quota. Si le quota reste impossible, le manifest porte automatiquement `oss_exception` et le rapport la reprend dans `Sujets écartés`.
 
-La cible éditoriale est de cinq sujets. La déduplication prévaut sur cette cible : un candidat déjà observé dans les 90 jours est inéligible sans évolution substantielle vérifiée de statut, risque, échéance ou recommandation. Une simple revue d’un signal actif ne constitue pas une évolution substantielle. Si moins de cinq candidats restent après qualification complète, le bloc `selection` porte `minimum_exception` avec le motif factuel issu du rendement de collecte ; le rapport reprend exactement `Exception minimum de sujets : <minimum_exception>`. Lorsque cinq sujets ou plus sont retenus, `minimum_exception` vaut `null`.
+La cible éditoriale est de cinq sujets par semaine. La déduplication prévaut sur cette cible : un candidat déjà observé dans les 90 jours est inéligible sans évolution substantielle vérifiée de statut, risque, échéance ou recommandation. Une simple revue d’un signal actif ne constitue pas une évolution substantielle. Si moins de cinq candidats restent après qualification complète, le bloc `selection` porte `minimum_exception` avec le motif factuel issu du rendement de collecte ; le rapport reprend exactement `Exception minimum de sujets : <minimum_exception>`. Lorsque cinq sujets ou plus sont retenus, `minimum_exception` vaut `null`.
 
 Après sélection, le script recalcule le résultat des douze voies à partir des `coverage_lanes` des seuls candidats retenus. Une voie en échec reste en échec ; une autre voie vaut `signal retenu` seulement si au moins un sujet publié lui est relié, sinon `aucun changement retenu`.
 
-Dans `Sources consultées`, distinguer le rôle `contrôle`, `découverte` ou `qualification` de chaque source. Ne conserver dans le contexte de rédaction que le fait, la date, l’URL canonique, l’impact, les inconnues, la décision existante et les notes nécessaires. Préférer les liens vers les preuves à leur reformulation.
+La phase `select` écrit `brief-redaction.md` : introduction et section `Rédaction` du prompt, puis la projection des candidats sélectionnés (identité, fait, notes, décision, URL de preuve). Le modèle ajoute dans le manifest `pitch_court`, `analyse`, `utilite`, `success_criterion` et, au besoin, `reperes` et `pitch_detaille` (trois candidats au plus), sans modifier aucun autre champ.
 
-Cette réduction du nombre de lectures ne diminue ni la couverture obligatoire, ni les exigences de preuve, ni le traitement des échéances actives.
+`scripts/radar_render.rb` rend ensuite le rapport entier à partir du manifest : titre, marqueur, ligne de consommation, mention `Couverture incomplète` déduite des entrées non complètes, vue d’ensemble, une fiche par candidat (`Fait` repris tel quel, `Analyse`, `Utilité` complétée du niveau, de l’exposition, de la décision, de l’échéance et du critère de succès, repères, pitch détaillé), `Sujets écartés` (candidats hors capacité, rejets avec motif, exceptions, rendement), `Sources consultées` (une ligne par preuve avec rôle de la source, sources de contrôle et de découverte restantes, bloc `watchtower-couverture`) et `Sources en échec`. Les lignes du catalogue sont insérées ou mises à jour par URL, sans relire le fichier. Le rapport est donc exactement conforme au manifest ; la relecture éditoriale porte sur le manifest et sur le rendu.
 
-### Budget de contexte orchestré
+### Budget de contexte
 
-Une exécution lancée par `scripts/run_radar.rb` injecte dans chaque tour uniquement ce dont la phase a besoin. Qualification : le prompt du radar sans sa section de livrable, les sections `Preuves et dates`, `Repères des notes`, `Couverture du radar`, l’algorithme (`1. Scanner` à `4. Publier`, `Manifest de qualification`) et ce budget, puis la vue préparée avec les deltas collectés. Rédaction : l’introduction et la section `Livrable concis` du prompt, les sections `Preuves et dates`, `Couverture du radar` et `4. Publier`, le contexte de rédaction (cibles du catalogue) et la projection du manifest limitée aux candidats sélectionnés, à la couverture, aux échecs et à un résumé des rejets. Le reste du contrat n’est pas lu par le modèle.
-
-Avant tout appel Codex, l’orchestrateur mesure la taille du préfixe et l’affiche par composant ; au-delà de `max_prompt_bytes` (`state/budget.yaml`), aucun appel n’est lancé. `ruby scripts/run_radar.rb --dry-run` effectue échéances, collecte, préparation et mesure sans appel Codex ni écriture des registres. Le tour reste normalement sous douze appels d’outil, dont huit appels web réservés aux pages canoniques des candidats et à l’unique relance d’une source en échec ; les deltas se lisent dans le cache local avec `rg` et `sed`. Un dépassement n’est admis que pour préserver une alerte critique et doit être signalé dans la réponse finale. `state/radar-runs/AAAA-MM-JJ.metrics.yaml` conserve, par phase, la taille du préfixe, le nombre d’actions par type et la consommation mesurée.
-
-### Protocole d’analyse isolée `watchtower:isolate-v1`
-
-Ce protocole n’est pas activé. Ses étapes de préparation, de collecte et de normalisation sont réalisées par `scripts/collect_radar_deltas.rb` (cache non commité, une collecte par URL, un fallback au plus, texte normalisé conservant titres, dates, versions, tableaux et listes). L’analyse de chaque document dans un contexte Codex isolé, l’agrégation de fragments validés par schéma et l’addition des consommations de tous les contextes restent à livrer atomiquement avec le runner et des tests prouvant une réduction mesurable de l’entrée hors cache sur un jeu de référence. En l’absence du marqueur `watchtower:isolate-v1` injecté par le runner, le protocole orchestré à deux tours reste la référence exécutable ; le modèle ne simule pas une isolation et ne lance pas de sous-processus Codex.
-
-### Garde-fou de publication par dépassement de budget
-
-`state/budget.yaml` définit une référence de consommation par exécution (`tokens_hors_cache`, cf. Transparence de consommation) et un seuil de dépassement toléré en pourcentage. Après la fin du tour Codex, `scripts/run_radar.rb` compare l’entrée hors cache réellement mesurée à `reference_value * (1 + overrun_threshold_pct/100)`. Au-delà de ce seuil, l’orchestrateur n’injecte pas de commit : il annule les modifications locales produites par le tour, affiche un avertissement explicite avec les valeurs mesurée et de référence, et le radar n’est pas publié. La consommation déjà dépensée pendant la génération n’est pas récupérable ; ce garde-fou protège uniquement la publication, pas le coût déjà engagé du tour en cours. Tant que `reference_value` reste une estimation provisoire (quota réel non communiqué), l’ajuster dès que le quota effectif est connu.
-
-Le contexte préparé est une projection, pas un nouveau registre : les fichiers sous `state/`, `dist/` et `docs/` restent les sources de vérité. Le script de préparation sélectionne les champs nécessaires, y compris l’identité, les notes, l’environnement, la justification, l’historique et la dernière revue des signaux actifs ou observés dans les 90 jours. Il inclut les sources requises pour la couverture, les sujets récents et les entrées canoniques. Il ne modifie aucun fichier.
+Le modèle lit, par radar, le brief de qualification (prompt réduit, repères des notes, contexte compact : moins de 40 000 octets visés), le digest (moins de 80 000 octets visés pour une semaine), les fichiers du cache désignés par le digest, puis le brief de rédaction. `state/budget.yaml` fixe `max_brief_bytes` : au-delà, `run_radar.rb` avertit qu’une lecture par sections s’impose. Budget indicatif d’un radar : quinze appels d’outil pour la qualification, dont huit lectures web réservées aux pages canoniques des candidats et à l’unique relance d’une source en échec ; un dépassement n’est admis que pour préserver une alerte critique et doit être signalé. Aucun compteur de tokens n’est exposé par la session : la ligne de consommation du rapport porte la variante `non disponible`.
 
 ### Collecte automatisable
 
-`scripts/prepare_radar_context.rb` génère un plan de collecte dédupliqué : une entrée par URL avec les identifiants de source, les voies couvertes, la borne `last_success`, le fallback et, le cas échéant, l’URL de flux déclarée dans la table `feeds` de `state/sources.yaml`. `scripts/collect_radar_deltas.rb` collecte toutes les sources de contrôle et de découverte : un flux RSS/Atom devient une liste d’éléments en delta (tous listés dans `index.md`, les trente plus récents injectés dans le contexte), une page HTML devient un texte normalisé lu localement. Pour un flux, `last_attempt`, `last_success` et `last_item_seen` avancent dès la collecte ; pour une page, `last_attempt` avance à la collecte et `last_success` seulement lorsque la couverture du manifest déclare la voie complète. Dans tous les cas, le manifest et `state/sources.yaml` conservent la tentative, le succès éventuel, le dernier élément vu et la période manquante.
+`scripts/collect_radar_deltas.rb` collecte toutes les sources de contrôle et de découverte hors orchestration : un flux RSS/Atom devient une liste d’éléments en delta (tous listés dans `index.md`), une page HTML devient un texte normalisé lu localement. En orchestration, `prepare` conserve le résultat de collecte dans `collection.json` et c’est `publish` qui avance les curseurs : pour un flux, `last_attempt`, `last_success` et `last_item_seen` ; pour une page, `last_attempt` toujours et `last_success` seulement lorsque toutes les voies qui l’utilisent sont déclarées complètes. Une qualification abandonnée ne déplace donc aucun curseur. Dans tous les cas, le manifest et `state/sources.yaml` conservent la tentative, le succès éventuel, le dernier élément vu et la période manquante.
 
 ## Exécution économe
 
-Pour une carte, exécuter d’abord `ruby scripts/prepare_carte_context.rb --service <nom> [--url <URL>]` ; pour un classement mensuel, `ruby scripts/prepare_classement_context.rb --month AAAA-MM`. Ces projections contiennent le contexte d’architecture, les signaux, apprentissages et entrées de catalogue liés au service ou au mois, les sujets des livrables concernés, l’édition ou la carte récente éventuelle et l’extrait du contrat applicable. Ne pas relire `state/signals.yaml`, `state/learning.yaml`, le contrat complet ni des livrables entiers : ouvrir uniquement les passages liés au service ou à la période, traiter les sources comme des flux à delta et arrêter une investigation dès qu’elle est hors périmètre, dupliquée ou non vérifiable. Une source secondaire n’est ouverte que pour combler une lacune décisionnelle précise. Cette règle ne remplace pas l’algorithme du radar ci-dessus.
+Pour une carte, exécuter d’abord `ruby scripts/prepare_carte_context.rb --service <nom> [--url <URL>]` ; pour un classement mensuel, `ruby scripts/prepare_classement_context.rb --month AAAA-MM`. Ces projections contiennent le contexte d’architecture, les signaux, apprentissages et entrées de catalogue liés au service ou au mois, les sujets des livrables concernés, l’édition ou la carte récente éventuelle et l’extrait du contrat applicable. Ne pas relire `state/signals.yaml`, `state/learning.yaml`, le contrat complet ni des livrables entiers : ouvrir uniquement les passages liés au service ou à la période, traiter les sources comme des flux à delta et arrêter une investigation dès qu’elle est hors périmètre, dupliquée ou non vérifiable. Une source secondaire n’est ouverte que pour combler une lacune décisionnelle précise. Pour une carte, capturer chaque page primaire avec `ruby scripts/fetch_page.rb --url <URL>` : le script écrit le texte normalisé sous `.cache/pages/` et affiche ses titres ; lire ensuite les seules sections utiles (`sed -n`, `rg -n`) plutôt que la page entière. Cette règle ne remplace pas l’algorithme du radar ci-dessus.
 
 ### Registres tabulaires compacts
 
@@ -241,14 +231,10 @@ Cette absence est une limite de mesure, non une valeur nulle.
 
 ### Instrumentation des radars
 
-Lorsqu’un radar est lancé par `scripts/run_radar.rb`, la phase de rédaction écrit d’abord la variante `non disponible` et ne crée pas de commit. Après les tours de qualification et de rédaction, l’orchestrateur additionne leurs consommations puis remplace cette ligne par :
-
-Une exécution `--replace` exige le rapport et son manifest sélectionné existants. Elle saute la collecte, la qualification et la sélection, puis réécrit uniquement le rapport depuis ce manifest verrouillé. Elle ne modifie ni registres, ni index, ni manifest. Cette sémantique empêche le livrable remplacé d’être considéré comme un doublon de lui-même et conserve la photographie historique ; une nouvelle observation exige un nouveau radar daté.
+Les radars produits par `scripts/run_radar.rb` dans la session portent la variante `non disponible` : aucun compteur runtime n’est exposé au script. Les radars historiques produits avec un runtime instrumenté conservent leur ligne détaillée :
 
 > **Tokens utilisés :** `<total>` total — entrée `<input>` (dont cache `<cached>`, hors cache `<billed_input>`), sortie `<output>`, raisonnement `<reasoning>` — mesure runtime Codex, durée `<HH:MM:SS>`. Le cache est facturé nettement moins cher que l’entrée hors cache ; `hors cache` et `sortie` approchent le mieux le coût réel.
 
-Toutes les valeurs de tokens sont des entiers fournis par le runtime, sauf `<billed_input>` qui est dérivé localement (`entrée - cache`) pour isoler la part réellement coûteuse de l’entrée. `cache` est inclus dans `entrée` et `raisonnement` est inclus dans `sortie` : ne pas les additionner une seconde fois. Le total doit être égal à `entrée + sortie`. Utiliser la consommation de chaque tour (`turn_token_usage`), jamais celle de tout le thread, puis additionner les deux tours afin de ne pas attribuer au radar des échanges antérieurs. La durée est un temps mural mesuré avec une horloge monotone depuis le début de l’orchestration, après analyse des options, jusqu’à l’injection des métriques ; elle inclut les contrôles initiaux, la préparation, la qualification, la sélection et la rédaction, mais exclut la validation finale et le commit. Elle est arrondie à la seconde supérieure et affichée en `HH:MM:SS`, avec un nombre d’heures non borné. L’orchestrateur injecte les métriques, relance la validation, puis crée le commit local ; un échec d’extraction interdit le commit instrumenté.
+Dans cette variante, toutes les valeurs sont des entiers fournis par le runtime, sauf `<billed_input>` dérivé localement (`entrée - cache`). `cache` est inclus dans `entrée` et `raisonnement` dans `sortie` ; le total vaut `entrée + sortie`. Le validateur accepte les trois variantes et contrôle la cohérence de la variante détaillée.
 
-Le total en tokens n’est pas un proxy fiable du coût : un total élevé dominé par le cache peut coûter bien moins qu’un total plus faible mais entièrement hors cache. Pour suivre le coût réel d’un radar dans le temps, comparer `hors cache` (et non `total`) d’une exécution à l’autre.
-
-Le format `non disponible` reste autorisé uniquement lorsque le radar n’est pas lancé par cet orchestrateur ou lorsque le runtime ne fournit réellement aucun compteur exploitable. Ne jamais déduire les tokens de la taille du rapport.
+Une exécution `replace` exige le rapport et son manifest rédigé existants. Elle saute la collecte, la qualification et la sélection, puis rend à nouveau le rapport depuis ce manifest. Elle ne modifie ni registres, ni index, ni manifest : le livrable remplacé n’est jamais considéré comme un doublon de lui-même et la photographie historique est conservée ; une nouvelle observation exige un nouveau radar daté.

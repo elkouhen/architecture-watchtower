@@ -6,7 +6,7 @@ Toute consigne utilisateur modifiant le classement doit être intégrée à ce p
 
 ## Objectif
 
-Ce rapport ne remplace pas le radar quotidien et ne déclenche aucun POC, laboratoire ou recommandation d’adoption. Il aide l'utilisateur à prendre du recul : quelles technologies ont réellement compté ce mois-ci, lesquelles méritent une carte ou une qualification ultérieure, lesquelles sont restées de simples signaux de découverte.
+Ce rapport ne remplace pas le radar hebdomadaire et ne déclenche aucun POC, laboratoire ou recommandation d’adoption. Il aide l'utilisateur à prendre du recul : quelles technologies ont réellement compté ce mois-ci, lesquelles méritent une carte ou une qualification ultérieure, lesquelles sont restées de simples signaux de découverte.
 
 Le classement principal est ordonné par intérêt pour les nouveautés et les changements architecturaux. Un simple correctif CVE, un bulletin sans changement de produit ou une maintenance déjà connue reste dans `Sujets non classés`, sauf rupture d’architecture ou décision de plateforme nouvelle. Le rapport fait ressortir les tendances transverses observées dans plusieurs technologies ou rapports.
 
@@ -69,7 +69,7 @@ La section `Lecture architecturale` ne doit pas devenir un plan d’action ou un
 - Les tendances sont séparées du classement et respectent les seuils de preuves ci-dessus.
 - Le rapport ne réécrit pas l’historique des signaux et ne crée pas de nouveau signal uniquement pour le classement.
 - Mettre à jour `docs/rapports.md`, la navigation récente de `README.md` et `docs/catalogue.md` uniquement pour les éléments analysés. Ne pas modifier les cartes ni attribuer un niveau d’apprentissage à partir de cette rétrospective.
-- Le rapport doit rester lisible en moins de vingt minutes. Réutiliser les preuves locales par lien et synthétiser les faits au lieu de répéter les fiches quotidiennes ; une investigation approfondie est réservée aux doublons, aux preuves contradictoires et aux tendances candidates.
+- Le rapport doit rester lisible en moins de vingt minutes. Réutiliser les preuves locales par lien et synthétiser les faits au lieu de répéter les fiches des radars ; une investigation approfondie est réservée aux doublons, aux preuves contradictoires et aux tendances candidates.
 
 ## Sortie et publication
 

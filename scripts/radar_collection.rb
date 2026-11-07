@@ -25,6 +25,9 @@ module WatchtowerRadarCollection
   ITEM_FIELDS = %w[published_at title url file excerpt headings].freeze
   DEFAULT_WINDOW_DAYS = 7
   MAX_WINDOW_DAYS = 30
+  # Un flux qui renvoie au moins ce nombre d’éléments, tous dans le delta, est
+  # probablement plafonné par le fournisseur : la période antérieure n’est pas couverte.
+  FEED_CAP_SUSPICION = 20
   USER_AGENT = "architecture-watchtower/1.0"
 
   module_function
@@ -105,12 +108,19 @@ module WatchtowerRadarCollection
       end
       index_path = dir.join("index.md")
       root.join(index_path).write("# Delta #{source['id']} du #{from.iso8601}\n\n| Publié | Titre | URL | Fichier |\n|---|---|---|---|\n#{index_lines.join("\n")}\n")
-      {
+      oldest = delta.map { |item| to_date(item["published_at"]) }.compact.min
+      capped_size = items.length >= FEED_CAP_SUSPICION && (items.length >= 50 || (items.length % 5).zero?)
+      truncated = capped_size && delta.length == items.length && !oldest.nil? && oldest > from
+      result = {
         "status" => "ok", "kind" => "feed", "url" => url, "feed_items" => items.length,
         "latest_item_id" => items.first["id"], "cache_dir" => dir.to_s, "index_path" => index_path.to_s,
         "items_total" => entries.length, "items_omitted_from_context" => [entries.length - MAX_CONTEXT_ITEMS, 0].max,
         "item_fields" => ITEM_FIELDS, "items" => entries.first(MAX_CONTEXT_ITEMS)
       }
+      result["oldest_item_at"] = oldest.iso8601 if oldest
+      # Flux plafonné : la période entre la borne de reprise et l’élément le plus ancien reste non couverte.
+      result["truncated_period"] = { "from" => from.iso8601, "through" => (oldest - 1).iso8601 } if truncated
+      result
     else
       text = WatchtowerHtmlText.convert(body, max_chars: PAGE_MAX_CHARS)
       path = cache_dir.join("#{source['id']}.md")
