@@ -6,6 +6,13 @@ La colonne `Tendance` est mesurée au 29/08/2026 : étoiles, forks et dernier pu
 
 | Élément | Nature | Niveau | Revue | Tendance |
 |---|---|---|---|---|
+| [Noyau Linux — CVE-2026-98432 (TCP IPv4)](https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-078) | noyau/isolation conteneurs | à qualifier | [07/11](../dist/2026-11-07/radar-architecture.md#noyau-linux--cve-2026-98432-tcp-ipv4) | correctifs COS partiels · 04/11 |
+| [EKS Network Policy Agent — contournement NetworkPolicy (CVE-2026-122266)](https://aws.amazon.com/security/security-bulletins/rss/2026-170-aws/) | réseau Kubernetes/sécurité | à qualifier | [07/11](../dist/2026-11-07/radar-architecture.md#eks-network-policy-agent--contournement-networkpolicy-cve-2026-122266) | VPC CNI 1.22.3 · 04/11 |
+| [Compromission des sous-CA eMudhra (CVE-2026-111943)](https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-071) | PKI/chaîne de confiance TLS | à qualifier | [07/11](../dist/2026-11-07/radar-architecture.md#compromission-des-sous-ca-emudhra-cve-2026-111943) | bulletins GKE/AWS · 27/10 |
+| [GKE — mise à niveau des nœuds en place](https://docs.cloud.google.com/kubernetes-engine/docs/release-notes#October_16_2026) | exploitation Kubernetes | à qualifier | [07/11](../dist/2026-11-07/radar-architecture.md#gke--mise-à-niveau-des-nœuds-en-place) | comportement par défaut · 16/10 |
+| [google/skills](https://github.com/google/skills) | skills agents/GCP | à qualifier | [07/11](../dist/2026-11-07/radar-architecture.md#googleskills) | ~23k étoiles · 07/11 |
+| [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) | audit sécurité par agents | à qualifier | [07/11](../dist/2026-11-07/radar-architecture.md#cloudflaresecurity-audit-skill) | ~64,5k étoiles · 07/11 |
+| [solongate/agent-security](https://github.com/solongate/agent-security) | gouvernance agents de code | à qualifier | [07/11](../dist/2026-11-07/radar-architecture.md#solongateagent-security) | 356 étoiles, signal faible · 07/11 |
 | [Google Cloud Agent Gateway](https://cloud.google.com/release-notes#September_10_2026) | gateway IA/sécurité | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#google-cloud-agent-gateway) | VPC-SC conditionnel · 10/09 |
 | [Claude Managed Agents](https://platform.claude.com/docs/en/release-notes/overview) | plateforme agents | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#claude-managed-agents) | permissions auto · 10/09 |
 | [Gemini Enterprise Agent Platform Sandboxes](https://cloud.google.com/release-notes#September_10_2026) | isolation agents | à qualifier | [11/09](../dist/2026-09-11/radar-architecture.md#gemini-enterprise-agent-platform-sandboxes) | GA · 10/09 |

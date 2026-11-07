@@ -2564,3 +2564,185 @@ signals:
   - 'Impact 3 : outille le placement et dimensionnement d''inférence locale ; urgence 1 : découverte sans échéance ; pertinence 4 : exploitation et coût IA prioritaires ; confiance 4 : dépôt MIT, API, conteneur et méthode documentés, mesures indépendantes non vérifiées.'
   - 2026-11-07
   - 'Clôture automatique à l’échéance de réexamen du 2026-10-09 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
+- - SIG-2026-11-07-001
+  - linux:cve-2026-98432:ipv4-tcp-uaf-container-escape
+  - https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-078
+  - Use-after-free TCP IPv4 du noyau permettant panique ou évasion de conteneur sur les nœuds GKE et AWS
+  - GKE COS < 1.36.5-gke.1982000 / 1.35.9-gke.1505000 / 1.34.12-gke.1539000 / 1.33.13-gke.2207000 / 1.32.13-gke.2906000 ; 1.37 et Ubuntu en cours
+  - exposition inconnue (versions GKE/EKS et images de nœuds non inventoriées)
+  - 2026-11-07
+  - 2026-11-07
+  - 5
+  - 4
+  - 5
+  - 4
+  - high
+  - new
+  - qualify
+  - plateforme Kubernetes
+  - 2026-11-21
+  - nouveau_hors_oss
+  - - dist/2026-11-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 5 : évasion de conteneur (root sur le nœud) depuis un processus non privilégié, donc rupture de l’isolation multi-tenant Kubernetes. Urgence 4 : correctifs disponibles mais pas pour 1.37 ni Ubuntu, exploitation active non documentée, gravité Medium côté GKE. Pertinence 5 : Kubernetes est une priorité déclarée sur AWS et GCP. Confiance 4 : deux bulletins fournisseurs distincts (GKE 04/11, AWS 31/10).'
+  -
+  -
+- - SIG-2026-11-07-002
+  - aws:eks:network-policy-agent-cve-2026-122266
+  - https://aws.amazon.com/security/security-bulletins/rss/2026-170-aws/
+  - État conntrack eBPF partagé permettant de contourner l’application des NetworkPolicy en entrée sur des pods co-localisés
+  - aws-network-policy-agent < 1.3.7 ; add-on géré Amazon VPC CNI < 1.22.3
+  - exposition inconnue (usage des NetworkPolicy EKS et version de l’add-on VPC CNI non inventoriés)
+  - 2026-11-07
+  - 2026-11-07
+  - 4
+  - 4
+  - 4
+  - 4
+  - high
+  - new
+  - qualify
+  - plateforme Kubernetes
+  - 2026-11-21
+  - nouveau_hors_oss
+  - - dist/2026-11-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 4 : la segmentation réseau entre pods, contrôle de sécurité de plateforme, peut être contournée. Urgence 4 : correctif disponible, mise à jour d’add-on à engager rapidement si les NetworkPolicy portent une isolation. Pertinence 4 : EKS sur AWS, distribution locale non confirmée. Confiance 4 : bulletin AWS précis avec versions.'
+  -
+  -
+- - SIG-2026-11-07-003
+  - pki:cve-2026-111943:emudhra-subca-compromise
+  - https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-071
+  - 'Clés privées de sous-CA eMudhra (emSign) compromises : magasins de confiance des nœuds et des conteneurs applicatifs à mettre à jour'
+  - GKE COS ≥ 1.37.1-gke.3011000 / 1.36.5-gke.1817000 / 1.35.9-gke.1390000 / 1.34.12-gke.1508000 / 1.33.13-gke.2152000 ; trust bundles AWS
+  - exposition inconnue (images applicatives et magasins de confiance non inventoriés)
+  - 2026-11-07
+  - 2026-11-07
+  - 4
+  - 4
+  - 4
+  - 4
+  - high
+  - new
+  - qualify
+  - plateforme Kubernetes et sécurité
+  - 2026-11-21
+  - nouveau_hors_oss
+  - - dist/2026-11-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 4 : la confiance TLS externe des nœuds, des webhooks sans caBundle et des conteneurs applicatifs est touchée, sans rupture du mTLS interne. Urgence 4 : MitM actif possible tant que la CA reste approuvée. Pertinence 4 : Kubernetes et pipelines d’images sur AWS/GCP. Confiance 4 : bulletins GKE (23/10, mis à jour le 27/10) et AWS (25/10) distincts.'
+  -
+  -
+- - SIG-2026-11-07-004
+  - gcp:gke:in-place-node-upgrade-default
+  - https://docs.cloud.google.com/kubernetes-engine/docs/release-notes#October_16_2026
+  - Les pools CPU GKE Standard peuvent être mis à niveau en réutilisant la VM existante lorsque maxUnavailable > 0
+  - Toutes versions GKE (Standard, pools CPU)
+  - exposition inconnue (stratégies de surge des pools non inventoriées)
+  - 2026-11-07
+  - 2026-11-07
+  - 3
+  - 3
+  - 4
+  - 4
+  - high
+  - new
+  - qualify
+  - plateforme Kubernetes
+  - 2026-11-21
+  - nouveau_hors_oss
+  - - dist/2026-11-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 3 : le mode d’exploitation des mises à niveau change (VM conservée, capacité préservée) sans contrat d’API modifié. Urgence 3 : comportement appliqué à toutes les versions, retrait uniquement via le support. Pertinence 4 : GKE est un environnement cible. Confiance 4 : note de version primaire datée.'
+  -
+  -
+- - SIG-2026-11-07-005
+  - oss:google:skills
+  - https://github.com/google/skills
+  - Catalogue officiel d’Agent Skills et de plugins pour GKE, Cloud Run, BigQuery, IAM, Cloud Armor et l’observabilité Google Cloud
+  - main (551 commits, sans release taguée)
+  - poste développeur et agents de code ; aucun déploiement local
+  - 2026-11-07
+  - 2026-11-07
+  - 3
+  - 1
+  - 4
+  - 3
+  - medium
+  - new
+  - monitor
+  - architecture IA
+  - 2026-12-07
+  - nouveau_projet_oss
+  - - dist/2026-11-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 3 : standardise la connaissance opératoire injectée aux agents de code (skills et serveurs MCP) pour GCP. Urgence 1 : découverte. Pertinence 4 : GCP, GKE et IA appliquée déclarés. Confiance 3 : dépôt de l’organisation google lu, sans release ni engagement de support explicite.'
+  -
+  -
+- - SIG-2026-11-07-006
+  - oss:cloudflare:security-audit-skill
+  - https://github.com/cloudflare/security-audit-skill
+  - Skill d’audit de sécurité multi-phase pour agents de code, avec vérification adversariale et sorties JSON validées par schéma
+  - main (14 commits, sans release)
+  - poste développeur ou CI isolée ; aucun déploiement local
+  - 2026-11-07
+  - 2026-11-07
+  - 3
+  - 1
+  - 3
+  - 3
+  - medium
+  - new
+  - monitor
+  - sécurité applicative
+  - 2026-12-07
+  - nouveau_projet_oss
+  - - dist/2026-11-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 3 : pattern d’audit par agents (chasseurs isolés, vérificateur distinct, sorties schématisées) intégrable en CI. Urgence 1 : découverte. Pertinence 3 : DevSecOps et IA appliquée adjacents. Confiance 3 : dépôt primaire lu ; efficacité seulement auto-déclarée.'
+  -
+  -
+- - SIG-2026-11-07-007
+  - oss:solongate:agent-security
+  - https://github.com/solongate/agent-security
+  - 'Garde locale pour agents de code : politiques d’appels d’outils, détection de secrets, limites de débit et journal d’audit'
+  - main (491 commits, sans release)
+  - postes développeurs ; aucun déploiement local
+  - 2026-11-07
+  - 2026-11-07
+  - 3
+  - 1
+  - 3
+  - 2
+  - low
+  - new
+  - monitor
+  - sécurité applicative
+  - 2026-12-07
+  - nouveau_projet_oss
+  - - dist/2026-11-07/radar-architecture.md
+  - local_commit
+  -
+  -
+  -
+  - 'Impact 3 : contrôle préventif des actions d’agents de code (hooks, DLP, audit local). Urgence 1 : découverte. Pertinence 3 : gouvernance de l’IA appliquée adjacente. Confiance 2 : dépôt lu, traction faible (356 étoiles) et badges de conformité auto-déclarés non vérifiés.'
+  -
+  -

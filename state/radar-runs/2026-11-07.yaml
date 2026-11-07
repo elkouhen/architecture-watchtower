@@ -1,0 +1,1057 @@
+---
+schema_version: 1
+date: '2026-11-07'
+algorithm: scan-filter-verify-publish
+sources:
+  control:
+  - aws-whats-new
+  - aws-security-bulletins
+  - aws-eks-lifecycle
+  - aws-bedrock-history
+  - gcp-release-notes
+  - gcp-security-bulletins
+  - gcp-deprecation-policy
+  - gke-release-notes
+  - gke-security-bulletins
+  - vertex-ai-release-notes
+  - openai-api-changelog
+  - openai-api-deprecations
+  - anthropic-release-notes
+  discovery:
+  - github-trending
+  - trendshift
+  qualification: []
+coverage:
+- domain: AWS
+  lane: releases_features
+  sources:
+  - aws-whats-new
+  - aws-bedrock-history
+  scope: Annonces AWS générales et historique Bedrock ; disponibilité fournisseur,
+    pas exposition locale.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: 'Flux What''s New limité à ses 100 derniers éléments (28/10–06/11) : période
+    2026-10-08/2026-10-27 non parcourue ; lacune 2026-09-12/2026-10-07 (collecte plafonnée
+    à 30 jours après l’interruption des radars depuis le 12/09).'
+- domain: AWS
+  lane: security
+  sources:
+  - aws-security-bulletins
+  scope: Bulletins de sécurité AWS (services, SDK, agents, EKS) ; exposition locale
+    inconnue.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: signal retenu
+  complete: false
+  note: Delta du 08/10 au 07/11 entièrement lu (38 bulletins) ; lacune 2026-09-12/2026-10-07
+    (collecte plafonnée à 30 jours après l’interruption des radars depuis le 12/09).
+- domain: AWS
+  lane: lifecycle_deprecations
+  sources:
+  - aws-eks-lifecycle
+  - aws-bedrock-history
+  scope: Historique documentaire EKS et Bedrock ; inventaire local des versions inconnu.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: Six entrées EKS (Argo CD, politiques gérées) et historique Bedrock lus ; lacune
+    2026-09-12/2026-10-07 (collecte plafonnée à 30 jours après l’interruption des
+    radars depuis le 12/09).
+- domain: AWS
+  lane: availability_quotas_costs
+  sources:
+  - aws-whats-new
+  - aws-bedrock-history
+  scope: Régions, quotas et coûts AWS/Bedrock annoncés ; pas d’exposition locale.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: Période 2026-10-08/2026-10-27 non couverte par le flux What's New ; lacune
+    2026-09-12/2026-10-07 (collecte plafonnée à 30 jours après l’interruption des
+    radars depuis le 12/09).
+- domain: GCP
+  lane: releases_features
+  sources:
+  - gcp-release-notes
+  - gke-release-notes
+  scope: Notes de version Google Cloud agrégées et GKE ; disponibilité fournisseur,
+    pas exposition locale.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: signal retenu
+  complete: false
+  note: 29 journées GCP et 6 journées GKE lues de façon ciblée ; lacune 2026-09-12/2026-10-07
+    (collecte plafonnée à 30 jours après l’interruption des radars depuis le 12/09).
+- domain: GCP
+  lane: security
+  sources:
+  - gcp-security-bulletins
+  - gke-security-bulletins
+  scope: Bulletins de sécurité Google Cloud et GKE ; versions locales inconnues.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: signal retenu
+  complete: false
+  note: Bulletins GKE GCP-2026-071 et GCP-2026-078 lus ; page GCP ciblée sur les mêmes
+    identifiants ; lacune 2026-09-12/2026-10-07 (collecte plafonnée à 30 jours après
+    l’interruption des radars depuis le 12/09).
+- domain: GCP
+  lane: lifecycle_deprecations
+  sources:
+  - gcp-deprecation-policy
+  - gke-release-notes
+  - gcp-release-notes
+  scope: Politique de dépréciation, changements de comportement GKE et sections Breaking/Deprecated
+    GCP.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: signal retenu
+  complete: false
+  note: Sections Breaking et Deprecated extraites sur la période ; lacune 2026-09-12/2026-10-07
+    (collecte plafonnée à 30 jours après l’interruption des radars depuis le 12/09).
+- domain: GCP
+  lane: availability_quotas_costs
+  sources:
+  - gcp-release-notes
+  - vertex-ai-release-notes
+  scope: Disponibilités régionales et machines GCP ; le flux Vertex AI n’a plus d’élément
+    depuis le 16/03/2026.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: Flux Vertex AI figé (dernier élément 16/03/2026), relayé par les notes GCP
+    agrégées ; lacune 2026-09-12/2026-10-07 (collecte plafonnée à 30 jours après l’interruption
+    des radars depuis le 12/09).
+- domain: IA
+  lane: releases_features
+  sources:
+  - openai-api-changelog
+  - anthropic-release-notes
+  - aws-bedrock-history
+  scope: Changelogs OpenAI, Anthropic et Bedrock ; disponibilité fournisseur, usage
+    local inconnu.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: Entrées du 02/10 au 05/11 lues ; lacune 2026-09-12/2026-10-07 (collecte plafonnée
+    à 30 jours après l’interruption des radars depuis le 12/09).
+- domain: IA
+  lane: security
+  sources:
+  - aws-security-bulletins
+  - gcp-security-bulletins
+  scope: Bulletins AWS et GCP touchant SDK, serveurs MCP et agents ; exposition locale
+    inconnue.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: Bulletins MCP/Strands lus et écartés comme correctifs isolés ; lacune 2026-09-12/2026-10-07
+    (collecte plafonnée à 30 jours après l’interruption des radars depuis le 12/09).
+- domain: IA
+  lane: lifecycle_deprecations
+  sources:
+  - openai-api-deprecations
+  - anthropic-release-notes
+  scope: Dépréciations de modèles et de versions d’API OpenAI et Anthropic.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: Dépréciations du 14/10 et du 05/11 et version d’API Anthropic 2026-10-21 lues
+    ; lacune 2026-09-12/2026-10-07 (collecte plafonnée à 30 jours après l’interruption
+    des radars depuis le 12/09).
+- domain: IA
+  lane: availability_quotas_costs
+  sources:
+  - anthropic-release-notes
+  - openai-api-changelog
+  scope: Canaux d’accès, régions, quotas et coûts des API IA.
+  checked_at: '2026-11-07T09:30:00+01:00'
+  from: '2026-10-08'
+  through: '2026-11-07'
+  result: aucun changement retenu
+  complete: false
+  note: Canal Claude sur Google Cloud et paliers de service OpenAI lus ; lacune 2026-09-12/2026-10-07
+    (collecte plafonnée à 30 jours après l’interruption des radars depuis le 12/09).
+source_failures:
+- source_id: aws-whats-new
+  period: 2026-09-09/2026-10-27
+  consequence: 'Interruption du radar puis flux limité à 100 éléments : releases et
+    disponibilité AWS non parcourues avant le 28/10 ; aucune absence de changement
+    n’est déduite.'
+- source_id: aws-security-bulletins
+  period: 2026-09-09/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: aws-eks-lifecycle
+  period: 2026-09-09/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: aws-bedrock-history
+  period: 2026-09-07/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: gcp-release-notes
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: gcp-security-bulletins
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: gcp-deprecation-policy
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: gke-release-notes
+  period: 2026-09-11/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: gke-security-bulletins
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: vertex-ai-release-notes
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: openai-api-changelog
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: openai-api-deprecations
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+- source_id: anthropic-release-notes
+  period: 2026-09-12/2026-10-07
+  consequence: 'Interruption du radar de plus de trente jours : période antérieure
+    au 08/10 non parcourue ; aucune absence de changement n’est déduite.'
+candidate_yield_note: 17 éléments qualifiés sur les deltas du 08/10 au 07/11 (38 bulletins
+  AWS, 100 annonces AWS, 29 journées GCP, 6 journées GKE, 2 bulletins GKE, changelogs
+  OpenAI/Anthropic/Bedrock) et les deux flux de découverte ; la période du 12/09 au
+  07/10 reste une lacune datée.
+candidates:
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-001
+  identity_key: linux:cve-2026-98432:ipv4-tcp-uaf-container-escape
+  name: Noyau Linux — CVE-2026-98432 (TCP IPv4)
+  canonical_url: https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-078
+  nature: plateforme
+  novelty: Nouveau hors OSS
+  origin: GCP
+  subject: Use-after-free TCP IPv4 du noyau permettant panique ou évasion de conteneur
+    sur les nœuds GKE et AWS
+  product_version: GKE COS < 1.36.5-gke.1982000 / 1.35.9-gke.1505000 / 1.34.12-gke.1539000
+    / 1.33.13-gke.2207000 / 1.32.13-gke.2906000 ; 1.37 et Ubuntu en cours
+  environment: exposition inconnue (versions GKE/EKS et images de nœuds non inventoriées)
+  impact_architectural: 5
+  urgence: 4
+  pertinence_stack: 5
+  confiance: 4
+  recency: 7d
+  coverage_lanes:
+  - GCP/security
+  - AWS/security
+  scoring_note: 'Impact 5 : évasion de conteneur (root sur le nœud) depuis un processus
+    non privilégié, donc rupture de l’isolation multi-tenant Kubernetes. Urgence 4
+    : correctifs disponibles mais pas pour 1.37 ni Ubuntu, exploitation active non
+    documentée, gravité Medium côté GKE. Pertinence 5 : Kubernetes est une priorité
+    déclarée sur AWS et GCP. Confiance 4 : deux bulletins fournisseurs distincts (GKE
+    04/11, AWS 31/10).'
+  fact: 'GCP-2026-078 (04/11/2026) : CVE-2026-98432 dans la pile TCP IPv4 du noyau
+    peut provoquer une panique ou une évasion de conteneur ; déclenchable localement
+    sans CAP_NET_RAW ou à distance via des options IPv4 vers un listener du nœud ou
+    du plan de contrôle. GKE Standard et Autopilot sont concernés ; correctifs COS
+    publiés, 1.37 et Ubuntu en cours. AWS a publié le bulletin 2026-160-AWS le 31/10.'
+  analysis: 'L’isolation par namespace ne suffit plus tant que le nœud n’est pas corrigé
+    : les pools mutualisés exposant des listeners publics cumulent les deux vecteurs.
+    Les réseaux autorisés du plan de contrôle et les règles de pare-feu réduisent
+    le vecteur réseau mais pas le vecteur local.'
+  unknowns: Versions GKE/EKS, type d’images (COS, Ubuntu, Bottlerocket, AL2023) et
+    date de correctif 1.37/Ubuntu.
+  maturity: Correctifs COS GA pour 1.32 à 1.36 ; 1.37 et Ubuntu annoncés en cours.
+  decision: qualify
+  owner: plateforme Kubernetes
+  due_date: '2026-11-21'
+  success_criterion: Inventaire des pools de nœuds GKE/EKS avec version et image ;
+    pools non corrigés identifiés et planifiés.
+  evidence:
+  - source_id: gke-security-bulletins
+    url: https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-078
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-11-04'
+    effective_at: inconnue
+    fact: 'Bulletin GKE : vecteurs local et réseau, versions corrigées COS, 1.37/Ubuntu
+      en cours.'
+  - source_id: aws-security-bulletins
+    url: https://aws.amazon.com/security/security-bulletins/rss/2026-160-aws/
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-31'
+    effective_at: inconnue
+    fact: Bulletin AWS 2026-160 sur la même CVE (use-after-free TCP IPv4).
+  mandatory: true
+  selection_status: selected
+  selection_reason: candidat obligatoire
+  rank: 1
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-002
+  identity_key: pki:cve-2026-111943:emudhra-subca-compromise
+  name: Compromission des sous-CA eMudhra (CVE-2026-111943)
+  canonical_url: https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-071
+  nature: standard
+  novelty: Nouveau hors OSS
+  origin: GCP
+  subject: 'Clés privées de sous-CA eMudhra (emSign) compromises : magasins de confiance
+    des nœuds et des conteneurs applicatifs à mettre à jour'
+  product_version: GKE COS ≥ 1.37.1-gke.3011000 / 1.36.5-gke.1817000 / 1.35.9-gke.1390000
+    / 1.34.12-gke.1508000 / 1.33.13-gke.2152000 ; trust bundles AWS
+  environment: exposition inconnue (images applicatives et magasins de confiance non
+    inventoriés)
+  impact_architectural: 4
+  urgence: 4
+  pertinence_stack: 4
+  confiance: 4
+  recency: 30d
+  coverage_lanes:
+  - GCP/security
+  - AWS/security
+  scoring_note: 'Impact 4 : la confiance TLS externe des nœuds, des webhooks sans
+    caBundle et des conteneurs applicatifs est touchée, sans rupture du mTLS interne.
+    Urgence 4 : MitM actif possible tant que la CA reste approuvée. Pertinence 4 :
+    Kubernetes et pipelines d’images sur AWS/GCP. Confiance 4 : bulletins GKE (23/10,
+    mis à jour le 27/10) et AWS (25/10) distincts.'
+  fact: 'GCP-2026-071 (23/10/2026, mis à jour le 27/10) : plusieurs clés privées de
+    sous-CA eMudhra (emSign) ont été compromises (CVE-2026-111943). Les clients TLS
+    non corrigés sont exposés à une interception MitM sur les connexions externes
+    ; les conteneurs applicatifs n’héritent pas du magasin de confiance du nœud et
+    doivent être mis à jour séparément. AWS a publié le bulletin 2026-150-AWS sur
+    ses trust bundles le 25/10.'
+  analysis: 'La correction est partagée : le fournisseur traite nœuds et composants
+    système, l’équipe applicative doit reconstruire les images (ca-certificates, runtimes
+    Go/Java). Les webhooks externes sans caBundle explicite dépendent du magasin système.'
+  unknowns: Images de base utilisées, fréquence de reconstruction, webhooks d’admission
+    externes sans caBundle.
+  maturity: Correctifs GKE COS et Ubuntu publiés ; mises à jour des trust bundles
+    AWS annoncées.
+  decision: qualify
+  owner: plateforme Kubernetes et sécurité
+  due_date: '2026-11-21'
+  success_criterion: Images de base reconstruites avec un magasin de confiance excluant
+    les sous-CA eMudhra compromises ; nœuds au niveau corrigé.
+  evidence:
+  - source_id: gke-security-bulletins
+    url: https://docs.cloud.google.com/kubernetes-engine/security-bulletins#gcp-2026-071
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-23'
+    effective_at: inconnue
+    fact: 'Bulletin GKE : périmètre, conteneurs applicatifs à corriger séparément,
+      versions corrigées.'
+  - source_id: aws-security-bulletins
+    url: https://aws.amazon.com/security/security-bulletins/rss/2026-150-aws/
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-25'
+    effective_at: inconnue
+    fact: 'Bulletin AWS 2026-150 : récupération de clé d’une CA intermédiaire eMudhra
+      dans les trust bundles AWS.'
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 3
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-003
+  identity_key: aws:eks:network-policy-agent-cve-2026-122266
+  name: EKS Network Policy Agent — contournement NetworkPolicy (CVE-2026-122266)
+  canonical_url: https://aws.amazon.com/security/security-bulletins/rss/2026-170-aws/
+  nature: service
+  novelty: Nouveau hors OSS
+  origin: AWS
+  subject: État conntrack eBPF partagé permettant de contourner l’application des
+    NetworkPolicy en entrée sur des pods co-localisés
+  product_version: aws-network-policy-agent < 1.3.7 ; add-on géré Amazon VPC CNI <
+    1.22.3
+  environment: exposition inconnue (usage des NetworkPolicy EKS et version de l’add-on
+    VPC CNI non inventoriés)
+  impact_architectural: 4
+  urgence: 4
+  pertinence_stack: 4
+  confiance: 4
+  recency: 7d
+  coverage_lanes:
+  - AWS/security
+  scoring_note: 'Impact 4 : la segmentation réseau entre pods, contrôle de sécurité
+    de plateforme, peut être contournée. Urgence 4 : correctif disponible, mise à
+    jour d’add-on à engager rapidement si les NetworkPolicy portent une isolation.
+    Pertinence 4 : EKS sur AWS, distribution locale non confirmée. Confiance 4 : bulletin
+    AWS précis avec versions.'
+  fact: 'Bulletin 2026-170-AWS (04/11/2026) : une isolation insuffisante de l’état
+    de suivi de connexions eBPF dans aws-network-policy-agent peut permettre à un
+    utilisateur adjacent authentifié de contourner l’application des NetworkPolicy
+    en entrée sur des pods co-localisés. Versions affectées : agent < 1.3.7, add-on
+    géré VPC CNI < 1.22.3.'
+  analysis: Les clusters qui s’appuient sur les NetworkPolicy natives EKS pour séparer
+    des équipes ou des niveaux de sensibilité perdent cette garantie jusqu’à la mise
+    à jour de l’add-on ; Cilium ou Calico ne sont pas concernés par ce composant.
+  unknowns: Activation des NetworkPolicy dans les clusters EKS et version de l’add-on
+    VPC CNI.
+  maturity: Correctif publié dans l’add-on géré 1.22.3.
+  decision: qualify
+  owner: plateforme Kubernetes
+  due_date: '2026-11-21'
+  success_criterion: Tous les clusters EKS utilisant les NetworkPolicy natives sont
+    en VPC CNI ≥ 1.22.3.
+  evidence:
+  - source_id: aws-security-bulletins
+    url: https://aws.amazon.com/security/security-bulletins/rss/2026-170-aws/
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-11-04'
+    effective_at: inconnue
+    fact: 'Bulletin AWS : composant, vecteur, versions affectées.'
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 2
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-004
+  identity_key: gcp:gke:in-place-node-upgrade-default
+  name: GKE — mise à niveau des nœuds en place
+  canonical_url: https://docs.cloud.google.com/kubernetes-engine/docs/release-notes#October_16_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  origin: GCP
+  subject: Les pools CPU GKE Standard peuvent être mis à niveau en réutilisant la
+    VM existante lorsque maxUnavailable > 0
+  product_version: Toutes versions GKE (Standard, pools CPU)
+  environment: exposition inconnue (stratégies de surge des pools non inventoriées)
+  impact_architectural: 3
+  urgence: 3
+  pertinence_stack: 4
+  confiance: 4
+  recency: 30d
+  coverage_lanes:
+  - GCP/lifecycle_deprecations
+  scoring_note: 'Impact 3 : le mode d’exploitation des mises à niveau change (VM conservée,
+    capacité préservée) sans contrat d’API modifié. Urgence 3 : comportement appliqué
+    à toutes les versions, retrait uniquement via le support. Pertinence 4 : GKE est
+    un environnement cible. Confiance 4 : note de version primaire datée.'
+  fact: 'Note GKE du 16/10/2026 : pour les pools CPU GKE Standard, GKE peut désormais
+    mettre à niveau un nœud en mettant à jour la VM Compute Engine existante au lieu
+    de la recréer, ce qui conserve sa capacité. Le comportement s’active avec des
+    surge upgrades dont maxUnavailable est supérieur à 0 ; il s’applique à toutes
+    les versions et le retrait passe par Cloud Customer Care.'
+  analysis: Le risque d’échec par manque de capacité baisse, mais les hypothèses «
+    nœud neuf = disque et état neufs » des runbooks et des outils de durcissement
+    doivent être revérifiées pour les pools concernés.
+  unknowns: Pools configurés avec maxUnavailable > 0, dépendances à l’état local du
+    nœud, exceptions documentées.
+  maturity: Comportement GA appliqué par défaut ; exceptions décrites dans la documentation
+    maxUnavailable.
+  decision: qualify
+  owner: plateforme Kubernetes
+  due_date: '2026-11-21'
+  success_criterion: Liste des pools GKE avec maxUnavailable > 0 et validation que
+    leurs runbooks ne supposent pas une VM recréée.
+  evidence:
+  - source_id: gke-release-notes
+    url: https://docs.cloud.google.com/kubernetes-engine/docs/release-notes#October_16_2026
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-16'
+    effective_at: '2026-10-16'
+    fact: 'Note de version : réutilisation de la VM, condition maxUnavailable > 0,
+      retrait via le support.'
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 4
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-005
+  identity_key: openai:models:gpt-4o-gpt-4-1-shutdown-2027-01-14
+  name: OpenAI — retrait de GPT-4o et GPT-4.1
+  canonical_url: https://developers.openai.com/api/docs/deprecations
+  nature: modèle
+  novelty: Nouveau hors OSS
+  origin: OpenAI
+  subject: Retrait de l’API le 14/01/2027 de GPT-4o, GPT-4o mini, GPT-4.1 et GPT-4.1
+    mini, remplacés par gpt-6-luna
+  product_version: gpt-4o-2024-08-06, gpt-4o-2024-11-20, gpt-4o-mini-2024-07-18, gpt-4.1-2025-04-14,
+    gpt-4.1-mini-2025-04-14 et leurs fine-tunes
+  environment: exposition inconnue (usage des modèles OpenAI non inventorié)
+  impact_architectural: 3
+  urgence: 3
+  pertinence_stack: 3
+  confiance: 5
+  recency: 30d
+  coverage_lanes:
+  - IA/lifecycle_deprecations
+  scoring_note: 'Impact 3 : migration de modèle avec réévaluation des prompts, des
+    coûts et des fine-tunes, sans changement d’API. Urgence 3 : échéance ferme à 68
+    jours. Pertinence 3 : l’IA appliquée est un intérêt déclaré mais l’usage OpenAI
+    n’est pas inventorié. Confiance 5 : page de dépréciation officielle avec dates
+    et remplaçant.'
+  fact: Le 14/10/2026, OpenAI a notifié le retrait de l’API le 14/01/2027 de GPT-4o
+    (2024-08-06, 2024-11-20), GPT-4o mini (2024-07-18), GPT-4.1 (2025-04-14) et GPT-4.1
+    mini (2025-04-14) ; le remplaçant recommandé est gpt-6-luna. Les modèles fine-tunés
+    suivent le calendrier de leur modèle de base.
+  analysis: 'Les fine-tunes ne migrent pas automatiquement : il faut réentraîner ou
+    réévaluer sur gpt-6-luna et refaire les évaluations de régression avant mi-décembre
+    pour garder une marge.'
+  unknowns: Applications et passerelles appelant ces snapshots, fine-tunes existants,
+    accès via Azure ou Bedrock.
+  maturity: Dépréciation officielle datée.
+  decision: qualify
+  owner: architecture IA
+  due_date: '2026-11-21'
+  success_criterion: Inventaire des appels aux snapshots GPT-4o/4.1 et plan de migration
+    daté avant le 14/01/2027.
+  evidence:
+  - source_id: openai-api-deprecations
+    url: https://developers.openai.com/api/docs/deprecations
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-14'
+    effective_at: '2027-01-14'
+    fact: 'Tableau de retrait : modèles, date du 14/01/2027, remplaçant gpt-6-luna.'
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-006
+  identity_key: anthropic:api:version-2026-10-21-sdk-majors
+  name: Anthropic — version d’API 2026-10-21 et SDK majeurs
+  canonical_url: https://platform.claude.com/docs/en/release-notes/overview
+  nature: service
+  novelty: Nouveau hors OSS
+  origin: Anthropic
+  subject: Nouvelle version d’API et SDK majeurs qui l’envoient par défaut, avec changements
+    incompatibles et passage de la licence MIT à Apache 2.0
+  product_version: API 2026-10-21 ; Python SDK 2.0.0, TypeScript 1.0.0, Go 2.0.0,
+    Java 3.0.0, C# 13.0.0, PHP 1.0.0, Ruby 2.0.0, ant CLI 2.0.0
+  environment: exposition inconnue (usage des SDK Claude non inventorié)
+  impact_architectural: 3
+  urgence: 2
+  pertinence_stack: 3
+  confiance: 5
+  recency: 30d
+  coverage_lanes:
+  - IA/lifecycle_deprecations
+  - IA/releases_features
+  scoring_note: 'Impact 3 : une montée de dépendance change implicitement la version
+    d’API et comporte des ruptures indépendantes de cette version. Urgence 2 : aucune
+    date de retrait de l’ancienne version publiée. Pertinence 3 : IA appliquée déclarée,
+    usage non inventorié. Confiance 5 : notes de version officielles.'
+  fact: Le 21/10/2026, Anthropic a publié la version d’API 2026-10-21 et de nouvelles
+    versions majeures des SDK et du CLI ant qui l’envoient par défaut ; ces versions
+    comportent aussi des changements incompatibles indépendants de la version d’API
+    et passent de la licence MIT à Apache 2.0.
+  analysis: 'Les mises à jour automatiques de dépendances (Dependabot, Renovate) peuvent
+    basculer silencieusement la version d’API : épingler la version majeure des SDK
+    jusqu’à la migration testée. Le changement de licence est à enregistrer dans l’inventaire
+    de conformité.'
+  unknowns: Dépôts dépendant des SDK Claude, politique de mise à jour automatique,
+    calendrier de fin de l’ancienne version.
+  maturity: Version GA avec guide de migration.
+  decision: monitor
+  owner: architecture IA
+  due_date: '2026-12-07'
+  success_criterion: Dépendances aux SDK Claude épinglées ou migrées avec tests de
+    non-régression.
+  evidence:
+  - source_id: anthropic-release-notes
+    url: https://platform.claude.com/docs/en/release-notes/overview
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-21'
+    effective_at: '2026-10-21'
+    fact: 'Notes du 21/10 : API 2026-10-21, versions des SDK, ruptures et licence
+      Apache 2.0.'
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-007
+  identity_key: gcp:gke:managed-opentelemetry-ga
+  name: Managed OpenTelemetry for GKE
+  canonical_url: https://docs.cloud.google.com/release-notes#October_29_2026
+  nature: service
+  novelty: Nouveau hors OSS
+  origin: GCP
+  subject: Collecteur OpenTelemetry géré par Google pour traces, métriques et journaux
+    OTLP sur GKE, en GA
+  product_version: GKE ≥ 1.37.1-gke.1697000 ; gcloud ≥ 576.0.0 ; terraform-provider-google
+    ≥ 8.8.0
+  environment: exposition inconnue (versions GKE non inventoriées)
+  impact_architectural: 4
+  urgence: 1
+  pertinence_stack: 5
+  confiance: 4
+  recency: 30d
+  coverage_lanes:
+  - GCP/releases_features
+  scoring_note: 'Impact 4 : remplace un collecteur auto-géré par un composant géré
+    et change le chemin des journaux. Urgence 1 : aucune échéance. Pertinence 5 :
+    OpenTelemetry, Kubernetes et Terraform sont des priorités déclarées. Confiance
+    4 : note de version GA primaire.'
+  fact: 'Note GCP du 29/10/2026 : Managed OpenTelemetry for GKE est GA à partir de
+    GKE 1.37.1-gke.1697000. Le collecteur géré reçoit OTLP en gRPC (4317) et HTTP
+    (4318), achemine journaux, traces et métriques via telemetry.googleapis.com et
+    se configure aussi par managed_opentelemetry_config dans terraform-provider-google
+    8.8.0.'
+  analysis: 'Option de retrait d’un DaemonSet ou Deployment de collecteur à maintenir
+    ; en contrepartie, la destination est Google Cloud Observability et non ELK :
+    un double export reste nécessaire pour une stack Elastic. Le nom de journal par
+    défaut devient otlp.'
+  unknowns: Clusters GKE en 1.37, destination ELK requise, coûts d’ingestion Cloud
+    Telemetry.
+  maturity: GA, configurable par gcloud et Terraform.
+  decision: monitor
+  owner: observabilité
+  due_date: '2026-12-07'
+  success_criterion: Décision documentée entre collecteur géré et collecteur auto-géré
+    pour les clusters GKE 1.37.
+  evidence:
+  - source_id: gcp-release-notes
+    url: https://docs.cloud.google.com/release-notes#October_29_2026
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-29'
+    effective_at: '2026-10-29'
+    fact: 'Note GA : version minimale, ports OTLP, Cloud Telemetry API, Terraform
+      8.8.0.'
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-008
+  identity_key: aws:eks:auto-mode-gateway-api
+  name: EKS Auto Mode — Gateway API
+  canonical_url: https://aws.amazon.com/about-aws/whats-new/2026/10/amazon-eks-auto-mode-kubernetes-gateway-api/
+  nature: service
+  novelty: Nouveau hors OSS
+  origin: AWS
+  subject: Prise en charge native de Gateway et HTTPRoute par EKS Auto Mode sans contrôleur
+    à installer
+  product_version: EKS Auto Mode, toutes régions où il est disponible
+  environment: exposition inconnue (usage d’EKS Auto Mode non confirmé)
+  impact_architectural: 4
+  urgence: 1
+  pertinence_stack: 4
+  confiance: 4
+  recency: 30d
+  coverage_lanes:
+  - AWS/releases_features
+  scoring_note: 'Impact 4 : le modèle d’exposition passe d’Ingress à Gateway API sans
+    contrôleur auto-géré. Urgence 1 : pas d’échéance, Ingress continue de fonctionner.
+    Pertinence 4 : Kubernetes et Gateway API sur AWS. Confiance 4 : annonce AWS primaire.'
+  fact: 'Annonce AWS du 28/10/2026 : EKS Auto Mode prend en charge Kubernetes Gateway
+    API (Gateway, HTTPRoute) et provisionne les load balancers AWS ; routage HTTP
+    et gRPC, routes inter-namespaces, répartition pondérée, routage par en-tête et
+    découverte TLS via ACM. Les ressources Ingress existantes continuent de fonctionner.'
+  analysis: Supprime l’AWS Load Balancer Controller auto-géré pour les clusters Auto
+    Mode et permet un modèle multi-équipes par délégation de routes ; la portabilité
+    reste limitée aux fonctions standard de Gateway API.
+  unknowns: Clusters en Auto Mode, conformité exacte aux profils Gateway API, coût
+    des load balancers créés.
+  maturity: Inclus dans EKS Auto Mode, GA.
+  decision: monitor
+  owner: plateforme Kubernetes
+  due_date: '2026-12-07'
+  success_criterion: Position documentée sur Gateway API pour les nouveaux clusters
+    EKS Auto Mode.
+  evidence:
+  - source_id: aws-whats-new
+    url: https://aws.amazon.com/about-aws/whats-new/2026/10/amazon-eks-auto-mode-kubernetes-gateway-api/
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-28'
+    effective_at: inconnue
+    fact: 'Annonce : fonctions de routage, ACM, cohabitation Ingress, régions.'
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: false
+  new_project: false
+  license: 
+  signal_level: normal
+  id: candidate-009
+  identity_key: anthropic:claude-models-on-google-cloud-anthropic-managed
+  name: Claude Models on Google Cloud (Anthropic managed)
+  canonical_url: https://platform.claude.com/docs/en/release-notes/overview
+  nature: service
+  novelty: Nouveau hors OSS
+  origin: Anthropic
+  subject: API Claude opérée par Anthropic, accessible depuis un projet Google Cloud
+    avec IAM et facturation Marketplace
+  product_version: Lancement du 22/10/2026
+  environment: exposition inconnue (usage de Claude non inventorié)
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 3
+  confiance: 4
+  recency: 30d
+  coverage_lanes:
+  - IA/availability_quotas_costs
+  scoring_note: 'Impact 3 : nouveau canal d’accès qui change l’identité (IAM Google
+    Cloud) et la facturation sans modifier l’API. Urgence 1 : aucune échéance. Pertinence
+    3 : GCP et IA déclarés, usage non inventorié. Confiance 4 : note de version primaire,
+    détails de résidence non lus.'
+  fact: 'Le 22/10/2026, Anthropic a lancé Claude Models on Google Cloud (Anthropic
+    managed) : l’API Claude, opérée par Anthropic, est atteinte depuis un projet Google
+    Cloud ; l’accès est contrôlé par Google Cloud IAM et la facturation passe par
+    Google Cloud Marketplace. Le mode fast d’Opus 5.5 y est disponible.'
+  analysis: 'Troisième chemin à côté de l’API directe et de Vertex AI : il change
+    le modèle d’identité (fédération IAM au lieu de clés API) et l’imputation des
+    coûts, mais l’opérateur et le périmètre de traitement des données diffèrent de
+    Vertex AI.'
+  unknowns: Régions et résidence des données, parité fonctionnelle avec l’API directe,
+    contrats applicables.
+  maturity: Lancement annoncé ; détails contractuels à lire.
+  decision: monitor
+  owner: architecture IA
+  due_date: '2026-12-07'
+  success_criterion: Comparatif identité, résidence et coût entre API directe, Vertex
+    AI et ce canal.
+  evidence:
+  - source_id: anthropic-release-notes
+    url: https://platform.claude.com/docs/en/release-notes/overview
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: '2026-10-22'
+    effective_at: '2026-10-22'
+    fact: 'Notes du 22/10 : canal Anthropic managed, IAM, Marketplace.'
+  mandatory: false
+  selection_status: rejected
+  selection_reason: hors capacité après classement déterministe
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: true
+  new_project: true
+  license: Apache-2.0
+  signal_level: normal
+  id: candidate-010
+  identity_key: oss:google:skills
+  name: google/skills
+  canonical_url: https://github.com/google/skills
+  nature: bibliothèque
+  novelty: Nouveau projet OSS
+  origin: Google
+  subject: Catalogue officiel d’Agent Skills et de plugins pour GKE, Cloud Run, BigQuery,
+    IAM, Cloud Armor et l’observabilité Google Cloud
+  product_version: main (551 commits, sans release taguée)
+  environment: poste développeur et agents de code ; aucun déploiement local
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 4
+  confiance: 3
+  recency: discovery
+  coverage_lanes:
+  - GCP/releases_features
+  scoring_note: 'Impact 3 : standardise la connaissance opératoire injectée aux agents
+    de code (skills et serveurs MCP) pour GCP. Urgence 1 : découverte. Pertinence
+    4 : GCP, GKE et IA appliquée déclarés. Confiance 3 : dépôt de l’organisation google
+    lu, sans release ni engagement de support explicite.'
+  fact: Le dépôt google/skills (Apache-2.0, 551 commits, environ 23 000 étoiles le
+    07/11/2026) publie environ 190 Agent Skills pour les produits Google, dont GKE,
+    Cloud Run, BigQuery, IAM, Cloud Armor, Cloud Logging/Monitoring et le Well-Architected
+    Framework ; installation par npx skills add ou par plugins Claude Code, Codex
+    et Antigravity CLI.
+  analysis: Fournit une base de skills fournisseur à évaluer face aux skills internes
+    ; l’installation par npx et l’ajout de serveurs MCP doivent passer par une revue
+    de supply chain et une allowlist.
+  unknowns: Politique de version, support Google, permissions demandées par les plugins
+    MCP.
+  maturity: Dépôt actif sans release ; support non formalisé.
+  decision: monitor
+  owner: architecture IA
+  due_date: '2026-12-07'
+  success_criterion: Liste des skills GKE/Cloud Run pertinents et de leurs dépendances
+    MCP.
+  evidence:
+  - source_id: github-trending
+    url: https://github.com/google/skills
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: inconnue
+    effective_at: inconnue
+    fact: 'Dépôt lu : licence, périmètre des skills, modes d’installation, absence
+      de release.'
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 5
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: true
+  new_project: true
+  license: MIT
+  signal_level: normal
+  id: candidate-011
+  identity_key: oss:cloudflare:security-audit-skill
+  name: cloudflare/security-audit-skill
+  canonical_url: https://github.com/cloudflare/security-audit-skill
+  nature: outil
+  novelty: Nouveau projet OSS
+  origin: Cloudflare
+  subject: Skill d’audit de sécurité multi-phase pour agents de code, avec vérification
+    adversariale et sorties JSON validées par schéma
+  product_version: main (14 commits, sans release)
+  environment: poste développeur ou CI isolée ; aucun déploiement local
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 3
+  confiance: 3
+  recency: discovery
+  coverage_lanes: []
+  scoring_note: 'Impact 3 : pattern d’audit par agents (chasseurs isolés, vérificateur
+    distinct, sorties schématisées) intégrable en CI. Urgence 1 : découverte. Pertinence
+    3 : DevSecOps et IA appliquée adjacents. Confiance 3 : dépôt primaire lu ; efficacité
+    seulement auto-déclarée.'
+  fact: 'Le dépôt cloudflare/security-audit-skill (MIT, 14 commits, environ 64 500
+    étoiles le 07/11/2026) décrit un audit en six phases : reconnaissance, chasse
+    guidée par un registre de couverture, validation par un vérificateur distinct,
+    findings.json validé par schéma, revérification indépendante et rapport. Il exige
+    un bac à sable imposé par l’OS pour exécuter du code cible.'
+  analysis: Le pattern « l’agent qui vérifie n’est jamais celui qui trouve » et la
+    sortie JSON validée sont transposables à une étape CI ; les résultats restent
+    non déterministes (une exécution trouve environ la moitié des vulnérabilités selon
+    les auteurs).
+  unknowns: Coût en tokens par audit, taux de faux positifs mesurés indépendamment,
+    compatibilité avec les agents utilisés.
+  maturity: Projet jeune sans release ; bac à sable requis.
+  decision: monitor
+  owner: sécurité applicative
+  due_date: '2026-12-07'
+  success_criterion: Avis documenté sur l’intégration possible en CI et sur ses prérequis
+    d’isolation.
+  evidence:
+  - source_id: github-trending
+    url: https://github.com/cloudflare/security-audit-skill
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: inconnue
+    effective_at: inconnue
+    fact: 'Dépôt lu : licence MIT, six phases, prérequis de bac à sable, absence de
+      release.'
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 6
+- substantive_change: true
+  architectural_effect: true
+  primary_evidence: true
+  open_source: true
+  new_project: true
+  license: Apache-2.0
+  signal_level: signal faible
+  id: candidate-012
+  identity_key: oss:solongate:agent-security
+  name: solongate/agent-security
+  canonical_url: https://github.com/solongate/agent-security
+  nature: outil
+  novelty: Nouveau projet OSS
+  origin: SolonGate
+  subject: 'Garde locale pour agents de code : politiques d’appels d’outils, détection
+    de secrets, limites de débit et journal d’audit'
+  product_version: main (491 commits, sans release)
+  environment: postes développeurs ; aucun déploiement local
+  impact_architectural: 3
+  urgence: 1
+  pertinence_stack: 3
+  confiance: 2
+  recency: discovery
+  coverage_lanes: []
+  scoring_note: 'Impact 3 : contrôle préventif des actions d’agents de code (hooks,
+    DLP, audit local). Urgence 1 : découverte. Pertinence 3 : gouvernance de l’IA
+    appliquée adjacente. Confiance 2 : dépôt lu, traction faible (356 étoiles) et
+    badges de conformité auto-déclarés non vérifiés.'
+  fact: Le dépôt solongate/agent-security (Apache-2.0, 356 étoiles le 07/11/2026,
+    sans release) fournit une CLI Go qui charge des hooks pour Claude Code, Codex
+    CLI, Antigravity CLI et OpenCode, applique des règles allow/deny par chemin, commande,
+    fichier ou URL, détecte plus de 70 motifs de secrets (détection, masquage ou blocage)
+    et tient un journal d’audit local.
+  analysis: Illustre une couche de politique côté poste pour les agents ; les hooks
+    ne protègent pas une session déjà ouverte et l’efficacité n’est pas établie indépendamment.
+  unknowns: Mainteneurs, couverture réelle des contournements, compatibilité avec
+    les politiques gérées des éditeurs.
+  maturity: Projet jeune sans release.
+  decision: monitor
+  owner: sécurité applicative
+  due_date: '2026-12-07'
+  success_criterion: Comparaison avec les politiques gérées natives des agents utilisés.
+  evidence:
+  - source_id: trendshift
+    url: https://github.com/solongate/agent-security
+    primary: true
+    observed_at: '2026-11-07'
+    published_at: inconnue
+    effective_at: inconnue
+    fact: 'Dépôt lu : licence, agents pris en charge, modèle de politique, limites
+      des hooks.'
+  mandatory: false
+  selection_status: selected
+  selection_reason: rang déterministe
+  rank: 7
+- id: candidate-013
+  identity_key: aws:firecracker:cve-2026-122192
+  name: Firecracker — CVE-2026-122192
+  canonical_url: https://aws.amazon.com/security/security-bulletins/rss/2026-169-aws/
+  novelty: Nouveau hors OSS
+  subject: Accès invité à la mémoire du processus Firecracker après restauration de
+    snapshot
+  substantive_change: true
+  architectural_effect: false
+  primary_evidence: true
+  rejection_note: Limité aux VM restaurées depuis un snapshot avec backend File et
+    balloon/virtio-mem ; aucun usage auto-hébergé de Firecracker déclaré dans la stack.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: impact architectural non démontré
+- id: candidate-014
+  identity_key: aws:fluent-bit:3-0-0
+  name: AWS for Fluent Bit 3.0.0
+  canonical_url: https://aws.amazon.com/about-aws/whats-new/2025/10/aws-fluent-bit-3-0-0-based-4-1-1
+  novelty: Nouveau hors OSS
+  subject: Image AWS for Fluent Bit 3.0.0 basée sur Fluent Bit 4.1.1
+  substantive_change: false
+  architectural_effect: true
+  primary_evidence: true
+  rejection_note: 'Annonce d’octobre 2025 seulement mise à jour le 02/11/2026 (précision
+    sur OpenTelemetry) : pas de changement nouveau.'
+  mandatory: false
+  selection_status: rejected
+  selection_reason: changement non substantiel
+- id: candidate-015
+  identity_key: aws:mcp-servers:oauth-sandbox-cves-2026-10
+  name: Serveurs MCP AWS — CVE-2026-115413 et CVE-2026-115845
+  canonical_url: https://aws.amazon.com/security/security-bulletins/rss/2026-152-aws/
+  novelty: Nouveau hors OSS
+  subject: Contournement de validation d’audience OAuth et sandbox run_script incomplète
+    dans des serveurs MCP AWS
+  substantive_change: true
+  architectural_effect: false
+  primary_evidence: true
+  rejection_note: Correctifs de composants isolés sans changement de contrat ; relevant
+    de la maintenance CVE, pas d’une rupture d’architecture.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: impact architectural non démontré
+- id: candidate-016
+  identity_key: gcp:scc:dspm-shutdown-2027-02-01
+  name: Security Command Center — arrêt de DSPM
+  canonical_url: https://docs.cloud.google.com/release-notes#November_05_2026
+  novelty: Nouveau hors OSS
+  subject: DSPM fermé aux nouvelles organisations, arrêt le 01/02/2027
+  substantive_change: true
+  architectural_effect: false
+  primary_evidence: true
+  rejection_note: Fonction non déclarée dans la stack ; effet architectural non établi.
+  mandatory: false
+  selection_status: rejected
+  selection_reason: impact architectural non démontré
+- id: candidate-017
+  identity_key: gcp:agent-registry:skill-security-scanning
+  name: Agent Registry — analyse de sécurité des skills
+  canonical_url: https://docs.cloud.google.com/release-notes#November_06_2026
+  novelty: Nouveau hors OSS
+  subject: Analyse de sécurité et gouvernance des skills dans Agent Registry
+  substantive_change: true
+  architectural_effect: false
+  primary_evidence: true
+  rejection_note: 'Statut mixte (CMEK en Preview) et prérequis Gemini Enterprise Agent
+    Platform non déclaré : effet architectural non établi pour la stack.'
+  mandatory: false
+  selection_status: rejected
+  selection_reason: impact architectural non démontré
+selection:
+  selected_ids:
+  - candidate-001
+  - candidate-003
+  - candidate-002
+  - candidate-004
+  - candidate-010
+  - candidate-011
+  - candidate-012
+  eligible_count: 12
+  selected_count: 7
+  mandatory_count: 1
+  oss_required: 3
+  oss_selected: 3
+  oss_exception: 
+  minimum_exception: 
