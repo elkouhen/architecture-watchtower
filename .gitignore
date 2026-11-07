@@ -1,3 +1,4 @@
 /.mkdocs/
 /public/
 /.venv-docs/
+/.cache/

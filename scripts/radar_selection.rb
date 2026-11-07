@@ -12,6 +12,7 @@ module WatchtowerRadarSelection
   NOVELTIES = ["Nouveau projet OSS", "Nouveau hors OSS", "Mise à jour"].freeze
   RECENCY = { "48h" => 0, "7d" => 1, "30d" => 2, "discovery" => 3 }.freeze
   SIGNAL_LEVELS = ["normal", "signal faible"].freeze
+  FILTER_FIELDS = %w[substantive_change architectural_effect primary_evidence].freeze
 
   module_function
 
@@ -235,12 +236,27 @@ module WatchtowerRadarSelection
       errors << "#{label} doit être un objet"
       return
     end
+    FILTER_FIELDS.each do |field|
+      errors << "#{label}.#{field} doit être booléen" unless [true, false].include?(candidate[field])
+    end
+    errors << "#{label}.canonical_url invalide" unless http_url?(candidate["canonical_url"])
+    errors << "#{label}.novelty invalide" unless NOVELTIES.include?(candidate["novelty"])
+    if light?(candidate)
+      # Fiche allégée : un élément rejeté par l’un des trois filtres n’exige ni notes ni preuve.
+      %w[id identity_key name canonical_url novelty subject].each do |field|
+        errors << "#{label}.#{field} absent" if candidate[field].to_s.strip.empty?
+      end
+      if candidate["rejection_note"].to_s.strip.empty? && candidate["scoring_note"].to_s.strip.empty?
+        errors << "#{label}.rejection_note absent"
+      end
+      lanes = candidate["coverage_lanes"]
+      errors << "#{label}.coverage_lanes invalide" unless lanes.nil? || valid_lanes?(lanes)
+      return
+    end
     %w[id identity_key name canonical_url nature novelty subject product_version environment recency signal_level scoring_note fact analysis unknowns maturity decision owner due_date success_criterion].each do |field|
       errors << "#{label}.#{field} absent" if candidate[field].to_s.strip.empty?
     end
-    errors << "#{label}.canonical_url invalide" unless http_url?(candidate["canonical_url"])
     errors << "#{label}.nature invalide" unless NATURES.include?(candidate["nature"])
-    errors << "#{label}.novelty invalide" unless NOVELTIES.include?(candidate["novelty"])
     if candidate["novelty"] == "Nouveau hors OSS" && candidate["origin"].to_s.strip.empty?
       errors << "#{label}.origin requis pour une nouveauté hors OSS"
     end
@@ -248,12 +264,8 @@ module WatchtowerRadarSelection
     errors << "#{label}.signal_level invalide" unless SIGNAL_LEVELS.include?(candidate["signal_level"])
     errors << "#{label}.decision invalide" unless %w[monitor qualify test adopt avoid].include?(candidate["decision"])
     parse_date(candidate["due_date"], "#{label}.due_date", errors)
-    lanes = candidate["coverage_lanes"]
-    valid_lanes = DOMAINS.product(LANES).map { |domain, lane| "#{domain}/#{lane}" }
-    unless lanes.is_a?(Array) && lanes.uniq.length == lanes.length && (lanes - valid_lanes).empty?
-      errors << "#{label}.coverage_lanes invalide"
-    end
-    %w[substantive_change architectural_effect primary_evidence open_source new_project].each do |field|
+    errors << "#{label}.coverage_lanes invalide" unless valid_lanes?(candidate["coverage_lanes"])
+    %w[open_source new_project].each do |field|
       errors << "#{label}.#{field} doit être booléen" unless [true, false].include?(candidate[field])
     end
     %w[impact_architectural urgence confiance].each do |field|
@@ -292,6 +304,15 @@ module WatchtowerRadarSelection
     if entry["complete"] == false || entry["result"] == "échec"
       errors << "#{label}.note doit expliquer la couverture incomplète" if entry["note"].to_s.strip.empty?
     end
+  end
+
+  def light?(candidate)
+    FILTER_FIELDS.any? { |field| candidate[field] == false }
+  end
+
+  def valid_lanes?(lanes)
+    valid = DOMAINS.product(LANES).map { |domain, lane| "#{domain}/#{lane}" }
+    lanes.is_a?(Array) && lanes.uniq.length == lanes.length && (lanes - valid).empty?
   end
 
   def duplicate_values(records, field)

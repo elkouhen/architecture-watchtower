@@ -52,7 +52,7 @@ signals:
   - 4
   - 5
   - high
-  - open
+  - deferred
   - qualify
   - réseau/plateforme
   - '2026-09-18'
@@ -63,9 +63,11 @@ signals:
   -
   - - date: '2026-09-11'
       change: 'Échéance revue : les passerelles de routage créées depuis le 03/09 peuvent recevoir un hostname gateway.dev ; exposition locale toujours inconnue.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  - '2026-09-11'
-  - Maintenir ouvert jusqu’à l’inventaire des passerelles créées depuis le 03/09 et la vérification de l’usage de defaultHostname ; réexamen le 18/09.
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-04-002
   - legacy:SIG-2026-09-04-002
   - https://aws.amazon.com/about-aws/whats-new/2026/09/aws-config-new-resource-types/
@@ -79,7 +81,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - sécurité/Cloud
   - '2026-09-18'
@@ -88,10 +90,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-04-003
   - legacy:SIG-2026-09-04-003
   - https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-bedrock-web-aws-govcloud/
@@ -105,7 +108,7 @@ signals:
   - 3
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - IA/sécurité
   - '2026-09-18'
@@ -114,10 +117,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-04-004
   - legacy:SIG-2026-09-04-004
   - https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-s3-privatelink-fips-endpoints/
@@ -131,7 +135,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - sécurité/Cloud
   - '2026-09-18'
@@ -140,10 +144,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-04-005
   - legacy:SIG-2026-09-04-005
   - https://github.com/aws/CICD-for-SageMakerUnifiedStudio
@@ -157,7 +162,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - test
   - plateforme IA/IaC
   - '2026-09-25'
@@ -166,10 +171,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-25 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-25 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-03-001
   - legacy:SIG-2026-09-03-001
   - https://cloud.google.com/run/docs/release-notes
@@ -183,7 +189,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - IA/plateforme
   - '2026-09-17'
@@ -192,10 +198,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-17 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-17 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-03-002
   - legacy:SIG-2026-09-03-002
   - https://cloud.google.com/kubernetes-engine/security-bulletins
@@ -236,7 +243,7 @@ signals:
   - 3
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - IA/plateforme
   - '2026-09-24'
@@ -245,10 +252,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-24 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-24 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-03-004
   - legacy:SIG-2026-09-03-004
   - https://github.com/deepseek-ai/deepseek-harness
@@ -262,7 +270,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - deferred
   - test
   - IA/plateforme
   - '2026-09-24'
@@ -271,10 +279,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-24 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-24 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-03-005
   - legacy:SIG-2026-09-03-005
   - https://github.com/diegosouzapw/OmniRoute
@@ -288,7 +297,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - deferred
   - qualify
   - IA/plateforme
   - '2026-09-24'
@@ -297,10 +306,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-24 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-24 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-03-006
   - legacy:SIG-2026-09-03-006
   - https://github.com/arcboxlabs/arcbox
@@ -314,7 +324,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - deferred
   - test
   - plateforme/sécurité
   - '2026-09-24'
@@ -323,10 +333,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-24 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-24 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-03-007
   - legacy:SIG-2026-09-03-007
   - https://github.com/ulab-uiuc/LLMRouter
@@ -340,7 +351,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - IA/plateforme
   - '2026-10-01'
@@ -349,10 +360,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-10-01 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-10-01 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-02-001
   - legacy:SIG-2026-09-02-001
   - https://blog.cloudflare.com/cloudflare-computer/
@@ -366,7 +378,7 @@ signals:
   -
   -
   - high
-  - new
+  - deferred
   - test
   - IA/plateforme
   - '2026-09-19'
@@ -375,10 +387,11 @@ signals:
   - local_commit
   -
   - 8
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-02-002
   - legacy:SIG-2026-09-02-002
   - https://blog.cloudflare.com/agents-on-cloudflare/
@@ -392,7 +405,7 @@ signals:
   -
   -
   - high
-  - new
+  - deferred
   - qualify
   - IA/observabilité
   - '2026-09-17'
@@ -401,10 +414,11 @@ signals:
   - local_commit
   -
   - 7
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-17 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-17 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-02-003
   - legacy:SIG-2026-09-02-003
   - https://litmuschaos.io/
@@ -418,7 +432,7 @@ signals:
   -
   -
   - medium
-  - new
+  - deferred
   - test
   - SRE/plateforme
   - '2026-09-22'
@@ -427,10 +441,11 @@ signals:
   - local_commit
   -
   - 7
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-22 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-22 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-08-29-001
   - legacy:SIG-2026-08-29-001
   - https://modelcontextprotocol.io/specification/2026-07-28
@@ -471,7 +486,7 @@ signals:
   -
   -
   - high
-  - new
+  - deferred
   - test
   - plateforme Kubernetes
   - '2026-09-16'
@@ -488,9 +503,11 @@ signals:
       change: 'Mise à jour substantielle : Storage Version Migration GA et RangeStream beta.'
     - date: '2026-09-06'
       change: 'Mise à jour substantielle : KubeletInUserNamespace passe beta dans Kubernetes 1.37.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-16 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-16 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-06-001
   - legacy:SIG-2026-09-06-001
   - https://cloud.google.com/support/bulletins
@@ -504,7 +521,7 @@ signals:
   - 3
   - 5
   -
-  - new
+  - deferred
   - qualify
   - plateforme HPC/sécurité
   - '2026-09-20'
@@ -513,10 +530,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-20 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - Bulletin primaire précis ; exposition Cluster Director/Slurm inconnue.
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-20 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-06-002
   - legacy:SIG-2026-09-06-002
   - https://github.com/gnawux/xolis
@@ -530,7 +548,7 @@ signals:
   - 4
   - 3
   -
-  - new
+  - closed
   - monitor
   - plateforme Kubernetes/IA
   - '2026-09-27'
@@ -539,10 +557,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-27 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Dépôt et démonstration Kata primaire ; auteur documente explicitement les lacunes HA, réseau et production.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-27 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-06-003
   - legacy:SIG-2026-09-06-003
   - https://developer.hashicorp.com/vault/docs/updates/release-notes
@@ -556,7 +575,7 @@ signals:
   - 5
   - 5
   -
-  - new
+  - deferred
   - qualify
   - sécurité/plateforme
   - '2026-09-20'
@@ -565,10 +584,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-20 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - Release notes HashiCorp précises ; édition Vault et exposition agents inconnues.
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-20 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-06-004
   - legacy:SIG-2026-09-06-004
   - https://katacontainers.io/blog/kata-sandbox-demo-on-kubecon-jp-2026/
@@ -582,7 +602,7 @@ signals:
   - 4
   - 4
   -
-  - new
+  - closed
   - monitor
   - plateforme Kubernetes/IA
   - '2026-09-27'
@@ -591,10 +611,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-27 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Source primaire Kata et composant OSS ; compatibilité de distribution à qualifier.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-27 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-08-27-002
   - legacy:SIG-2026-08-27-002
   - https://status.elastic.co/
@@ -689,7 +710,7 @@ signals:
   -
   -
   - high
-  - new
+  - closed
   - monitor
   - IA/observabilité
   - '2026-09-30'
@@ -698,10 +719,11 @@ signals:
   - local_commit
   -
   - 7
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-08-28-003
   - legacy:SIG-2026-08-28-003
   - https://kubernetes.io/blog/2026/03/09/announcing-ai-gateway-wg/
@@ -715,7 +737,7 @@ signals:
   -
   -
   - high
-  - new
+  - closed
   - monitor
   - plateforme Kubernetes
   - '2026-09-30'
@@ -725,10 +747,11 @@ signals:
   - local_commit
   -
   - 7
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-08-28-004
   - legacy:SIG-2026-08-28-004
   - https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.27
@@ -1216,7 +1239,7 @@ signals:
   -
   -
   - high
-  - open
+  - deferred
   - qualify
   - sécurité/plateforme
   - '2026-09-19'
@@ -1227,9 +1250,11 @@ signals:
   - 9
   - - date: '2026-09-12'
       change: 'Échéance revue : Le correctif Vault reste prioritaire ; versions déployées, politiques templated et exposition locale inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  - '2026-09-12'
-  - Le correctif Vault reste prioritaire ; versions déployées, politiques templated et exposition locale inconnues. Maintenir ouvert jusqu’à inventaire ou confirmation de non-exposition.
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-08-29-009
   - legacy:SIG-2026-08-29-009
   - https://developer.hashicorp.com/nomad/docs/release-notes/v1-10-x
@@ -1323,7 +1348,7 @@ signals:
   -
   -
   - high
-  - new
+  - closed
   - monitor
   - observabilité
   - '2026-09-30'
@@ -1332,10 +1357,11 @@ signals:
   - local_commit
   -
   - 7
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-08-29-013
   - legacy:SIG-2026-08-29-013
   - https://opentelemetry.io/blog/2026/cardinality-limits-in-opentelemetry/
@@ -1403,7 +1429,7 @@ signals:
   -
   -
   - high
-  - new
+  - closed
   - monitor
   - Cloud/observabilité
   - '2026-09-30'
@@ -1412,10 +1438,11 @@ signals:
   - local_commit
   -
   - 6
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-30 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-08-30-001
   - legacy:SIG-2026-08-30-001
   - https://www.kubeflow.org/
@@ -1456,7 +1483,7 @@ signals:
   -
   -
   - high
-  - new
+  - deferred
   - test
   - plateforme réseau
   - '2026-09-19'
@@ -1465,10 +1492,11 @@ signals:
   - local_commit
   -
   - 8
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-08-30-003
   - legacy:SIG-2026-08-30-003
   - https://buildpacks.io/
@@ -1482,7 +1510,7 @@ signals:
   -
   -
   - high
-  - new
+  - closed
   - monitor
   - plateforme CI
   - '2026-09-19'
@@ -1491,10 +1519,11 @@ signals:
   - local_commit
   -
   - 7
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-19 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-19 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-08-30-004
   - legacy:SIG-2026-08-30-004
   - https://www.elastic.co/docs/release-notes/cloud-serverless/deprecations
@@ -1508,7 +1537,7 @@ signals:
   -
   -
   - high
-  - open
+  - deferred
   - qualify
   - observabilité
   - '2026-09-20'
@@ -1517,10 +1546,11 @@ signals:
   - local_commit
   -
   - 8
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-20 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  - '2026-09-06'
-  - Inventaire Elastic Cloud Serverless et APIs internes toujours inconnu ; maintenir ouvert avec une nouvelle échéance, sans conclure à l’exposition.
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-20 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-08-30-005
   - legacy:SIG-2026-08-30-005
   - https://github.com/open-telemetry/opentelemetry-collector-releases
@@ -1534,7 +1564,7 @@ signals:
   -
   -
   - high
-  - new
+  - closed
   - monitor
   - observabilité
   - '2026-09-16'
@@ -1548,9 +1578,11 @@ signals:
       change: Version 0.159 et cadence bimensuelle observées.
     - date: '2026-09-02'
       change: Mise à jour vers 0.160.0.
+    - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-16 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-16 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-02-006
   - legacy:SIG-2026-09-02-006
   - https://github.com/hashicorp/terraform/releases/tag/v1.16.0
@@ -1564,7 +1596,7 @@ signals:
   -
   -
   - high
-  - new
+  - deferred
   - test
   - IaC
   - '2026-09-18'
@@ -1573,10 +1605,11 @@ signals:
   - local_commit
   -
   - 8
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-18 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-18 : décision « test » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-02-004
   - legacy:SIG-2026-09-02-004
   - https://www.elastic.co/docs/release-notes/elastic-agent/known-issues
@@ -1590,7 +1623,7 @@ signals:
   -
   -
   - high
-  - open
+  - deferred
   - qualify
   - observabilité
   - '2026-09-19'
@@ -1601,9 +1634,11 @@ signals:
   - 9
   - - date: '2026-09-12'
       change: 'Échéance revue : Le risque de pertes silencieuses Elastic Agent reste ouvert ; version réellement déployée et usage du runtime OTel inconnus. Maintenir ouvert jusqu’à inventaire.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  - '2026-09-12'
-  - Le risque de pertes silencieuses Elastic Agent reste ouvert ; version réellement déployée et usage du runtime OTel inconnus. Maintenir ouvert jusqu’à inventaire.
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-02-005
   - legacy:SIG-2026-09-02-005
   - https://www.elastic.co/docs/release-notes/cloud-serverless
@@ -1644,7 +1679,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - plateforme/observabilité
   - '2026-09-19'
@@ -1653,10 +1688,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-05-002
   - legacy:SIG-2026-09-05-002
   - https://aws.amazon.com/about-aws/whats-new/2026/09/ec2-images-supported-instances/
@@ -1670,7 +1706,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - plateforme/IaC
   - '2026-09-19'
@@ -1679,10 +1715,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-05-003
   - legacy:SIG-2026-09-05-003
   - https://aws.amazon.com/about-aws/whats-new/2026/09/transfer-family-sftp-credential-rotation/
@@ -1696,7 +1733,7 @@ signals:
   - 3
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - sécurité/intégration
   - '2026-09-19'
@@ -1705,10 +1742,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-05-004
   - legacy:SIG-2026-09-05-004
   - https://aws.amazon.com/about-aws/whats-new/2026/09/sagemaker-batch-transform-g6e-instances/
@@ -1722,7 +1760,7 @@ signals:
   - 3
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - IA/plateforme
   - '2026-09-26'
@@ -1731,10 +1769,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-05-005
   - legacy:SIG-2026-09-05-005
   - https://github.com/volcano-sh/kthena
@@ -1748,7 +1787,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - IA/plateforme Kubernetes
   - '2026-09-19'
@@ -1757,10 +1796,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-19 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-19 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-05-006
   - legacy:SIG-2026-09-05-006
   - https://github.com/initializ/forge
@@ -1774,7 +1814,7 @@ signals:
   - 3
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - plateforme/sécurité IA
   - '2026-09-19'
@@ -1783,10 +1823,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-19 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-19 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-05-007
   - legacy:SIG-2026-09-05-007
   - https://docs.cloud.google.com/iam/docs/workload-identity-federation
@@ -1800,7 +1841,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - sécurité/plateforme
   - '2026-09-19'
@@ -1809,10 +1850,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-05-008
   - legacy:SIG-2026-09-05-008
   - https://docs.cloud.google.com/apigee/docs/apihub/release-notes
@@ -1826,7 +1868,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - API management/IA
   - '2026-09-19'
@@ -1835,10 +1877,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-19 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-05-009
   - legacy:SIG-2026-09-05-009
   - https://airflow.apache.org/docs/apache-airflow/stable/release_notes.html
@@ -1852,7 +1895,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - closed
   - monitor
   - data-platform
   - '2026-09-26'
@@ -1861,10 +1904,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-05-010
   - legacy:SIG-2026-09-05-010
   - https://docs.gitlab.com/releases/19/gitlab-19-2-released/
@@ -1878,7 +1922,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - closed
   - monitor
   - CI/CD-platform
   - '2026-09-26'
@@ -1887,10 +1931,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-05-011
   - legacy:SIG-2026-09-05-011
   - https://docs.pingidentity.com/pingone/release_notes/
@@ -1904,7 +1949,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - IAM/sécurité IA
   - '2026-09-26'
@@ -1913,10 +1958,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-05-012
   - legacy:SIG-2026-09-05-012
   - https://helm.sh/blog/
@@ -1930,7 +1976,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - plateforme Kubernetes
   - '2026-09-26'
@@ -1939,10 +1985,11 @@ signals:
   - local_commit
   -
   -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   -
-  -
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-26 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-07-001
   - legacy:SIG-2026-09-07-001
   - https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/registry-faq.html
@@ -1956,7 +2003,7 @@ signals:
   - 4
   - 5
   - high
-  - open
+  - deferred
   - qualify
   - plateforme IA
   - '2026-09-15'
@@ -1967,9 +2014,11 @@ signals:
   -
   - - date: '2026-09-11'
       change: 'Échéance revue : AWS maintient l’arrêt du namespace bedrock-agentcore au 17/09 et exige une migration explicite des données et intégrations.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-15 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Guide primaire détaillé: endpoints, IAM, ARN, SDK, CLI, quotas, événements et schéma changent; exposition locale inconnue.'
-  - '2026-09-11'
-  - 'Maintenir ouvert avec réexamen le 15/09 : inventorier les registres existants et confirmer la migration avant l’arrêt du 17/09.'
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-15 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-07-002
   - legacy:SIG-2026-09-07-002
   - https://docs.cloud.google.com/gemini/enterprise/docs/release-notes
@@ -1983,7 +2032,7 @@ signals:
   - 3
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - plateforme IA
   - '2026-09-21'
@@ -1992,10 +2041,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-21 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - Deux entrées de notes de version GCP du 03/09 et page de métriques précises; régions, coût et intégration locale inconnus.
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-21 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-07-003
   - legacy:SIG-2026-09-07-003
   - https://docs.cloud.google.com/chronicle/docs/soar/respond/working-with-playbooks/case-playbooks
@@ -2035,7 +2085,7 @@ signals:
   - 4
   - 3
   - medium
-  - new
+  - closed
   - monitor
   - Kubernetes/plateforme
   - '2026-09-28'
@@ -2044,10 +2094,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-28 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Dépôt Apache-2.0, CRD, Helm et prérequis vérifiables; statut alpha et performances sans preuve indépendante.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-28 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-07-005
   - legacy:SIG-2026-09-07-005
   - https://github.com/openhands/software-agent-sdk
@@ -2061,7 +2112,7 @@ signals:
   - 4
   - 3
   - medium
-  - new
+  - closed
   - monitor
   - plateforme IA
   - '2026-09-28'
@@ -2070,10 +2121,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-28 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Dépôt MIT, API et frontières de composants vérifiés; version de release, sécurité d’exécution et exploitation indépendante à qualifier.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-28 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-07-006
   - legacy:SIG-2026-09-07-006
   - https://aws.amazon.com/security/security-bulletins/2026-099-aws/
@@ -2087,7 +2139,7 @@ signals:
   - 5
   - 5
   - high
-  - open
+  - deferred
   - qualify
   - plateforme Kubernetes/sécurité
   - '2026-09-18'
@@ -2098,9 +2150,11 @@ signals:
   -
   - - date: '2026-09-11'
       change: 'Échéance revue : versions <=3.4.0 affectées uniquement avec --delete-access-point-root-dir=true ; exposition locale inconnue.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - Bulletin AWS primaire précis; impact conditionné par --delete-access-point-root-dir=true et le droit de créer des PV; exposition inconnue.
-  - '2026-09-11'
-  - Maintenir ouvert jusqu’à l’inventaire de la version du driver, de l’option de suppression et des droits de création de PV ; réexamen le 18/09.
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-07-007
   - legacy:SIG-2026-09-07-007
   - https://aws.amazon.com/security/security-bulletins/2026-101-aws/
@@ -2114,7 +2168,7 @@ signals:
   - 4
   - 5
   - high
-  - open
+  - deferred
   - qualify
   - plateforme IA/sécurité données
   - '2026-09-18'
@@ -2125,9 +2179,11 @@ signals:
   -
   - - date: '2026-09-11'
       change: 'Échéance revue : les paquets <1.1.7 sont affectés et un rôle PostgreSQL minimal reste recommandé après correctif.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - Bulletin AWS primaire précis; droits PostgreSQL minimaux nécessaires même après correctif; paquet et forks locaux inconnus.
-  - '2026-09-11'
-  - Maintenir ouvert jusqu’à l’inventaire des paquets et forks et la vérification des privilèges PostgreSQL ; réexamen le 18/09.
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-18 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-08-001
   - legacy:SIG-2026-09-08-001
   - https://cloud.google.com/kubernetes-engine/docs/release-notes
@@ -2141,7 +2197,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - plateforme Kubernetes
   - '2026-09-16'
@@ -2152,9 +2208,11 @@ signals:
   -
   -
   - - '2026-09-08: R37 ouvre Kubernetes 1.37 au canal Rapid et modifie les cibles d’auto-upgrade.'
+    - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-16 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Notes GKE précises : R38 ajoute et retire des builds, modifie les cibles d’auto-upgrade et reste déployée progressivement par zone ; versions, canaux et fenêtres de maintenance locaux inconnus.'
-  - '2026-09-09'
-  - 'Qualifier les clusters GKE concernés avant le 16/09 ; succès : inventaire des canaux et comparaison des cibles R38.'
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-16 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-08-002
   - legacy:SIG-2026-09-08-002
   - https://docs.cloud.google.com/sql/docs/postgres/upgrade-in-place
@@ -2168,7 +2226,7 @@ signals:
   - 3
   - 4
   - high
-  - new
+  - closed
   - monitor
   - plateforme données
   - '2026-09-22'
@@ -2177,10 +2235,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-22 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Documentation Google Cloud primaire précise; PostgreSQL 12+, downtime, stockage Hyperdisk et journaux PITR documentés, exposition locale inconnue.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-22 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-08-003
   - legacy:SIG-2026-09-08-003
   - https://docs.cloud.google.com/gemini/docs/codeassist/release-notes
@@ -2194,7 +2253,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - plateforme engineering/achats
   - '2026-09-22'
@@ -2203,10 +2262,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-22 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - Notes Gemini Code Assist primaires; impact sur approvisionnement documenté, prix et contrats locaux inconnus.
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-22 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-08-004
   - legacy:SIG-2026-09-08-004
   - https://docs.cloud.google.com/firestore/native/docs/security/get-started
@@ -2220,7 +2280,7 @@ signals:
   - 3
   - 4
   - high
-  - new
+  - closed
   - monitor
   - sécurité applicative
   - '2026-09-29'
@@ -2229,10 +2289,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-29 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Documentation Google Cloud primaire; opérations, jetons, permission IAM et limite face aux tests automatisés documentés, exposition locale inconnue.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-29 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-08-005
   - legacy:SIG-2026-09-08-005
   - https://github.com/bytedance/deer-flow
@@ -2246,7 +2307,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - plateforme IA
   - '2026-09-29'
@@ -2255,10 +2316,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-29 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Dépôt MIT, architecture et Docker Compose vérifiés; popularité distincte de la maturité, isolation et exploitation indépendante à qualifier.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-29 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-08-006
   - legacy:SIG-2026-09-08-006
   - https://github.com/lightpanda-io/browser
@@ -2272,7 +2334,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - plateforme IA/sécurité
   - '2026-09-29'
@@ -2281,10 +2343,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-09-29 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - Dépôt AGPL-3.0, Docker, CDP et WebDriver BiDi vérifiés; nightlies, compatibilité Web, sécurité d’exécution et benchmarks locaux à qualifier.
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-09-29 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-10-004
   - gcp:agent-gateway:service-extensions-authorization
   - https://cloud.google.com/service-extensions/docs/release-notes#August_31_2026
@@ -2298,7 +2361,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - closed
   - monitor
   - architecture IA/sécurité
   - '2026-10-01'
@@ -2307,10 +2370,11 @@ signals:
   - local_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-10-01 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - 'Impact 4 : l’autorisation peut être externalisée au point de passage du trafic agentique ; urgence 2 : GA sans migration imposée ; pertinence 4 : gouvernance des agents et gateways est prioritaire ; confiance 5 : statut GA et périmètre documentés par la source primaire.'
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-10-01 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
 - - SIG-2026-09-11-001
   - gcp:agent-gateway:vpc-sc-post-2026-09-08
   - https://cloud.google.com/release-notes#September_10_2026
@@ -2324,7 +2388,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - réseau/sécurité IA
   - '2026-09-25'
@@ -2333,10 +2397,11 @@ signals:
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-25 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Impact 5 : la protection périmétrique dépend de l''âge et du mode réseau du déploiement ; urgence 3 : les instances existantes peuvent nécessiter une recréation ; pertinence 5 : gateways et sécurité IA prioritaires ; confiance 5 : contraintes officielles explicites.'
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-25 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-11-002
   - anthropic:managed-agents:auto-permission-evaluation
   - https://platform.claude.com/docs/en/release-notes/overview
@@ -2350,7 +2415,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - sécurité/plateforme IA
   - '2026-10-02'
@@ -2359,10 +2424,11 @@ signals:
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Impact 5 : la décision run/deny/approval devient un contrôle serveur pour chaque outil ; urgence 2 : option nouvelle sans migration ; pertinence 5 : gouvernance MCP prioritaire ; confiance 5 : événements et champs d''évaluation documentés officiellement.'
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-11-003
   - gcp:gemini-agent-platform:sandboxes-ga-security-controls
   - https://cloud.google.com/release-notes#September_10_2026
@@ -2376,7 +2442,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - plateforme IA/sécurité
   - '2026-10-02'
@@ -2385,10 +2451,11 @@ signals:
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Impact 5 : exécution de commandes non fiables avec frontières réseau, chiffrement et persistance structurantes ; urgence 2 : GA sans échéance ; pertinence 5 : sandboxing agentique et Cloud sont prioritaires ; confiance 5 : capacités et contraintes officielles précises.'
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-11-004
   - gcp:iam:mcp-server-ga
   - https://cloud.google.com/release-notes#September_10_2026
@@ -2402,7 +2469,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - sécurité/plateforme IA
   - '2026-10-02'
@@ -2411,10 +2478,11 @@ signals:
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Impact 5 : un agent peut agir sur les rôles et politiques de refus, frontière IAM critique ; urgence 2 : GA sans migration imposée ; pertinence 5 : Cloud, MCP et sécurité sont prioritaires ; confiance 5 : statut et capacités documentés officiellement.'
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-11-005
   - openai:agents-api:public-beta-managed-codex-harness
   - https://developers.openai.com/api/docs/changelog
@@ -2428,7 +2496,7 @@ signals:
   - 5
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - architecture/plateforme IA
   - '2026-10-02'
@@ -2437,10 +2505,11 @@ signals:
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Impact 5 : la plateforme peut déplacer orchestration, état, reprise et sandbox vers un service managé ; urgence 2 : public beta sans échéance ; pertinence 5 : agents et exploitation IA prioritaires ; confiance 5 : contrat de capacité officiel, limites de beta explicites.'
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-10-02 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-11-006
   - gcp:cloud-sql-remote-mcp:sqlcommenter-temporarily-disabled
   - https://cloud.google.com/release-notes#September_10_2026
@@ -2454,7 +2523,7 @@ signals:
   - 4
   - 5
   - high
-  - new
+  - deferred
   - qualify
   - plateforme données/observabilité
   - '2026-09-25'
@@ -2463,10 +2532,11 @@ signals:
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Report automatique à l’échéance du 2026-09-25 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
   - 'Impact 3 : la désactivation retire temporairement une métadonnée de traçabilité SQL ; urgence 3 : rupture active sans date de rétablissement ; pertinence 4 : MCP et observabilité IA sont prioritaires ; confiance 5 : note primaire explicite pour MySQL et PostgreSQL.'
-  -
-  -
+  - 2026-11-07
+  - 'Report automatique à l’échéance du 2026-09-25 : décision « qualify » non engagée ; reprise sur demande explicite de l''utilisateur.'
 - - SIG-2026-09-11-007
   - oss:llmfit:hardware-model-fit
   - https://github.com/AlexsJones/llmfit
@@ -2480,7 +2550,7 @@ signals:
   - 4
   - 4
   - medium
-  - new
+  - closed
   - monitor
   - plateforme IA
   - '2026-10-09'
@@ -2489,7 +2559,8 @@ signals:
   - pending_orchestrator_commit
   -
   -
-  -
+  - - date: 2026-11-07
+      change: 'Clôture automatique à l’échéance de réexamen du 2026-10-09 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'
   - 'Impact 3 : outille le placement et dimensionnement d''inférence locale ; urgence 1 : découverte sans échéance ; pertinence 4 : exploitation et coût IA prioritaires ; confiance 4 : dépôt MIT, API, conteneur et méthode documentés, mesures indépendantes non vérifiées.'
-  -
-  -
+  - 2026-11-07
+  - 'Clôture automatique à l’échéance de réexamen du 2026-10-09 : aucune nouvelle observation consignée ; une Mise à jour substantielle rouvrira le signal.'

@@ -7,23 +7,16 @@ require "optparse"
 require "pathname"
 require "yaml"
 
+# Projection locale compacte injectée dans les tours orchestrés du radar. Les
+# fichiers sous state/, dist/ et docs/ restent les sources de vérité.
 module WatchtowerRadarContext
   class Error < StandardError; end
 
-  DUE_SIGNAL_FIELDS = %w[
-    id identity_key canonical_url subject product_version environment first_seen last_seen
-    impact_architectural urgence pertinence_stack confiance status decision owner
-    due_date classification history scoring_note last_reviewed review_note
-  ].freeze
-  RECENT_SIGNAL_FIELDS = %w[
-    id identity_key canonical_url subject product_version environment first_seen last_seen
-    impact_architectural urgence pertinence_stack confiance status decision owner due_date
-    classification history scoring_note last_reviewed review_note
-  ].freeze
-  SOURCE_FIELDS = %w[
-    id name type url fallback last_attempt last_success last_item_seen status notes
-  ].freeze
+  RECENT_SIGNAL_FIELDS = %w[id identity_key canonical_url last_seen status].freeze
+  SOURCE_FIELDS = %w[id url last_success status].freeze
   DISCOVERY_SOURCE_IDS = %w[github-trending trendshift].freeze
+  FEEDBACK_FIELDS = %w[date report item outcome correction].freeze
+  RECENT_FEEDBACK_COUNT = 3
 
   module_function
 
@@ -45,13 +38,6 @@ module WatchtowerRadarContext
     value.respond_to?(:iso8601) ? value.iso8601 : value
   end
 
-  def compact_record(record, fields)
-    fields.each_with_object({}) do |field, result|
-      value = record[field]
-      result[field] = iso(value) unless value.nil? || value == [] || value == ""
-    end
-  end
-
   def compact_table(records, fields)
     {
       "format" => "tabular-v1",
@@ -65,7 +51,29 @@ module WatchtowerRadarContext
     value.empty? ? "legacy:#{record['id']}" : value
   end
 
-  def collection_plan(sources, requirements, date)
+  def cache_dir(date)
+    ".cache/radar/#{date.iso8601}"
+  end
+
+  def feeds(sources_data)
+    value = sources_data["feeds"]
+    value.is_a?(Hash) ? value : {}
+  end
+
+  def requirements(sources_data)
+    sources_data.fetch("coverage_requirements", {})
+  end
+
+  def control_ids(sources_data)
+    requirements(sources_data).values.flat_map { |lanes| lanes.values }.flatten.uniq
+  end
+
+  def selected_sources(sources_data)
+    wanted = control_ids(sources_data) + DISCOVERY_SOURCE_IDS
+    records(sources_data, "sources", "source_fields").select { |source| wanted.include?(source["id"]) }
+  end
+
+  def collection_plan(sources, requirements, date, feeds)
     lanes_by_source = Hash.new { |hash, key| hash[key] = [] }
     requirements.each do |domain, lanes|
       lanes.each do |lane, ids|
@@ -78,7 +86,7 @@ module WatchtowerRadarContext
       roles = []
       roles << "control" if ids.any? { |id| lanes_by_source.key?(id) }
       roles << "discovery" if (ids & DISCOVERY_SOURCE_IDS).any?
-      {
+      entry = {
         "url" => same_url.first["url"],
         "source_ids" => ids,
         "roles" => roles,
@@ -87,6 +95,9 @@ module WatchtowerRadarContext
         "through" => date.iso8601,
         "fallbacks" => same_url.map { |source| source["fallback"] }.compact.uniq
       }
+      feed_urls = ids.map { |id| feeds[id] }.compact.uniq
+      entry["feed_url"] = feed_urls.first unless feed_urls.empty?
+      entry
     end.sort_by { |entry| entry["url"].to_s }
   end
 
@@ -99,7 +110,7 @@ module WatchtowerRadarContext
         match = line.match(/^## \[([^\]]+)\]\((https?:\/\/[^)]+)\)/)
         result << { "date" => report_date.iso8601, "name" => match[1], "canonical_url" => match[2] } if match
       end
-    rescue Date::Error
+    rescue ArgumentError
       next
     end
   end
@@ -114,58 +125,74 @@ module WatchtowerRadarContext
     end.uniq { |entry| entry["canonical_url"] }
   end
 
-  def build(root:, date:)
-    root = Pathname.new(root).expand_path
+  def recent_signals(root, date)
     window_start = date - 90
-    signals_data = load_yaml(root.join("state/signals.yaml"))
-    sources_data = load_yaml(root.join("state/sources.yaml"))
-    signals = records(signals_data, "signals", "signal_fields")
-    sources = records(sources_data, "sources", "source_fields")
-
-    recent_signals = signals.select do |signal|
+    signals = records(load_yaml(root.join("state/signals.yaml")), "signals", "signal_fields")
+    recent = signals.select do |signal|
       last_seen = signal["last_seen"] && Date.parse(signal["last_seen"].to_s)
-      active = %w[new open].include?(signal["status"])
-      active || (last_seen && last_seen >= window_start)
-    rescue Date::Error
+      %w[new open].include?(signal["status"]) || (last_seen && last_seen >= window_start)
+    rescue ArgumentError
       true
     end
-    recent_signals.each { |signal| signal["identity_key"] = identity_key(signal) }
+    recent.each { |signal| signal["identity_key"] = identity_key(signal) }
+  end
 
-    due_signals = recent_signals.select do |signal|
-      due = signal["due_date"] && Date.parse(signal["due_date"].to_s)
-      %w[new open].include?(signal["status"]) && due && due <= date
-    rescue Date::Error
-      false
-    end
-
-    requirements = sources_data.fetch("coverage_requirements", {})
-    control_ids = requirements.values.flat_map { |lanes| lanes.values }.flatten.uniq
-    selected_source_ids = control_ids + DISCOVERY_SOURCE_IDS
-    selected_sources = sources.select { |source| selected_source_ids.include?(source["id"]) }
-
-    recent_report_subjects = report_entries(root, window_start, date)
-    known_urls = recent_signals.map { |signal| signal["canonical_url"] } +
-      recent_report_subjects.map { |entry| entry["canonical_url"] }
+  # Contexte de la phase de qualification.
+  def build(root:, date:, collection: nil, reviewed_signals: [])
+    root = Pathname.new(root).expand_path
+    window_start = date - 90
+    sources_data = load_yaml(root.join("state/sources.yaml"))
+    requirements = requirements(sources_data)
+    feeds = feeds(sources_data)
+    selected = selected_sources(sources_data)
+    recent = recent_signals(root, date)
+    known_urls = recent.map { |signal| signal["canonical_url"] }
+    recent_report_subjects = report_entries(root, window_start, date).reject { |entry| known_urls.include?(entry["canonical_url"]) }
+    known_urls += recent_report_subjects.map { |entry| entry["canonical_url"] }
     catalogue_only = catalogue_entries(root).reject { |entry| known_urls.include?(entry["canonical_url"]) }
-    feedback_data = load_yaml(root.join("state/feedback.yaml"))
-    learning_data = load_yaml(root.join("state/learning.yaml"))
+    feedback = Array(load_yaml(root.join("state/feedback.yaml"))["feedback"]).last(RECENT_FEEDBACK_COUNT)
 
-    {
-      "schema_version" => 1,
+    context = {
+      "schema_version" => 2,
       "date" => date.iso8601,
       "deduplication_window" => { "from" => window_start.iso8601, "through" => date.iso8601 },
+      "cache_dir" => cache_dir(date),
       "architecture_context" => load_yaml(root.join("state/context.yaml")),
-      "learning" => learning_data,
-      "due_signals" => due_signals.map { |signal| compact_record(signal, DUE_SIGNAL_FIELDS) },
-      "recent_signals" => compact_table(recent_signals, RECENT_SIGNAL_FIELDS),
+      "reviewed_signals" => reviewed_signals,
+      "recent_signals" => compact_table(recent, RECENT_SIGNAL_FIELDS),
       "coverage_requirements" => requirements,
-      "control_source_ids" => control_ids,
-      "sources" => compact_table(selected_sources, SOURCE_FIELDS),
-      "collection_plan" => collection_plan(selected_sources, requirements, date),
+      "control_source_ids" => control_ids(sources_data),
       "discovery_source_ids" => DISCOVERY_SOURCE_IDS,
+      "sources" => compact_table(selected, SOURCE_FIELDS),
+      "collection_plan" => collection_plan(selected, requirements, date, feeds),
       "recent_report_subjects" => compact_table(recent_report_subjects, %w[date name canonical_url]),
       "catalogue_only_entries" => compact_table(catalogue_only, %w[name canonical_url]),
-      "recent_feedback" => Array(feedback_data["feedback"]).last(5)
+      "recent_feedback" => feedback.map { |entry| entry.slice(*FEEDBACK_FIELDS) }
+    }
+    context["collection"] = collection unless collection.nil?
+    context
+  end
+
+  # Contexte de la phase de rédaction : uniquement ce qu’il faut pour écrire le
+  # rapport et insérer les lignes du catalogue sans relire les registres.
+  def writing(root:, date:, selected_urls: [])
+    root = Pathname.new(root).expand_path
+    catalogue = root.join("docs/catalogue.md")
+    lines = catalogue.file? ? catalogue.read.lines : []
+    separator = lines.index { |line| line.match?(/\A\|\s*-{3,}/) }
+    existing = lines.each_with_index.map do |line, index|
+      url = line[/^\| \[[^\]]+\]\((https?:\/\/[^)]+)\)/, 1]
+      { "line" => index + 1, "text" => line.rstrip } if url && selected_urls.include?(url)
+    end.compact
+    {
+      "schema_version" => 2,
+      "date" => date.iso8601,
+      "catalogue" => {
+        "path" => "docs/catalogue.md",
+        "header" => separator ? lines[separator - 1].rstrip : nil,
+        "insert_after_line" => separator ? separator + 1 : nil,
+        "existing_rows_for_selection" => existing
+      }
     }
   end
 end
@@ -176,13 +203,15 @@ if $PROGRAM_NAME == __FILE__
     option_parser.banner = "Usage: ruby scripts/prepare_radar_context.rb [options]"
     option_parser.on("--root PATH", "Racine du dépôt") { |value| options[:root] = Pathname.new(value) }
     option_parser.on("--date YYYY-MM-DD", "Date du radar") { |value| options[:date] = Date.iso8601(value) }
+    option_parser.on("--collection PATH", "Résultat JSON de collect_radar_deltas.rb à inclure") { |value| options[:collection] = value }
     option_parser.on("-h", "--help", "Afficher cette aide") { puts option_parser; exit }
   end
 
   begin
     parser.parse!
-    puts JSON.generate(WatchtowerRadarContext.build(root: options[:root], date: options[:date]))
-  rescue OptionParser::ParseError, Date::Error, WatchtowerRadarContext::Error => e
+    collection = options[:collection] && JSON.parse(File.read(options[:collection]))
+    puts JSON.generate(WatchtowerRadarContext.build(root: options[:root], date: options[:date], collection: collection))
+  rescue OptionParser::ParseError, ArgumentError, JSON::ParserError, WatchtowerRadarContext::Error => e
     warn "ERREUR: #{e.message}"
     exit 2
   end

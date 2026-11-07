@@ -6,9 +6,9 @@ Améliorer séparément la qualité de l’analyse et la qualité du sourcing, s
 
 ## Boucle de travail
 
-1. **Reprendre :** déterminer la borne de collecte à partir du dernier `last_success` de chaque source et rattraper tout intervalle manquant dans la limite de trente jours.
+1. **Reprendre :** `scripts/collect_radar_deltas.rb` reprend chaque source à son dernier `last_success`, rattrape au plus trente jours et date toute lacune antérieure ; le modèle lit le cache local, pas le web.
 2. **Détecter :** contrôler AWS, GCP et IA sur les quatre voies obligatoires, rechercher largement dans les fenêtres du radar ou de la carte demandée et consigner les sources consultées, y compris les échecs.
-3. **Réexaminer :** traiter les signaux arrivés à échéance avant d’en sélectionner de nouveaux et dater le motif de fermeture, report ou maintien.
+3. **Réexaminer :** `scripts/review_due_signals.rb` clôt ou diffère les signaux arrivés à échéance avant toute sélection, avec motif daté ; une reprise se décide à la demande, hors radar.
 4. **Qualifier :** séparer `Fait`, `Analyse`, `Inférence` et `Décision`; confirmer les affirmations techniques avec une source primaire et noter séparément impact, urgence, pertinence stack et confiance.
 5. **Livrer :** produire le rapport avec pitch, utilité, mise en œuvre, limites et action lorsque ces éléments sont connus.
 6. **Valider :** exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` et corriger tout échec avant commit.
@@ -30,6 +30,7 @@ Améliorer séparément la qualité de l’analyse et la qualité du sourcing, s
 - délai entre première détection et première source primaire ;
 - taux de voies AWS/GCP/IA contrôlées avec succès ;
 - âge du dernier succès par source et volume d’intervalle rattrapé ;
+- entrée hors cache et sortie par radar (`state/radar-runs/AAAA-MM-JJ.metrics.yaml`), cible en baisse à couverture égale ;
 - part de nouveaux projets open source dans la sélection, cible 33 % sauf exception motivée ;
 - ratio signaux utiles / signaux remontés ;
 - nombre de faux positifs (`noise`) ;

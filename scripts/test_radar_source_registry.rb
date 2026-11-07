@@ -33,4 +33,39 @@ class RadarSourceRegistryTest < Minitest::Test
       assert_equal "b", data["sources"][1][0]
     end
   end
+
+  def test_compacts_one_block_style_row_and_keeps_the_others
+    Dir.mktmpdir("watchtower-source-test-") do |dir|
+      path = File.join(dir, "sources.yaml")
+      File.write(path, <<~YAML)
+        schema_version: 3
+        format: tabular-v1
+        # commentaire conservé
+        source_fields: [id, name, tags, status, notes]
+        sources:
+        - - a
+          - Source A
+          -
+          - not_checked
+          - Initial
+        - - b
+          - Source B
+          - - x
+            - y
+          - not_checked
+          - 'Contrôle : initial'
+        feeds:
+          b: https://example.org/feed
+      YAML
+
+      WatchtowerRadarSourceRegistry.update(path, "b", { "status" => "ok", "notes" => "Collecté." })
+      text = File.read(path)
+      data = YAML.safe_load(text, permitted_classes: [Date])
+
+      assert_includes text, "# commentaire conservé"
+      assert_equal ["a", "Source A", nil, "not_checked", "Initial"], data["sources"][0]
+      assert_equal ["b", "Source B", %w[x y], "ok", "Collecté."], data["sources"][1]
+      assert_equal "https://example.org/feed", data["feeds"]["b"]
+    end
+  end
 end

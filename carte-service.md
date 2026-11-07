@@ -4,7 +4,7 @@ Toute nouvelle consigne de l'utilisateur concernant le contenu, le format, le p�
 
 ## Objectif
 
-Produis une carte d’apprentissage et de décision pour construire, déployer et exploiter un service Cloud, DevOps, observabilité, sécurité ou IA. Lis `state/context.yaml` pour relier le service à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform lorsque c’est pertinent.
+Produis une carte d’apprentissage et de décision pour construire, déployer et exploiter un service Cloud, DevOps, observabilité, sécurité ou IA. Le contexte préparé fournit `state/context.yaml` pour relier le service à AWS, GCP, Kubernetes, GitHub Actions, GitLab CI/CD, CloudWatch, ELK, Elastic APM, Logstash et Terraform lorsque c’est pertinent.
 
 La carte contribue au maintien de l’expertise de l'utilisateur, architecte Cloud/DevOps. Elle doit donc rendre explicite ce que le service change dans une architecture moderne et dans quels scénarios il devient pertinent. Les services HashiCorp font partie du périmètre d’intérêt, notamment Terraform, Vault, Consul, Nomad, Boundary, Packer, Vagrant, Waypoint et HCP. Privilégie les explications qui aident à décider plutôt qu’une description encyclopédique. Ne planifie aucun POC ni laboratoire par défaut : l'utilisateur décide lui-même s’il souhaite passer à la validation pratique.
 
@@ -20,8 +20,8 @@ Avant la sortie, vérifie que le pitch explique clairement le service, que le mo
 
 ## Entrées et déduplication
 
-1. Lire cette consigne, `state/context.yaml` et le protocole `Exécution économe` de `docs/contrats-veille.md`.
-2. Consulter `state/signals.yaml` et `state/learning.yaml` par identifiant et URL canonique du service ; ouvrir le détail seulement s’il est lié au service demandé.
+1. Exécuter `ruby scripts/prepare_carte_context.rb --service <nom> [--url <URL canonique>]` et travailler uniquement à partir de son JSON : contexte d’architecture, signaux liés, apprentissage, lignes du catalogue, livrables liés, carte récente éventuelle (moins de 30 jours) et extrait du contrat (`Preuves et dates`, `Repères des notes`, `Exécution économe`).
+2. Ne pas ouvrir `state/signals.yaml`, `state/learning.yaml`, `docs/contrats-veille.md` ni un livrable complet ; lire au plus les passages d’un livrable lié que le contexte désigne.
 3. Rechercher par nom et URL canonique les cartes et rapports locaux des 30 derniers jours ; n’ouvrir intégralement que la dernière carte du même service ou un rapport portant une évolution substantielle.
 4. Produire la carte pédagogique demandée même sans nouveauté. Dans `Évolutions depuis la dernière carte`, écrire `première carte` ou `aucune évolution vérifiée`, avec lien vers la précédente et date de contrôle. Ne pas substituer un heartbeat à la carte.
 5. Prioriser documentation, release notes, avis de sécurité, lifecycle, dépôts et matrices de compatibilité officielles. Commencer par trois sources primaires complémentaires : présentation/usage, déploiement/intégration et exploitation/sécurité. N’en ajouter une quatrième ou cinquième que pour une lacune décisionnelle précise ; ne faire aucune recherche large de contexte non liée au service.

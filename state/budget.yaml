@@ -8,4 +8,7 @@ radar:
   reference_value: 250000
   overrun_threshold_pct: 10
   action_on_overrun: discard
+  # Contrôle a priori : taille maximale, en octets, du préfixe injecté dans un tour Codex
+  # (prompt, extrait de contrat, contexte préparé, sélection). Au-delà, aucun appel n'est lancé.
+  max_prompt_bytes: 120000
   note: "Seuil d'arrêt = reference_value * (1 + overrun_threshold_pct/100) = 275000. Au-delà, l'orchestrateur (scripts/run_radar.rb) annule la publication : pas de commit, changements locaux annulés, alerte affichée. La consommation déjà dépensée pour produire le tour n'est pas récupérable ; ce garde-fou protège la publication, pas la génération elle-même."

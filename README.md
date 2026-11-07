@@ -37,12 +37,19 @@ Veille locale en français pour l’architecture Cloud/DevOps, l’observabilit�
 - Validation locale : `ruby scripts/validate_watchtower.rb`
 - Site local : `python3 -m venv .venv-docs`, `.venv-docs/bin/python -m pip install -r requirements-docs.txt`, puis `ruby scripts/build_site.rb` et `.venv-docs/bin/python -m mkdocs serve`
 - Contrôle de fraîcheur : `ruby scripts/validate_watchtower.rb --daily`
-- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; qualification structurée, sélection Ruby, rédaction verrouillée, tokens cumulés et durée murale, validation et commit)
+- Génération instrumentée d’un radar : `ruby scripts/run_radar.rb` (dépôt propre requis ; échéances et collecte par script, qualification structurée, sélection Ruby, rédaction verrouillée, signaux et index par script, tokens cumulés et durée murale, validation et commit)
+- Mesure du préfixe sans appel Codex : `ruby scripts/run_radar.rb --dry-run` (échéances simulées, collecte dans `.cache/radar/<date>/`, taille du contexte par composant)
+- Échéances de signaux : `ruby scripts/review_due_signals.rb [--date AAAA-MM-JJ] [--dry-run]`
+- Collecte locale des sources du radar : `ruby scripts/collect_radar_deltas.rb --date AAAA-MM-JJ [--update-registry]`
+- Synchronisation des signaux depuis un manifest sélectionné : `ruby scripts/sync_radar_signals.rb --manifest state/radar-runs/AAAA-MM-JJ.yaml --report dist/AAAA-MM-JJ/radar-architecture.md`
+- Index d’un radar : `ruby scripts/index_reports.rb --date AAAA-MM-JJ`
+- Contexte préparé d’une carte : `ruby scripts/prepare_carte_context.rb --service <nom> [--url <URL>]`
+- Contexte préparé du classement mensuel : `ruby scripts/prepare_classement_context.rb --month AAAA-MM`
 - Régénération instrumentée d’un radar depuis son manifest verrouillé : `ruby scripts/run_radar.rb --date AAAA-MM-JJ --replace` (aucune recollecte ni resélection)
 - Calcul manuel d’un manifest : `ruby scripts/select_radar_candidates.rb --manifest state/radar-runs/AAAA-MM-JJ.yaml`
 - Collecte d’un flux RSS/Atom enregistré : `ruby scripts/collect_radar_source.rb --source ID --update-registry`
 - PRD : [`PRD.md`](PRD.md)
-- Tests du radar : `ruby scripts/test_prepare_radar_context.rb`, `ruby scripts/test_radar_selection.rb`, `ruby scripts/test_radar_feed_collector.rb`, `ruby scripts/test_radar_source_registry.rb`, `ruby scripts/test_report_contracts.rb` et `ruby scripts/test_report_token_usage.rb`
+- Tests : `for t in scripts/test_*.rb; do ruby "$t"; done`
 
 ## Principes
 

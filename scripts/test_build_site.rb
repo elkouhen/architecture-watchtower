@@ -21,7 +21,8 @@ class BuildSiteTest < Minitest::Test
     homepage = @destination.join("index.md").read
     assert_includes homepage, "Derniers signaux"
     assert_includes homepage, 'class="watchtower-hero"'
-    assert_includes homepage, "dist/2026-09-12/radar-architecture/"
+    latest_radar = Dir.glob(File.join(__dir__, "..", "dist", "*", "radar-architecture.md")).map { |path| File.basename(File.dirname(path)) }.max
+    assert_includes homepage, "dist/#{latest_radar}/radar-architecture/"
     assert_includes homepage, "docs/catalogue/"
     refute_includes homepage, "Validation locale"
     refute_includes homepage, "state/signals.yaml"

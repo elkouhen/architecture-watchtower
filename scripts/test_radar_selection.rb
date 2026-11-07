@@ -143,6 +143,22 @@ class RadarSelectionTest < Minitest::Test
     assert_equal ["update"], data.dig("selection", "selected_ids")
   end
 
+  def test_light_candidate_rejected_by_a_filter_needs_only_identity_and_note
+    light = {
+      "id" => "light", "identity_key" => "product:light", "name" => "Light",
+      "canonical_url" => "https://example.org/light", "novelty" => "Nouveau hors OSS", "origin" => "Éditeur Test",
+      "subject" => "Annonce sans conséquence", "substantive_change" => true, "architectural_effect" => false,
+      "primary_evidence" => false, "rejection_note" => "Aucune décision d’architecture modifiée."
+    }
+    data = manifest([candidate("full"), light])
+    WatchtowerRadarSelection.select!(data)
+
+    assert_equal ["full"], data.dig("selection", "selected_ids")
+    assert_equal "impact architectural non démontré", light["selection_reason"]
+    errors = WatchtowerRadarSelection.validate(manifest([light.merge("rejection_note" => nil)]))
+    assert_includes errors, "candidates[0].rejection_note absent"
+  end
+
   def test_non_substantive_update_is_rejected
     update = candidate("update", "identity_key" => "known", "novelty" => "Mise à jour", "substantive_change" => false)
     data = manifest([update])

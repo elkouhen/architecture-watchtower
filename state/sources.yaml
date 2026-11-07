@@ -48,6 +48,15 @@ coverage_requirements:
     - vertex-ai-release-notes
     - openai-api-changelog
     - anthropic-release-notes
+# Flux RSS/Atom collectés par script (scripts/collect_radar_deltas.rb) avant la qualification.
+# La clé est l’identifiant de source ; l’URL de la source reste la page canonique citée.
+feeds:
+  gcp-release-notes: https://cloud.google.com/feeds/gcp-release-notes.xml
+  gke-release-notes: https://cloud.google.com/feeds/kubernetes-engine-release-notes.xml
+  gke-security-bulletins: https://cloud.google.com/feeds/kubernetes-engine-security-bulletins.xml
+  vertex-ai-release-notes: https://cloud.google.com/feeds/vertex-ai-release-notes.xml
+  gcp-iam-release-notes: https://cloud.google.com/feeds/iam-release-notes.xml
+  aws-eks-lifecycle: https://docs.aws.amazon.com/eks/latest/userguide/doc-history.rss
 source_fields:
 - id
 - name

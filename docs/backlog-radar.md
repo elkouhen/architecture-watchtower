@@ -78,6 +78,16 @@ Statut : implémenté le 10 septembre 2026. Les collecteurs structurés couvrent
 - Rejouer plusieurs anciens radars sous forme de fixtures.
 - **Terminé quand :** le classement et les rejets attendus sont reproductibles automatiquement.
 
+## P4 — Économiser le contexte
+
+### RADAR-11 — Réduire le coût par exécution
+
+- Traiter les échéances et synchroniser les signaux par script ; ne plus faire relire les registres au modèle.
+- Collecter les flux et pages dans un cache local avant la qualification ; injecter seulement les deltas compacts.
+- N’injecter que les sections du contrat utiles à chaque phase ; mesurer le préfixe avant tout appel.
+- **Statut :** implémenté le 7 novembre 2026 (`review_due_signals.rb`, `collect_radar_deltas.rb`, `contract_sections.rb`, `sync_radar_signals.rb`, `index_reports.rb`, `--dry-run`).
+- **Reste à faire :** analyse isolée par document (`watchtower:isolate-v1`) si la rédaction du manifest reste le poste dominant en sortie.
+
 ## Ordre conseillé
 
 `RADAR-01` → `RADAR-02` et `RADAR-03` → `RADAR-04` → `RADAR-05` → `RADAR-06` et `RADAR-07` → `RADAR-08` → `RADAR-09` → `RADAR-10`

@@ -2,7 +2,7 @@
 
 Produis une fois par mois un classement rétrospectif des technologies, services, projets, standards et patterns effectivement observés pendant le mois écoulé dans les radars, cartes et signaux locaux.
 
-Toute consigne utilisateur modifiant le classement doit être intégrée à ce prompt avant son application à un rapport. Lire également `docs/contrats-veille.md` et utiliser le contrat version 2.
+Toute consigne utilisateur modifiant le classement doit être intégrée à ce prompt avant son application à un rapport. L’extrait applicable de `docs/contrats-veille.md` est fourni par le contexte préparé ; utiliser le contrat version 2.
 
 ## Objectif
 
@@ -12,7 +12,7 @@ Le classement principal est ordonné par intérêt pour les nouveautés et les c
 
 ## Entrées et période
 
-1. Lire `state/context.yaml`, `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml`, les radars et les cartes du mois écoulé, selon le protocole `Exécution économe` de `docs/contrats-veille.md`. Construire d’abord le corpus depuis les noms, URL canoniques, identifiants et liens des livrables datés du mois ; ouvrir seulement les passages relatifs à chaque technologie retenue.
+1. Exécuter `ruby scripts/prepare_classement_context.rb --month AAAA-MM` et construire le corpus depuis son JSON : sujets des radars (nom, URL, type, pitch), cartes (titre, URL, sources), signaux et apprentissages du mois, classement précédent et extrait du contrat. Ne pas relire `state/signals.yaml`, `state/learning.yaml`, `state/sources.yaml` ni des livrables entiers ; ouvrir seulement les passages relatifs à une technologie retenue.
 2. Définir explicitement la période calendaire couverte, du premier au dernier jour du mois précédent.
 3. Dédupliquer par identifiant de technologie stable et URL canonique ; regrouper versions et fonctionnalités du même produit. Une extension n’a sa propre ligne que si elle a un cycle de vie ou un déploiement autonome documenté ; justifier l’exception. Un pattern transversal est synthétisé dans les tendances et ne double pas les produits classés, sauf s’il est lui-même le sujet d’une analyse distincte.
 4. Inclure les éléments étudiés dans un radar, une carte ou un signal local pendant la période.
@@ -73,7 +73,7 @@ La section `Lecture architecturale` ne doit pas devenir un plan d’action ou un
 
 ## Sortie et publication
 
-Écrire le fichier dans `dist/AAAA-MM-DD/classement-mensuel-AAAA-MM.md`, sans écraser un autre livrable. Avant génération, rechercher ce mois dans tous les répertoires `dist/` : une seule édition par mois est autorisée. Si elle existe, fournir son lien ; une correction explicitement demandée modifie ce même fichier, avec historique Git et note de correction, sans créer de seconde édition. Par défaut couvrir le mois précédent ; un rattrapage explicitement demandé peut couvrir un mois antérieur clos. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` après mise à jour des index et avant le commit local.
+Écrire le fichier dans `dist/AAAA-MM-DD/classement-mensuel-AAAA-MM.md`, sans écraser un autre livrable. Avant génération, vérifier `existing_edition` dans le contexte préparé : une seule édition par mois est autorisée. Si elle existe, fournir son lien ; une correction explicitement demandée modifie ce même fichier, avec historique Git et note de correction, sans créer de seconde édition. Par défaut couvrir le mois précédent ; un rattrapage explicitement demandé peut couvrir un mois antérieur clos. Exécuter `ruby scripts/validate_watchtower.rb --report <livrable>` après mise à jour des index et avant le commit local.
 
 Juste après le marqueur `<!-- watchtower:2 -->`, afficher la ligne de consommation définie dans `docs/contrats-veille.md`. Utiliser le compteur runtime exact ou `non disponible` ; ne jamais fournir d’estimation.
 
